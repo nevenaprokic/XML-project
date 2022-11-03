@@ -1,0 +1,71 @@
+<obrazac_a1 naslov="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА"> 
+    <zavod>
+        <naziv> Завод за интелектуалну својину </naziv>
+        <adresa>
+            <mesto>Београд</mesto>
+            <ulica>Кнегиње Љубице </ulica>
+            <broj>5</broj>
+        </adresa>
+    </zavod>
+
+    <autori>
+        <!-- ANONIMNI - nece biti ni jedan autor-->
+        <!-- PODNOSILAC - ref na fizicko lice ako autor i podnosilac?  -->
+        <autor vrsta="glavni/koautor">
+            <ime> </ime>
+            <prezime> </prezime>
+            <adresa> </adresa>
+            <drzavljanstvo> </drzavljanstvo>
+
+            <pseudonim_znak> </pseudonim_znak>
+
+            <godina_smrti> </godina_smrti>
+        <autor>
+    </autori>
+
+    <podnosilac>
+
+        <telefon> </telefon>
+        <email> </email>
+
+        <fizicko_lice vrsta="autor/punomocnik">
+            <ime> </ime>
+            <prezime> </prezime>
+            <adresa> </adresa>
+            <drzavljanstvo> </drzavljanstvo>
+        </fizicko_lice_punomocnik>
+
+        <pravno_lice>
+            <poslovno_ime> </poslovno_ime>
+            <sediste> </sediste>
+        </pravno_lice>
+
+        <potipis> </potipis>
+    </podnosilac>
+
+    <autorsko_delo 
+        vrsta="knjizevno/muzicko/likovno/racunarski_program/other" 
+        forma_zapisa="stapma/opticki_disk/other">
+        
+        <identifikator> 
+            <naslov> </naslov>
+            <alternativni_naslov> </alternativni_naslov>
+        </identifikator>
+        <prerada>
+            <originalni_naslov> </originalni_naslov>
+            <originalni_autor> </originalni_autor>
+        </prerada>
+
+        <radni_odnos> </radni_odnos>
+        <nacin_koriscenja> </nacin_koriscenja>
+
+    </autorsko_delo>
+
+    <prilozi vrsta="opis(za_opticki_disk)/primer(slika_video_audio)"> </prilozi>
+
+    <broj_prijave> A- </broj_prijave>
+    <datum_podnosenja>  </datum_podnosenja>
+
+    <fusnota> Рубрике у захтеву А-1 које су означене са * морају да буду обавезно попуњене. </fusnota>
+</obrazac_a1>
+
