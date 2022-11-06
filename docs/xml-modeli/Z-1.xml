@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zahtev_za_priznanje_ziga broj_strana='2/2' broj_prijave='Z-' datum_podnosenja=''>
+    <zahtev>Zahtev za priznanje ziga</zahtev>
+    <podaci_o_instituciji>
+        <zavod>Zavod za intelektalnu svojinu</zavod>
+        <adresa>
+            <ulica>Knjeginje Ljubice</ulica>
+            <broj>5</broj>
+            <mesto>Beograd</mesto>
+            <postanski_broj>11000</postanski_broj>
+        </adresa>
+    </podaci_o_instituciji>
+    
+    <podaci_koje_popunjava_podnosilac_zahteva>
+        <podaci_o_podnosiocu_prijave>
+            <ime></ime>
+            <prezime></prezime>
+            <!-- poslovno ime? -->
+            <adresa>
+                <ulica></ulica>
+                <broj></broj>
+                <mesto></mesto>
+                <postanski_broj></postanski_broj>
+                <drzava></drzava>
+            </adresa>
+            <telefon></telefon>
+            <e_mail></e_mail>
+            <faks></faks>
+        </podaci_o_podnosiocu_prijave>
+        
+        
+        <podaci_o_punomocniku>
+            <ime></ime>
+            <prezime></prezime>
+            <!-- poslovno ime? -->
+            <adresa>
+                <ulica></ulica>
+                <broj></broj>
+                <mesto></mesto>
+                <postanski_broj></postanski_broj>
+                <drzava></drzava>
+            </adresa>
+            <telefon></telefon>
+            <e_mail></e_mail>
+            <faks></faks>
+        </podaci_o_punomocniku>
+        
+        
+        <podaci_o_zajednickom_predstavniku>
+            <ime></ime>
+            <prezime></prezime>
+            <!-- poslovno ime? -->
+            <adresa>
+                <ulica></ulica>
+                <broj></broj>
+                <mesto></mesto>
+                <postanski_broj></postanski_broj>
+                <drzava></drzava>
+            </adresa>
+            <telefon></telefon>
+            <e_mail></e_mail>
+            <faks></faks>
+        </podaci_o_zajednickom_predstavniku>
+        
+        
+        <podaci_o_zigu>
+            <vrsta_ziga_na_osnovu_korisnika></vrsta_ziga_na_osnovu_korisnika>
+            
+            <vrasta_ziga_na_osnovu_izgleda></vrasta_ziga_na_osnovu_izgleda>
+            
+            <izgled_znaka></izgled_znaka>
+            
+            <podaci_o_boji_znaka></podaci_o_boji_znaka>
+            
+            <transliteracija_znaka></transliteracija_znaka>
+                 
+            <prevod_znaka></prevod_znaka>
+            
+            <opis_znaka></opis_znaka>
+            
+            <podaci_o_brojevima_klasa_robe_i_usluga>
+                <brojevi>
+                    <broj></broj>
+                </brojevi>
+            </podaci_o_brojevima_klasa_robe_i_usluga>
+        </podaci_o_zigu>
+        
+        <zatrazeno_pravo_prvenstva_i_osnov></zatrazeno_pravo_prvenstva_i_osnov>
+        
+        <podaci_o_placenim_taksama valuta='din'>
+            <iznos_osnovne_takse></iznos_osnovne_takse>
+            <iznos_za_odgovarajucu_klasu></iznos_za_odgovarajucu_klasu>
+            <iznos_za_graficko_resenje></iznos_za_graficko_resenje>
+            <ukupan_iznos></ukupan_iznos>
+        </podaci_o_placenim_taksama>
+    </podaci_koje_popunjava_podnosilac_zahteva>
+    
+    
+    <podaci_koje_popunjava_zavod>
+        <podaci_o_prilozima_uz_zahtev>
+            <primerak_znaka></primerak_znaka>
+            <spisak_robe_i_suluga></spisak_robe_i_suluga>
+            <punomocje></punomocje>
+            <generalno_punomocje_ranije_prilozeno></generalno_punomocje_ranije_prilozeno>
+            <punomocje_ce_biti_naknadno_dostavljeno></punomocje_ce_biti_naknadno_dostavljeno>
+            <opsti_akt_o_kolektivnom_zigu></opsti_akt_o_kolektivnom_zigu>
+            <dokaz_o_pravu_prvenstva></dokaz_o_pravu_prvenstva>
+            <dokaz_o_uplati_takse></dokaz_o_uplati_takse>
+        </podaci_o_prilozima_uz_zahtev>
+        
+    </podaci_koje_popunjava_zavod>
+    
+</zahtev_za_priznanje_ziga>
