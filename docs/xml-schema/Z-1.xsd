@@ -49,6 +49,17 @@
             <xs:element name="prevod_znaka" type="xs:string"/>
             <xs:element name="transliteracija_znaka" type="xs:string"/>
             <xs:element name="opis_znaka" type="xs:string"/>
+            <xs:element name="podaci_o_brojevima_klasa_robe_i_usluga">
+                <xs:simpleType>
+                    <xs:list>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:positiveInteger">
+                                <xs:maxInclusive value="45"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:list>
+                </xs:simpleType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="vrsta_ziga_na_osnovu_korisnika">
