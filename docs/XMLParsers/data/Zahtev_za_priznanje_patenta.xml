@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Zahtev_za_priznanje_patenta xmlns="http://www.ftn.uns.ac.rs/p1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.ftn.uns.ac.rs/p1 file:/C:/fakultet/7.%20semestar/XML/Projekat/XML-project/docs/xml-schema/P-1.xsd" 
+    broj_prijave="P1" datum_prijema_prijave="2022-09-24-06:00" priznati_datum_podnosenja="2022-09-25-06:00" tip_prijave="izdvojena">
+    <Primalac_zahteva>
+        <Adresa>
+            <Drzava>Republika Srbija</Drzava>
+            <Grad>Beograd</Grad>
+            <Ulica>Kneginje Ljubice</Ulica>
+            <Broj>12</Broj>
+            <Postanski_broj>11000</Postanski_broj>
+        </Adresa>
+        <Naziv>Zavod za intelektualnu svojinu</Naziv>
+    </Primalac_zahteva>
+    <Pronalazak>
+        <Naziv_na_srpskom>Patent1</Naziv_na_srpskom>
+        <Naziv_na_engleskom>Patent1</Naziv_na_engleskom>
+    </Pronalazak>
+    <Podnosilac_prijave pronalazac="false">
+        <Adresa>
+            <Drzava>Republika Srbija</Drzava>
+            <Grad>Novi Sad</Grad>
+            <Ulica>Radnicka</Ulica>
+            <Broj>20</Broj>
+            <Postanski_broj>21000</Postanski_broj>
+        </Adresa>
+        <Kontakt_podaci>
+            <Telefon>06133212</Telefon>
+            <Faks>132333</Faks>
+            <Email>natasa@gmail.com</Email>
+        </Kontakt_podaci>
+        <Naziv>Ustanova1</Naziv>
+    </Podnosilac_prijave>
+    <Pronalazac anoniman="false">
+        <Adresa>
+            <Drzava>Republika Srbija</Drzava>
+            <Grad>Kikinda</Grad>
+            <Ulica>Marije Bursac</Ulica>
+            <Broj>1</Broj>
+            <Postanski_broj>23300</Postanski_broj>
+        </Adresa>
+        <Kontakt_podaci>
+            <Telefon>067584244</Telefon>
+            <Faks>434343</Faks>
+            <Email>natasa123@gmail.com</Email>
+        </Kontakt_podaci>
+        <Ime>Natasa</Ime>
+        <Prezime>Lakovic</Prezime>
+        <Drzavljanstvo>Republika Srbija</Drzavljanstvo>
+    </Pronalazac>
+    <Punomocnik za_prijem_pismena="true" za_zastupanje="false">
+        <Adresa>
+            <Drzava>Republika Srbija</Drzava>
+            <Grad>Novi Sad</Grad>
+            <Ulica>Maksima Gorkog</Ulica>
+            <Broj>121</Broj>
+            <Postanski_broj>21000</Postanski_broj>
+        </Adresa>
+        <Kontakt_podaci>
+            <Telefon>078899833</Telefon>
+            <Faks>12312</Faks>
+            <Email>nevena@gmail.com</Email>
+        </Kontakt_podaci>
+    </Punomocnik>
+    <Podaci_o_dostavljanju>
+        <Adresa>
+            <Drzava>Republika Srbija</Drzava>
+            <Grad>Novi Sad</Grad>
+            <Ulica>Maksima Gorkog</Ulica>
+            <Broj>121</Broj>
+            <Postanski_broj>21000</Postanski_broj>
+        </Adresa>
+        <Nacin_dostavljanja>elektronski</Nacin_dostavljanja>
+    </Podaci_o_dostavljanju>
+    <Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava></Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava>
+</Zahtev_za_priznanje_patenta>
