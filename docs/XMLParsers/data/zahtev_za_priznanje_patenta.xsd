@@ -107,7 +107,7 @@
         <xs:complexContent>
             <xs:extension base="p1:TLice">
                 <xs:sequence maxOccurs="1" minOccurs="1">
-                    <xs:element maxOccurs="1" minOccurs="1" name="Naziv"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="Naziv" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

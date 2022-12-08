@@ -123,9 +123,9 @@ public class TFizickoLice
 
     @Override
     public String toString() {
-        return  "ime: " + ime +  '\n' + '\t' +
-                "prezime: " + prezime +  '\n' + '\t' +
-                "drzavljanstvo: " + drzavljanstvo +  '\n' + '\t' + '\t'
+        return  "ime: " + ime +  "\n\t\t" +
+                "prezime: " + prezime +  "\n\t\t" +
+                "drzavljanstvo: " + drzavljanstvo +  "\n\t\t"
                 + super.toString()
                  ;
     }

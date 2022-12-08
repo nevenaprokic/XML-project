@@ -33,8 +33,8 @@ public class TPunomocnik
 
     @Override
     public String toString() {
-        return "Punomocnik: " + '\n' + '\t' +
-                "za prijem pismena: " + zaPrijemPismena +'\n' + '\t' +
+        return "Punomocnik: " + "\n\t\t" +
+                "za prijem pismena: " + zaPrijemPismena +"\n\t\t" +
                 "za zastupanje: " + zaZastupanje + "\n\t\t" + super.toString();
     }
 

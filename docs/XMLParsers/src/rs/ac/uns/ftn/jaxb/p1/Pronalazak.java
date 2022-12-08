@@ -90,8 +90,8 @@ public class Pronalazak {
 
     @Override
     public String toString() {
-        return "Pronalazak: " + '\n' + '\t' +
-                "naziv na srpskom: " + nazivNaSrpskom + '\n' + '\t' +
+        return "Pronalazak: " + "\n\t\t" +
+                "naziv na srpskom: " + nazivNaSrpskom + "\n\t\t" +
                 "naziv na engleskom: " + nazivNaEngleskom + '\n'
                 ;
     }

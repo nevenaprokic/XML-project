@@ -115,9 +115,9 @@ public class KontaktPodaci {
 
     @Override
     public String toString() {
-        return "Kontakt podaci: " + '\t' +
-                "telefon: " + telefon + '\n' + '\t' +
-                "faks: " + faks + '\n' + '\t' +
+        return "Kontakt podaci: " + "\n\t\t" +
+                "telefon: " + telefon + "\n\t\t" +
+                "faks: " + faks + "\n\t\t" +
                 "email: " + email + '\n'
                 ;
     }

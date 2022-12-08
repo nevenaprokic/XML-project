@@ -51,7 +51,7 @@ public class TPronalazac
 
     @Override
     public String toString() {
-        return "Pronalazac: " + '\n' + '\t' +
+        return "Pronalazac: " + "\n\t\t" +
                 "anoniman: " + anoniman + "\n\t\t" + super.toString();
 
     }

@@ -52,7 +52,7 @@ public class TPodnosilacPrijave
     @Override
     public String toString() {
         return "Podnosilac prijave: " + '\n' + "\t\t" +
-                "pronalazac: " + pronalazac + '\n' +
+                "pronalazac: " + pronalazac + "\n\t\t" +
                 super.toString();
 
     }
