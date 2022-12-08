@@ -1,4 +1,9 @@
-<obrazac_a1 naslov="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА"> 
+<?xml version="1.0" encoding="UTF-8"?>
+<zahtev_za_autorsko_delo 
+    naslov="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА"
+    broj_prijave="A-"
+    datum_podnosenja=""> 
+
     <zavod>
         <naziv> Завод за интелектуалну својину </naziv>
         <adresa>
@@ -9,9 +14,7 @@
     </zavod>
 
     <autori>
-        <!-- ANONIMNI - nece biti ni jedan autor-->
-        <!-- PODNOSILAC - ref na fizicko lice ako autor i podnosilac?  -->
-        <autor vrsta="glavni/koautor">
+        <autor primarni="true/false" anonimni="true/false"> <!--primarni/koautor-->
             <ime> </ime>
             <prezime> </prezime>
             <adresa> </adresa>
@@ -21,36 +24,52 @@
 
             <godina_smrti> </godina_smrti>
         <autor>
+
+        
     </autori>
 
     <podnosilac>
-
         <telefon> </telefon>
         <email> </email>
 
-        <fizicko_lice vrsta="autor/punomocnik">
+        <podaci_o_podnosiocu>
+            
+        </podaci_o_podnosiocu>
+
+        <fizicko_lice vrsta=""> <!--vrsta="autor/punomocnik"-->
             <ime> </ime>
             <prezime> </prezime>
-            <adresa> </adresa>
+            <adresa> 
+                <mesto></mesto>
+                <ulica> </ulica>
+                <broj></broj>
+            </adresa>
             <drzavljanstvo> </drzavljanstvo>
-        </fizicko_lice_punomocnik>
+        </fizicko_lice>
 
         <pravno_lice>
             <poslovno_ime> </poslovno_ime>
-            <sediste> </sediste>
+            <!-- sediste -->
+            <adresa> 
+                <mesto></mesto>
+                <ulica> </ulica>
+                <broj></broj>
+            </adresa>
         </pravno_lice>
 
-        <potipis> </potipis>
+        <!--<potipis> </potipis>-->
     </podnosilac>
 
     <autorsko_delo 
-        vrsta="knjizevno/muzicko/likovno/racunarski_program/other" 
-        forma_zapisa="stapma/opticki_disk/other">
+        vrsta=""
+        forma_zapisa=""> <!--knjizevno/muzicko/likovno/racunarski_program/other   stapma/opticki_disk/other--> 
+        
         
         <identifikator> 
             <naslov> </naslov>
             <alternativni_naslov> </alternativni_naslov>
         </identifikator>
+
         <prerada>
             <originalni_naslov> </originalni_naslov>
             <originalni_autor> </originalni_autor>
@@ -61,11 +80,13 @@
 
     </autorsko_delo>
 
-    <prilozi vrsta="opis(za_opticki_disk)/primer(slika_video_audio)"> </prilozi>
+    <prilozi> 
+        <opis prisutno="da/ne">
+        </opis>
 
-    <broj_prijave> A- </broj_prijave>
-    <datum_podnosenja>  </datum_podnosenja>
+        <primer prisutno="da/ne" vrsta="slika/video/audio">
+        </primer>
+    </prilozi>
 
-    <fusnota> Рубрике у захтеву А-1 које су означене са * морају да буду обавезно попуњене. </fusnota>
-</obrazac_a1>
+</zahtev_za_autorsko_delo>
 

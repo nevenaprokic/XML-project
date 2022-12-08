@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo"
+    xmlns:а1="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo">
+
+    <xs:element name="Zahtev_za_autorsko_delo">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Zavod" type="а1:TPravno_lice"> </xs:element>
+                <xs:element name="Podnosilac" type="а1:TPodnosilac"> </xs:element>
+                <xs:element name="Autorsko_delo" minOccurs="1" type="а1:TAutorsko_delo"/>
+                <xs:element name="Prilozi" form="qualified" minOccurs="0" nillable="true"
+                    type="а1:TPrilog"/>
+            </xs:all>
+            <xs:attribute fixed="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА"
+                name="naslov" type="xs:string"/>
+            <xs:attribute name="broj_prijave" type="xs:string"/>
+            <xs:attribute name="datum_podnosenja" type="xs:date"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Adresa" nillable="true">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Mesto" type="xs:string"/>
+                <xs:element name="Ulica" type="xs:string"/>
+                <xs:element name="Broj" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TFizicko_lice">
+        <xs:sequence>
+            <xs:element name="Ime" type="xs:string"/>
+            <xs:element name="Prezime" type="xs:string"/>
+            <xs:element ref="а1:Adresa"/>
+            <xs:element name="Drzavljanstvo" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPravno_lice">
+        <xs:sequence>
+            <xs:element ref="а1:Adresa"/>
+            <xs:element name="Naziv" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TAutor">
+        <xs:complexContent>
+            <xs:extension base="а1:TFizicko_lice">
+                <xs:sequence>
+                    <xs:element name="Pseudonim" nillable="true" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Godina_smrti" nillable="true" type="xs:integer" minOccurs="0"
+                    />
+                </xs:sequence>
+                <xs:attribute name="primarni" type="xs:boolean"/>
+                <xs:attribute name="anonimni" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TAutori">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Autor" type="а1:TAutor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPodnosilac">
+        <xs:all>
+            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+            <xs:element name="Telefon" nillable="true" type="xs:string" minOccurs="0"/>
+            <xs:element minOccurs="0" name="Autor" type="а1:TAutor"/>
+            <xs:element name="Punomocnik" nillable="true" type="а1:TFizicko_lice" minOccurs="0"/>
+            <xs:element name="Pravno_lice" nillable="true" type="а1:TPravno_lice" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+    <xs:complexType name="TAutorsko_delo">
+        <xs:complexContent>
+            <xs:extension base="а1:TOsnovni_podaci_o_delu">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="podaci_o_preradi" nillable="true"
+                        type="а1:TOsnovni_podaci_o_delu"/>
+                    <xs:element name="radni_odnos" type="xs:string"/>
+                    <xs:element name="nacin_koriscenja" type="xs:string"/>
+                </xs:sequence>
+                <xs:attribute name="vrsta" type="а1:vrsta_autorskog_dela"/>
+                <xs:attribute name="forma_zapisa" type="а1:forma_zapisa_autorskog_dela"/>
+                <xs:attribute name="prerada" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="vrsta_autorskog_dela">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="knjizevno delo"/>
+            <xs:enumeration value="muzicko delo"/>
+            <xs:enumeration value="likovno delo"/>
+            <xs:enumeration value="racunarski program"/>
+            <xs:enumeration value="ostalo"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="forma_zapisa_autorskog_dela">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="stamparski tekst"/>
+            <xs:enumeration value="opticki disk"/>
+            <xs:enumeration value="ostalo"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="TOsnovni_podaci_o_delu">
+        <xs:sequence>
+            <xs:element name="Identifikator">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="Naslov" type="xs:string"/>
+                        <xs:element name="Alternativni_naslov" minOccurs="0" nillable="true"
+                            type="xs:string"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Autori" type="а1:TAutori"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPrilog">
+        <xs:all>
+            <xs:element name="Prisutan_opis" type="xs:boolean"/>
+            <xs:element name="Prisutan_primer" type="xs:boolean"/>
+        </xs:all>
+    </xs:complexType>
+</xs:schema>

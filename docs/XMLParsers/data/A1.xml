@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Zahtev_za_autorsko_delo xmlns="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo A1.xsd" naslov="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА">
+    <Zavod>
+        <Adresa>
+            <Mesto>Београд</Mesto>
+            <Ulica>Кнегиње Љубице</Ulica>
+            <Broj>5</Broj>
+        </Adresa>
+        <Naziv></Naziv>
+    </Zavod>
+
+    <Podnosilac>
+        <Pravno_lice>
+            <Adresa>
+                <Mesto></Mesto>
+                <Ulica></Ulica>
+                <Broj></Broj>
+            </Adresa>
+            <Naziv></Naziv>
+        </Pravno_lice>
+        <Autor>
+            <Ime></Ime>
+            <Prezime></Prezime>
+            <Adresa/>
+            <Drzavljanstvo></Drzavljanstvo>
+        </Autor>
+    </Podnosilac>
+
+    <Autorsko_delo>
+        <Identifikator>
+            <Naslov></Naslov>
+        </Identifikator>
+        <Autori>
+            <Autor anonimni="true">
+                <Ime></Ime>
+                <Prezime></Prezime>
+                <Adresa>
+                    <Mesto></Mesto>
+                    <Ulica></Ulica>
+                    <Broj></Broj>
+                </Adresa>
+                <Drzavljanstvo></Drzavljanstvo>
+            </Autor>
+        </Autori>
+    </Autorsko_delo>
+
+</Zahtev_za_autorsko_delo>

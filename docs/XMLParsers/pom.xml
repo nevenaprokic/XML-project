@@ -33,64 +33,64 @@
 
     <build>
         <sourceDirectory>src</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <id>xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <xjbSources>
-                        <xjbSource>src/main/resources/global.xjb</xjbSource>
-                    </xjbSources>
-                    <sources>
-                        <source>data/address_book4.xsd</source>
-                    </sources>
-                    <outputDirectory>${basedir}/src/main/java</outputDirectory>
-                    <clearOutputDir>false</clearOutputDir>
-                </configuration>
-            </plugin>
-        </plugins>
-        <!--        <plugins>-->
-        <!--            <plugin>-->
-        <!--                <artifactId>maven-compiler-plugin</artifactId>-->
-        <!--                <version>3.8.1</version>-->
-        <!--                <configuration>-->
-        <!--                    <release>1.7</release>-->
-        <!--                </configuration>-->
-        <!--            </plugin>-->
-        <!--            <plugin>-->
-        <!--                <groupId>org.jvnet.jaxb2.maven2</groupId>-->
-        <!--                <artifactId>maven-jaxb2-plugin</artifactId>-->
-        <!--                <executions>-->
-        <!--                    <execution>-->
-        <!--                        <goals>-->
-        <!--                            <goal>generate</goal>-->
-        <!--                        </goals>-->
-        <!--                    </execution>-->
-        <!--                </executions>-->
-        <!--                <configuration>-->
-        <!--                    <schemaDirectory>${project.basedir}/data</schemaDirectory>-->
-        <!--                    <schemaIncludes>-->
-        <!--                        <include>*.xsd</include>-->
-        <!--                    </schemaIncludes>-->
-        <!--                </configuration>-->
-        <!--            </plugin>-->
-        <!--        </plugins>-->
+<!--         <resources> -->
+<!--             <resource> -->
+<!--                 <directory>src</directory> -->
+<!--                 <excludes> -->
+<!--                     <exclude>**/*.java</exclude> -->
+<!--                 </excludes> -->
+<!--             </resource> -->
+<!--         </resources> -->
+<!--         <plugins> -->
+<!--             <plugin> -->
+<!--                 <groupId>org.codehaus.mojo</groupId> -->
+<!--                 <artifactId>jaxb2-maven-plugin</artifactId> -->
+<!--                 <version>2.3</version> -->
+<!--                 <executions> -->
+<!--                     <execution> -->
+<!--                         <id>xjc</id> -->
+<!--                         <goals> -->
+<!--                             <goal>xjc</goal> -->
+<!--                         </goals> -->
+<!--                     </execution> -->
+<!--                 </executions> -->
+<!--                 <configuration> -->
+<!--                     <xjbSources> -->
+<!--                         <xjbSource>src/main/resources/global.xjb</xjbSource> -->
+<!--                     </xjbSources> -->
+<!--                     <sources> -->
+<!--                         <source>data/address_book4.xsd</source> -->
+<!--                     </sources> -->
+<!--                     <outputDirectory>${basedir}/src/main/java</outputDirectory> -->
+<!--                     <clearOutputDir>false</clearOutputDir> -->
+<!--                 </configuration> -->
+<!--             </plugin> -->
+<!--         </plugins> -->
+               <plugins>
+                   <plugin>
+                       <artifactId>maven-compiler-plugin</artifactId>
+                       <version>3.8.1</version>
+                       <configuration>
+                           <release>1.7</release>
+                       </configuration>
+                   </plugin>
+                   <plugin>
+                       <groupId>org.jvnet.jaxb2.maven2</groupId>
+                       <artifactId>maven-jaxb2-plugin</artifactId>
+                       <executions>
+                           <execution>
+                               <goals>
+                                   <goal>generate</goal>
+                               </goals>
+                           </execution>
+                       </executions>
+                       <configuration>
+                           <schemaDirectory>${project.basedir}/data</schemaDirectory>
+                           <schemaIncludes>
+                               <include>*.xsd</include>
+                           </schemaIncludes>
+                       </configuration>
+                   </plugin>
+               </plugins>
     </build>
 </project>
