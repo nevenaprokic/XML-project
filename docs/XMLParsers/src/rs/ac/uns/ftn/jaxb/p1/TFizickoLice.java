@@ -127,6 +127,6 @@ public class TFizickoLice
                 "prezime: " + prezime +  "\n\t\t" +
                 "drzavljanstvo: " + drzavljanstvo +  "\n\t\t"
                 + super.toString()
-                 ;
+                ;
     }
 }

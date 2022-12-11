@@ -18,8 +18,21 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="Telefon" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="Faks" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Telefon">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
+ *               &lt;pattern value="[0][6][0-9]{7,8}"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="Faks">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;pattern value="[0-9]{3,4}/[0-9]{5,7}"/>
+ *               &lt;minLength value="0"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="Email">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -112,6 +125,7 @@ public class KontaktPodaci {
     public void setEmail(String value) {
         this.email = value;
     }
+
 
     @Override
     public String toString() {

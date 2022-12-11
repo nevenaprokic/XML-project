@@ -35,7 +35,7 @@ public class TPravnoLice
 {
 
     @XmlElement(name = "Naziv", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
-    protected Object naziv;
+    protected String naziv;
 
     /**
      * Gets the value of the naziv property.
@@ -45,7 +45,7 @@ public class TPravnoLice
      *     {@link Object }
      *     
      */
-    public Object getNaziv() {
+    public String getNaziv() {
         return naziv;
     }
 
@@ -57,7 +57,7 @@ public class TPravnoLice
      *     {@link Object }
      *     
      */
-    public void setNaziv(Object value) {
+    public void setNaziv(String value) {
         this.naziv = value;
     }
 
@@ -65,6 +65,6 @@ public class TPravnoLice
     public String toString() {
         return "Pravno lice: " + '\n' + "\t\t" +
                 "naziv: " + naziv + '\n' + "\t\t" +
-                 super.toString();
+                super.toString();
     }
 }

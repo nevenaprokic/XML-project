@@ -34,8 +34,6 @@ import javax.xml.bind.annotation.XmlType;
     "kontaktPodaci"
 })
 @XmlSeeAlso({
-    TPodnosilacPrijave.class,
-    TPunomocnik.class,
     TPravnoLice.class,
     TFizickoLice.class
 })
@@ -98,4 +96,5 @@ public abstract class TLice {
     public String toString() {
         return  adresa + "\n\t\t" + kontaktPodaci;
     }
+
 }

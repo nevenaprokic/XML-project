@@ -98,7 +98,7 @@ public class PodaciODostavljanju {
     @Override
     public String toString() {
         return "Podaci o dostavljanju: " + "\n\t\t" +
-                 adresa + "\n\t\t" +
+                adresa + "\n\t\t" +
                 "nacin dostavljanja: " + nacinDostavljanja + '\n';
     }
 }

@@ -23,13 +23,19 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *       &lt;sequence>
  *         &lt;element name="Primalac_zahteva" type="{http://www.ftn.uns.ac.rs/p1}TPrimalac_zahteva"/>
  *         &lt;element ref="{http://www.ftn.uns.ac.rs/p1}Pronalazak"/>
- *         &lt;element name="Podnosilac_prijave" type="{http://www.ftn.uns.ac.rs/p1}TPodnosilacPrijave"/>
  *         &lt;element name="Pronalazac" type="{http://www.ftn.uns.ac.rs/p1}TPronalazac"/>
+ *         &lt;element name="Podnosilac_zahteva" type="{http://www.ftn.uns.ac.rs/p1}TPodnosilac_zahteva"/>
  *         &lt;element name="Punomocnik" type="{http://www.ftn.uns.ac.rs/p1}TPunomocnik"/>
  *         &lt;element ref="{http://www.ftn.uns.ac.rs/p1}Podaci_o_dostavljanju"/>
  *         &lt;element name="Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava" type="{http://www.ftn.uns.ac.rs/p1}TZahtev_za_priznanje_prava_prvenstva_iz_ranijih_prijava"/>
  *       &lt;/sequence>
- *       &lt;attribute name="broj_prijave" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="broj_prijave" use="required">
+ *         &lt;simpleType>
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *             &lt;pattern value="[P][0-9]+"/>
+ *           &lt;/restriction>
+ *         &lt;/simpleType>
+ *       &lt;/attribute>
  *       &lt;attribute name="datum_prijema_prijave" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
  *       &lt;attribute name="priznati_datum_podnosenja" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
  *       &lt;attribute name="tip_prijave" use="required">
@@ -51,8 +57,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "", propOrder = {
     "primalacZahteva",
     "pronalazak",
-    "podnosilacPrijave",
     "pronalazac",
+    "podnosilacZahteva",
     "punomocnik",
     "podaciODostavljanju",
     "zahtevZaPriznanjePrvenstvaIzRanijihPrijava"
@@ -64,10 +70,10 @@ public class ZahtevZaPriznanjePatenta {
     protected TPrimalacZahteva primalacZahteva;
     @XmlElement(name = "Pronalazak", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected Pronalazak pronalazak;
-    @XmlElement(name = "Podnosilac_prijave", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
-    protected TPodnosilacPrijave podnosilacPrijave;
     @XmlElement(name = "Pronalazac", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected TPronalazac pronalazac;
+    @XmlElement(name = "Podnosilac_zahteva", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    protected TPodnosilacZahteva podnosilacZahteva;
     @XmlElement(name = "Punomocnik", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected TPunomocnik punomocnik;
     @XmlElement(name = "Podaci_o_dostavljanju", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
@@ -134,30 +140,6 @@ public class ZahtevZaPriznanjePatenta {
     }
 
     /**
-     * Gets the value of the podnosilacPrijave property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TPodnosilacPrijave }
-     *     
-     */
-    public TPodnosilacPrijave getPodnosilacPrijave() {
-        return podnosilacPrijave;
-    }
-
-    /**
-     * Sets the value of the podnosilacPrijave property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TPodnosilacPrijave }
-     *     
-     */
-    public void setPodnosilacPrijave(TPodnosilacPrijave value) {
-        this.podnosilacPrijave = value;
-    }
-
-    /**
      * Gets the value of the pronalazac property.
      * 
      * @return
@@ -179,6 +161,30 @@ public class ZahtevZaPriznanjePatenta {
      */
     public void setPronalazac(TPronalazac value) {
         this.pronalazac = value;
+    }
+
+    /**
+     * Gets the value of the podnosilacZahteva property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TPodnosilacZahteva }
+     *     
+     */
+    public TPodnosilacZahteva getPodnosilacZahteva() {
+        return podnosilacZahteva;
+    }
+
+    /**
+     * Sets the value of the podnosilacZahteva property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TPodnosilacZahteva }
+     *     
+     */
+    public void setPodnosilacZahteva(TPodnosilacZahteva value) {
+        this.podnosilacZahteva = value;
     }
 
     /**
@@ -349,6 +355,7 @@ public class ZahtevZaPriznanjePatenta {
         this.tipPrijave = value;
     }
 
+
     @Override
     public String toString() {
         return "Zahtev za priznanje patenta" + '\n' + '\t' +
@@ -358,7 +365,7 @@ public class ZahtevZaPriznanjePatenta {
                 " tip prjave: " + tipPrijave + "\n\t\n\t" +
                 primalacZahteva +  "\n\t" +
                 pronalazak +  "\n\t" +
-                podnosilacPrijave +  "\n\t" +
+                podnosilacZahteva +  "\n\t" +
                 pronalazac +  "\n\t" +
                 punomocnik +  "\n\t" +
                 podaciODostavljanju +  "\n\t" +
