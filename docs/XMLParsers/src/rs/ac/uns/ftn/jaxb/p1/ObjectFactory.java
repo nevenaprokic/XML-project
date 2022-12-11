@@ -28,14 +28,14 @@ public class ObjectFactory {
      */
     public ObjectFactory() {
     }
-
-    /**
-     * Create an instance of {@link KontaktPodaci }
-     * 
-     */
-    public KontaktPodaci createKontaktPodaci() {
-        return new KontaktPodaci();
-    }
+//
+//    /**
+//     * Create an instance of {@link KontaktPodaci }
+//     *
+//     */
+//    public KontaktPodaci createKontaktPodaci() {
+//        return new KontaktPodaci();
+//    }
 
     /**
      * Create an instance of {@link PodaciODostavljanju }
@@ -45,13 +45,13 @@ public class ObjectFactory {
         return new PodaciODostavljanju();
     }
 
-    /**
-     * Create an instance of {@link Adresa }
-     * 
-     */
-    public Adresa createAdresa() {
-        return new Adresa();
-    }
+//    /**
+//     * Create an instance of {@link Adresa }
+//     *
+//     */
+//    public Adresa createAdresa() {
+//        return new Adresa();
+//    }
 
     /**
      * Create an instance of {@link ZahtevZaPriznanjePatenta }
@@ -117,20 +117,20 @@ public class ObjectFactory {
         return new RanijaPrijava();
     }
 
-    /**
-     * Create an instance of {@link TPravnoLice }
-     * 
-     */
-    public TPravnoLice createTPravnoLice() {
-        return new TPravnoLice();
-    }
-
-    /**
-     * Create an instance of {@link TFizickoLice }
-     * 
-     */
-    public TFizickoLice createTFizickoLice() {
-        return new TFizickoLice();
-    }
+//    /**
+//     * Create an instance of {@link TPravnoLice }
+//     *
+//     */
+//    public TPravnoLice createTPravnoLice() {
+//        return new TPravnoLice();
+//    }
+//
+//    /**
+//     * Create an instance of {@link TFizickoLice }
+//     *
+//     */
+//    public TFizickoLice createTFizickoLice() {
+//        return new TFizickoLice();
+//    }
 
 }

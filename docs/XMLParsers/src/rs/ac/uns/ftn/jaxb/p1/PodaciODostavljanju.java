@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
+import rs.ac.uns.ftn.jaxb.zajednicko.*;
 /**
  * <p>Java class for anonymous complex type.
  * 
@@ -42,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Podaci_o_dostavljanju", namespace = "http://www.ftn.uns.ac.rs/p1")
 public class PodaciODostavljanju {
 
-    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected Adresa adresa;
     @XmlElement(name = "Nacin_dostavljanja", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected String nacinDostavljanja;
@@ -98,7 +99,7 @@ public class PodaciODostavljanju {
     @Override
     public String toString() {
         return "Podaci o dostavljanju: " + "\n\t\t" +
-                adresa + "\n\t\t" +
+                "adresa: " + adresa + "\n\t\t" +
                 "nacin dostavljanja: " + nacinDostavljanja + '\n';
     }
 }

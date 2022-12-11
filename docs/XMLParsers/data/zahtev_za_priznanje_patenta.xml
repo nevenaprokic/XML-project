@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Zahtev_za_priznanje_patenta xmlns="http://www.ftn.uns.ac.rs/p1"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                             xsi:schemaLocation="http://www.ftn.uns.ac.rs/p1 file:/C:/fakultet/7.%20semestar/XML/Projekat/XML-project/docs/XMLParsers/data/zahtev_za_priznanje_patenta.xsd"
+                             broj_prijave="P3" datum_prijema_prijave="2022-09-24-06:00" priznati_datum_podnosenja="2022-09-25-06:00" tip_prijave="izdvojena"
+                             xmlns:zaj="http://www.ftn.uns.ac.rs/zaj">
+
+  <Primalac_zahteva>
+    <zaj:Adresa>
+      <zaj:Drzava>Republika Srbija</zaj:Drzava>
+      <zaj:Grad>Beograd</zaj:Grad>
+      <zaj:Ulica>Kneginje Ljubice</zaj:Ulica>
+      <zaj:Broj>2</zaj:Broj>
+      <zaj:Postanski_broj>11000</zaj:Postanski_broj>
+    </zaj:Adresa>
+    <Naziv>Zavod za intelektualnu svojinu</Naziv>
+  </Primalac_zahteva>
+  <Pronalazak>
+    <Naziv_na_srpskom>Patent</Naziv_na_srpskom>
+    <Naziv_na_engleskom>Patent</Naziv_na_engleskom>
+  </Pronalazak>
+  <Pronalazac anoniman="false">
+    <zaj:Adresa >
+      <zaj:Drzava>Republika Srbija</zaj:Drzava>
+      <zaj:Grad>Beograd</zaj:Grad>
+      <zaj:Ulica>Kneginje Ljubice</zaj:Ulica>
+      <zaj:Broj>2</zaj:Broj>
+      <zaj:Postanski_broj>11000</zaj:Postanski_broj>
+    </zaj:Adresa>
+    <zaj:Kontakt_podaci>
+      <zaj:Telefon>067/123-1233</zaj:Telefon>
+      <zaj:Faks>021/333221</zaj:Faks>
+      <zaj:Email>n@gmail.com</zaj:Email>
+    </zaj:Kontakt_podaci>
+    <zaj:Ime >Petar</zaj:Ime>
+    <zaj:Prezime>Petrovic</zaj:Prezime>
+  </Pronalazac>
+  <Podnosilac_zahteva>
+    <Lice xsi:type="zaj:TPravno_lice">
+      <zaj:Adresa >
+        <zaj:Drzava>Republika Srbija</zaj:Drzava>
+        <zaj:Grad>Beograd</zaj:Grad>
+        <zaj:Ulica>Kneginje Ljubice</zaj:Ulica>
+        <zaj:Broj>2</zaj:Broj>
+        <zaj:Postanski_broj>11000</zaj:Postanski_broj>
+      </zaj:Adresa>
+      <zaj:Kontakt_podaci>
+        <zaj:Telefon>067/123-1233</zaj:Telefon>
+        <zaj:Faks>021/333221</zaj:Faks>
+        <zaj:Email>n@gmail.com</zaj:Email>
+      </zaj:Kontakt_podaci>
+      <zaj:Naziv>Ustnova 1</zaj:Naziv>
+    </Lice>
+    <pronalazac>false</pronalazac>
+    <drzavljanstvo></drzavljanstvo>
+  </Podnosilac_zahteva>
+  <Punomocnik>
+    <Lice xsi:type="zaj:TPravno_lice">
+      <zaj:Adresa >
+        <zaj:Drzava>Republika Srbija</zaj:Drzava>
+        <zaj:Grad>Beograd</zaj:Grad>
+        <zaj:Ulica>Kneginje Ljubice</zaj:Ulica>
+        <zaj:Broj>2</zaj:Broj>
+        <zaj:Postanski_broj>11000</zaj:Postanski_broj>
+      </zaj:Adresa>
+      <zaj:Kontakt_podaci>
+        <zaj:Telefon>067/123-1233</zaj:Telefon>
+        <zaj:Faks>021/333221</zaj:Faks>
+        <zaj:Email>n@gmail.com</zaj:Email>
+      </zaj:Kontakt_podaci>
+      <zaj:Naziv>Ustanova2</zaj:Naziv>
+    </Lice>
+    <za_zastupanje>false</za_zastupanje>
+    <za_prijem_pismena>true</za_prijem_pismena>
+  </Punomocnik>
+  <Podaci_o_dostavljanju>
+    <zaj:Adresa>
+      <zaj:Drzava>Republika Srbija</zaj:Drzava>
+      <zaj:Grad>Beograd</zaj:Grad>
+      <zaj:Ulica>Kneginje Ljubice</zaj:Ulica>
+      <zaj:Broj>2</zaj:Broj>
+      <zaj:Postanski_broj>11000</zaj:Postanski_broj>
+    </zaj:Adresa>
+    <Nacin_dostavljanja>elektronski</Nacin_dostavljanja>
+  </Podaci_o_dostavljanju>
+  <Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava>
+    <Ranija_prijava>
+      <Datum_podnosenja>2022-09-24-06:00</Datum_podnosenja>
+      <Broj_prijave>P2</Broj_prijave>
+      <Dvoslovna_oznaka_drzave>RS</Dvoslovna_oznaka_drzave>
+    </Ranija_prijava>
+  </Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava>
+</Zahtev_za_priznanje_patenta>

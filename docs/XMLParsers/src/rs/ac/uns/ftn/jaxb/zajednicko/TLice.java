@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.jaxb.p1;
+package rs.ac.uns.ftn.jaxb.zajednicko;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.ftn.uns.ac.rs/p1}Adresa"/>
- *         &lt;element ref="{http://www.ftn.uns.ac.rs/p1}Kontakt_podaci"/>
+ *         &lt;element ref="{http://www.ftn.uns.ac.rs/zaj}Adresa"/>
+ *         &lt;element ref="{http://www.ftn.uns.ac.rs/zaj}Kontakt_podaci"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TLice", namespace = "http://www.ftn.uns.ac.rs/p1", propOrder = {
+@XmlType(name = "TLice", namespace = "http://www.ftn.uns.ac.rs/zaj", propOrder = {
     "adresa",
     "kontaktPodaci"
 })
@@ -39,9 +39,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public abstract class TLice {
 
-    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected Adresa adresa;
-    @XmlElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected KontaktPodaci kontaktPodaci;
 
     /**
@@ -92,9 +92,15 @@ public abstract class TLice {
         this.kontaktPodaci = value;
     }
 
-    @Override
     public String toString() {
-        return  adresa + "\n\t\t" + kontaktPodaci;
-    }
+        StringBuffer buffer = new StringBuffer();
 
+        buffer.append("\n\t\t - Adresa: ");
+        buffer.append(adresa);
+
+        buffer.append("\n\t\t - Kontakt: ");
+        buffer.append(kontaktPodaci);
+
+        return buffer.toString();
+    }
 }

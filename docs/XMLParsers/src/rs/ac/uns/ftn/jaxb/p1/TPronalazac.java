@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
+import rs.ac.uns.ftn.jaxb.zajednicko.*;
+
 /**
  * <p>Java class for TPronalazac complex type.
  * 
@@ -51,8 +53,9 @@ public class TPronalazac
 
     @Override
     public String toString() {
+        String isAnoniman = anoniman? "da" : "ne";
         return "Pronalazac: " + "\n\t\t" +
-                "anoniman: " + anoniman + "\n\t\t" + super.toString();
+                "anoniman: " + isAnoniman + "\n\t\t" + super.toString();
 
     }
 }

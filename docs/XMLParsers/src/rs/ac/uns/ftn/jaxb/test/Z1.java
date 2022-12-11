@@ -24,11 +24,18 @@ public class Z1 {
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             // Učitavanje XML-a u objektni model
-            ZahtevZaPriznanjeZiga zahtev = (ZahtevZaPriznanjeZiga) unmarshaller.unmarshal(new File("./data/zig.xml"));
+            ZahtevZaPriznanjeZiga zahtev = (ZahtevZaPriznanjeZiga) unmarshaller.unmarshal(new File("./data/zahtev_za_prijavu_ziga.xml"));
+
+            System.out.println("[INFO] Unmarshalled content:");
+            System.out.println(zahtev);
+
+            zahtev.setBrojPrijaveZiga("aaaa");
 
             // Ispis sadržaja objekta
             System.out.println("[INFO] Unmarshalled content:");
             System.out.println(zahtev);
+
+
 
         } catch (JAXBException e) {
             e.printStackTrace();

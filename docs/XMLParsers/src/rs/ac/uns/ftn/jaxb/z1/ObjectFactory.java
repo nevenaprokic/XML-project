@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.jaxb.z1;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
-
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
@@ -38,11 +37,20 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TLice }
+     * Create an instance of {@link ZajednickiPredstavnik }
      * 
      */
-    public TLice createTLice() {
-        return new TLice();
+    public ZajednickiPredstavnik createZajednickiPredstavnik() {
+        return new ZajednickiPredstavnik();
+    }
+
+
+    /**
+     * Create an instance of {@link TZig }
+     * 
+     */
+    public TZig createTZig() {
+        return new TZig();
     }
 
     /**
@@ -62,19 +70,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TZig }
+     * Create an instance of {@link TDopuna }
      * 
      */
-    public TZig createTZig() {
-        return new TZig();
+    public TDopuna createTDopuna() {
+        return new TDopuna();
     }
 
-    /**
-     * Create an instance of {@link TAdresa }
-     * 
-     */
-    public TAdresa createTAdresa() {
-        return new TAdresa();
-    }
+//    /**
+//     * Create an instance of {@link Adresa }
+//     *
+//     */
+//    public Adresa createAdresa() {
+//        return new Adresa();
+//    }
+//
+//    /**
+//     * Create an instance of {@link TPravnoLice }
+//     *
+//     */
+//    public TPravnoLice createTPravnoLice() {
+//        return new TPravnoLice();
+//    }
+//
+//    /**
+//     * Create an instance of {@link TFizickoLice }
+//     *
+//     */
+//    public TFizickoLice createTFizickoLice() {
+//        return new TFizickoLice();
+//    }
 
 }

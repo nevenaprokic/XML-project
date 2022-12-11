@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.jaxb.p1;
+package rs.ac.uns.ftn.jaxb.zajednicko;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,9 +15,9 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="TPravno_lice">
  *   &lt;complexContent>
- *     &lt;extension base="{http://www.ftn.uns.ac.rs/p1}TLice">
+ *     &lt;extension base="{http://www.ftn.uns.ac.rs/zaj}TLice">
  *       &lt;sequence>
- *         &lt;element name="Naziv" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+ *         &lt;element name="Naziv" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -27,14 +27,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPravno_lice", namespace = "http://www.ftn.uns.ac.rs/p1", propOrder = {
+@XmlType(name = "TPravno_lice", namespace = "http://www.ftn.uns.ac.rs/zaj", propOrder = {
     "naziv"
 })
 public class TPravnoLice
     extends TLice
 {
 
-    @XmlElement(name = "Naziv", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Naziv", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String naziv;
 
     /**
@@ -42,7 +42,7 @@ public class TPravnoLice
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
     public String getNaziv() {
@@ -54,7 +54,7 @@ public class TPravnoLice
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
     public void setNaziv(String value) {
@@ -63,8 +63,7 @@ public class TPravnoLice
 
     @Override
     public String toString() {
-        return "Pravno lice: " + '\n' + "\t\t" +
-                "naziv: " + naziv + '\n' + "\t\t" +
+        return "naziv: " + naziv + '\n' + "\t\t" +
                 super.toString();
     }
 }

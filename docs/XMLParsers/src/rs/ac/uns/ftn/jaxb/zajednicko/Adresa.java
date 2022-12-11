@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.jaxb.p1;
+package rs.ac.uns.ftn.jaxb.zajednicko;
 
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -26,8 +26,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Broj" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/>
  *         &lt;element name="Postanski_broj">
  *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}positiveInteger">
- *               &lt;totalDigits value="5"/>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
+ *               &lt;minInclusive value="11000"/>
+ *               &lt;maxInclusive value="40000"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -43,20 +44,20 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
 
 })
-@XmlRootElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/p1")
+@XmlRootElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj")
 public class Adresa {
 
-    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String drzava;
-    @XmlElement(name = "Grad", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Grad", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String grad;
-    @XmlElement(name = "Ulica", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Ulica", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String ulica;
-    @XmlElement(name = "Broj", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger broj;
-    @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
-    protected BigInteger postanskiBroj;
+    @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/zaj")
+    protected int postanskiBroj;
 
     /**
      * Gets the value of the drzava property.
@@ -157,30 +158,32 @@ public class Adresa {
     /**
      * Gets the value of the postanskiBroj property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
      */
-    public BigInteger getPostanskiBroj() {
+    public int getPostanskiBroj() {
         return postanskiBroj;
     }
 
     /**
      * Sets the value of the postanskiBroj property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
      */
-    public void setPostanskiBroj(BigInteger value) {
+    public void setPostanskiBroj(int value) {
         this.postanskiBroj = value;
     }
 
-    @Override
     public String toString() {
-        return "adresa: " +  ulica +  " " + broj + ", " + grad + " " + postanskiBroj + ", " + drzava;
+        StringBuffer buffer = new StringBuffer();
 
+        buffer.append(ulica);
+        buffer.append(", ");
+        buffer.append(broj);
+        buffer.append(", ");
+        buffer.append(grad);
+        buffer.append(", ");
+        buffer.append(postanskiBroj);
+        buffer.append(", ");
+        buffer.append(drzava);
+
+        return buffer.toString();
     }
 }

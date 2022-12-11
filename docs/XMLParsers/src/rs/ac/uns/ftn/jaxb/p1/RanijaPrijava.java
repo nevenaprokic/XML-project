@@ -134,9 +134,8 @@ public class RanijaPrijava {
 
     @Override
     public String toString() {
-        return "Ranija prijava:"  + "\n\t\t" +
-                "datum podnosenja prijave: " + datumPodnosenja + "\n\t\t" +
-                "broj prijave: " + brojPrijave + "\n\t\t" +
+        return "datum podnosenja prijave: " + datumPodnosenja + "\n\t\t\t" +
+                "broj prijave: " + brojPrijave + "\n\t\t\t" +
                 "dvoslovna oznaka drzave: " + dvoslovnaOznakaDrzave + '\n'
                 ;
     }

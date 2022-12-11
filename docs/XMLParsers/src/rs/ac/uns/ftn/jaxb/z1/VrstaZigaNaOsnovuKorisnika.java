@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for vrsta_ziga_na_osnovu_korisnika.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
@@ -16,13 +16,13 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="individualni zig"/>
  *     &lt;enumeration value="kolektivni zig"/>
- *     &lt;enumeration value="verbalni zig"/>
+ *     &lt;enumeration value="zig generacije"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- *
+ * 
  */
-@XmlType(name = "vrsta_ziga_na_osnovu_korisnika", namespace = "http://ftn.uns.ac.rs/z1")
+@XmlType(name = "vrsta_ziga_na_osnovu_korisnika", namespace = "http://ftn.uns.ac.rs/zig")
 @XmlEnum
 public enum VrstaZigaNaOsnovuKorisnika {
 
@@ -30,8 +30,8 @@ public enum VrstaZigaNaOsnovuKorisnika {
     INDIVIDUALNI_ZIG("individualni zig"),
     @XmlEnumValue("kolektivni zig")
     KOLEKTIVNI_ZIG("kolektivni zig"),
-    @XmlEnumValue("verbalni zig")
-    VERBALNI_ZIG("verbalni zig");
+    @XmlEnumValue("zig generacije")
+    ZIG_GENERACIJE("zig generacije");
     private final String value;
 
     VrstaZigaNaOsnovuKorisnika(String v) {
@@ -51,7 +51,4 @@ public enum VrstaZigaNaOsnovuKorisnika {
         throw new IllegalArgumentException(v);
     }
 
-    public String toString() {
-        return value;
-    }
 }

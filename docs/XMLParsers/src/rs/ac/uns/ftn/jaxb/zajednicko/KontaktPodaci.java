@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.jaxb.p1;
+package rs.ac.uns.ftn.jaxb.zajednicko;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Telefon">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
- *               &lt;pattern value="[0][6][0-9]{7,8}"/>
+ *               &lt;pattern value="[0][6][0-9]/[0-9]{3,3}-[0-9]{3,4}"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -52,21 +52,21 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
 
 })
-@XmlRootElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/p1")
+@XmlRootElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/zaj")
 public class KontaktPodaci {
 
-    @XmlElement(name = "Telefon", namespace = "http://www.ftn.uns.ac.rs/p1")
-    protected int telefon;
-    @XmlElement(name = "Faks", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Telefon", namespace = "http://www.ftn.uns.ac.rs/zaj")
+    protected String telefon;
+    @XmlElement(name = "Faks", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String faks;
-    @XmlElement(name = "Email", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Email", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String email;
 
     /**
      * Gets the value of the telefon property.
      * 
      */
-    public int getTelefon() {
+    public String getTelefon() {
         return telefon;
     }
 
@@ -74,7 +74,7 @@ public class KontaktPodaci {
      * Sets the value of the telefon property.
      * 
      */
-    public void setTelefon(int value) {
+    public void setTelefon(String value) {
         this.telefon = value;
     }
 
@@ -126,13 +126,16 @@ public class KontaktPodaci {
         this.email = value;
     }
 
-
-    @Override
     public String toString() {
-        return "Kontakt podaci: " + "\n\t\t" +
-                "telefon: " + telefon + "\n\t\t" +
-                "faks: " + faks + "\n\t\t" +
-                "email: " + email + '\n'
-                ;
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("\n\t\t\t - Telefon: ");
+        buffer.append(telefon);
+        buffer.append("\n\t\t\t - Email: ");
+        buffer.append(email);
+        buffer.append("\n\t\t\t - Faks: ");
+        buffer.append(faks);
+
+        return buffer.toString();
     }
 }

@@ -31,6 +31,12 @@ public class P1 {
             System.out.println("[INFO] Unmarshalled content:");
             System.out.println(zahtev);
 
+            zahtev.setBrojPrijave("aaaaa");
+
+            System.out.println("[INFO] Unmarshalled content:");
+            System.out.println(zahtev);
+
+
         } catch (JAXBException e) {
             e.printStackTrace();
         } catch (Exception e) {

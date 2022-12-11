@@ -1,269 +1,305 @@
 
 package rs.ac.uns.ftn.jaxb.z1;
 
-import rs.ac.uns.ftn.jaxb.example4.Person;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import rs.ac.uns.ftn.jaxb.zajednicko.*;
 
 
 /**
  * <p>Java class for anonymous complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="podaci_o_podnosiocu_prijave" type="{http://ftn.uns.ac.rs/z1}TLice"/>
- *         &lt;element name="podaci_o_pravu_prvenstva_i_osnov" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="podaci_o_placenim_taksama" type="{http://ftn.uns.ac.rs/z1}TTakse"/>
- *         &lt;element name="podaci_o_prilozima_uz_zahtev" type="{http://ftn.uns.ac.rs/z1}TPrilozi"/>
- *         &lt;element name="podaci_o_zigu" type="{http://ftn.uns.ac.rs/z1}TZig"/>
- *         &lt;element name="podaci_o_punomocniku" type="{http://ftn.uns.ac.rs/z1}TLice"/>
- *         &lt;element name="podaci_o_zajednickom_predstavniku" type="{http://ftn.uns.ac.rs/z1}TLice"/>
+ *         &lt;element name="podnosioc_prijave" type="{http://www.ftn.uns.ac.rs/zaj}TLice" maxOccurs="unbounded"/>
+ *         &lt;element name="punomocnik" type="{http://www.ftn.uns.ac.rs/zaj}TLice" minOccurs="0"/>
+ *         &lt;element ref="{http://ftn.uns.ac.rs/zig}zajednicki_predstavnik" minOccurs="0"/>
+ *         &lt;element name="zig" type="{http://ftn.uns.ac.rs/zig}TZig"/>
+ *         &lt;element name="pravo_prvenstva_i_osnov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="placene_takse" type="{http://ftn.uns.ac.rs/zig}TTakse"/>
+ *         &lt;element name="prilozi_uz_zahtev" type="{http://ftn.uns.ac.rs/zig}TPrilozi"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="broj_prijave_ziga" use="required">
+ *         &lt;simpleType>
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *             &lt;pattern value="\Ž\-[0-9]+\/[0-9]{2,2}"/>
+ *           &lt;/restriction>
+ *         &lt;/simpleType>
+ *       &lt;/attribute>
+ *       &lt;attribute name="datum_podnosenja_prijave" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "podaciOPodnosiocuPrijave",
-    "podaciOPravuPrvenstvaIOsnov",
-    "podaciOPlacenimTaksama",
-    "podaciOPrilozimaUzZahtev",
-    "podaciOZigu",
-    "podaciOPunomocniku",
-    "podaciOZajednickomPredstavniku"
+    "podnosiocPrijave",
+    "punomocnik",
+    "zajednickiPredstavnik",
+    "zig",
+    "pravoPrvenstvaIOsnov",
+    "placeneTakse",
+    "priloziUzZahtev"
 })
-@XmlRootElement(name = "Zahtev_za_priznanje_ziga", namespace = "http://ftn.uns.ac.rs/z1")
+@XmlRootElement(name = "Zahtev_za_priznanje_ziga", namespace = "http://ftn.uns.ac.rs/zig")
 public class ZahtevZaPriznanjeZiga {
 
-    @XmlElement(name = "podaci_o_podnosiocu_prijave", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected TLice podaciOPodnosiocuPrijave;
-    @XmlElement(name = "podaci_o_pravu_prvenstva_i_osnov", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected String podaciOPravuPrvenstvaIOsnov;
-    @XmlElement(name = "podaci_o_placenim_taksama", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected TTakse podaciOPlacenimTaksama;
-    @XmlElement(name = "podaci_o_prilozima_uz_zahtev", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected TPrilozi podaciOPrilozimaUzZahtev;
-    @XmlElement(name = "podaci_o_zigu", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected TZig podaciOZigu;
-    @XmlElement(name = "podaci_o_punomocniku", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected TLice podaciOPunomocniku;
-    @XmlElement(name = "podaci_o_zajednickom_predstavniku", namespace = "http://ftn.uns.ac.rs/z1", required = true)
-    protected TLice podaciOZajednickomPredstavniku;
+    @XmlElement(name = "podnosioc_prijave", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected List<TLice> podnosiocPrijave;
+    @XmlElement(namespace = "http://ftn.uns.ac.rs/zig")
+    protected TLice punomocnik;
+    @XmlElement(name = "zajednicki_predstavnik", namespace = "http://ftn.uns.ac.rs/zig")
+    protected ZajednickiPredstavnik zajednickiPredstavnik;
+    @XmlElement(namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TZig zig;
+    @XmlElement(name = "pravo_prvenstva_i_osnov", namespace = "http://ftn.uns.ac.rs/zig")
+    protected String pravoPrvenstvaIOsnov;
+    @XmlElement(name = "placene_takse", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TTakse placeneTakse;
+    @XmlElement(name = "prilozi_uz_zahtev", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TPrilozi priloziUzZahtev;
+    @XmlAttribute(name = "broj_prijave_ziga", required = true)
+    protected String brojPrijaveZiga;
+    @XmlAttribute(name = "datum_podnosenja_prijave", required = true)
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar datumPodnosenjaPrijave;
 
     /**
-     * Gets the value of the podaciOPodnosiocuPrijave property.
-     *
+     * Gets the value of the podnosiocPrijave property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the podnosiocPrijave property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getPodnosiocPrijave().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link TLice }
+     * 
+     * 
+     */
+    public List<TLice> getPodnosiocPrijave() {
+        if (podnosiocPrijave == null) {
+            podnosiocPrijave = new ArrayList<TLice>();
+        }
+        return this.podnosiocPrijave;
+    }
+
+    /**
+     * Gets the value of the punomocnik property.
+     * 
      * @return
      *     possible object is
      *     {@link TLice }
-     *
+     *     
      */
-    public TLice getPodaciOPodnosiocuPrijave() {
-        return podaciOPodnosiocuPrijave;
+    public TLice getPunomocnik() {
+        return punomocnik;
     }
 
     /**
-     * Sets the value of the podaciOPodnosiocuPrijave property.
-     *
+     * Sets the value of the punomocnik property.
+     * 
      * @param value
      *     allowed object is
      *     {@link TLice }
-     *
+     *     
      */
-    public void setPodaciOPodnosiocuPrijave(TLice value) {
-        this.podaciOPodnosiocuPrijave = value;
+    public void setPunomocnik(TLice value) {
+        this.punomocnik = value;
     }
 
     /**
-     * Gets the value of the podaciOPravuPrvenstvaIOsnov property.
-     *
+     * Zajednicki predstavnik prijave priznanja ziga - podaci
+     * 
      * @return
      *     possible object is
-     *     {@link String }
-     *
+     *     {@link ZajednickiPredstavnik }
+     *     
      */
-    public String getPodaciOPravuPrvenstvaIOsnov() {
-        return podaciOPravuPrvenstvaIOsnov;
+    public ZajednickiPredstavnik getZajednickiPredstavnik() {
+        return zajednickiPredstavnik;
     }
 
     /**
-     * Sets the value of the podaciOPravuPrvenstvaIOsnov property.
-     *
+     * Sets the value of the zajednickiPredstavnik property.
+     * 
      * @param value
      *     allowed object is
-     *     {@link String }
-     *
+     *     {@link ZajednickiPredstavnik }
+     *     
      */
-    public void setPodaciOPravuPrvenstvaIOsnov(String value) {
-        this.podaciOPravuPrvenstvaIOsnov = value;
+    public void setZajednickiPredstavnik(ZajednickiPredstavnik value) {
+        this.zajednickiPredstavnik = value;
     }
 
     /**
-     * Gets the value of the podaciOPlacenimTaksama property.
-     *
-     * @return
-     *     possible object is
-     *     {@link TTakse }
-     *
-     */
-    public TTakse getPodaciOPlacenimTaksama() {
-        return podaciOPlacenimTaksama;
-    }
-
-    /**
-     * Sets the value of the podaciOPlacenimTaksama property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link TTakse }
-     *
-     */
-    public void setPodaciOPlacenimTaksama(TTakse value) {
-        this.podaciOPlacenimTaksama = value;
-    }
-
-    /**
-     * Gets the value of the podaciOPrilozimaUzZahtev property.
-     *
-     * @return
-     *     possible object is
-     *     {@link TPrilozi }
-     *
-     */
-    public TPrilozi getPodaciOPrilozimaUzZahtev() {
-        return podaciOPrilozimaUzZahtev;
-    }
-
-    /**
-     * Sets the value of the podaciOPrilozimaUzZahtev property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link TPrilozi }
-     *
-     */
-    public void setPodaciOPrilozimaUzZahtev(TPrilozi value) {
-        this.podaciOPrilozimaUzZahtev = value;
-    }
-
-    /**
-     * Gets the value of the podaciOZigu property.
-     *
+     * Gets the value of the zig property.
+     * 
      * @return
      *     possible object is
      *     {@link TZig }
-     *
+     *     
      */
-    public TZig getPodaciOZigu() {
-        return podaciOZigu;
+    public TZig getZig() {
+        return zig;
     }
 
     /**
-     * Sets the value of the podaciOZigu property.
-     *
+     * Sets the value of the zig property.
+     * 
      * @param value
      *     allowed object is
      *     {@link TZig }
-     *
+     *     
      */
-    public void setPodaciOZigu(TZig value) {
-        this.podaciOZigu = value;
+    public void setZig(TZig value) {
+        this.zig = value;
     }
 
     /**
-     * Gets the value of the podaciOPunomocniku property.
-     *
+     * Gets the value of the pravoPrvenstvaIOsnov property.
+     * 
      * @return
      *     possible object is
-     *     {@link TLice }
-     *
+     *     {@link String }
+     *     
      */
-    public TLice getPodaciOPunomocniku() {
-        return podaciOPunomocniku;
+    public String getPravoPrvenstvaIOsnov() {
+        return pravoPrvenstvaIOsnov;
     }
 
     /**
-     * Sets the value of the podaciOPunomocniku property.
-     *
+     * Sets the value of the pravoPrvenstvaIOsnov property.
+     * 
      * @param value
      *     allowed object is
-     *     {@link TLice }
-     *
+     *     {@link String }
+     *     
      */
-    public void setPodaciOPunomocniku(TLice value) {
-        this.podaciOPunomocniku = value;
+    public void setPravoPrvenstvaIOsnov(String value) {
+        this.pravoPrvenstvaIOsnov = value;
     }
 
     /**
-     * Gets the value of the podaciOZajednickomPredstavniku property.
-     *
+     * Gets the value of the placeneTakse property.
+     * 
      * @return
      *     possible object is
-     *     {@link TLice }
-     *
+     *     {@link TTakse }
+     *     
      */
-    public TLice getPodaciOZajednickomPredstavniku() {
-        return podaciOZajednickomPredstavniku;
+    public TTakse getPlaceneTakse() {
+        return placeneTakse;
     }
 
     /**
-     * Sets the value of the podaciOZajednickomPredstavniku property.
-     *
+     * Sets the value of the placeneTakse property.
+     * 
      * @param value
      *     allowed object is
-     *     {@link TLice }
-     *
+     *     {@link TTakse }
+     *     
      */
-    public void setPodaciOZajednickomPredstavniku(TLice value) {
-        this.podaciOZajednickomPredstavniku = value;
+    public void setPlaceneTakse(TTakse value) {
+        this.placeneTakse = value;
     }
 
-
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("- Zig: ");
-
-        buffer.append("\n");
-        buffer.append("\t - Podnosilac zahteva: ");
-        buffer.append(podaciOPodnosiocuPrijave);
-
-        buffer.append("\n");
-        buffer.append("\t - Punomocnik zahteva: ");
-        buffer.append(podaciOPunomocniku);
-
-        buffer.append("\n");
-        buffer.append("\t - Zajednicki predstanik zahteva: ");
-        buffer.append(podaciOZajednickomPredstavniku);
-
-        buffer.append("\n");
-        buffer.append("\t - Podaci o zigu: ");
-        buffer.append(podaciOZigu);
-
-        buffer.append("\n");
-        buffer.append("\t - Podaci o pravu prvenstva i osnov: ");
-        buffer.append(podaciOPravuPrvenstvaIOsnov);
-
-        buffer.append("\n");
-        buffer.append("\t - Podaci o taksama: ");
-        buffer.append(podaciOPlacenimTaksama);
-
-        buffer.append("\n");
-        buffer.append("\t - Prilozeni podaci uz zahtev: ");
-        buffer.append(podaciOPrilozimaUzZahtev);
-
-        return buffer.toString();
+    /**
+     * Gets the value of the priloziUzZahtev property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TPrilozi }
+     *     
+     */
+    public TPrilozi getPriloziUzZahtev() {
+        return priloziUzZahtev;
     }
+
+    /**
+     * Sets the value of the priloziUzZahtev property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TPrilozi }
+     *     
+     */
+    public void setPriloziUzZahtev(TPrilozi value) {
+        this.priloziUzZahtev = value;
+    }
+
+    /**
+     * Gets the value of the brojPrijaveZiga property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBrojPrijaveZiga() {
+        return brojPrijaveZiga;
+    }
+
+    /**
+     * Sets the value of the brojPrijaveZiga property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBrojPrijaveZiga(String value) {
+        this.brojPrijaveZiga = value;
+    }
+
+    /**
+     * Gets the value of the datumPodnosenjaPrijave property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDatumPodnosenjaPrijave() {
+        return datumPodnosenjaPrijave;
+    }
+
+    /**
+     * Sets the value of the datumPodnosenjaPrijave property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDatumPodnosenjaPrijave(XMLGregorianCalendar value) {
+        this.datumPodnosenjaPrijave = value;
+    }
+
 }

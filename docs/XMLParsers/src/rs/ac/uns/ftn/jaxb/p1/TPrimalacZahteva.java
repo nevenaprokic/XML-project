@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import rs.ac.uns.ftn.jaxb.zajednicko.*;
 
 /**
  * <p>Java class for TPrimalac_zahteva complex type.
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class TPrimalacZahteva {
 
-    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected Adresa adresa;
     @XmlElement(name = "Naziv", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected String naziv;
@@ -88,7 +89,7 @@ public class TPrimalacZahteva {
 
     @Override
     public String toString() {
-        return "Primalac zahteva: " + "\n\t\t" + adresa + '\n' + "\t\t" +
+        return "Primalac zahteva: " + "\n\t\t" + "adresa: " + adresa + '\n' + "\t\t" +
                 "naziv ustanove: " + naziv + "\n\t\t" + '\n';
     }
 }

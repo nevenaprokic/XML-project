@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
+import rs.ac.uns.ftn.jaxb.zajednicko.*;
+
 /**
  * <p>Java class for TPodnosilac_zahteva complex type.
  * 
@@ -30,7 +32,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TPodnosilac_zahteva", namespace = "http://www.ftn.uns.ac.rs/p1", propOrder = {
     "lice",
-    "pronalazac"
+    "pronalazac",
+        "drzavljanstvo"
 })
 public class TPodnosilacZahteva {
 
@@ -38,6 +41,10 @@ public class TPodnosilacZahteva {
     protected TLice lice;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/p1")
     protected boolean pronalazac;
+    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/p1")
+    protected String drzavljanstvo;
+
+
 
     /**
      * Gets the value of the lice property.
@@ -79,11 +86,19 @@ public class TPodnosilacZahteva {
         this.pronalazac = value;
     }
 
+    public String getDrzavljanstvo(){return this.drzavljanstvo;}
+
+    public void setDrzavljanstvo(String value){this.drzavljanstvo = value;}
+
     @Override
     public String toString() {
-        return "Podnosilac prijave: " + '\n' + "\t\t" +
-                "pronalazac: " + pronalazac + "\n\t\t" +
+        String isPronalazac = pronalazac? "da" : "ne";
+        String value =  "Podnosilac prijave: " + '\n' + "\t\t" +
+                "pronalazac: " + isPronalazac + "\n\t\t" +
                 lice.toString();
-
+        if(drzavljanstvo.length() > 0){
+            value += "drzavljanstvo" + drzavljanstvo;
+        }
+        return value;
     }
 }

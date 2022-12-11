@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import rs.ac.uns.ftn.jaxb.zajednicko.*;
+
 
 /**
  * <p>Java class for TPunomocnik complex type.
@@ -101,9 +103,12 @@ public class TPunomocnik {
 
     @Override
     public String toString() {
+        String isPrijemPismena = zaPrijemPismena? "da" :" ne";
+        String isZastupanje = zaZastupanje? "da" :" ne";
+
         return "Punomocnik: " + "\n\t\t" +
-                "za prijem pismena: " + zaPrijemPismena +"\n\t\t" +
-                "za zastupanje: " + zaZastupanje + "\n\t\t" + lice.toString();
+                "za prijem pismena: " + isPrijemPismena +"\n\t\t" +
+                "za zastupanje: " + isZastupanje + "\n\t\t" + lice.toString();
     }
 
 }
