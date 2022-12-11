@@ -78,19 +78,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TPodnosilacPrijave }
-     * 
-     */
-    public TPodnosilacPrijave createTPodnosilacPrijave() {
-        return new TPodnosilacPrijave();
-    }
-
-    /**
      * Create an instance of {@link TPronalazac }
      * 
      */
     public TPronalazac createTPronalazac() {
         return new TPronalazac();
+    }
+
+    /**
+     * Create an instance of {@link TPodnosilacZahteva }
+     * 
+     */
+    public TPodnosilacZahteva createTPodnosilacZahteva() {
+        return new TPodnosilacZahteva();
     }
 
     /**

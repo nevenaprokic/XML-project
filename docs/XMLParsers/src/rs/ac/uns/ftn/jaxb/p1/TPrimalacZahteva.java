@@ -36,7 +36,7 @@ public class TPrimalacZahteva {
     @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected Adresa adresa;
     @XmlElement(name = "Naziv", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
-    protected Object naziv;
+    protected String naziv;
 
     /**
      * Gets the value of the adresa property.
@@ -70,7 +70,7 @@ public class TPrimalacZahteva {
      *     {@link Object }
      *     
      */
-    public Object getNaziv() {
+    public String getNaziv() {
         return naziv;
     }
 
@@ -82,13 +82,13 @@ public class TPrimalacZahteva {
      *     {@link Object }
      *     
      */
-    public void setNaziv(Object value) {
+    public void setNaziv(String value) {
         this.naziv = value;
     }
 
     @Override
     public String toString() {
         return "Primalac zahteva: " + "\n\t\t" + adresa + '\n' + "\t\t" +
-                "naziv ustanove: " + naziv + "\n\t\t" + super.toString() + '\n';
+                "naziv ustanove: " + naziv + "\n\t\t" + '\n';
     }
 }

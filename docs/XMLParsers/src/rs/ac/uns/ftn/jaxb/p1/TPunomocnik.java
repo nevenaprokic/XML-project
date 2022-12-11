@@ -3,7 +3,7 @@ package rs.ac.uns.ftn.jaxb.p1;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -15,10 +15,13 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="TPunomocnik">
  *   &lt;complexContent>
- *     &lt;extension base="{http://www.ftn.uns.ac.rs/p1}TLice">
- *       &lt;attribute name="za_prijem_pismena" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="za_zastupanje" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *     &lt;/extension>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="Lice" type="{http://www.ftn.uns.ac.rs/p1}TLice"/>
+ *         &lt;element name="za_zastupanje" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="za_prijem_pismena" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -26,22 +29,59 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPunomocnik", namespace = "http://www.ftn.uns.ac.rs/p1")
-public class TPunomocnik
-    extends TLice
-{
+@XmlType(name = "TPunomocnik", namespace = "http://www.ftn.uns.ac.rs/p1", propOrder = {
+    "lice",
+    "zaZastupanje",
+    "zaPrijemPismena"
+})
+public class TPunomocnik {
 
-    @Override
-    public String toString() {
-        return "Punomocnik: " + "\n\t\t" +
-                "za prijem pismena: " + zaPrijemPismena +"\n\t\t" +
-                "za zastupanje: " + zaZastupanje + "\n\t\t" + super.toString();
+    @XmlElement(name = "Lice", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    protected TLice lice;
+    @XmlElement(name = "za_zastupanje", namespace = "http://www.ftn.uns.ac.rs/p1")
+    protected boolean zaZastupanje;
+    @XmlElement(name = "za_prijem_pismena", namespace = "http://www.ftn.uns.ac.rs/p1")
+    protected boolean zaPrijemPismena;
+
+    /**
+     * Gets the value of the lice property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TLice }
+     *     
+     */
+    public TLice getLice() {
+        return lice;
     }
 
-    @XmlAttribute(name = "za_prijem_pismena", required = true)
-    protected boolean zaPrijemPismena;
-    @XmlAttribute(name = "za_zastupanje", required = true)
-    protected boolean zaZastupanje;
+    /**
+     * Sets the value of the lice property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TLice }
+     *     
+     */
+    public void setLice(TLice value) {
+        this.lice = value;
+    }
+
+    /**
+     * Gets the value of the zaZastupanje property.
+     * 
+     */
+    public boolean isZaZastupanje() {
+        return zaZastupanje;
+    }
+
+    /**
+     * Sets the value of the zaZastupanje property.
+     * 
+     */
+    public void setZaZastupanje(boolean value) {
+        this.zaZastupanje = value;
+    }
 
     /**
      * Gets the value of the zaPrijemPismena property.
@@ -59,20 +99,11 @@ public class TPunomocnik
         this.zaPrijemPismena = value;
     }
 
-    /**
-     * Gets the value of the zaZastupanje property.
-     * 
-     */
-    public boolean isZaZastupanje() {
-        return zaZastupanje;
-    }
-
-    /**
-     * Sets the value of the zaZastupanje property.
-     * 
-     */
-    public void setZaZastupanje(boolean value) {
-        this.zaZastupanje = value;
+    @Override
+    public String toString() {
+        return "Punomocnik: " + "\n\t\t" +
+                "za prijem pismena: " + zaPrijemPismena +"\n\t\t" +
+                "za zastupanje: " + zaZastupanje + "\n\t\t" + lice.toString();
     }
 
 }

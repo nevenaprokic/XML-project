@@ -21,7 +21,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Datum_podnosenja" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Broj_prijave" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Broj_prijave">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;pattern value="[P][0-9]+"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="Dvoslovna_oznaka_drzave">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -135,4 +141,3 @@ public class RanijaPrijava {
                 ;
     }
 }
-
