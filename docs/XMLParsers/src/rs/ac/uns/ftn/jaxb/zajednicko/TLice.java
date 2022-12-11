@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for TLice complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="TLice">
  *   &lt;complexContent>
@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TLice", namespace = "http://www.ftn.uns.ac.rs/zaj", propOrder = {
@@ -46,11 +46,11 @@ public abstract class TLice {
 
     /**
      * Gets the value of the adresa property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Adresa }
-     *     
+     *
      */
     public Adresa getAdresa() {
         return adresa;
@@ -58,11 +58,11 @@ public abstract class TLice {
 
     /**
      * Sets the value of the adresa property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Adresa }
-     *     
+     *
      */
     public void setAdresa(Adresa value) {
         this.adresa = value;
@@ -70,11 +70,11 @@ public abstract class TLice {
 
     /**
      * Gets the value of the kontaktPodaci property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KontaktPodaci }
-     *     
+     *
      */
     public KontaktPodaci getKontaktPodaci() {
         return kontaktPodaci;
@@ -82,11 +82,11 @@ public abstract class TLice {
 
     /**
      * Sets the value of the kontaktPodaci property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KontaktPodaci }
-     *     
+     *
      */
     public void setKontaktPodaci(KontaktPodaci value) {
         this.kontaktPodaci = value;

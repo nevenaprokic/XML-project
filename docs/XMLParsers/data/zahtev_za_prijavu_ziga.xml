@@ -1,102 +1,109 @@
-<zig:Zahtev_za_priznanje_ziga broj_prijave_ziga="Ž-123/23" datum_podnosenja_prijave="2008-09-29" xmlns:zig="http://ftn.uns.ac.rs/zig">
+<?xml version="1.0" encoding="UTF-8"?>
+<Zahtev_za_priznanje_ziga broj_prijave_ziga="Ž-123/23" datum_podnosenja_prijave="2008-09-29"
+                              xmlns="http://ftn.uns.ac.rs/zig"
+                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                              xsi:schemaLocation="http://ftn.uns.ac.rs/zig  ./zahtev_za_prijavu_ziga.xsd"
+                              xmlns:zaj="http://www.ftn.uns.ac.rs/zaj">
     <!--1 or more repetitions:-->
-    <zig:podnosioc_prijave>
-        <zig:ime>Pera</zig:ime>
-        <zig:prezime>Prokic</zig:prezime>
-        <zig:adresa>
-            <zig:ulica>Radnicka</zig:ulica>
-            <zig:broj>20</zig:broj>
-            <zig:mesto>Novi Sad</zig:mesto>
-            <zig:drzava>Republika srbija</zig:drzava>
-            <zig:postanski_broj>21000</zig:postanski_broj>
-        </zig:adresa>
-        <zig:kontaktPodaci>
-            <zig:telefon>065/222-3332</zig:telefon>
-            <zig:email>pera@gmail.com</zig:email>
-            <zig:faks>12575172</zig:faks>
-        </zig:kontaktPodaci>
-    </zig:podnosioc_prijave>
+    <Podnosioc_prijave xsi:type="zaj:TFizicko_lice">
+        <zaj:Adresa>
+            <zaj:Ulica>Radnicka</zaj:Ulica>
+            <zaj:Broj>20</zaj:Broj>
+            <zaj:Grad>Novi Sad</zaj:Grad>
+            <zaj:Drzava>Republika srbija</zaj:Drzava>
+            <zaj:Postanski_broj>21000</zaj:Postanski_broj>
+        </zaj:Adresa>
+        <zaj:Kontakt_podaci>
+            <zaj:Telefon>065/222-3332</zaj:Telefon>
+            <zaj:Email>pera@gmail.com</zaj:Email>
+            <zaj:Faks>125/7517672</zaj:Faks>
+        </zaj:Kontakt_podaci>
+        <zaj:Ime>Pera</zaj:Ime>
+        <zaj:Prezime>Petrovic</zaj:Prezime>
+    </Podnosioc_prijave>
     <!--Optional:-->
-    <zig:punomocnik>
-        <zig:ime>Marko</zig:ime>
-        <zig:prezime>Peric</zig:prezime>
-        <zig:adresa>
-            <zig:ulica>Novosadskog sajma</zig:ulica>
-            <zig:broj>201</zig:broj>
-            <zig:mesto>Novi Sad</zig:mesto>
-            <zig:drzava>Republika Srbija</zig:drzava>
-            <zig:postanski_broj>21000</zig:postanski_broj>
-        </zig:adresa>
-        <zig:kontaktPodaci>
-            <zig:telefon>652/678-6372</zig:telefon>
-            <zig:email>marko@gmail.com</zig:email>
-            <zig:faks>7162812</zig:faks>
-        </zig:kontaktPodaci>
-    </zig:punomocnik>
+    <Punomocnik xsi:type="zaj:TFizicko_lice">
+        <zaj:Adresa>
+            <zaj:Ulica>Novosadskog sajma</zaj:Ulica>
+            <zaj:Broj>201</zaj:Broj>
+            <zaj:Grad>Novi Sad</zaj:Grad>
+            <zaj:Drzava>Republika Srbija</zaj:Drzava>
+            <zaj:Postanski_broj>21000</zaj:Postanski_broj>
+        </zaj:Adresa>
+        <zaj:Kontakt_podaci>
+            <zaj:Telefon>062/678-6372</zaj:Telefon>
+            <zaj:Email>marko@gmail.com</zaj:Email>
+            <zaj:Faks>716/281275</zaj:Faks>
+        </zaj:Kontakt_podaci>
+        <zaj:Ime>Marko</zaj:Ime>
+        <zaj:Prezime>Peric</zaj:Prezime>
+    </Punomocnik>
     <!--Optional:-->
-    <zig:zajednicki_predstavnik>
-        <zig:telefon>822/222-3322</zig:telefon>
-        <zig:email>pera@gmail.com</zig:email>
-        <zig:faks>23123</zig:faks>
-    </zig:zajednicki_predstavnik>
-    <zig:zig>
-        <zig:vrsta_ziga_na_osnovu_korisnika>individualni zig</zig:vrsta_ziga_na_osnovu_korisnika>
-        <zig:vrsta_ziga_na_osnovu_izgleda>graficki</zig:vrsta_ziga_na_osnovu_izgleda>
-        <zig:izgled_znaka>izgled_znaka.png</zig:izgled_znaka>
-        <zig:podaci_o_boji_znaka>braon i plava</zig:podaci_o_boji_znaka>
+    <Zajednicki_predstavnik>
+        <zaj:Kontakt_podaci>
+            <zaj:Telefon>062/222-3322</zaj:Telefon>
+            <zaj:Faks>231/2767593</zaj:Faks>
+            <zaj:Email>pera@gmail.com</zaj:Email>
+        </zaj:Kontakt_podaci>
+    </Zajednicki_predstavnik>
+    <Zig>
+        <Vrsta_ziga_na_osnovu_korisnika>individualni zig</Vrsta_ziga_na_osnovu_korisnika>
+        <Vrsta_ziga_na_osnovu_izgleda>graficki</Vrsta_ziga_na_osnovu_izgleda>
+        <Izgled_znaka>izgled_znaka.png</Izgled_znaka>
+        <Podaci_o_boji_znaka>braon i plava</Podaci_o_boji_znaka>
         <!--Optional:-->
-        <zig:transliteracija_znaka/>
+        <Transliteracija_znaka/>
         <!--Optional:-->
-        <zig:prevod_znaka/>
-        <zig:opis_znaka>Neki opis znaka</zig:opis_znaka>
-        <zig:podaci_o_brojevima_klasa_robe_i_usluga>4 5</zig:podaci_o_brojevima_klasa_robe_i_usluga>
-    </zig:zig>
-    <zig:pravo_prvenstva_i_osnov>Ima neko pravo prvenstva</zig:pravo_prvenstva_i_osnov>
-    <zig:placene_takse>
-        <zig:osnovna_taksa>40000</zig:osnovna_taksa>
+        <Prevod_znaka/>
+        <Opis_znaka>Neki opis znaka</Opis_znaka>
+        <Podaci_o_brojevima_klasa_robe_i_usluga>4 5</Podaci_o_brojevima_klasa_robe_i_usluga>
+    </Zig>
+    <Pravo_prvenstva_i_osnov>Ima neko pravo prvenstva</Pravo_prvenstva_i_osnov>
+    <Placene_takse>
+        <Osnovna_taksa>40000</Osnovna_taksa>
         <!--Optional:-->
-        <zig:graficko_resenje>24000</zig:graficko_resenje>
+        <Graficko_resenje>24000</Graficko_resenje>
         <!--Optional:-->
-        <zig:za_klasu>10000</zig:za_klasu>
-        <zig:ukupan_iznos_takse>74000</zig:ukupan_iznos_takse>
-    </zig:placene_takse>
-    <zig:prilozi_uz_zahtev>
-        <zig:primerak_znaka>
+        <Za_klasu>10000</Za_klasu>
+        <Ukupan_iznos_takse>74000</Ukupan_iznos_takse>
+    </Placene_takse>
+    <Prilozi_uz_zahtev>
+        <Primerak_znaka>
             <!--Optional:-->
-            <zig:putanja_do_fajla>izgled_znaka.png</zig:putanja_do_fajla>
+            <Putanja_do_fajla>izgled_znaka.png</Putanja_do_fajla>
             <!--Optional:-->
-            <zig:dostavljeno>true</zig:dostavljeno>
-        </zig:primerak_znaka>
-        <zig:spisak_robe_i_usluga>
+            <Dostavljeno>true</Dostavljeno>
+        </Primerak_znaka>
+        <Spisak_robe_i_usluga>
             <!--Optional:-->
-            <zig:putanja_do_fajla>spisak_robe.pdf</zig:putanja_do_fajla>
+            <Putanja_do_fajla>spisak_robe.pdf</Putanja_do_fajla>
             <!--Optional:-->
-            <zig:dostavljeno>true</zig:dostavljeno>
-        </zig:spisak_robe_i_usluga>
+            <Dostavljeno>true</Dostavljeno>
+        </Spisak_robe_i_usluga>
         <!--You have a CHOICE of the next 3 items at this level-->
-        <zig:punomocje>
+        <Punomocje>
             <!--Optional:-->
-            <zig:putanja_do_fajla>podataka_o_punomocju.pdf</zig:putanja_do_fajla>
+            <Putanja_do_fajla>podataka_o_punomocju.pdf</Putanja_do_fajla>
             <!--Optional:-->
-            <zig:dostavljeno>true</zig:dostavljeno>
-        </zig:punomocje>
-        <zig:opsti_akt_o_kolektivnom_zigu_garancije>
+            <Dostavljeno>true</Dostavljeno>
+        </Punomocje>
+        <Opsti_akt_o_kolektivnom_zigu_garancije>
             <!--Optional:-->
-            <zig:putanja_do_fajla>opsti_akt.pdf</zig:putanja_do_fajla>
+            <Putanja_do_fajla>opsti_akt.pdf</Putanja_do_fajla>
             <!--Optional:-->
-            <zig:dostavljeno>true</zig:dostavljeno>
-        </zig:opsti_akt_o_kolektivnom_zigu_garancije>
-        <zig:dokaz_o_pravu_prvenstva>
+            <Dostavljeno>true</Dostavljeno>
+        </Opsti_akt_o_kolektivnom_zigu_garancije>
+        <Dokaz_o_pravu_prvenstva>
             <!--Optional:-->
-            <zig:putanja_do_fajla/>
+            <Putanja_do_fajla/>
             <!--Optional:-->
-            <zig:dostavljeno>false</zig:dostavljeno>
-        </zig:dokaz_o_pravu_prvenstva>
-        <zig:dokaz_o_uplati_takse>
+            <Dostavljeno>false</Dostavljeno>
+        </Dokaz_o_pravu_prvenstva>
+        <Dokaz_o_uplati_takse>
             <!--Optional:-->
-            <zig:putanja_do_fajla>dokaz_o_uplati.pdf</zig:putanja_do_fajla>
+            <Putanja_do_fajla>dokaz_o_uplati.pdf</Putanja_do_fajla>
             <!--Optional:-->
-            <zig:dostavljeno>true</zig:dostavljeno>
-        </zig:dokaz_o_uplati_takse>
-    </zig:prilozi_uz_zahtev>
-</zig:Zahtev_za_priznanje_ziga>
+            <Dostavljeno>true</Dostavljeno>
+        </Dokaz_o_uplati_takse>
+    </Prilozi_uz_zahtev>
+</Zahtev_za_priznanje_ziga>

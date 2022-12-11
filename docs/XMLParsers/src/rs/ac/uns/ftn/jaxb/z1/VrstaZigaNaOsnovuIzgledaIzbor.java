@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for vrsta_ziga_na_osnovu_izgleda_izbor.
- * 
+ * <p>Java class for Vrsta_ziga_na_osnovu_izgleda_izbor.
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="vrsta_ziga_na_osnovu_izgleda_izbor">
+ * &lt;simpleType name="Vrsta_ziga_na_osnovu_izgleda_izbor">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="verbalni zig"/>
  *     &lt;enumeration value="graficki"/>
@@ -21,9 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
  */
-@XmlType(name = "vrsta_ziga_na_osnovu_izgleda_izbor", namespace = "http://ftn.uns.ac.rs/zig")
+@XmlType(name = "Vrsta_ziga_na_osnovu_izgleda_izbor", namespace = "http://ftn.uns.ac.rs/zig")
 @XmlEnum
 public enum VrstaZigaNaOsnovuIzgledaIzbor {
 
@@ -46,12 +45,16 @@ public enum VrstaZigaNaOsnovuIzgledaIzbor {
     }
 
     public static VrstaZigaNaOsnovuIzgledaIzbor fromValue(String v) {
-        for (VrstaZigaNaOsnovuIzgledaIzbor c: VrstaZigaNaOsnovuIzgledaIzbor.values()) {
+        for (VrstaZigaNaOsnovuIzgledaIzbor c : VrstaZigaNaOsnovuIzgledaIzbor.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
         throw new IllegalArgumentException(v);
+    }
+
+    public String toString() {
+        return value;
     }
 
 }

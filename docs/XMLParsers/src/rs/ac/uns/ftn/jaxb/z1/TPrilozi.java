@@ -17,23 +17,21 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="primerak_znaka" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
- *         &lt;element name="spisak_robe_i_usluga" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Primerak_znaka" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Spisak_robe_i_usluga" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
  *         &lt;choice>
- *           &lt;element name="punomocje" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
- *           &lt;element name="punomocje_ranije_prilozeno" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
- *           &lt;element name="punomocje_naknadno_dostavljeno" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *           &lt;element name="Punomocje" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *           &lt;element name="Punomocje_ranije_prilozeno" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *           &lt;element name="Punomocje_naknadno_dostavljeno" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
  *         &lt;/choice>
- *         &lt;element name="opsti_akt_o_kolektivnom_zigu_garancije" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
- *         &lt;element name="dokaz_o_pravu_prvenstva" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
- *         &lt;element name="dokaz_o_uplati_takse" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Opsti_akt_o_kolektivnom_zigu_garancije" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Dokaz_o_pravu_prvenstva" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Dokaz_o_uplati_takse" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TPrilozi", namespace = "http://ftn.uns.ac.rs/zig", propOrder = {
@@ -48,30 +46,28 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class TPrilozi {
 
-    @XmlElement(name = "primerak_znaka", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    @XmlElement(name = "Primerak_znaka", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     protected TDopuna primerakZnaka;
-    @XmlElement(name = "spisak_robe_i_usluga", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    @XmlElement(name = "Spisak_robe_i_usluga", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     protected TDopuna spisakRobeIUsluga;
-    @XmlElement(namespace = "http://ftn.uns.ac.rs/zig")
+    @XmlElement(name = "Punomocje", namespace = "http://ftn.uns.ac.rs/zig")
     protected TDopuna punomocje;
-    @XmlElement(name = "punomocje_ranije_prilozeno", namespace = "http://ftn.uns.ac.rs/zig")
+    @XmlElement(name = "Punomocje_ranije_prilozeno", namespace = "http://ftn.uns.ac.rs/zig")
     protected TDopuna punomocjeRanijePrilozeno;
-    @XmlElement(name = "punomocje_naknadno_dostavljeno", namespace = "http://ftn.uns.ac.rs/zig")
+    @XmlElement(name = "Punomocje_naknadno_dostavljeno", namespace = "http://ftn.uns.ac.rs/zig")
     protected TDopuna punomocjeNaknadnoDostavljeno;
-    @XmlElement(name = "opsti_akt_o_kolektivnom_zigu_garancije", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    @XmlElement(name = "Opsti_akt_o_kolektivnom_zigu_garancije", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     protected TDopuna opstiAktOKolektivnomZiguGarancije;
-    @XmlElement(name = "dokaz_o_pravu_prvenstva", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    @XmlElement(name = "Dokaz_o_pravu_prvenstva", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     protected TDopuna dokazOPravuPrvenstva;
-    @XmlElement(name = "dokaz_o_uplati_takse", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    @XmlElement(name = "Dokaz_o_uplati_takse", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     protected TDopuna dokazOUplatiTakse;
 
     /**
      * Gets the value of the primerakZnaka property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getPrimerakZnaka() {
         return primerakZnaka;
@@ -80,10 +76,8 @@ public class TPrilozi {
     /**
      * Sets the value of the primerakZnaka property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setPrimerakZnaka(TDopuna value) {
         this.primerakZnaka = value;
@@ -92,10 +86,8 @@ public class TPrilozi {
     /**
      * Gets the value of the spisakRobeIUsluga property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getSpisakRobeIUsluga() {
         return spisakRobeIUsluga;
@@ -104,10 +96,8 @@ public class TPrilozi {
     /**
      * Sets the value of the spisakRobeIUsluga property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setSpisakRobeIUsluga(TDopuna value) {
         this.spisakRobeIUsluga = value;
@@ -116,10 +106,8 @@ public class TPrilozi {
     /**
      * Gets the value of the punomocje property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getPunomocje() {
         return punomocje;
@@ -128,10 +116,8 @@ public class TPrilozi {
     /**
      * Sets the value of the punomocje property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setPunomocje(TDopuna value) {
         this.punomocje = value;
@@ -140,10 +126,8 @@ public class TPrilozi {
     /**
      * Gets the value of the punomocjeRanijePrilozeno property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getPunomocjeRanijePrilozeno() {
         return punomocjeRanijePrilozeno;
@@ -152,10 +136,8 @@ public class TPrilozi {
     /**
      * Sets the value of the punomocjeRanijePrilozeno property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setPunomocjeRanijePrilozeno(TDopuna value) {
         this.punomocjeRanijePrilozeno = value;
@@ -164,10 +146,8 @@ public class TPrilozi {
     /**
      * Gets the value of the punomocjeNaknadnoDostavljeno property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getPunomocjeNaknadnoDostavljeno() {
         return punomocjeNaknadnoDostavljeno;
@@ -176,10 +156,8 @@ public class TPrilozi {
     /**
      * Sets the value of the punomocjeNaknadnoDostavljeno property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setPunomocjeNaknadnoDostavljeno(TDopuna value) {
         this.punomocjeNaknadnoDostavljeno = value;
@@ -188,10 +166,8 @@ public class TPrilozi {
     /**
      * Gets the value of the opstiAktOKolektivnomZiguGarancije property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getOpstiAktOKolektivnomZiguGarancije() {
         return opstiAktOKolektivnomZiguGarancije;
@@ -200,10 +176,8 @@ public class TPrilozi {
     /**
      * Sets the value of the opstiAktOKolektivnomZiguGarancije property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setOpstiAktOKolektivnomZiguGarancije(TDopuna value) {
         this.opstiAktOKolektivnomZiguGarancije = value;
@@ -212,10 +186,8 @@ public class TPrilozi {
     /**
      * Gets the value of the dokazOPravuPrvenstva property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getDokazOPravuPrvenstva() {
         return dokazOPravuPrvenstva;
@@ -224,10 +196,8 @@ public class TPrilozi {
     /**
      * Sets the value of the dokazOPravuPrvenstva property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setDokazOPravuPrvenstva(TDopuna value) {
         this.dokazOPravuPrvenstva = value;
@@ -236,10 +206,8 @@ public class TPrilozi {
     /**
      * Gets the value of the dokazOUplatiTakse property.
      *
-     * @return
-     *     possible object is
-     *     {@link TDopuna }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
     public TDopuna getDokazOUplatiTakse() {
         return dokazOUplatiTakse;
@@ -248,10 +216,8 @@ public class TPrilozi {
     /**
      * Sets the value of the dokazOUplatiTakse property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link TDopuna }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
     public void setDokazOUplatiTakse(TDopuna value) {
         this.dokazOUplatiTakse = value;
@@ -266,17 +232,17 @@ public class TPrilozi {
         buffer.append("\n\t\t - Spisak robe i usluga: ");
         buffer.append(spisakRobeIUsluga.toString());
 
-        if(punomocje != null){
+        if (punomocje != null) {
             buffer.append("\n\t\t - Punomocje: ");
             buffer.append(punomocje.toString());
         }
 
-        if(punomocjeRanijePrilozeno != null){
+        if (punomocjeRanijePrilozeno != null) {
             buffer.append("\n\t\t - Punomocje koje je ranije prilozeno: ");
             buffer.append(punomocjeRanijePrilozeno.toString());
         }
 
-        if(punomocjeNaknadnoDostavljeno != null){
+        if (punomocjeNaknadnoDostavljeno != null) {
             buffer.append("\n\t\t - Punomocje naknadno dostavljeno: ");
             buffer.append(punomocjeNaknadnoDostavljeno.toString());
         }

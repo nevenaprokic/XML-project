@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for TPravno_lice complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="TPravno_lice">
  *   &lt;complexContent>
@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TPravno_lice", namespace = "http://www.ftn.uns.ac.rs/zaj", propOrder = {
@@ -39,11 +39,11 @@ public class TPravnoLice
 
     /**
      * Gets the value of the naziv property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getNaziv() {
         return naziv;
@@ -51,19 +51,25 @@ public class TPravnoLice
 
     /**
      * Sets the value of the naziv property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setNaziv(String value) {
         this.naziv = value;
     }
 
-    @Override
+
     public String toString() {
-        return "naziv: " + naziv + '\n' + "\t\t" +
-                super.toString();
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("\n\t\t - Naziv: ");
+        buffer.append(naziv);
+
+        buffer.append(super.toString());
+
+        return buffer.toString();
     }
 }

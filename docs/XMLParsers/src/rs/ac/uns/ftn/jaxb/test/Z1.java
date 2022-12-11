@@ -1,9 +1,5 @@
 package rs.ac.uns.ftn.jaxb.test;
 
-import rs.ac.uns.ftn.jaxb.example4.Address;
-import rs.ac.uns.ftn.jaxb.example4.AddressBook;
-import rs.ac.uns.ftn.jaxb.example4.Person;
-import rs.ac.uns.ftn.jaxb.util.MyDatatypeConverter;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 
 import javax.xml.bind.JAXBContext;
@@ -29,12 +25,15 @@ public class Z1 {
             System.out.println("[INFO] Unmarshalled content:");
             System.out.println(zahtev);
 
-            zahtev.setBrojPrijaveZiga("aaaa");
+            zahtev.setBrojPrijaveZiga("Ž-682/22");
 
-            // Ispis sadržaja objekta
-            System.out.println("[INFO] Unmarshalled content:");
-            System.out.println(zahtev);
+            // Upis u fajl sadrzaja sa izmenama
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            File file = new File("./data/zahtev_za_prijavu_ziga_novi.xml");
+            marshaller.marshal(zahtev, file);
 
+            System.out.println("[INFO] File created");
 
 
         } catch (JAXBException e) {
@@ -44,7 +43,7 @@ public class Z1 {
         }
     }
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         Z1 test = new Z1();
         test.test();
     }

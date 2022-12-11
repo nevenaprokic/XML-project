@@ -1,15 +1,9 @@
 package rs.ac.uns.ftn.jaxb.test;
 
-import rs.ac.uns.ftn.jaxb.example4.Address;
-import rs.ac.uns.ftn.jaxb.example4.AddressBook;
-import rs.ac.uns.ftn.jaxb.example4.Person;
-import rs.ac.uns.ftn.jaxb.util.MyDatatypeConverter;
-import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
