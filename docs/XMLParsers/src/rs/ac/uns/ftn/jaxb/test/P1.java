@@ -31,10 +31,12 @@ public class P1 {
             System.out.println("[INFO] Unmarshalled content:");
             System.out.println(zahtev);
 
-            zahtev.setBrojPrijave("aaaaa");
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            File file = new File( "./data/zahtev_za_prznanje_patenta2.xml" );
+            marshaller.marshal( zahtev, file );
 
-            System.out.println("[INFO] Unmarshalled content:");
-            System.out.println(zahtev);
+            System.out.println("[INFO] File created");
 
 
         } catch (JAXBException e) {
