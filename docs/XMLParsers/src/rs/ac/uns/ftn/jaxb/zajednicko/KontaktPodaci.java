@@ -55,11 +55,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/zaj")
 public class KontaktPodaci {
 
-    @XmlElement(name = "Telefon", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
+    @XmlElement(name = "Telefon", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected String telefon;
-    @XmlElement(name = "Faks", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
+    @XmlElement(name = "Faks", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected String faks;
-    @XmlElement(name = "Email", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
+    @XmlElement(name = "Email", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected String email;
 
     /**

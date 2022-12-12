@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
@@ -25,6 +26,15 @@ public class A1 {
             // Ispis sadržaja objekta
             System.out.println("[INFO] Unmarshalled content:");
             System.out.println(zahtev);
+            
+            zahtev.setBrojPrijave("A-101");
+            // Upis u fajl sadrzaja sa izmenama
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            File file = new File("./data/zahtev_za_autorsko_delo1.xml");
+            marshaller.marshal(zahtev, file);
+
+            System.out.println("[INFO] File created");
 
         } catch (JAXBException e) {
             e.printStackTrace();

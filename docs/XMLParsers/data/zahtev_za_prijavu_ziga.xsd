@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://ftn.uns.ac.rs/zig" xmlns:zaj="http://www.ftn.uns.ac.rs/zaj"
+    targetNamespace="http://ftn.uns.ac.rs/zig" 
+    xmlns:zaj="http://www.ftn.uns.ac.rs/zaj"
     xmlns:zig="http://ftn.uns.ac.rs/zig">
     <xs:import namespace="http://www.ftn.uns.ac.rs/zaj" schemaLocation="Zajednicki_elementi.xsd"/>
     <xs:element name="Zahtev_za_priznanje_ziga">

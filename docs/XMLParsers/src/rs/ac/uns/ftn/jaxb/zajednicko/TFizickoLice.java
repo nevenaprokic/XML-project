@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TFizicko_lice", namespace = "http://www.ftn.uns.ac.rs/zaj", propOrder = {
     "ime",
-    "prezime"
+    "prezime",
+    "drzavljanstvo"
 })
 public class TFizickoLice
     extends TLice
@@ -40,6 +41,8 @@ public class TFizickoLice
     protected String ime;
     @XmlElement(name = "Prezime", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String prezime;
+    @XmlElement(name = "Drzavljanstvo", namespace = "http://www.ftn.uns.ac.rs/zaj")
+    protected String drzavljanstvo;
 
     /**
      * Gets the value of the ime property.
@@ -97,6 +100,12 @@ public class TFizickoLice
 
         buffer.append("\n\t\t - Prezime: ");
         buffer.append(prezime);
+        
+        if(drzavljanstvo!=null) {
+        	buffer.append("\n\t\t - Drzavljanstvo: ");
+            buffer.append(drzavljanstvo);
+        }
+        
 
         buffer.append(super.toString());
 

@@ -7,6 +7,7 @@ public class MainTest {
         p1_test.test();
         Z1 z1_test = new Z1();
         z1_test.test();
-
+        A1 a1_test = new A1();
+        a1_test.test();
     }
 }

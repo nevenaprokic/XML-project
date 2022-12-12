@@ -47,17 +47,17 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj")
 public class Adresa {
 
-    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
+    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected String drzava;
     @XmlElement(name = "Grad", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String grad;
     @XmlElement(name = "Ulica", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String ulica;
-    @XmlElement(name = "Broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
+    @XmlElement(name = "Broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true, nillable = true)
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger broj;
     @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/zaj")
-    protected int postanskiBroj;
+    protected Integer postanskiBroj;
 
     /**
      * Gets the value of the drzava property.
@@ -175,14 +175,22 @@ public class Adresa {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append(ulica);
-        buffer.append(" ");
-        buffer.append(broj);
+        if(broj!=null) {
+        	buffer.append(" ");
+        	buffer.append(broj);
+        }
         buffer.append(", ");
         buffer.append(grad);
-        buffer.append(", ");
-        buffer.append(postanskiBroj);
-        buffer.append(", ");
-        buffer.append(drzava);
+        
+        if(postanskiBroj!=null) {
+        	buffer.append(", ");
+        	buffer.append(postanskiBroj);
+        }
+        if(drzava!=null && drzava!="") {
+        	buffer.append(", ");
+        	buffer.append(drzava);
+        }
+        
 
         return buffer.toString();
     }
