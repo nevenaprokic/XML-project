@@ -1,38 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Zahtev_za_autorsko_delo xmlns="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo A1.xsd" naslov="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА">
+<Zahtev_za_autorsko_delo xmlns="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="www.ftn.uns.ac.rs/ZahtevZaAutorskoDelo A1.xsd" 
+
+    naslov="ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА"
+    broj_prijave='A-100'
+    datum_podnosenja="2022-12-08">
+
     <Zavod>
+        <Naziv>ЗАВОД ЗА ИНТЕЛЕКТУАЛНУ СВОЈИНУ</Naziv>
         <Adresa>
             <Mesto>Београд</Mesto>
             <Ulica>Кнегиње Љубице</Ulica>
             <Broj>5</Broj>
         </Adresa>
-        <Naziv></Naziv>
     </Zavod>
 
     <Podnosilac>
-        <Pravno_lice>
-            <Adresa>
-                <Mesto></Mesto>
-                <Ulica></Ulica>
-                <Broj></Broj>
-            </Adresa>
-            <Naziv></Naziv>
-        </Pravno_lice>
-        <Autor>
-            <Ime></Ime>
-            <Prezime></Prezime>
-            <Adresa/>
-            <Drzavljanstvo></Drzavljanstvo>
-        </Autor>
+        <!-- <Email>pera.peric@gmail.com</Email>  -->
+        <Telefon>0606611759</Telefon>
+        
+        <Podaci_o_podnosiocu>
+            <Punomocnik>
+                <Ime>Pera</Ime>
+                <Prezime>Petrovic</Prezime>
+                <Adresa>
+                    <Mesto>Novi Sad</Mesto>
+                    <Ulica>Urosa Predica</Ulica>
+                    <Broj>7</Broj>
+                </Adresa>
+                <Drzavljanstvo>Srpsko</Drzavljanstvo>
+            </Punomocnik>
+        </Podaci_o_podnosiocu>
+
     </Podnosilac>
 
-    <Autorsko_delo>
+    <Autorsko_delo vrsta="racunarski program" forma_zapisa="ostalo" prerada="true">
+        
         <Identifikator>
-            <Naslov></Naslov>
+            <Naslov>XML</Naslov>
+            <Alternativni_naslov>A1</Alternativni_naslov>
         </Identifikator>
+        
         <Autori>
+            <Autor primarni="true">
+                <Ime>Katarina</Ime>
+                <Prezime>Komad</Prezime>
+                <Adresa>
+                    <Mesto>Novi Sad</Mesto>
+                    <Ulica>Maksima Gorkog</Ulica>
+                    <Broj>46a</Broj>
+                </Adresa>
+                <Drzavljanstvo>Srpsko</Drzavljanstvo>
+            </Autor>
+
             <Autor anonimni="true">
                 <Ime></Ime>
                 <Prezime></Prezime>
@@ -42,8 +62,28 @@
                     <Broj></Broj>
                 </Adresa>
                 <Drzavljanstvo></Drzavljanstvo>
+                
+                <Pseudonim>Anonimus</Pseudonim>
+                <Godina_smrti>2010</Godina_smrti>
             </Autor>
         </Autori>
+        
+        <Podaci_o_originalu>
+            <Identifikator>
+                <Naslov>XML-01</Naslov>
+            </Identifikator>
+            <Autori></Autori>
+        </Podaci_o_originalu>
+        
+        <!-- <Radni_odnos> Delo stvoreno u radnom odnosu sa FTN-om u Novom Sadu</Radni_odnos> -->
+        <Nacin_koriscenja>Delo ce biti korisceno u naucne svrhe</Nacin_koriscenja>
+        
     </Autorsko_delo>
+    
+    
+    <Prilozi>
+        <Prisutan_opis>true</Prisutan_opis>
+        <Prisutan_primer>false</Prisutan_primer>
+    </Prilozi>
 
 </Zahtev_za_autorsko_delo>
