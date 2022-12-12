@@ -17,271 +17,244 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="primerak_znaka" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="spisak_robe_i_usluga" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="punomocje" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="punomocje_ranije_prilozeno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="punomocje_naknadno_dostavljeno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="opsti_akt_o_kolektivnom_zigu_garancije" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="dokaz_o_pravu_prvenstva" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="dokaz_o_uplati_takse" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="Primerak_znaka" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Spisak_robe_i_usluga" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;choice>
+ *           &lt;element name="Punomocje" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *           &lt;element name="Punomocje_ranije_prilozeno" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *           &lt;element name="Punomocje_naknadno_dostavljeno" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;/choice>
+ *         &lt;element name="Opsti_akt_o_kolektivnom_zigu_garancije" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Dokaz_o_pravu_prvenstva" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
+ *         &lt;element name="Dokaz_o_uplati_takse" type="{http://ftn.uns.ac.rs/zig}TDopuna"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPrilozi", namespace = "http://ftn.uns.ac.rs/z1", propOrder = {
-    "primerakZnaka",
-    "spisakRobeIUsluga",
-    "punomocje",
-    "punomocjeRanijePrilozeno",
-    "punomocjeNaknadnoDostavljeno",
-    "opstiAktOKolektivnomZiguGarancije",
-    "dokazOPravuPrvenstva",
-    "dokazOUplatiTakse"
+@XmlType(name = "TPrilozi", namespace = "http://ftn.uns.ac.rs/zig", propOrder = {
+        "primerakZnaka",
+        "spisakRobeIUsluga",
+        "punomocje",
+        "punomocjeRanijePrilozeno",
+        "punomocjeNaknadnoDostavljeno",
+        "opstiAktOKolektivnomZiguGarancije",
+        "dokazOPravuPrvenstva",
+        "dokazOUplatiTakse"
 })
 public class TPrilozi {
 
-    @XmlElement(name = "primerak_znaka", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String primerakZnaka;
-    @XmlElement(name = "spisak_robe_i_usluga", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String spisakRobeIUsluga;
-    @XmlElement(namespace = "http://ftn.uns.ac.rs/z1")
-    protected String punomocje;
-    @XmlElement(name = "punomocje_ranije_prilozeno", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String punomocjeRanijePrilozeno;
-    @XmlElement(name = "punomocje_naknadno_dostavljeno", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String punomocjeNaknadnoDostavljeno;
-    @XmlElement(name = "opsti_akt_o_kolektivnom_zigu_garancije", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String opstiAktOKolektivnomZiguGarancije;
-    @XmlElement(name = "dokaz_o_pravu_prvenstva", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String dokazOPravuPrvenstva;
-    @XmlElement(name = "dokaz_o_uplati_takse", namespace = "http://ftn.uns.ac.rs/z1")
-    protected String dokazOUplatiTakse;
+    @XmlElement(name = "Primerak_znaka", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TDopuna primerakZnaka;
+    @XmlElement(name = "Spisak_robe_i_usluga", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TDopuna spisakRobeIUsluga;
+    @XmlElement(name = "Punomocje", namespace = "http://ftn.uns.ac.rs/zig")
+    protected TDopuna punomocje;
+    @XmlElement(name = "Punomocje_ranije_prilozeno", namespace = "http://ftn.uns.ac.rs/zig")
+    protected TDopuna punomocjeRanijePrilozeno;
+    @XmlElement(name = "Punomocje_naknadno_dostavljeno", namespace = "http://ftn.uns.ac.rs/zig")
+    protected TDopuna punomocjeNaknadnoDostavljeno;
+    @XmlElement(name = "Opsti_akt_o_kolektivnom_zigu_garancije", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TDopuna opstiAktOKolektivnomZiguGarancije;
+    @XmlElement(name = "Dokaz_o_pravu_prvenstva", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TDopuna dokazOPravuPrvenstva;
+    @XmlElement(name = "Dokaz_o_uplati_takse", namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    protected TDopuna dokazOUplatiTakse;
 
     /**
      * Gets the value of the primerakZnaka property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getPrimerakZnaka() {
+    public TDopuna getPrimerakZnaka() {
         return primerakZnaka;
     }
 
     /**
      * Sets the value of the primerakZnaka property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setPrimerakZnaka(String value) {
+    public void setPrimerakZnaka(TDopuna value) {
         this.primerakZnaka = value;
     }
 
     /**
      * Gets the value of the spisakRobeIUsluga property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getSpisakRobeIUsluga() {
+    public TDopuna getSpisakRobeIUsluga() {
         return spisakRobeIUsluga;
     }
 
     /**
      * Sets the value of the spisakRobeIUsluga property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setSpisakRobeIUsluga(String value) {
+    public void setSpisakRobeIUsluga(TDopuna value) {
         this.spisakRobeIUsluga = value;
     }
 
     /**
      * Gets the value of the punomocje property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getPunomocje() {
+    public TDopuna getPunomocje() {
         return punomocje;
     }
 
     /**
      * Sets the value of the punomocje property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setPunomocje(String value) {
+    public void setPunomocje(TDopuna value) {
         this.punomocje = value;
     }
 
     /**
      * Gets the value of the punomocjeRanijePrilozeno property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getPunomocjeRanijePrilozeno() {
+    public TDopuna getPunomocjeRanijePrilozeno() {
         return punomocjeRanijePrilozeno;
     }
 
     /**
      * Sets the value of the punomocjeRanijePrilozeno property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setPunomocjeRanijePrilozeno(String value) {
+    public void setPunomocjeRanijePrilozeno(TDopuna value) {
         this.punomocjeRanijePrilozeno = value;
     }
 
     /**
      * Gets the value of the punomocjeNaknadnoDostavljeno property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getPunomocjeNaknadnoDostavljeno() {
+    public TDopuna getPunomocjeNaknadnoDostavljeno() {
         return punomocjeNaknadnoDostavljeno;
     }
 
     /**
      * Sets the value of the punomocjeNaknadnoDostavljeno property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setPunomocjeNaknadnoDostavljeno(String value) {
+    public void setPunomocjeNaknadnoDostavljeno(TDopuna value) {
         this.punomocjeNaknadnoDostavljeno = value;
     }
 
     /**
      * Gets the value of the opstiAktOKolektivnomZiguGarancije property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getOpstiAktOKolektivnomZiguGarancije() {
+    public TDopuna getOpstiAktOKolektivnomZiguGarancije() {
         return opstiAktOKolektivnomZiguGarancije;
     }
 
     /**
      * Sets the value of the opstiAktOKolektivnomZiguGarancije property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setOpstiAktOKolektivnomZiguGarancije(String value) {
+    public void setOpstiAktOKolektivnomZiguGarancije(TDopuna value) {
         this.opstiAktOKolektivnomZiguGarancije = value;
     }
 
     /**
      * Gets the value of the dokazOPravuPrvenstva property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getDokazOPravuPrvenstva() {
+    public TDopuna getDokazOPravuPrvenstva() {
         return dokazOPravuPrvenstva;
     }
 
     /**
      * Sets the value of the dokazOPravuPrvenstva property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setDokazOPravuPrvenstva(String value) {
+    public void setDokazOPravuPrvenstva(TDopuna value) {
         this.dokazOPravuPrvenstva = value;
     }
 
     /**
      * Gets the value of the dokazOUplatiTakse property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link TDopuna }
      */
-    public String getDokazOUplatiTakse() {
+    public TDopuna getDokazOUplatiTakse() {
         return dokazOUplatiTakse;
     }
 
     /**
      * Sets the value of the dokazOUplatiTakse property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link TDopuna }
      */
-    public void setDokazOUplatiTakse(String value) {
+    public void setDokazOUplatiTakse(TDopuna value) {
         this.dokazOUplatiTakse = value;
     }
-
 
     public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t - Primerak znaka: ");
-        buffer.append(primerakZnaka);
+        buffer.append(primerakZnaka.toString());
 
         buffer.append("\n\t\t - Spisak robe i usluga: ");
-        buffer.append(spisakRobeIUsluga);
+        buffer.append(spisakRobeIUsluga.toString());
 
-        buffer.append("\n\t\t - Punomocje: ");
-        buffer.append(punomocje);
+        if (punomocje != null) {
+            buffer.append("\n\t\t - Punomocje: ");
+            buffer.append(punomocje.toString());
+        }
 
-        buffer.append("\n\t\t - Punomocje koje je ranije prilozeno: ");
-        buffer.append(punomocjeRanijePrilozeno);
+        if (punomocjeRanijePrilozeno != null) {
+            buffer.append("\n\t\t - Punomocje koje je ranije prilozeno: ");
+            buffer.append(punomocjeRanijePrilozeno.toString());
+        }
 
-        buffer.append("\n\t\t - Punomocje naknadno dostavljeno: ");
-        buffer.append(punomocjeNaknadnoDostavljeno);
+        if (punomocjeNaknadnoDostavljeno != null) {
+            buffer.append("\n\t\t - Punomocje naknadno dostavljeno: ");
+            buffer.append(punomocjeNaknadnoDostavljeno.toString());
+        }
 
         buffer.append("\n\t\t - Opsti akt o kolektivnom zigu generacije: ");
-        buffer.append(opstiAktOKolektivnomZiguGarancije);
+        buffer.append(opstiAktOKolektivnomZiguGarancije.toString());
 
         buffer.append("\n\t\t - Dokaz o pravu privenstva: ");
-        buffer.append(dokazOPravuPrvenstva);
+        buffer.append(dokazOPravuPrvenstva.toString());
 
         buffer.append("\n\t\t - Dokaz o uplati takse: ");
-        buffer.append(dokazOUplatiTakse);
+        buffer.append(dokazOUplatiTakse.toString());
 
         return buffer.toString();
     }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Zahtev_za_priznanje_ziga xmlns="http://ftn.uns.ac.rs/zig" xmlns:ns2="http://www.ftn.uns.ac.rs/zaj" broj_prijave_ziga="Ž-682/22" datum_podnosenja_prijave="2008-09-29">
+    <Podnosioc_prijave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:TFizicko_lice">
+        <ns2:Adresa>
+            <ns2:Drzava>Republika srbija</ns2:Drzava>
+            <ns2:Grad>Novi Sad</ns2:Grad>
+            <ns2:Ulica>Radnicka</ns2:Ulica>
+            <ns2:Broj>20</ns2:Broj>
+            <ns2:Postanski_broj>21000</ns2:Postanski_broj>
+        </ns2:Adresa>
+        <ns2:Kontakt_podaci>
+            <ns2:Telefon>065/222-3332</ns2:Telefon>
+            <ns2:Faks>125/7517672</ns2:Faks>
+            <ns2:Email>pera@gmail.com</ns2:Email>
+        </ns2:Kontakt_podaci>
+        <ns2:Ime>Pera</ns2:Ime>
+        <ns2:Prezime>Petrovic</ns2:Prezime>
+    </Podnosioc_prijave>
+    <Punomocnik xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:TFizicko_lice">
+        <ns2:Adresa>
+            <ns2:Drzava>Republika Srbija</ns2:Drzava>
+            <ns2:Grad>Novi Sad</ns2:Grad>
+            <ns2:Ulica>Novosadskog sajma</ns2:Ulica>
+            <ns2:Broj>201</ns2:Broj>
+            <ns2:Postanski_broj>21000</ns2:Postanski_broj>
+        </ns2:Adresa>
+        <ns2:Kontakt_podaci>
+            <ns2:Telefon>062/678-6372</ns2:Telefon>
+            <ns2:Faks>716/281275</ns2:Faks>
+            <ns2:Email>marko@gmail.com</ns2:Email>
+        </ns2:Kontakt_podaci>
+        <ns2:Ime>Marko</ns2:Ime>
+        <ns2:Prezime>Peric</ns2:Prezime>
+    </Punomocnik>
+    <Zajednicki_predstavnik>
+        <ns2:Kontakt_podaci>
+            <ns2:Telefon>062/222-3322</ns2:Telefon>
+            <ns2:Faks>231/2767593</ns2:Faks>
+            <ns2:Email>pera@gmail.com</ns2:Email>
+        </ns2:Kontakt_podaci>
+    </Zajednicki_predstavnik>
+    <Zig>
+        <Vrsta_ziga_na_osnovu_korisnika>individualni zig</Vrsta_ziga_na_osnovu_korisnika>
+        <Vrsta_ziga_na_osnovu_izgleda>graficki</Vrsta_ziga_na_osnovu_izgleda>
+        <Izgled_znaka>izgled_znaka.png</Izgled_znaka>
+        <Podaci_o_boji_znaka>braon i plava</Podaci_o_boji_znaka>
+        <Transliteracija_znaka></Transliteracija_znaka>
+        <Prevod_znaka></Prevod_znaka>
+        <Opis_znaka>Neki opis znaka</Opis_znaka>
+        <Podaci_o_brojevima_klasa_robe_i_usluga>4 5</Podaci_o_brojevima_klasa_robe_i_usluga>
+    </Zig>
+    <Pravo_prvenstva_i_osnov>Ima neko pravo prvenstva</Pravo_prvenstva_i_osnov>
+    <Placene_takse>
+        <Osnovna_taksa>40000</Osnovna_taksa>
+        <Graficko_resenje>24000</Graficko_resenje>
+        <Za_klasu>10000</Za_klasu>
+        <Ukupan_iznos_takse>74000</Ukupan_iznos_takse>
+    </Placene_takse>
+    <Prilozi_uz_zahtev>
+        <Primerak_znaka>
+            <Putanja_do_fajla>izgled_znaka.png</Putanja_do_fajla>
+            <Dostavljeno>true</Dostavljeno>
+        </Primerak_znaka>
+        <Spisak_robe_i_usluga>
+            <Putanja_do_fajla>spisak_robe.pdf</Putanja_do_fajla>
+            <Dostavljeno>true</Dostavljeno>
+        </Spisak_robe_i_usluga>
+        <Punomocje>
+            <Putanja_do_fajla>podataka_o_punomocju.pdf</Putanja_do_fajla>
+            <Dostavljeno>true</Dostavljeno>
+        </Punomocje>
+        <Opsti_akt_o_kolektivnom_zigu_garancije>
+            <Putanja_do_fajla>opsti_akt.pdf</Putanja_do_fajla>
+            <Dostavljeno>true</Dostavljeno>
+        </Opsti_akt_o_kolektivnom_zigu_garancije>
+        <Dokaz_o_pravu_prvenstva>
+            <Putanja_do_fajla></Putanja_do_fajla>
+            <Dostavljeno>false</Dostavljeno>
+        </Dokaz_o_pravu_prvenstva>
+        <Dokaz_o_uplati_takse>
+            <Putanja_do_fajla>dokaz_o_uplati.pdf</Putanja_do_fajla>
+            <Dostavljeno>true</Dostavljeno>
+        </Dokaz_o_uplati_takse>
+    </Prilozi_uz_zahtev>
+</Zahtev_za_priznanje_ziga>

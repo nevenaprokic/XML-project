@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/p1"  xmlns:p1="http://www.ftn.uns.ac.rs/p1">
+    
+    <xs:element name="Zahtev_za_priznanje_patenta">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Primalac_zahteva" type="p1:TPrimalac_zahteva"/>
+                <xs:element ref="p1:Pronalazak"/>
+                <xs:element name="Podnosilac_prijave" type="p1:TPodnosilac_prijave"/>
+                <xs:element name="Pronalazac" type="p1:TPronalazac"/>
+                <xs:element name="Punomocnik" type="p1:TPunomocnik"/>
+                <xs:element ref="p1:Podaci_o_dostavljanju"/>
+                <xs:element name="Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava"
+                    type="p1:TZahtev_za_priznanje_prava_prvenstva_iz_ranijih_prijava"/>
+            </xs:sequence>
+            <xs:attribute name="broj_prijave" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[P][0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="datum_prijema_prijave" type="xs:date" use="required"/>
+            <xs:attribute name="priznati_datum_podnosenja" type="xs:date" use="required"/>
+            <xs:attribute name="tip_prijave" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="dopunska"/>
+                        <xs:enumeration value="izdvojena"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Adresa">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Drzava" type="xs:string"/>
+                <xs:element name="Grad" type="xs:string"/>
+                <xs:element name="Ulica" type="xs:string"/>
+                <xs:element name="Broj" type="xs:positiveInteger"/>
+                <xs:element name="Postanski_broj">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:positiveInteger">
+                            <xs:totalDigits value="5"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Kontakt_podaci">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Telefon">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:pattern value="[0][6][0-9]{7,8}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Faks">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[0-9]{3,4}/[0-9]{5,7}"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Email">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Pronalazak">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Naziv_na_srpskom">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Naziv_na_engleskom">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Podaci_o_dostavljanju">
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="p1:Adresa"/>
+                <xs:element name="Nacin_dostavljanja">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="elektronski"/>
+                            <xs:enumeration value="papirna_forma"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Ranija_prijava">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Datum_podnosenja" type="xs:date"/>
+                <xs:element name="Broj_prijave">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[P][0-9]+"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Dvoslovna_oznaka_drzave">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:length value="2"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType abstract="true" name="TLice">
+        <xs:sequence>
+            <xs:element ref="p1:Adresa"/>
+            <xs:element ref="p1:Kontakt_podaci"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPravno_lice">
+        <xs:complexContent>
+            <xs:extension base="p1:TLice">
+                <xs:sequence maxOccurs="1" minOccurs="1">
+                    <xs:element maxOccurs="1" minOccurs="1" name="Naziv"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TFizicko_lice">
+        <xs:complexContent>
+            <xs:extension base="p1:TLice">
+                <xs:sequence maxOccurs="1" minOccurs="1">
+                    <xs:element name="Ime" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                    <xs:element name="Prezime" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                    <xs:element name="Drzavljanstvo" maxOccurs="1" minOccurs="1" type="xs:string">
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TPrimalac_zahteva">
+        <xs:all>
+            <xs:element ref="p1:Adresa"/>
+            <xs:element fixed="Zavod za intelektualnu svojinu" name="Naziv" maxOccurs="1"
+                minOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+    <xs:complexType name="TPronalazac">
+        <xs:complexContent>
+            <xs:extension base="p1:TFizicko_lice">
+                <xs:attribute name="anoniman" type="xs:boolean" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TPunomocnik">
+        <xs:choice>
+            <xs:element name="Fizicko_lice" type="p1:TFizicko_lice"/>
+            <xs:element name="Pravno_lice" type="p1:TPravno_lice"/>
+        </xs:choice>
+        <xs:attribute name="za_prijem_pismena" type="xs:boolean" use="required"/>
+        <xs:attribute name="za_zastupanje" type="xs:boolean" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="TZahtev_za_priznanje_prava_prvenstva_iz_ranijih_prijava">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="p1:Ranija_prijava"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPodnosilac_prijave">
+        <xs:choice>
+            <xs:element name="Fizicko_lice" type="p1:TFizicko_lice"/>
+            <xs:element name="Pravno_lice" type="p1:TPravno_lice"/>
+        </xs:choice>
+        <xs:attribute name="pronalazac" type="xs:boolean" use="required"/>
+    </xs:complexType>
+</xs:schema>
