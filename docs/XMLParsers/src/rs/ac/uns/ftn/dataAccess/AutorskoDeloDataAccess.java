@@ -15,21 +15,31 @@ import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
+import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 
-public class AutorskaPravaDataAccess {
+public class AutorskoDeloDataAccess {
 	
 	private JAXBContext context;
 	private final String collectionId = "db/project/autorkaDela";
-	private final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
+	private static final String CONTEXT = "rs.ac.uns.ftn.jaxb.a1";
 	
-	public AutorskaPravaDataAccess() {
+	public AutorskoDeloDataAccess() {
 		setContext();
+		setupDB();
 	}
 
 	private void setContext() {
 		try {
-			context = JAXBContext.newInstance("rs.ac.uns.ftn.jaxb.a1");
+			context = JAXBContext.newInstance(CONTEXT);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	private void setupDB() {
+		try {
+			ConnectionUtilities.setup();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +79,6 @@ public class AutorskaPravaDataAccess {
 		Collection col = null;
 		XMLResource res = null;
 		try {
-			ConnectionUtilities.setup();
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
 			
@@ -92,7 +101,6 @@ public class AutorskaPravaDataAccess {
 		Collection col = null;
 		XMLResource res = null;
 		try {
-			ConnectionUtilities.setup();
 			col = ConnectionUtilities.getCollection(collectionId);
 			res = ConnectionUtilities.getResource(col, documentId);
 			
@@ -112,13 +120,11 @@ public class AutorskaPravaDataAccess {
 		}
 	}
 	
-	
-	public ResourceSet getByXQuery(String xQueryExpression) {
+	public ResourceSet getByXPath(String xPathExpression) {
 		Collection col = null;
 		try {
-			ConnectionUtilities.setup();
 			col = ConnectionUtilities.getCollection(collectionId);
-			return ConnectionUtilities.getResourceSetByXQuery(col, TARGET_NAMESPACE, xQueryExpression);
+			return DBManipulationUtilities.getResourceSetByXPath(col, TARGET_NAMESPACE, xPathExpression);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,4 +133,32 @@ public class AutorskaPravaDataAccess {
 			ConnectionUtilities.cleanup(col);
 		}
 	}
+	
+	public void updateDocument(String documentId, String contextXPath, String xmlFragment) {
+		Collection col = null;
+		try {
+			col = ConnectionUtilities.getCollection(collectionId);
+			DBManipulationUtilities.update(col, documentId, TARGET_NAMESPACE, contextXPath, xmlFragment);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtilities.cleanup(col);
+		}
+	}
+	
+	public ResourceSet getByXQuery(String xQueryExpression) {
+		Collection col = null;
+		try {
+			col = ConnectionUtilities.getCollection(collectionId);
+			return DBManipulationUtilities.getResourceSetByXQuery(col, TARGET_NAMESPACE, xQueryExpression);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			ConnectionUtilities.cleanup(col);
+		}
+	}
+	
 }
