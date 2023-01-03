@@ -20,7 +20,8 @@ public class P1 {
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             // Učitavanje XML-a u objektni model
-            ZahtevZaPriznanjePatenta zahtev = (ZahtevZaPriznanjePatenta) unmarshaller.unmarshal(new File("./data/Zahtev_za_priznanje_patenta.xml"));
+            ZahtevZaPriznanjePatenta zahtev = (ZahtevZaPriznanjePatenta) unmarshaller.unmarshal(
+                    new File("./data/Zahtev_za_priznanje_patenta.xml"));
 
             // Ispis sadržaja objekta
             System.out.println("[INFO] Unmarshalled content:");

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63407e99-fa45-45c5-ad9d-3aaf78656d1e" name="Changes" comment="" />
+    <list default="true" id="63407e99-fa45-45c5-ad9d-3aaf78656d1e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/XMLParsers/data/Zahtev_za_priznanje_patenta.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/docs/XMLParsers/data/Zahtev_za_priznanje_patenta.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/XMLParsers/src/rs/ac/uns/ftn/dataAccess/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/docs/XMLParsers/src/rs/ac/uns/ftn/dataAccess/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/XMLParsers/src/rs/ac/uns/ftn/jaxb/test/P1.java" beforeDir="false" afterPath="$PROJECT_DIR$/docs/XMLParsers/src/rs/ac/uns/ftn/jaxb/test/P1.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,13 +23,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/fakultet/7. semestar/XML/Projekat/XML-project/docs/XMLParsers"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -35,6 +41,7 @@
       <updated>1670491613938</updated>
       <workItem from="1670491618021" duration="559000" />
       <workItem from="1670527723350" duration="10000" />
+      <workItem from="1672761150189" duration="1362000" />
     </task>
     <servers />
   </component>

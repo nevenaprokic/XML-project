@@ -1,0 +1,23 @@
+
+b
+java:S1192"GDefine a constant instead of duplicating this literal "A1.xml" 3 times.(ûÓ¡§úÿÿÿÿ
+P
+java:S11411"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Å…ãÈ
+W
+java:S22592"AA "NullPointerException" could be thrown; "res" is nullable here.(œìÝÆ
+X	java:S125"<This block of commented-out lines of code should be removed.(¾øéº8‚º–Ä×0
+V	java:S125"<This block of commented-out lines of code should be removed.(ÀÇÑËÿÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(«žÒõúÿÿÿÿ
+W
+java:S1075$"ARefactor your code to get this URI from a customizable parameter.(ÉÊÐ
+N	java:S106/"9Replace this use of System.out or System.err by a logger.(¯Ô·›
+Q	java:S125="<This block of commented-out lines of code should be removed.(Æàìâ
+H
+java:S1135]"2Complete the task associated to this TODO comment.(ÉÚõÎ
+E
+java:S1144"/Remove this unused private "testUpdate" method.(÷Ý–ü
+Q
+java:S1144"6Remove this unused private "testGetZahtevById" method.(†¡óœÿÿÿÿÿ
+D
+java:S1144#".Remove this unused private "testXPath" method.(Ž¤šÜ
