@@ -7,14 +7,15 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@RequestMapping(value = "/autorsko-delo", produces = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping("/autorsko-delo")
 public class AutorskoDeloController {
 	
 	@Autowired
 	private AutorskoDeloService autorskoDeloService;
 	
-	@RequestMapping("/save-new")
+	@PostMapping("/save-new")
 	public void saveNewFile() {
+		System.out.println("AAAAA");
 		autorskoDeloService.saveNewFile();
 	}
 
