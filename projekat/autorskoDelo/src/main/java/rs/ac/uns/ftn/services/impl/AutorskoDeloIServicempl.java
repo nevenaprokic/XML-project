@@ -11,7 +11,7 @@ public class AutorskoDeloIServicempl implements AutorskoDeloService{
 	public void saveNewFile() {
 		AutorskoDeloDataAccess da = new AutorskoDeloDataAccess();
 		Test test = new Test();
-		//test.testSaveFile(da);
+		test.testSaveFile(da);
 	}
 
 }

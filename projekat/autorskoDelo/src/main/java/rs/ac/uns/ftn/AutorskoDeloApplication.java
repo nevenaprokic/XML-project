@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.autorskoDelo;
+package rs.ac.uns.ftn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
