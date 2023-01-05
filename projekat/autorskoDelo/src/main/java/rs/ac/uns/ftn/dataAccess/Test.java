@@ -7,18 +7,22 @@ import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.services.metadata.utils.AutorskoDeloMapper;
 
 public class Test {
 
 	public static void main(String[] args) {
 		AutorskoDeloDataAccess da = new AutorskoDeloDataAccess();
 		
-		testSaveFile(da);
+//		testSaveFile(da);
 //		testGetZahtevById(da); 
 //		testXPath(da);
 //		testUpdate(da);
 
 //		testXQuery(da);
+		ZahtevZaAutorskoDelo deloA1 = da.getZahtevById("A1.xml");
+		ZahtevZaAutorskoDelo deloA2 = AutorskoDeloMapper.mapFromDTO(deloA1, "A1.xml");
+		da.saveFile("A2.xml", deloA2);
 	}
 	
 	private static void testUpdate(AutorskoDeloDataAccess da) {

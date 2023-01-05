@@ -96,6 +96,23 @@ public class AutorskoDeloDataAccess {
 			ConnectionUtilities.cleanup(col , res);
 		}
 	}
+	public void saveFile(String resourceId, ZahtevZaAutorskoDelo delo) {
+		Collection col = null;
+		XMLResource res = null;
+		try {
+			col = ConnectionUtilities.initCollection(collectionId);
+			res = ConnectionUtilities.initResource(col, resourceId);
+
+			OutputStream os = marshallZahtevZaAutroskoDelo(delo);
+			
+			ConnectionUtilities.linkResourceToCollection(col, res, os);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtilities.cleanup(col , res);
+		}
+	}
 	
 	public ZahtevZaAutorskoDelo getZahtevById(String documentId) {
 		Collection col = null;

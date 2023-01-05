@@ -8,14 +8,19 @@
 
 package rs.ac.uns.ftn.jaxb.a1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -65,6 +70,8 @@ public class ZahtevZaAutorskoDelo {
     @XmlAttribute(name = "datum_podnosenja")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar datumPodnosenja;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the zavod property.
@@ -238,7 +245,13 @@ public class ZahtevZaAutorskoDelo {
         this.datumPodnosenja = value;
     }
     
-    @Override
+    
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+
+	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
         buffer.append("- Zahtev za autorsko delo: ");

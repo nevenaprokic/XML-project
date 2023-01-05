@@ -114,6 +114,10 @@ public class TOsnovniPodaciODelu {
     public TAutori getAutori() {
         return autori;
     }
+    
+    public void setAutori(TAutori autori) {
+        this.autori = autori;
+    }
 
 
     /**
