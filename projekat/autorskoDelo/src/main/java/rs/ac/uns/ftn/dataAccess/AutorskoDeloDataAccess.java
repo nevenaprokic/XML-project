@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.ResourceSet;
@@ -18,6 +19,7 @@ import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 
+@Component
 public class AutorskoDeloDataAccess {
 	
 	private JAXBContext context;
@@ -97,6 +99,28 @@ public class AutorskoDeloDataAccess {
 		}
 	}
 	
+	public void saveFile(String resourceId, ZahtevZaAutorskoDelo delo) {
+		Collection col = null;
+		XMLResource res = null;
+		try {
+			col = ConnectionUtilities.initCollection(collectionId);
+			res = ConnectionUtilities.initResource(col, resourceId);
+			
+			//ZahtevZaAutorskoDelo delo = unmarshalZahtevZaAutorskoDeloFromFile(filePath);
+			
+			// do something to delo;
+			
+			OutputStream os = marshallZahtevZaAutroskoDelo(delo);
+			
+			ConnectionUtilities.linkResourceToCollection(col, res, os);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtilities.cleanup(col , res);
+		}
+	}
+	
 	public ZahtevZaAutorskoDelo getZahtevById(String documentId) {
 		Collection col = null;
 		XMLResource res = null;
@@ -156,6 +180,20 @@ public class AutorskoDeloDataAccess {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			ConnectionUtilities.cleanup(col);
+		}
+	}
+	
+	public int getLenghtOfCollection() {
+		Collection col = null;
+		try {
+			col = ConnectionUtilities.getCollection(collectionId);
+			return col.getResourceCount();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		} finally {
 			ConnectionUtilities.cleanup(col);
 		}

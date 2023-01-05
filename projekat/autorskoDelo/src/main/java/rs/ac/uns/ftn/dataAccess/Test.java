@@ -14,7 +14,7 @@ public class Test {
 		AutorskoDeloDataAccess da = new AutorskoDeloDataAccess();
 		
 		testSaveFile(da);
-//		testGetZahtevById(da); 
+		testGetZahtevById(da); 
 //		testXPath(da);
 //		testUpdate(da);
 

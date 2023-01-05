@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * <p>Java class for anonymous complex type.
@@ -47,7 +49,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj")
 public class Adresa {
 
-    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj")
+    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj", required = false, defaultValue = "")
     protected String drzava;
     @XmlElement(name = "Grad", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String grad;
@@ -56,7 +58,7 @@ public class Adresa {
     @XmlElement(name = "Broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true, nillable = true)
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger broj;
-    @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/zaj")
+    @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = false)
     protected Integer postanskiBroj;
 
     /**
@@ -79,6 +81,7 @@ public class Adresa {
      *     {@link String }
      *
      */
+    @JsonIgnore
     public void setDrzava(String value) {
         this.drzava = value;
     }
@@ -159,6 +162,7 @@ public class Adresa {
      * Gets the value of the postanskiBroj property.
      *
      */
+    @JsonIgnore
     public int getPostanskiBroj() {
         return postanskiBroj;
     }
