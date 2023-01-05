@@ -14,7 +14,7 @@ public class Test {
 		AutorskoDeloDataAccess da = new AutorskoDeloDataAccess();
 		
 		testSaveFile(da);
-//		testGetZahtevById(da); 
+		testGetZahtevById(da); 
 //		testXPath(da);
 //		testUpdate(da);
 
@@ -29,7 +29,7 @@ public class Test {
 		System.out.println(delo);
 	}
 	
-	private static void testSaveFile(AutorskoDeloDataAccess da) {
+	public static void testSaveFile(AutorskoDeloDataAccess da) {
 		da.saveFile("A1.xml", "data/A1.xml");
 	}
 	private static void testXPath(AutorskoDeloDataAccess da) {
