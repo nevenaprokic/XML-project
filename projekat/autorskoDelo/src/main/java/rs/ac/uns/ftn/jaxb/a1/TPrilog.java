@@ -8,10 +8,15 @@
 
 package rs.ac.uns.ftn.jaxb.a1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -44,6 +49,8 @@ public class TPrilog {
     protected boolean prisutanOpis;
     @XmlElement(name = "Prisutan_primer")
     protected boolean prisutanPrimer;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the prisutanOpis property.
@@ -77,8 +84,11 @@ public class TPrilog {
         this.prisutanPrimer = value;
     }
 
-    
-    @Override
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
 		String opis = prisutanOpis ? "DA" : "NE";
 		String primer = prisutanPrimer ? "DA" : "NE";

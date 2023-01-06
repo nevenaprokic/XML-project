@@ -1,0 +1,7 @@
+PREFIX xs:     <http://www.w3.org/2001/XMLSchema#>
+PREFIX pred:   <http://examples/predicate/>
+
+SELECT * FROM <http://localhost:8080/fuseki/AutorskoDelo/data/project/metadata/autorskoDelo>
+WHERE { 
+	?zahtevZaAutorskoDelo <pred:datum_podnosenja> ?datum_podnosenja . 	
+}

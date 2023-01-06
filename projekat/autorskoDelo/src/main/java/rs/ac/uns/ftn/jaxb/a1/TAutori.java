@@ -9,11 +9,16 @@
 package rs.ac.uns.ftn.jaxb.a1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -43,7 +48,8 @@ public class TAutori {
 
     @XmlElement(name = "Autor", required = true)
     protected List<TAutor> autor;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the autor property.
      * 
@@ -74,7 +80,12 @@ public class TAutori {
     }
 
     
-    @Override
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+
+	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		int i = 0;

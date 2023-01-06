@@ -9,14 +9,19 @@
 package rs.ac.uns.ftn.jaxb.a1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -64,7 +69,8 @@ public class TOsnovniPodaciODelu {
     protected TOsnovniPodaciODelu.Identifikator identifikator;
     @XmlElement(name = "Autori")
     protected TAutori autori;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the identifikator property.
      * 
@@ -119,8 +125,15 @@ public class TOsnovniPodaciODelu {
         this.autori = autori;
     }
 
+    
 
-    /**
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+
+
+	/**
      * <p>Java class for anonymous complex type.
      * 
      * <p>The following schema fragment specifies the expected content contained within this class.
@@ -150,7 +163,8 @@ public class TOsnovniPodaciODelu {
         protected String naslov;
         @XmlElement(name = "Alternativni_naslov", namespace = "http://ftn.uns.ac.rs/a1", required = false)
         protected String alternativniNaslov;
-
+        @XmlAnyAttribute
+        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
         /**
          * Gets the value of the naslov property.
          * 
@@ -198,6 +212,11 @@ public class TOsnovniPodaciODelu {
         public void setAlternativniNaslov(String value) {
             this.alternativniNaslov = value;
         }
+        
+
+		public Map<QName, String> getOtherAttributes() {
+			return otherAttributes;
+		}
 
 		@Override
 		public String toString() {

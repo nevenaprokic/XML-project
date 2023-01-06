@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.services.metadata.utils;
+package rs.ac.uns.ftn.mapper;
 
 import java.math.BigInteger;
 
@@ -8,8 +8,10 @@ import rs.ac.uns.ftn.jaxb.a1.ObjectFactory;
 import rs.ac.uns.ftn.jaxb.a1.TAutor;
 import rs.ac.uns.ftn.jaxb.a1.TAutori;
 import rs.ac.uns.ftn.jaxb.a1.TAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.a1.TOsnovniPodaciODelu;
 import rs.ac.uns.ftn.jaxb.a1.TOsnovniPodaciODelu.Identifikator;
 import rs.ac.uns.ftn.jaxb.a1.TPodnosilac;
+import rs.ac.uns.ftn.jaxb.a1.TPrilog;
 import rs.ac.uns.ftn.jaxb.a1.TZavod;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.zajednicko.Adresa;
@@ -33,44 +35,63 @@ public class AutorskoDeloMapper {
 		
 		zahtev.setAutorskoDelo(getAutorskoDeloFromDTO(zahtevDTO.getAutorskoDelo()));
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
-		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
 		zahtev.setNaslov(NASLOV_ZAHTEVA);
 		zahtev.setPodnosilac(getPodnosilacFromDTO(zahtevDTO.getPodnosilac()));	// TODO: ispraviti
-		zahtev.setPrilozi(null);	// TODO: ISPRAVITI
+		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi()));	
 		zahtev.setZavod(createZavod());
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), "http://examples/predicate/");
-		zahtev.getOtherAttributes().put(new QName("property"), "pred:datumPodnosenja");
+		zahtev.getOtherAttributes().put(new QName("about"), "http://examples/predicate/");
+		zahtev.getOtherAttributes().put(new QName("property"), "pred:datum_podnosenja");
 		zahtev.getOtherAttributes().put(new QName("datatype"), "xs:dateTime");
 		zahtev.getOtherAttributes().put(new QName("content"), zahtevDTO.getDatumPodnosenja().toString());
-		
+		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
+
 		return zahtev;
 	}
 
 
-	private static TAutorskoDelo getAutorskoDeloFromDTO(TAutorskoDelo tAutorskoDelo) {
-		TAutorskoDelo autorskoDelo = objectFactory.createTAutorskoDelo();
-		TAutori autori = objectFactory.createTAutori();
-		autorskoDelo.setFormaZapisa(tAutorskoDelo.getFormaZapisa());
-		autorskoDelo.setIdentifikator(getIdentifikatorDela(tAutorskoDelo.getIdentifikator()));
-		autorskoDelo.setNacinKoriscenja(tAutorskoDelo.getNacinKoriscenja());
-		autorskoDelo.setPodaciOOriginalu(null);
-		autorskoDelo.setPrerada(tAutorskoDelo.isPrerada());
-		autorskoDelo.setRadniOdnos(tAutorskoDelo.getRadniOdnos());
-		autorskoDelo.setVrsta(tAutorskoDelo.getVrsta());
-		
-		if(tAutorskoDelo.getAutori()!= null) {
-			for (TAutor autor : tAutorskoDelo.getAutori().getAutor()) {
-				autori.getAutor().add(getAutorFromDTO(autor));
-			}
-		}
-		autorskoDelo.setAutori(autori);
+	private static TPrilog getPriloziFromDTO(TPrilog priloziDto) {
+		TPrilog prilog = objectFactory.createTPrilog();
+		prilog.setPrisutanOpis(priloziDto.isPrisutanOpis());
+		prilog.setPrisutanPrimer(priloziDto.isPrisutanPrimer());
+		return null;
+	}
 
+
+	private static TAutorskoDelo getAutorskoDeloFromDTO(TAutorskoDelo autorskoDeloDto) {
+		TAutorskoDelo autorskoDelo = objectFactory.createTAutorskoDelo();
+		
+		autorskoDelo.setFormaZapisa(autorskoDeloDto.getFormaZapisa());
+		autorskoDelo.setIdentifikator(getIdentifikatorDelaFromDTO(autorskoDeloDto.getIdentifikator()));
+		autorskoDelo.setNacinKoriscenja(autorskoDeloDto.getNacinKoriscenja());
+		autorskoDelo.setPodaciOOriginalu(getPodaciOOriginaluFromDTO(autorskoDeloDto.getPodaciOOriginalu()));
+		autorskoDelo.setPrerada(autorskoDeloDto.isPrerada());
+		autorskoDelo.setRadniOdnos(autorskoDeloDto.getRadniOdnos());
+		autorskoDelo.setVrsta(autorskoDeloDto.getVrsta());
+		autorskoDelo.setAutori(getAutoriFromDTO(autorskoDeloDto.getAutori()));
 			
 		return autorskoDelo;		
 	}
 	
-	private static Identifikator getIdentifikatorDela(Identifikator identifikatorDto) {
+	private static TOsnovniPodaciODelu getPodaciOOriginaluFromDTO(TOsnovniPodaciODelu originalDto) {
+		TOsnovniPodaciODelu original = objectFactory.createTOsnovniPodaciODelu();
+		original.setAutori(getAutoriFromDTO(originalDto.getAutori()));
+		original.setIdentifikator(getIdentifikatorDelaFromDTO(originalDto.getIdentifikator()));
+		return original;
+	}
+	
+	private static TAutori getAutoriFromDTO(TAutori autoriDto) {
+		TAutori autori = objectFactory.createTAutori();
+		if(autoriDto!= null) {
+			for (TAutor autor : autoriDto.getAutor()) {
+				autori.getAutor().add(getAutorFromDTO(autor));
+			}
+		}
+		return autori;
+	}
+
+	private static Identifikator getIdentifikatorDelaFromDTO(Identifikator identifikatorDto) {
 		Identifikator identifikator = objectFactory.createTOsnovniPodaciODeluIdentifikator();
 		identifikator.setNaslov(identifikatorDto.getNaslov());
 		identifikator.setAlternativniNaslov(identifikatorDto.getAlternativniNaslov());
@@ -101,7 +122,15 @@ public class AutorskoDeloMapper {
 
 	private static TAutor getAutorFromDTO(TAutor autorDto) {
 		TAutor autor = objectFactory.createTAutor();
-		autor.setAdresa(null);
+		autor.setAdresa(getAdresaFromDTO(autorDto.getAdresa()));
+		autor.setAnonimni(autorDto.isAnonimni());
+		autor.setGodinaSmrti(autorDto.getGodinaSmrti());
+		autor.setIme(autorDto.getIme());
+		autor.setPrezime(autorDto.getPrezime());
+		autor.setKontaktPodaci(getKontaktPodaciFromDTO(autorDto.getKontaktPodaci()));
+		autor.setPrimarni(autorDto.isPrimarni());
+		autor.setPseudonim(autorDto.getPseudonim());
+		autor.setDrzavljanstvo(autorDto.getDrzavljanstvo());
 		return autor;
 	}
 
@@ -109,7 +138,7 @@ public class AutorskoDeloMapper {
 	private static TPravnoLice getPravnoLiceFromDTO(TPravnoLice pravnoLiceDto) {
 		TPravnoLice pravnoLice = objectFactoryZajednicki.createTPravnoLice();
 		
-		pravnoLice.setAdresa(getAdresaFromDTO(pravnoLice.getAdresa()));		
+		pravnoLice.setAdresa(getAdresaFromDTO(pravnoLiceDto.getAdresa()));		
 		pravnoLice.setKontaktPodaci(getKontaktPodaciFromDTO(pravnoLiceDto.getKontaktPodaci()));
 		pravnoLice.setNaziv(pravnoLiceDto.getNaziv());
 		
@@ -124,6 +153,7 @@ public class AutorskoDeloMapper {
 		fizickoLice.setKontaktPodaci(getKontaktPodaciFromDTO(punomocnikDto.getKontaktPodaci()));
 		fizickoLice.setIme(punomocnikDto.getIme());
 		fizickoLice.setPrezime(punomocnikDto.getPrezime());
+		fizickoLice.setDrzavljanstvo(punomocnikDto.getDrzavljanstvo());
 		
 		return fizickoLice;
 	}

@@ -1,10 +1,15 @@
 
 package rs.ac.uns.ftn.jaxb.zajednicko;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -36,7 +41,8 @@ public class TPravnoLice
 
     @XmlElement(name = "Naziv", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String naziv;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the naziv property.
      *
@@ -60,9 +66,14 @@ public class TPravnoLice
     public void setNaziv(String value) {
         this.naziv = value;
     }
+    
 
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t - Naziv: ");

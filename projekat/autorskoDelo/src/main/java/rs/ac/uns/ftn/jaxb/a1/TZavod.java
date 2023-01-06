@@ -8,10 +8,16 @@
 
 package rs.ac.uns.ftn.jaxb.a1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
+
 import rs.ac.uns.ftn.jaxb.zajednicko.Adresa;
 
 
@@ -45,7 +51,8 @@ public class TZavod {
     protected Adresa adresa;
     @XmlElement(name = "Naziv", required = true)
     protected String naziv;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the adresa property.
      * 
@@ -94,7 +101,12 @@ public class TZavod {
         this.naziv = value;
     }
     
-    @Override
+    
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("\n\t\t");

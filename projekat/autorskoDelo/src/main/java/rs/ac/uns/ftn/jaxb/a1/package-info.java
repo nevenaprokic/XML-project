@@ -5,5 +5,9 @@
 // Generated on: 2022.12.12 at 08:31:28 PM CET 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://ftn.uns.ac.rs/a1", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://ftn.uns.ac.rs/a1", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED,
+	xmlns = {@XmlNs(prefix = "pred", namespaceURI = "http://examples/predicate/"),
+			 @XmlNs(prefix = "xs", namespaceURI = "http://www.w3.org/2001/XMLSchema#")})
 package rs.ac.uns.ftn.jaxb.a1;
+
+import javax.xml.bind.annotation.XmlNs;

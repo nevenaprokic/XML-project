@@ -1,13 +1,22 @@
 package rs.ac.uns.ftn.dataAccess;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
+
 import org.exist.xmldb.EXistResource;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.Resource;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
-import rs.ac.uns.ftn.services.metadata.utils.AutorskoDeloMapper;
+import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
+import rs.ac.uns.ftn.mapper.JaxbMapper;
+import rs.ac.uns.ftn.services.impl.MetadataServiceImpl;
 
 public class Test {
 
@@ -20,9 +29,35 @@ public class Test {
 //		testUpdate(da);
 
 //		testXQuery(da);
-		ZahtevZaAutorskoDelo deloA1 = da.getZahtevById("A1.xml");
-		ZahtevZaAutorskoDelo deloA2 = AutorskoDeloMapper.mapFromDTO(deloA1, "A1.xml");
-		da.saveFile("A2.xml", deloA2);
+//		ZahtevZaAutorskoDelo deloA1 = da.getZahtevById("A1.xml");
+//		ZahtevZaAutorskoDelo deloA2 = AutorskoDeloMapper.mapFromDTO(deloA1, "A1.xml");
+//		da.saveFile("A2.xml", deloA2);
+		
+		OutputStream os;
+		try {
+			ZahtevZaAutorskoDelo requestDTO = da.getZahtevById("A1.xml");
+			String newId = "A2.xml"; // generateId()
+			ZahtevZaAutorskoDelo deloA2 = AutorskoDeloMapper.mapFromDTO(requestDTO, newId);
+			da.saveFile(newId, deloA2);
+			os = JaxbMapper.marshallZahtevZaAutroskoDelo(deloA2);
+			MetadataServiceImpl service = new MetadataServiceImpl();
+			service.extractMetadata("/autorskoDelo", os, newId);
+			
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	private static void testUpdate(AutorskoDeloDataAccess da) {

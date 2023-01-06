@@ -59,27 +59,4 @@ public class MetadataExtractor {
 		grddlTransformer.transform(source, result);
 		
 	}
-	
-	
-	public void test() throws Exception {
-
-		System.out.println("[INFO] " + MetadataExtractor.class.getSimpleName());
-		
-		String filePath = "src/main/resources/xsl/grddl_metadata.rdf";
-		
-		InputStream in = new FileInputStream(new File("src/main/resources/data/A1.xml")); 
-
-		OutputStream out = new FileOutputStream(filePath);
-		
-		extractMetadata(in, out);
-		
-		System.out.println("[INFO] File \"" + filePath + "\" generated successfully.");
-		
-		System.out.println("[INFO] End.");
-
-	}
-
-	public static void main(String[] args) throws Exception {
-		// new MetadataExtractor().test();
-	}
 }

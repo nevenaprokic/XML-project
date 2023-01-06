@@ -8,10 +8,16 @@
 
 package rs.ac.uns.ftn.jaxb.a1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
+
 import rs.ac.uns.ftn.jaxb.zajednicko.TFizickoLice;
 import rs.ac.uns.ftn.jaxb.zajednicko.TPravnoLice;
 
@@ -51,7 +57,8 @@ public class TPodnosilac {
     protected TFizickoLice punomocnik;
     @XmlElement(name = "Pravno_lice", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected TPravnoLice pravnoLice;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the autor property.
      * 
@@ -124,7 +131,12 @@ public class TPodnosilac {
         this.pravnoLice = value;
     }
     
-    @Override
+    
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("\n\t\t");
