@@ -2,13 +2,18 @@
 package rs.ac.uns.ftn.jaxb.z1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -81,7 +86,8 @@ public class TZig {
     @XmlList
     @XmlElement(name = "Podaci_o_brojevima_klasa_robe_i_usluga", namespace = "http://ftn.uns.ac.rs/zig", type = Integer.class)
     protected List<Integer> podaciOBrojevimaKlasaRobeIUsluga;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the vrstaZigaNaOsnovuKorisnika property.
      *
@@ -249,7 +255,11 @@ public class TZig {
         return this.podaciOBrojevimaKlasaRobeIUsluga;
     }
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t - Vrsta ziga na osnovu korisnika: ");

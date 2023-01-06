@@ -1,16 +1,9 @@
 package rs.ac.uns.ftn.dataAccess;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.OutputStream;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Node;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.modules.XMLResource;
@@ -18,27 +11,23 @@ import org.xmldb.api.modules.XMLResource;
 import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
+import rs.ac.uns.ftn.mapper.JaxbMapper;
+import rs.ac.uns.ftn.services.MetadataService;
 
 @Component
 public class ZigDataAccess {
 	
-	private JAXBContext context;
+	@Autowired
+	private MetadataService metadataService;
+	
+	
 	private final String collectionId = "db/project/zigovi";
 	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/z1";
-	private static final String CONTEXT = "rs.ac.uns.ftn.jaxb.z1";
 	
 	public ZigDataAccess() {
-		setContext();
 		setupDB();
 	}
 
-	private void setContext() {
-		try {
-			context = JAXBContext.newInstance(CONTEXT);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	private void setupDB() {
 		try {
 			ConnectionUtilities.setup();
@@ -46,37 +35,7 @@ public class ZigDataAccess {
 			e.printStackTrace();
 		}
 	}
-	
-	private ZahtevZaPriznanjeZiga unmarshalZahtevZaPriznanjeZigaFromFile(String filePath) throws JAXBException{		
-		System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
-		
-		Unmarshaller unmarshaller = context.createUnmarshaller();
-		ZahtevZaPriznanjeZiga bookstore = (ZahtevZaPriznanjeZiga) unmarshaller.unmarshal(new File(filePath));		
-		
-		return bookstore;
-	}
-	
-	private ZahtevZaPriznanjeZiga unmarshalZahtevZaPriznanjeZigaFromNode(Node contentAsDOM) throws JAXBException{		
-		System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
-		
-		Unmarshaller unmarshaller = context.createUnmarshaller();
-		ZahtevZaPriznanjeZiga bookstore = (ZahtevZaPriznanjeZiga) unmarshaller.unmarshal(contentAsDOM);
-		
-		return bookstore;
-	}
-	
-	private OutputStream marshallZahtevZaPriznanjeZiga(ZahtevZaPriznanjeZiga delo) throws JAXBException {
-		OutputStream os = new ByteArrayOutputStream();
 
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		
-		marshaller.marshal(delo, os);
-		
-		return os;
-	}
-
-	
 	public void saveFile(String resourceId, String filePath) {
 		Collection col = null;
 		XMLResource res = null;
@@ -84,12 +43,12 @@ public class ZigDataAccess {
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
 			
-			ZahtevZaPriznanjeZiga delo = unmarshalZahtevZaPriznanjeZigaFromFile(filePath);
+			ZahtevZaPriznanjeZiga delo = JaxbMapper.unmarshalZahtevFromFile(filePath);
 			
 			// do something to delo;
 			
-			OutputStream os = marshallZahtevZaPriznanjeZiga(delo);
-			
+			OutputStream os = JaxbMapper.marshallZahtev(delo);
+			metadataService.extractMetadata("/zig", os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
@@ -105,13 +64,9 @@ public class ZigDataAccess {
 		try {
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
-			
-			//ZahtevZaAutorskoDelo delo = unmarshalZahtevZaAutorskoDeloFromFile(filePath);
-			
-			// do something to delo;
-			
-			OutputStream os = marshallZahtevZaPriznanjeZiga(delo);
-			
+
+			OutputStream os = JaxbMapper.marshallZahtev(delo);
+			metadataService.extractMetadata("/zig", os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
@@ -133,7 +88,7 @@ public class ZigDataAccess {
 	            return null;
 	        } else {
 	        	
-	        	return unmarshalZahtevZaPriznanjeZigaFromNode(res.getContentAsDOM());
+	        	return JaxbMapper.unmarshalZahtevFromNode(res.getContentAsDOM());
 	        }
 			
 		} catch (Exception e) {
@@ -192,7 +147,6 @@ public class ZigDataAccess {
 			return col.getResourceCount();
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0;
 		} finally {
 			ConnectionUtilities.cleanup(col);

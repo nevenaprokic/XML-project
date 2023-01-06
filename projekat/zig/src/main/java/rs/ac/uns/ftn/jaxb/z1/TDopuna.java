@@ -1,10 +1,15 @@
 
 package rs.ac.uns.ftn.jaxb.z1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -36,7 +41,8 @@ public class TDopuna {
     protected String putanjaDoFajla;
     @XmlElement(name = "Dostavljeno", namespace = "http://ftn.uns.ac.rs/zig")
     protected Boolean dostavljeno;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the putanjaDoFajla property.
      *
@@ -77,7 +83,11 @@ public class TDopuna {
         this.dostavljeno = value;
     }
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t\t - Putanja do fajla: ");

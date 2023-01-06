@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
+import rs.ac.uns.ftn.mapper.ZigMapper;
 import rs.ac.uns.ftn.repository.ZigRepository;
 import rs.ac.uns.ftn.services.ZigService;
 
@@ -14,8 +15,11 @@ public class ZigServiceImpl implements ZigService {
 	ZigRepository ZigRepository;
 
 	@Override
-	public void saveNewFile(ZahtevZaPriznanjeZiga zahtev) {
-		ZigRepository.saveZahtevZaPriznanjeZiga(zahtev, generateDocumentId());
+	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
+		String documentId = generateDocumentId();
+		System.out.println(documentId);
+		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
+		ZigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
 		
 	}
 

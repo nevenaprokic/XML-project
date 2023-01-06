@@ -3,11 +3,16 @@ package rs.ac.uns.ftn.jaxb.z1;
 
 import rs.ac.uns.ftn.jaxb.zajednicko.KontaktPodaci;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -36,6 +41,8 @@ public class ZajednickiPredstavnik {
 
     @XmlElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected KontaktPodaci kontaktPodaci;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the kontaktPodaci property.
@@ -57,7 +64,11 @@ public class ZajednickiPredstavnik {
         this.kontaktPodaci = value;
     }
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t - Kontakt: ");

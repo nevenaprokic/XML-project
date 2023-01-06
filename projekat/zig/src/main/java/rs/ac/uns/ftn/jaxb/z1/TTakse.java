@@ -2,11 +2,16 @@
 package rs.ac.uns.ftn.jaxb.z1;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -50,7 +55,8 @@ public class TTakse {
     @XmlElement(name = "Ukupan_iznos_takse", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger ukupanIznosTakse;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the osnovnaTaksa property.
      *
@@ -131,7 +137,11 @@ public class TTakse {
         this.ukupanIznosTakse = value;
     }
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t - Osnovna taksa: ");

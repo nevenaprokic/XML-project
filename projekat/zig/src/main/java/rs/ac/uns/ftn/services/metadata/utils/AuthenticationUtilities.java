@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.dataAccess.utils;
+package rs.ac.uns.ftn.services.metadata.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,31 +8,32 @@ import java.util.Properties;
  * Utilities to support and simplify examples.
  */
 public class AuthenticationUtilities {
-
 	/**
-	 * Connection parameters.
+	 * ExampleProperties represents the configuration for the examples.
 	 */
 	static public class ConnectionProperties {
 
-		public String host;
-		public int port = -1;
-		public String user;
-		public String password;
-		public String driver;
-		public String uri;
+		public String endpoint;
+		public String dataset;
+		
+		public String queryEndpoint;
+		public String updateEndpoint;
+		public String dataEndpoint;
+		
 
 		public ConnectionProperties(Properties props) {
 			super();
+			dataset = props.getProperty("conn.dataset").trim();
+			endpoint = props.getProperty("conn.endpoint").trim();
 			
-			user = props.getProperty("conn.user").trim();
-			password = props.getProperty("conn.password").trim();
-
-			host = props.getProperty("conn.host").trim();
-			port = Integer.parseInt(props.getProperty("conn.port"));
+			queryEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.query").trim());
+			updateEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.update").trim());
+			dataEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.data").trim());
 			
-			uri = props.getProperty("conn.uri").trim();
-			
-			driver = props.getProperty("conn.driver").trim();
+			System.out.println("[INFO] Parsing connection properties:");
+			System.out.println("[INFO] Query endpoint: " + queryEndpoint);
+			System.out.println("[INFO] Update endpoint: " + updateEndpoint);
+			System.out.println("[INFO] Graph store endpoint: " + dataEndpoint);
 		}
 	}
 
@@ -65,5 +66,4 @@ public class AuthenticationUtilities {
 	public static InputStream openStream(String fileName) throws IOException {
 		return AuthenticationUtilities.class.getClassLoader().getResourceAsStream(fileName);
 	}
-	
 }

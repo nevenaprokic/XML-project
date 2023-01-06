@@ -21,7 +21,7 @@ public class ZigController {
 	private ZigService zigService;
 	
 	@RequestMapping(value="/save-new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity saveNewFile(@RequestBody ZahtevZaPriznanjeZiga zahtev) {
+	public ResponseEntity<?> saveNewFile(@RequestBody ZahtevZaPriznanjeZiga zahtev) {
 		try {
 			zigService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();

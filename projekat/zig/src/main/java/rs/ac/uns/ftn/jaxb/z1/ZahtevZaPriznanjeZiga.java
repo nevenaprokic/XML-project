@@ -4,15 +4,20 @@ package rs.ac.uns.ftn.jaxb.z1;
 import rs.ac.uns.ftn.jaxb.zajednicko.TLice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -78,6 +83,8 @@ public class ZahtevZaPriznanjeZiga {
     @XmlAttribute(name = "datum_podnosenja_prijave", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar datumPodnosenjaPrijave;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the podnosiocPrijave property.
@@ -266,7 +273,11 @@ public class ZahtevZaPriznanjeZiga {
         this.datumPodnosenjaPrijave = value;
     }
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("- Zig: ");
 
