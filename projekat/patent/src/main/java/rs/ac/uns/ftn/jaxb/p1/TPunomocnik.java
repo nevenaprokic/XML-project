@@ -1,10 +1,15 @@
 
 package rs.ac.uns.ftn.jaxb.p1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 import rs.ac.uns.ftn.jaxb.zajednicko.*;
 
@@ -44,7 +49,8 @@ public class TPunomocnik {
     protected boolean zaZastupanje;
     @XmlElement(name = "za_prijem_pismena", namespace = "http://www.ftn.uns.ac.rs/p1")
     protected boolean zaPrijemPismena;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the lice property.
      * 
@@ -101,7 +107,11 @@ public class TPunomocnik {
         this.zaPrijemPismena = value;
     }
 
-    @Override
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
         String isPrijemPismena = zaPrijemPismena? "da" :" ne";
         String isZastupanje = zaZastupanje? "da" :" ne";

@@ -2,11 +2,16 @@
 package rs.ac.uns.ftn.jaxb.p1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -36,6 +41,8 @@ public class TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava {
 
     @XmlElement(name = "Ranija_prijava", namespace = "http://www.ftn.uns.ac.rs/p1")
     protected List<RanijaPrijava> ranijaPrijava;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the ranijaPrijava property.
@@ -66,7 +73,12 @@ public class TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava {
         return this.ranijaPrijava;
     }
 
-    @Override
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+
+	@Override
     public String toString() {
         if(ranijaPrijava != null){
             StringBuilder ranije_prijave_str = new StringBuilder("Ranije prijave: " + "\n\t\t");

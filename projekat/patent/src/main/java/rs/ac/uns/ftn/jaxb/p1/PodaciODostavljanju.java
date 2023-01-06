@@ -1,12 +1,16 @@
 
 package rs.ac.uns.ftn.jaxb.p1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
+import javax.xml.namespace.QName;
 
 import rs.ac.uns.ftn.jaxb.zajednicko.*;
 /**
@@ -47,7 +51,8 @@ public class PodaciODostavljanju {
     protected Adresa adresa;
     @XmlElement(name = "Nacin_dostavljanja", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected String nacinDostavljanja;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the adresa property.
      * 
@@ -96,7 +101,11 @@ public class PodaciODostavljanju {
         this.nacinDostavljanja = value;
     }
 
-    @Override
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
         return "Podaci o dostavljanju: " + "\n\t\t" +
                 "adresa: " + adresa + "\n\t\t" +

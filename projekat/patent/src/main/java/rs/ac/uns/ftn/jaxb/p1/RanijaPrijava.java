@@ -1,13 +1,18 @@
 
 package rs.ac.uns.ftn.jaxb.p1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -59,7 +64,8 @@ public class RanijaPrijava {
     protected String brojPrijave;
     @XmlElement(name = "Dvoslovna_oznaka_drzave", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected String dvoslovnaOznakaDrzave;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the datumPodnosenja property.
      * 
@@ -132,7 +138,11 @@ public class RanijaPrijava {
         this.dvoslovnaOznakaDrzave = value;
     }
 
-    @Override
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
         return "datum podnosenja prijave: " + datumPodnosenja + "\n\t\t\t" +
                 "broj prijave: " + brojPrijave + "\n\t\t\t" +

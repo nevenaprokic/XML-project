@@ -21,7 +21,7 @@ public class PatentController {
 	private PatentService patentService;
 	
 	@RequestMapping(value="/save-new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity saveNewFile(@RequestBody ZahtevZaPriznanjePatenta zahtev) {
+	public ResponseEntity<?> saveNewFile(@RequestBody ZahtevZaPriznanjePatenta zahtev) {
 		try {
 			patentService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();

@@ -1,11 +1,16 @@
 
 package rs.ac.uns.ftn.jaxb.p1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -39,7 +44,8 @@ public class Pronalazak {
     protected String nazivNaSrpskom;
     @XmlElement(name = "Naziv_na_engleskom", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected String nazivNaEngleskom;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the nazivNaSrpskom property.
      * 
@@ -88,7 +94,12 @@ public class Pronalazak {
         this.nazivNaEngleskom = value;
     }
 
-    @Override
+    
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	@Override
     public String toString() {
         return "Pronalazak: " + "\n\t\t" +
                 "naziv na srpskom: " + nazivNaSrpskom + "\n\t\t" +

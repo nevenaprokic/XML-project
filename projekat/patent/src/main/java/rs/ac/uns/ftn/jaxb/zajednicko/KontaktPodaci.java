@@ -1,11 +1,16 @@
 
 package rs.ac.uns.ftn.jaxb.zajednicko;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -61,6 +66,8 @@ public class KontaktPodaci {
     protected String faks;
     @XmlElement(name = "Email", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected String email;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the telefon property.
@@ -134,7 +141,11 @@ public class KontaktPodaci {
         this.email = value;
     }
 
-    public String toString() {
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("\n\t\t\t - Telefon: ");

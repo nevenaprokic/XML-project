@@ -8,9 +8,6 @@ import java.util.Properties;
  * Utilities to support and simplify examples.
  */
 public class AuthenticationUtilities {
-	
-	private static String connectionUri = "xmldb:exist://%1$s:%2$s/exist/xmlrpc";
-	
 	/**
 	 * Connection parameters.
 	 */
@@ -32,7 +29,7 @@ public class AuthenticationUtilities {
 			host = props.getProperty("conn.host").trim();
 			port = Integer.parseInt(props.getProperty("conn.port"));
 			
-			uri = String.format(connectionUri, host, port);
+			uri = props.getProperty("conn.uri").trim();
 			
 			driver = props.getProperty("conn.driver").trim();
 		}
@@ -44,7 +41,7 @@ public class AuthenticationUtilities {
 	 * @return the configuration object
 	 */
 	public static ConnectionProperties loadProperties() throws IOException {
-		String propsName = "exist.properties";
+		String propsName = "application.properties";
 
 		InputStream propsStream = openStream(propsName);
 		if (propsStream == null)

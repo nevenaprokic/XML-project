@@ -1,14 +1,19 @@
 
 package rs.ac.uns.ftn.jaxb.p1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -90,6 +95,8 @@ public class ZahtevZaPriznanjePatenta {
     protected XMLGregorianCalendar priznatiDatumPodnosenja;
     @XmlAttribute(name = "tip_prijave", required = true)
     protected String tipPrijave;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the primalacZahteva property.
@@ -355,8 +362,11 @@ public class ZahtevZaPriznanjePatenta {
         this.tipPrijave = value;
     }
 
+    public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return "Zahtev za priznanje patenta" + '\n' + '\t' +
                 "informacje: " + "\n\t\t" + " broj prjave: " + brojPrijave +   "\n\t\t" +
