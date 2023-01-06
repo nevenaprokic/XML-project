@@ -20,7 +20,7 @@ public class AutorskoDeloDataAccess {
 	@Autowired
 	private MetadataService metadataService;
 	
-	private final String collectionId = "db/project/autorkaDela";
+	private final String collectionId = "db/project/autorskaDela";
 	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
 	
 	public AutorskoDeloDataAccess() {
@@ -147,7 +147,6 @@ public class AutorskoDeloDataAccess {
 			return col.getResourceCount();
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0;
 		} finally {
 			ConnectionUtilities.cleanup(col);

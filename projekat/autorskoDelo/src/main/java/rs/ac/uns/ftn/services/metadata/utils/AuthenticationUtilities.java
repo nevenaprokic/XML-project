@@ -43,7 +43,7 @@ public class AuthenticationUtilities {
 	 * @return the configuration object
 	 */
 	public static ConnectionProperties loadProperties() throws IOException {
-		String propsName = "connection.properties";
+		String propsName = "application.properties";
 
 		InputStream propsStream = openStream(propsName);
 		if (propsStream == null)
