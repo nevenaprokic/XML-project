@@ -13,6 +13,7 @@ import org.apache.jena.update.UpdateRequest;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
+import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities.ConnectionProperties;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataExtractor;
@@ -24,12 +25,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 @Service
-public class MetadataServiceImpl {
+public class MetadataServiceImpl implements MetadataService{
 
 	private static final String SPARQL_NAMED_GRAPH_URI = "/project/metadata";
 	private static String GRAPH_URI = "";
 	private static ConnectionProperties conn;
 
+	@Override
 	public void extractMetadata(String graph, OutputStream xml, String documentId)
 			throws IOException, SAXException, TransformerException {
 

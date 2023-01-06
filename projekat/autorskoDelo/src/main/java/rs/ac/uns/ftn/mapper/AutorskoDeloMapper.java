@@ -41,7 +41,7 @@ public class AutorskoDeloMapper {
 		zahtev.setZavod(createZavod());
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), "http://examples/predicate/");
-		zahtev.getOtherAttributes().put(new QName("about"), "http://examples/predicate/");
+		zahtev.getOtherAttributes().put(new QName("about"),  "http://ftn.uns.ac.rs/a1/" + id);
 		zahtev.getOtherAttributes().put(new QName("property"), "pred:datum_podnosenja");
 		zahtev.getOtherAttributes().put(new QName("datatype"), "xs:dateTime");
 		zahtev.getOtherAttributes().put(new QName("content"), zahtevDTO.getDatumPodnosenja().toString());

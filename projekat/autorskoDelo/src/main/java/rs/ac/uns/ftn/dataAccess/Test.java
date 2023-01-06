@@ -32,7 +32,11 @@ public class Test {
 //		ZahtevZaAutorskoDelo deloA1 = da.getZahtevById("A1.xml");
 //		ZahtevZaAutorskoDelo deloA2 = AutorskoDeloMapper.mapFromDTO(deloA1, "A1.xml");
 //		da.saveFile("A2.xml", deloA2);
-		
+	
+//		testMetadata(da);
+	}
+	
+	private static void testMetadat(AutorskoDeloDataAccess da) {
 		OutputStream os;
 		try {
 			ZahtevZaAutorskoDelo requestDTO = da.getZahtevById("A1.xml");
@@ -43,20 +47,9 @@ public class Test {
 			MetadataServiceImpl service = new MetadataServiceImpl();
 			service.extractMetadata("/autorskoDelo", os, newId);
 			
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 	

@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.dataAccess;
 
 import java.io.OutputStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.ResourceSet;
@@ -11,9 +12,13 @@ import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
+import rs.ac.uns.ftn.services.MetadataService;
 
 @Component
 public class AutorskoDeloDataAccess {
+	
+	@Autowired
+	private MetadataService metadataService;
 	
 	private final String collectionId = "db/project/autorkaDela";
 	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
@@ -60,7 +65,7 @@ public class AutorskoDeloDataAccess {
 			res = ConnectionUtilities.initResource(col, resourceId);
 
 			OutputStream os = JaxbMapper.marshallZahtevZaAutroskoDelo(delo);
-			
+			metadataService.extractMetadata("/autorskoDelo", os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {

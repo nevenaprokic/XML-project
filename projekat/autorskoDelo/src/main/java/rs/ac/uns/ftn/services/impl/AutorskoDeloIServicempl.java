@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.services.impl;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
+import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.repository.AutorskoDeloRepository;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 
@@ -14,9 +16,10 @@ public class AutorskoDeloIServicempl implements AutorskoDeloService{
 	private AutorskoDeloRepository autorskoDeloRepository;
 	
 	@Override
-	public void saveNewFile(ZahtevZaAutorskoDelo zahtev) {
+	public void saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		String documentId = generateDocumentId();
 		System.out.println(documentId);
+		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
 		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
 	}
 
