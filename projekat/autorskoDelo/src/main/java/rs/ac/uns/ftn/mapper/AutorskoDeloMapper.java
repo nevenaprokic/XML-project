@@ -20,6 +20,9 @@ import rs.ac.uns.ftn.jaxb.zajednicko.TFizickoLice;
 import rs.ac.uns.ftn.jaxb.zajednicko.TPravnoLice;
 
 public class AutorskoDeloMapper {
+	
+	private static final String PRED_PREFIX = "http://examples/predicate/";
+	private static final String TARGET_NS_PREFIX = "http://ftn.uns.ac.rs/a1/";
 
 	private static ObjectFactory objectFactory = new ObjectFactory();
 	private static rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory objectFactoryZajednicki = new rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory();
@@ -40,8 +43,8 @@ public class AutorskoDeloMapper {
 		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi()));	
 		zahtev.setZavod(createZavod());
 		
-		zahtev.getOtherAttributes().put(new QName("vocab"), "http://examples/predicate/");
-		zahtev.getOtherAttributes().put(new QName("about"),  "http://ftn.uns.ac.rs/a1/" + id);
+		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
+		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);
 		zahtev.getOtherAttributes().put(new QName("property"), "pred:datum_podnosenja");
 		zahtev.getOtherAttributes().put(new QName("datatype"), "xs:dateTime");
 		zahtev.getOtherAttributes().put(new QName("content"), zahtevDTO.getDatumPodnosenja().toString());
