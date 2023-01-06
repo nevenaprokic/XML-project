@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
@@ -44,6 +43,16 @@ public class AutorskoDeloController {
 		
 	}
 	
+	@GetMapping("/get-pdf")
+	public ResponseEntity<String> getPDF() {
+		try {
+			autorskoDeloService.getPDF();
+			return ResponseEntity.ok("Generisan PDF");
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 
 }
