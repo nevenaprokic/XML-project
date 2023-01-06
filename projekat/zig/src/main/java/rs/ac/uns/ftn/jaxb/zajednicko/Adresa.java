@@ -2,19 +2,12 @@
 package rs.ac.uns.ftn.jaxb.zajednicko;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.namespace.QName;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -54,7 +47,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @XmlRootElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj")
 public class Adresa {
 
-    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj", required = false, defaultValue = "")
+    @XmlElement(name = "Drzava", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected String drzava;
     @XmlElement(name = "Grad", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected String grad;
@@ -63,10 +56,9 @@ public class Adresa {
     @XmlElement(name = "Broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true, nillable = true)
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger broj;
-    @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/zaj", required = false)
+    @XmlElement(name = "Postanski_broj", namespace = "http://www.ftn.uns.ac.rs/zaj")
     protected Integer postanskiBroj;
-    @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+
     /**
      * Gets the value of the drzava property.
      *
@@ -87,7 +79,6 @@ public class Adresa {
      *     {@link String }
      *
      */
-    @JsonIgnore
     public void setDrzava(String value) {
         this.drzava = value;
     }
@@ -168,7 +159,6 @@ public class Adresa {
      * Gets the value of the postanskiBroj property.
      *
      */
-    @JsonIgnore
     public int getPostanskiBroj() {
         return postanskiBroj;
     }
@@ -181,12 +171,7 @@ public class Adresa {
         this.postanskiBroj = value;
     }
 
-    
-    public Map<QName, String> getOtherAttributes() {
-		return otherAttributes;
-	}
-
-	public String toString() {
+    public String toString() {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append(ulica);

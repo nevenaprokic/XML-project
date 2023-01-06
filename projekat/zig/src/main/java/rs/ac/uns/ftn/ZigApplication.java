@@ -1,13 +1,13 @@
-package rs.ac.uns.ftn.patent;
+package rs.ac.uns.ftn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PatentApplication {
+public class ZigApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PatentApplication.class, args);
+		SpringApplication.run(ZigApplication.class, args);
 	}
 
 }

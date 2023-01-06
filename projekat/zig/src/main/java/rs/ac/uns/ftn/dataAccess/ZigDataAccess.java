@@ -1,27 +1,44 @@
 package rs.ac.uns.ftn.dataAccess;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.OutputStream;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Node;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
-import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
-import rs.ac.uns.ftn.mapper.JaxbMapper;
+import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 
 @Component
-public class AutorskoDeloDataAccess {
+public class ZigDataAccess {
 	
-	private final String collectionId = "db/project/autorkaDela";
-	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
+	private JAXBContext context;
+	private final String collectionId = "db/project/zigovi";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/z1";
+	private static final String CONTEXT = "rs.ac.uns.ftn.jaxb.z1";
 	
-	public AutorskoDeloDataAccess() {
+	public ZigDataAccess() {
+		setContext();
 		setupDB();
 	}
 
+	private void setContext() {
+		try {
+			context = JAXBContext.newInstance(CONTEXT);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	private void setupDB() {
 		try {
 			ConnectionUtilities.setup();
@@ -30,6 +47,35 @@ public class AutorskoDeloDataAccess {
 		}
 	}
 	
+	private ZahtevZaPriznanjeZiga unmarshalZahtevZaPriznanjeZigaFromFile(String filePath) throws JAXBException{		
+		System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
+		
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		ZahtevZaPriznanjeZiga bookstore = (ZahtevZaPriznanjeZiga) unmarshaller.unmarshal(new File(filePath));		
+		
+		return bookstore;
+	}
+	
+	private ZahtevZaPriznanjeZiga unmarshalZahtevZaPriznanjeZigaFromNode(Node contentAsDOM) throws JAXBException{		
+		System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
+		
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		ZahtevZaPriznanjeZiga bookstore = (ZahtevZaPriznanjeZiga) unmarshaller.unmarshal(contentAsDOM);
+		
+		return bookstore;
+	}
+	
+	private OutputStream marshallZahtevZaPriznanjeZiga(ZahtevZaPriznanjeZiga delo) throws JAXBException {
+		OutputStream os = new ByteArrayOutputStream();
+
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		
+		marshaller.marshal(delo, os);
+		
+		return os;
+	}
+
 	
 	public void saveFile(String resourceId, String filePath) {
 		Collection col = null;
@@ -38,11 +84,11 @@ public class AutorskoDeloDataAccess {
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
 			
-			ZahtevZaAutorskoDelo delo = JaxbMapper.unmarshalZahtevZaAutorskoDeloFromFile(filePath);
+			ZahtevZaPriznanjeZiga delo = unmarshalZahtevZaPriznanjeZigaFromFile(filePath);
 			
 			// do something to delo;
 			
-			OutputStream os = JaxbMapper.marshallZahtevZaAutroskoDelo(delo);
+			OutputStream os = marshallZahtevZaPriznanjeZiga(delo);
 			
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
@@ -52,14 +98,19 @@ public class AutorskoDeloDataAccess {
 			ConnectionUtilities.cleanup(col , res);
 		}
 	}
-	public void saveFile(String resourceId, ZahtevZaAutorskoDelo delo) {
+	
+	public void saveFile(String resourceId, ZahtevZaPriznanjeZiga delo) {
 		Collection col = null;
 		XMLResource res = null;
 		try {
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
-
-			OutputStream os = JaxbMapper.marshallZahtevZaAutroskoDelo(delo);
+			
+			//ZahtevZaAutorskoDelo delo = unmarshalZahtevZaAutorskoDeloFromFile(filePath);
+			
+			// do something to delo;
+			
+			OutputStream os = marshallZahtevZaPriznanjeZiga(delo);
 			
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
@@ -69,9 +120,8 @@ public class AutorskoDeloDataAccess {
 			ConnectionUtilities.cleanup(col , res);
 		}
 	}
-
 	
-	public ZahtevZaAutorskoDelo getZahtevById(String documentId) {
+	public ZahtevZaPriznanjeZiga getZahtevById(String documentId) {
 		Collection col = null;
 		XMLResource res = null;
 		try {
@@ -83,7 +133,7 @@ public class AutorskoDeloDataAccess {
 	            return null;
 	        } else {
 	        	
-	        	return JaxbMapper.unmarshalZahtevZaAutorskoDeloFromNode(res.getContentAsDOM());
+	        	return unmarshalZahtevZaPriznanjeZigaFromNode(res.getContentAsDOM());
 	        }
 			
 		} catch (Exception e) {
