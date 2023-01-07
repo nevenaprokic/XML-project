@@ -70,6 +70,8 @@ public class ZahtevZaAutorskoDelo {
     @XmlAttribute(name = "datum_podnosenja")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar datumPodnosenja;
+    @XmlAttribute(name = "status")
+    protected StatusZahteva status;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -244,9 +246,16 @@ public class ZahtevZaAutorskoDelo {
     public void setDatumPodnosenja(XMLGregorianCalendar value) {
         this.datumPodnosenja = value;
     }
-    
-    
-    public Map<QName, String> getOtherAttributes() {
+
+    public StatusZahteva getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusZahteva status) {
+		this.status = status;
+	}
+
+	public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;
 	}
 

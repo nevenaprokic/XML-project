@@ -10,15 +10,22 @@
                 <xs:element name="Zavod" type="a1:TZavod"/>
                 <xs:element name="Podnosilac" type="a1:TPodnosilac"/>
                 <xs:element name="Autorsko_delo" minOccurs="1" type="a1:TAutorsko_delo"/>
-                <xs:element name="Prilozi" form="qualified" minOccurs="0" nillable="false"
-                    type="a1:TPrilog"/>
+                <xs:element name="Prilozi" form="qualified" minOccurs="0" nillable="false" type="a1:TPrilog"/>
             </xs:all>
             <xs:attribute fixed="ZAHTEV ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA"
                 name="naslov" type="xs:string"/>
             <xs:attribute name="broj_prijave" type="xs:string"/>
             <xs:attribute name="datum_podnosenja" type="xs:date"/>
+            <xs:attribute name="status" type="a1:status_zahteva" />
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
+    <xs:simpleType name="status_zahteva">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="neobradjen"/>
+            <xs:enumeration value="obradjen"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="TAutor">
         <xs:complexContent>
             <xs:extension base="zaj:TFizicko_lice">
@@ -36,6 +43,7 @@
         <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="1" name="Autor" type="a1:TAutor"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TPodnosilac">
         <xs:choice>
@@ -43,6 +51,7 @@
             <xs:element name="Punomocnik" nillable="false" type="zaj:TFizicko_lice" minOccurs="0"/>
             <xs:element name="Pravno_lice" nillable="false" type="zaj:TPravno_lice" minOccurs="0"/>
         </xs:choice>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TAutorsko_delo">
         <xs:complexContent>
@@ -90,12 +99,15 @@
             <xs:element name="Autori" type="a1:TAutori" maxOccurs="unbounded" minOccurs="0"
                 nillable="false"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
+        
     </xs:complexType>
     <xs:complexType name="TPrilog">
         <xs:all>
             <xs:element name="Prisutan_opis" type="xs:boolean"/>
             <xs:element name="Prisutan_primer" type="xs:boolean"/>
         </xs:all>
+		<xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TZavod">
         <xs:all>
@@ -103,5 +115,6 @@
             <xs:element fixed="Zavod za intelektualnu svojinu" maxOccurs="1" minOccurs="1"
                 name="Naziv" type="xs:string"/>
         </xs:all>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
 </xs:schema>

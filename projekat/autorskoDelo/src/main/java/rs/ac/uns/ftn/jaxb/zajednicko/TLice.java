@@ -1,11 +1,16 @@
 
 package rs.ac.uns.ftn.jaxb.zajednicko;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -43,7 +48,8 @@ public abstract class TLice {
     protected Adresa adresa;
     @XmlElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected KontaktPodaci kontaktPodaci;
-
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
      * Gets the value of the adresa property.
      *
@@ -91,6 +97,11 @@ public abstract class TLice {
     public void setKontaktPodaci(KontaktPodaci value) {
         this.kontaktPodaci = value;
     }
+
+	public Map<QName, String> getOtherAttributes() {
+		return otherAttributes;
+	}
+
 
     public String toString() {
         StringBuffer buffer = new StringBuffer();

@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.xml.namespace.QName;
 
 import rs.ac.uns.ftn.jaxb.a1.ObjectFactory;
+import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.a1.TAutor;
 import rs.ac.uns.ftn.jaxb.a1.TAutori;
 import rs.ac.uns.ftn.jaxb.a1.TAutorskoDelo;
@@ -23,6 +24,7 @@ public class AutorskoDeloMapper {
 	
 	private static final String PRED_PREFIX = "http://examples/predicate/";
 	private static final String TARGET_NS_PREFIX = "http://ftn.uns.ac.rs/a1/";
+	private static final String USERS_PREFIX = "http://ftn.uns.ac.rs/user/";
 
 	private static ObjectFactory objectFactory = new ObjectFactory();
 	private static rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory objectFactoryZajednicki = new rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory();
@@ -42,23 +44,23 @@ public class AutorskoDeloMapper {
 		zahtev.setPodnosilac(getPodnosilacFromDTO(zahtevDTO.getPodnosilac()));	// TODO: ispraviti
 		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi()));	
 		zahtev.setZavod(createZavod());
-		
+		zahtev.setStatus(StatusZahteva.NEOBRADJEN);
+		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
+				
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
 		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);
+		
 		zahtev.getOtherAttributes().put(new QName("property"), "pred:datum_podnosenja");
 		zahtev.getOtherAttributes().put(new QName("datatype"), "xs:dateTime");
-		zahtev.getOtherAttributes().put(new QName("content"), zahtevDTO.getDatumPodnosenja().toString());
-		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
-
+		zahtev.getOtherAttributes().put(new QName("content"), zahtev.getDatumPodnosenja().toString());
 		return zahtev;
 	}
-
 
 	private static TPrilog getPriloziFromDTO(TPrilog priloziDto) {
 		TPrilog prilog = objectFactory.createTPrilog();
 		prilog.setPrisutanOpis(priloziDto.isPrisutanOpis());
 		prilog.setPrisutanPrimer(priloziDto.isPrisutanPrimer());
-		return null;
+		return prilog;
 	}
 
 
@@ -73,7 +75,12 @@ public class AutorskoDeloMapper {
 		autorskoDelo.setRadniOdnos(autorskoDeloDto.getRadniOdnos());
 		autorskoDelo.setVrsta(autorskoDeloDto.getVrsta());
 		autorskoDelo.setAutori(getAutoriFromDTO(autorskoDeloDto.getAutori()));
-			
+		
+		autorskoDelo.getOtherAttributes().put(new QName("id"), autorskoDelo.getIdentifikator().getNaslov());
+		autorskoDelo.getOtherAttributes().put(new QName("property"), "pred:autorsko_delo");
+		autorskoDelo.getOtherAttributes().put(new QName("datatype"), "xs:string");
+		autorskoDelo.getOtherAttributes().put(new QName("content"), autorskoDelo.getIdentifikator().getNaslov());
+
 		return autorskoDelo;		
 	}
 	
@@ -87,11 +94,25 @@ public class AutorskoDeloMapper {
 	private static TAutori getAutoriFromDTO(TAutori autoriDto) {
 		TAutori autori = objectFactory.createTAutori();
 		if(autoriDto!= null) {
-			for (TAutor autor : autoriDto.getAutor()) {
-				autori.getAutor().add(getAutorFromDTO(autor));
+			for (TAutor autorDto : autoriDto.getAutor()) {
+				TAutor autor = getAutorFromDTO(autorDto);
+				
+				String predicate = autor.isPrimarni() ? "pred:primarni_autor" : "pred:autor"; 
+				autor.getOtherAttributes().put(new QName("property"), predicate);
+				autor.getOtherAttributes().put(new QName("datatype"), "xs:string");
+				autor.getOtherAttributes().put(new QName("content"), formatName(autor.getIme(), autor.getPrezime(), autor.getPseudonim()));
+				
+				autori.getAutor().add(autor);
 			}
 		}
 		return autori;
+	}
+
+	private static String formatName(String ime, String prezime, String pseudonim) {
+		ime = ime != null ? ime : "";
+		prezime = prezime != null ? prezime : "";
+		pseudonim = pseudonim != null ? pseudonim : "";
+		return String.format("%1$s %2$s %3$s", ime, prezime, pseudonim).trim();
 	}
 
 	private static Identifikator getIdentifikatorDelaFromDTO(Identifikator identifikatorDto) {
@@ -103,19 +124,40 @@ public class AutorskoDeloMapper {
 	
 	private static TPodnosilac getPodnosilacFromDTO(TPodnosilac podnosilacDto) {
 		TPodnosilac podnosilac = objectFactory.createTPodnosilac();
+		
+		String email = null;
+		String name = null;
+		
 		TPravnoLice pravnoLice = null;
 		TFizickoLice fizickoLice = null;
 		TAutor autor = null;
 		
 		if(podnosilacDto.getPravnoLice()!=null) {
 			pravnoLice = getPravnoLiceFromDTO(podnosilacDto.getPravnoLice());
+			email = pravnoLice.getKontaktPodaci().getEmail();
+			name = pravnoLice.getNaziv();
 		}
 		else if(podnosilacDto.getPunomocnik()!=null) {
 			fizickoLice = getFizickoLiceFromDTO(podnosilacDto.getPunomocnik());
+			email = fizickoLice.getKontaktPodaci().getEmail();
+			name = formatName(fizickoLice.getIme(), fizickoLice.getPrezime(), null);
 		}
 		else if(podnosilacDto.getAutor()!=null){
 			autor = getAutorFromDTO(podnosilacDto.getAutor());
+			email = autor.getKontaktPodaci().getEmail();
+			name = formatName(autor.getIme(), autor.getPrezime(), autor.getPseudonim());
 		}
+		
+//		if(email != null) {
+			podnosilac.getOtherAttributes().put(new QName("id"), "pera@gmail.com");
+			podnosilac.getOtherAttributes().put(new QName("rel"), "pred:podnosilac");
+			podnosilac.getOtherAttributes().put(new QName("href"), USERS_PREFIX + "pera@gmail.com");
+//		}
+//		if(name != null) {
+			podnosilac.getOtherAttributes().put(new QName("property"), "pred:ime_podnosioca");
+			podnosilac.getOtherAttributes().put(new QName("datatype"), "xs:string");
+			podnosilac.getOtherAttributes().put(new QName("content"), "Pera organization");
+//		}
 		
 		podnosilac.setPravnoLice(pravnoLice);
 		podnosilac.setPunomocnik(fizickoLice);
