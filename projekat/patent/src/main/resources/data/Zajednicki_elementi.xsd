@@ -18,6 +18,7 @@
                     </xs:simpleType>
                 </xs:element>
             </xs:all>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="Kontakt_podaci" nillable="true">
@@ -46,6 +47,7 @@
                     </xs:simpleType>
                 </xs:element>
             </xs:all>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType abstract="true" name="TLice">
@@ -53,6 +55,7 @@
             <xs:element ref="zaj:Adresa"/>
             <xs:element ref="zaj:Kontakt_podaci" minOccurs="1"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TPravno_lice">
         <xs:complexContent>

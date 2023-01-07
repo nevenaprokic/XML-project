@@ -52,6 +52,7 @@
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="datum_podnosenja_prijave" type="xs:date" use="required"/>
+        	<xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TZig">
@@ -81,6 +82,7 @@
                 </xs:simpleType>
             </xs:element>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:simpleType name="Vrsta_ziga_na_osnovu_korisnika">
         <xs:restriction base="xs:string">
@@ -109,6 +111,7 @@
             <xs:element name="Za_klasu" minOccurs="0" type="xs:positiveInteger"/>
             <xs:element name="Ukupan_iznos_takse" type="xs:positiveInteger"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TPrilozi">
         <xs:sequence>
@@ -123,6 +126,7 @@
             <xs:element name="Dokaz_o_pravu_prvenstva" type="zig:TDopuna"/>
             <xs:element name="Dokaz_o_uplati_takse" type="zig:TDopuna"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
 
     <xs:complexType name="TDopuna">
@@ -130,12 +134,14 @@
             <xs:element name="Putanja_do_fajla" minOccurs="0" type="xs:string"/>
             <xs:element name="Dostavljeno" minOccurs="0" type="xs:boolean"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:element name="Zajednicki_predstavnik">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="zaj:Kontakt_podaci"/>
             </xs:sequence>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

@@ -31,6 +31,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="Adresa">
@@ -84,6 +85,7 @@
                 <xs:element name="Naziv_na_srpskom" type="xs:string"/>
                 <xs:element name="Naziv_na_engleskom" type="xs:string"/>
             </xs:all>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="Podaci_o_dostavljanju">
@@ -99,6 +101,7 @@
                     </xs:simpleType>
                 </xs:element>
             </xs:all>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="Ranija_prijava">
@@ -120,6 +123,7 @@
                     </xs:simpleType>
                 </xs:element>
             </xs:sequence>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType abstract="true" name="TLice">
@@ -167,6 +171,7 @@
         <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="0" ref="p1:Ranija_prijava"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TPunomocnik">
         <xs:sequence>
@@ -174,11 +179,13 @@
             <xs:element name="za_zastupanje" type="xs:boolean"/>
             <xs:element name="za_prijem_pismena" type="xs:boolean"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TPodnosilac_zahteva">
         <xs:sequence>
             <xs:element name="Lice" type="p1:TLice"/>
             <xs:element name="pronalazac" type="xs:boolean"/>
         </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
 </xs:schema>
