@@ -135,6 +135,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="zaj:Kontakt_podaci"/>
+                <xs:element ref="zaj:Adresa"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
