@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.exception.BadRequestException;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.Jaxb;
 import rs.ac.uns.ftn.model.User;
 import rs.ac.uns.ftn.repository.UserRepository;
@@ -24,26 +26,28 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
     
 	@Override
-	public User getUserBuEmail(String email) {
+	public User getUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
 	}
 
 	@Override
 	public boolean saveNewUser(User user) {
-//        if (getUserBuEmail(user.getEmail()) != null) {
-//        	return false;
-//        }
-//    	user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        if (jaxb.validate(user.getClass(), user)) {
+        if (getUserByEmail(user.getEmail()) != null) {
+        	throw new BadRequestException(ErrorMessageConstants.USER_ALREADY_EXISTS); //user already exist
+        }
+    	user.setPassword(passwordEncoder.encode(user.getPassword()));
+    	System.out.println(jaxb.validate(user.getClass(), user));
+        if (jaxb.validate(user.getClass(), user)) {
            userRepository.saveNewUser(user);
            return true;
-//        }
-//        return false;		
+        }
+        
+        return false;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return getUserBuEmail(username);
+		return getUserByEmail(username);
 	}
 	
 	

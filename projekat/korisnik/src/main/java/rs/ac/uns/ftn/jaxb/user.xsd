@@ -22,14 +22,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="role" >
-                 	<xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="ROLE_USER"/>
-                        	<xs:enumeration value="ROLE_ADMIN"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                <xs:element name="role" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

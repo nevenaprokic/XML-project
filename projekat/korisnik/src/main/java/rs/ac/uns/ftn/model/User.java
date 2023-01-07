@@ -48,7 +48,8 @@ import java.util.List;
         "lastName",
         "email",
         "password",
-        "role"
+        "role",
+        "jwt"
 })
 @XmlRootElement(name = "user", namespace = "http://ftn.uns.ac.rs/user")
 public class User implements UserDetails {
@@ -62,6 +63,8 @@ public class User implements UserDetails {
     protected String password;
     @XmlElement(namespace = "http://ftn.uns.ac.rs/user", required = true)
     protected String role;
+    @XmlElement(namespace = "http://ftn.uns.ac.rs/user")
+    protected String jwt;
 
     /**
      * Gets the value of the name property.
@@ -161,6 +164,20 @@ public class User implements UserDetails {
      */
     public void setRole(String value) {
         this.role = value;
+    }
+    
+    public String getJwt() {
+        return jwt;
+    }
+
+    /**
+     * Sets the value of the role property.
+     *
+     * @param value allowed object is
+     *              {@link String }
+     */
+    public void setJwt(String value) {
+        this.jwt = value;
     }
 
     @Override

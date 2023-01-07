@@ -12,6 +12,11 @@ import java.io.StringWriter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
+import com.itextpdf.text.log.SysoCounter;
+
+import rs.ac.uns.ftn.exception.BadRequestException;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
+
 @Component
 public class Jaxb {
 	
@@ -47,7 +52,7 @@ public class Jaxb {
             String objectValidateString = this.marshall(genericClass, objectValidate);
 
             SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-            Schema schema = factory.newSchema(ResourceUtils.getFile("classpath:/user.xsd"));
+            Schema schema = factory.newSchema(ResourceUtils.getFile("classpath:xsd/user.xsd"));
 
             JAXBContext context = JAXBContext.newInstance(genericClass);
             Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -56,8 +61,9 @@ public class Jaxb {
             unmarshaller.unmarshal(new StringReader(objectValidateString));
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
+            throw new BadRequestException(ErrorMessageConstants.INVALID_XML_FILE);		
         }
 
         return true;

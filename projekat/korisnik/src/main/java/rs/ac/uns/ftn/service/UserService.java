@@ -6,7 +6,7 @@ import rs.ac.uns.ftn.model.User;
 
 public interface UserService extends UserDetailsService {
 	
-	User getUserBuEmail(String email);
+	User getUserByEmail(String email);
 	
 	boolean saveNewUser(User user);
 

@@ -20,14 +20,7 @@ public class UserController {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity addNewUser(@RequestBody User user) {
-		try {
 			userService.saveNewUser(user);
 			return ResponseEntity.ok().build();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().build();
-		}
-		
 	}
 }
