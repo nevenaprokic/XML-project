@@ -449,17 +449,28 @@
                                     <xsl:variable name="match" select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Podaci_o_brojevima_klasa_robe_i_usluga"/>
                                     <xsl:for-each select="1 to 23">
                                         <xsl:variable name="currentNumber" select="position()"/>
-                                        <xsl:if test="string($currentNumber) = tokenize($match,' ')">
-                                            <td style="border-left:1px; border-bottom:1px; background-color:silver;"><xsl:value-of select="$currentNumber"/></td>
-                                        </xsl:if>
-                                        <xsl:if test="string($currentNumber) != tokenize($match,' ')">
-                                            <td style="border-left:1px; border-bottom:1px;"><xsl:value-of select="$currentNumber"/></td>
-                                        </xsl:if>
+                                        <xsl:choose>
+                                            <xsl:when test="string($currentNumber) = tokenize($match,' ')">
+                                                <td style="border-left:1px; border-bottom:1px; background-color:silver;"><xsl:value-of select="$currentNumber"/></td>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <td style="border-left:1px; border-bottom:1px;"><xsl:value-of select="$currentNumber"/></td>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:for-each>
                                 </tr>
                                 <tr>
+                                    <xsl:variable name="match" select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Podaci_o_brojevima_klasa_robe_i_usluga"/>
                                     <xsl:for-each select="24 to 45">
-                                        <td style="border-left:1px;"><xsl:value-of select="position()+23"/><xsl:text></xsl:text></td>
+                                        <xsl:variable name="currentNumber" select="position()+23"/>
+                                        <xsl:choose>
+                                            <xsl:when test="string($currentNumber) = tokenize($match,' ')">
+                                                <td style="border-left:1px; border-bottom:1px; background-color:silver;"><xsl:value-of select="$currentNumber"/></td>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <td style="border-left:1px; border-bottom:1px;"><xsl:value-of select="$currentNumber"/></td>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:for-each>
                                     <td style="border-left:1px;"> </td>
                                 </tr>

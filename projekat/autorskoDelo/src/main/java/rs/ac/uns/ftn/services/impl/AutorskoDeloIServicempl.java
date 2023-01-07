@@ -21,8 +21,7 @@ import com.itextpdf.text.DocumentException;
 public class AutorskoDeloIServicempl implements AutorskoDeloService{
 	
 	public static final String INPUT_FILE = "data/A1.xml";
-	
-	public static final String OUTPUT_FILE = "data/xslt/A1.pdf";
+
 
 	@Autowired
 	private AutorskoDeloRepository autorskoDeloRepository;
@@ -46,11 +45,12 @@ public class AutorskoDeloIServicempl implements AutorskoDeloService{
 	}
 	
 	@Override
-	public void getPDF() throws IOException, DocumentException {
+	public void getPDF(String documentId) throws IOException, DocumentException {
+		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		//ovde da ne bude uvek A1 vec A pa indeks koji se posalje
-		String outputFilePDF = "data/xslt/A1" + timeStamp + ".pdf";
-		String outputFileXHTML = "data/xslt/A1" + timeStamp + ".html";
+		String outputFilePDF = "src/main/resources/xslt/A1" + timeStamp + ".pdf";
+		String outputFileXHTML = "src/main/resources/xslt/A1" + timeStamp + ".html";
     	
     	// Creates parent directory if necessary
     	File pdfFile = new File(outputFilePDF);

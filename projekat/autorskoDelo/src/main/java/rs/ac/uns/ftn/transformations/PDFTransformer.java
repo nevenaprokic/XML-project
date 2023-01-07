@@ -30,7 +30,7 @@ private static DocumentBuilderFactory documentFactory;
 	
 	private static TransformerFactory transformerFactory;
 	
-	public static final String XSL_FILE = "data/xslt/A1.xsl";
+	public static final String XSL_FILE = "src/main/resources/xslt/A1.xsl";
 	
 	static {
 

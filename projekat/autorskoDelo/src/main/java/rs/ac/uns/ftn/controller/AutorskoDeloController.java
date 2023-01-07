@@ -44,11 +44,10 @@ public class AutorskoDeloController {
 	}
 	
 
-	//get po id dokumenta
-	@GetMapping("/get-pdf")
-	public ResponseEntity<String> getPDF() {
+	@GetMapping("/get-pdf/{documentId}")
+	public ResponseEntity<String> getPDF(@PathVariable String documentId) {
 		try {
-			autorskoDeloService.getPDF();
+			autorskoDeloService.getPDF(documentId);
 			return ResponseEntity.ok("Generisan PDF");
 		}
 		catch (Exception e) {

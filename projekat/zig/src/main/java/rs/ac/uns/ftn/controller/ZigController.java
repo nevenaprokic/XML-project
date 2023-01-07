@@ -43,4 +43,15 @@ public class ZigController {
 		}
 		
 	}
+	
+	@GetMapping("/get-pdf/{documentId}")
+	public ResponseEntity<String> getPDF(@PathVariable String documentId) {
+		try {
+			zigService.getPDF(documentId);
+			return ResponseEntity.ok("Generisan PDF");
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 }

@@ -13,5 +13,6 @@ public interface AutorskoDeloService {
 	ZahtevZaAutorskoDelo getZahtevZaAutorskoDeloById(String id);
 	
 	String generateDocumentId();
-	void getPDF() throws IOException, DocumentException;
+	
+	void getPDF(String documentId) throws IOException, DocumentException;
 }
