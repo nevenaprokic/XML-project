@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.w3c.dom.Node;
 
 import rs.ac.uns.ftn.dataAccess.ZigDataAccess;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
@@ -23,5 +24,10 @@ public class ZigRepository {
 	public int getLenghtOfCollection() {
 		return zigDataAccess.getLenghtOfCollection();
 	}
+	
+	public Node getXMLZahtevZaZigbyId(String id) {
+		return zigDataAccess.getXMLZahtevById(id);
+	}
+	
 	
 }

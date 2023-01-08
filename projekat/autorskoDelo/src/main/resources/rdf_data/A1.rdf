@@ -3,6 +3,11 @@
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:pred="http://examples/predicate/">
   <rdf:Description rdf:about="http://ftn.uns.ac.rs/a1/A1">
+    <pred:autor>Jhon Doe Anonimus</pred:autor>
+    <pred:primarni_autor>Katarina Komad</pred:primarni_autor>
+    <pred:autorsko_delo>XML</pred:autorsko_delo>
+    <pred:ime_podnosioca>Pera organization</pred:ime_podnosioca>
+    <pred:podnosilac rdf:resource="http://ftn.uns.ac.rs/user/pera@gmail.com"/>
     <pred:datum_podnosenja rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2022-12-08</pred:datum_podnosenja>
   </rdf:Description>

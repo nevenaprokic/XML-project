@@ -140,6 +140,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="zaj:Kontakt_podaci"/>
+                <xs:element ref="zaj:Adresa"/>
             </xs:sequence>
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>

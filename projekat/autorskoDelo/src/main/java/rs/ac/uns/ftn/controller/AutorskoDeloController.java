@@ -1,7 +1,10 @@
 package rs.ac.uns.ftn.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.services.AutorskoDeloService;
+
 import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
-import rs.ac.uns.ftn.services.AutorskoDeloService;
 
 @Controller
 @RequestMapping("/autorsko-delo")
@@ -44,6 +45,17 @@ public class AutorskoDeloController {
 		
 	}
 	
+
+	@GetMapping("/get-pdf/{documentId}")
+	public ResponseEntity<String> getPDF(@PathVariable String documentId) {
+		try {
+			autorskoDeloService.getPDF(documentId);
+			return ResponseEntity.ok("Generisan PDF");
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 
 }

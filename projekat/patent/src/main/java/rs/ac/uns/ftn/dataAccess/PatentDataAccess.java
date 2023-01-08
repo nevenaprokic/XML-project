@@ -4,6 +4,7 @@ import java.io.OutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Node;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.modules.XMLResource;
@@ -89,6 +90,23 @@ public class PatentDataAccess {
 	        	
 	        	return JaxbMapper.unmarshalZahtevFromNode(res.getContentAsDOM());
 	        }
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			ConnectionUtilities.cleanup(col , res);
+		}
+	}
+	
+	public Node getXMLZahtevById(String documentId) {
+		Collection col = null;
+		XMLResource res = null;
+		try {
+			col = ConnectionUtilities.getCollection(collectionId);
+			res = ConnectionUtilities.getResource(col, documentId);
+			
+			return res.getContentAsDOM();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

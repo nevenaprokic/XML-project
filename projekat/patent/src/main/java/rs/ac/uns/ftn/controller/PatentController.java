@@ -43,5 +43,16 @@ public class PatentController {
 		}
 		
 	}
+	
+	@GetMapping("/get-pdf/{documentId}")
+	public ResponseEntity<String> getPDF(@PathVariable String documentId) {
+		try {
+			patentService.getPDF(documentId);
+			return ResponseEntity.ok("Generisan PDF");
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	 
 }

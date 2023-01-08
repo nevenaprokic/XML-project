@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.w3c.dom.Node;
 
 import rs.ac.uns.ftn.dataAccess.PatentDataAccess;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
@@ -22,6 +23,10 @@ public class PatentRepository {
 	
 	public int getLenghtOfCollection() {
 		return patentDataAccess.getLenghtOfCollection();
+	}
+	
+	public Node getXMLZahtevZaPatentbyId(String id) {
+		return patentDataAccess.getXMLZahtevById(id);
 	}
 	
 }

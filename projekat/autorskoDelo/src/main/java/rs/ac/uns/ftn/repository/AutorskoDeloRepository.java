@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import rs.ac.uns.ftn.dataAccess.AutorskoDeloDataAccess;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import org.w3c.dom.Node;
 
 @Repository
 public class AutorskoDeloRepository {
@@ -22,5 +23,9 @@ public class AutorskoDeloRepository {
 	
 	public int getLenghtOfCollection() {
 		return autorskoDeloDataAccess.getLenghtOfCollection();
+	}
+	
+	public Node getXMLZahtevZaAutorskoDelobyId(String id) {
+		return autorskoDeloDataAccess.getXMLZahtevById(id);
 	}
 }
