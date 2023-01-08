@@ -29,8 +29,8 @@ public class ZigServiceImpl implements ZigService {
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
 		String documentId = generateDocumentId();
 		System.out.println(documentId);
-//		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
-		ZigRepository.saveZahtevZaPriznanjeZiga(zahtevDTO, documentId);
+		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
+		ZigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
 		
 	}
 

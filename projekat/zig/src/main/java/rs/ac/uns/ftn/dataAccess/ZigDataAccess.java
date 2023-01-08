@@ -67,7 +67,7 @@ public class ZigDataAccess {
 			res = ConnectionUtilities.initResource(col, resourceId);
 
 			OutputStream os = JaxbMapper.marshallZahtev(delo);
-			//metadataService.extractMetadata("/zig", os, resourceId);
+			metadataService.extractMetadata("/zig", os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
