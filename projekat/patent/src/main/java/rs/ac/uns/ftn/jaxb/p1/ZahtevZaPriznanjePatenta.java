@@ -94,7 +94,7 @@ public class ZahtevZaPriznanjePatenta {
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar priznatiDatumPodnosenja;
     @XmlAttribute(name = "tip_prijave", required = true)
-    protected String tipPrijave;
+    protected TipPrijave tipPrijave;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -346,7 +346,7 @@ public class ZahtevZaPriznanjePatenta {
      *     {@link String }
      *     
      */
-    public String getTipPrijave() {
+    public TipPrijave getTipPrijave() {
         return tipPrijave;
     }
 
@@ -358,7 +358,7 @@ public class ZahtevZaPriznanjePatenta {
      *     {@link String }
      *     
      */
-    public void setTipPrijave(String value) {
+    public void setTipPrijave(TipPrijave value) {
         this.tipPrijave = value;
     }
 
