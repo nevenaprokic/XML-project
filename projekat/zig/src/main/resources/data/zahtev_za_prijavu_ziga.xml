@@ -21,6 +21,22 @@
         <zaj:Ime>Pera</zaj:Ime>
         <zaj:Prezime>Petrovic</zaj:Prezime>
     </Podnosioc_prijave>
+    <Podnosioc_prijave xsi:type="zaj:TFizicko_lice">
+        <zaj:Adresa>
+            <zaj:Ulica>Somborska</zaj:Ulica>
+            <zaj:Broj>13</zaj:Broj>
+            <zaj:Grad>Novi Sad</zaj:Grad>
+            <zaj:Drzava>Republika srbija</zaj:Drzava>
+            <zaj:Postanski_broj>21000</zaj:Postanski_broj>
+        </zaj:Adresa>
+        <zaj:Kontakt_podaci>
+            <zaj:Telefon>065/222-4444</zaj:Telefon>
+            <zaj:Email>mika@gmail.com</zaj:Email>
+            <zaj:Faks>125/7517444</zaj:Faks>
+        </zaj:Kontakt_podaci>
+        <zaj:Ime>Mika</zaj:Ime>
+        <zaj:Prezime>Ilic</zaj:Prezime>
+    </Podnosioc_prijave>
     <!--Optional:-->
     <Punomocnik xsi:type="zaj:TFizicko_lice">
         <zaj:Adresa>
@@ -41,10 +57,17 @@
     <!--Optional:-->
     <Zajednicki_predstavnik>
         <zaj:Kontakt_podaci>
-            <zaj:Telefon>062/222-3322</zaj:Telefon>
-            <zaj:Faks>231/2767593</zaj:Faks>
-            <zaj:Email>pera@gmail.com</zaj:Email>
+            <zaj:Telefon>062/222-4444</zaj:Telefon>
+            <zaj:Faks>231/2767444</zaj:Faks>
+            <zaj:Email>mika@gmail.com</zaj:Email>
         </zaj:Kontakt_podaci>
+        <zaj:Adresa>
+            <zaj:Ulica>Somborska</zaj:Ulica>
+            <zaj:Broj>13</zaj:Broj>
+            <zaj:Grad>Novi Sad</zaj:Grad>
+            <zaj:Drzava>Republika Srbija</zaj:Drzava>
+            <zaj:Postanski_broj>21000</zaj:Postanski_broj>
+        </zaj:Adresa>
     </Zajednicki_predstavnik>
     <Zig>
         <Vrsta_ziga_na_osnovu_korisnika>individualni zig</Vrsta_ziga_na_osnovu_korisnika>
@@ -56,7 +79,7 @@
         <!--Optional:-->
         <Prevod_znaka/>
         <Opis_znaka>Neki opis znaka</Opis_znaka>
-        <Podaci_o_brojevima_klasa_robe_i_usluga>4 5</Podaci_o_brojevima_klasa_robe_i_usluga>
+        <Podaci_o_brojevima_klasa_robe_i_usluga>4 5 44</Podaci_o_brojevima_klasa_robe_i_usluga>
     </Zig>
     <Pravo_prvenstva_i_osnov>Ima neko pravo prvenstva</Pravo_prvenstva_i_osnov>
     <Placene_takse>
