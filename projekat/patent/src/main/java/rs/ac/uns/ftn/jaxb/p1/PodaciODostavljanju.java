@@ -50,7 +50,7 @@ public class PodaciODostavljanju {
     @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected Adresa adresa;
     @XmlElement(name = "Nacin_dostavljanja", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
-    protected String nacinDostavljanja;
+    protected NacinDostavljanja nacinDostavljanja;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
     /**
@@ -85,7 +85,7 @@ public class PodaciODostavljanju {
      *     {@link String }
      *     
      */
-    public String getNacinDostavljanja() {
+    public NacinDostavljanja getNacinDostavljanja() {
         return nacinDostavljanja;
     }
 
@@ -97,7 +97,7 @@ public class PodaciODostavljanju {
      *     {@link String }
      *     
      */
-    public void setNacinDostavljanja(String value) {
+    public void setNacinDostavljanja(NacinDostavljanja value) {
         this.nacinDostavljanja = value;
     }
 
