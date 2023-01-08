@@ -45,17 +45,15 @@ import rs.ac.uns.ftn.jaxb.zajednicko.TPravnoLice;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TPodnosilac", propOrder = {
-    "autor",
-    "punomocnik",
-    "pravnoLice"
+
 })
 public class TPodnosilac {
 
-    @XmlElement(name = "Autor", namespace = "http://ftn.uns.ac.rs/a1" )
+    @XmlElement(name = "Autor", namespace = "http://ftn.uns.ac.rs/a1", nillable = true, required = false)
     protected TAutor autor;
-    @XmlElement(name = "Punomocnik", namespace = "http://www.ftn.uns.ac.rs/zaj" )
+    @XmlElement(name = "Punomocnik", nillable = true, required = false)
     protected TFizickoLice punomocnik;
-    @XmlElement(name = "Pravno_lice", namespace = "http://www.ftn.uns.ac.rs/zaj")
+    @XmlElement(name = "Pravno_lice", nillable = true, required = false)
     protected TPravnoLice pravnoLice;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
@@ -148,17 +146,6 @@ public class TPodnosilac {
 		}
 		else if(autor!=null){
 			buffer.append(autor);
-		}
-		else {
-			buffer.append("Adresa: Urosa Predica 7, Novi Sad");
-			buffer.append("\n\t\t");
-			buffer.append("Kontakt");
-			buffer.append("\n\t\t\t");
-			buffer.append("Telefon: 065/222-3332");
-			buffer.append("\n\t\t\t");
-			buffer.append("Email: pera@gmail.com");
-			buffer.append("\n\t\t");
-			buffer.append("Naziv: Pera organization");
 		}
 		return buffer.toString();
     }

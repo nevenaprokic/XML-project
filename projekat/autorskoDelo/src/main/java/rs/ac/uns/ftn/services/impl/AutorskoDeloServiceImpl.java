@@ -18,7 +18,7 @@ import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 @Service
-public class AutorskoDeloIServicempl implements AutorskoDeloService{
+public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public static final String PATH = "src/main/resources/xslt/";
 
 	@Autowired

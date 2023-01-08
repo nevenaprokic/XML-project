@@ -22,18 +22,49 @@
     </Zavod>
 
     <Podnosilac>
-     	<Pravno_lice xsi:type="zaj:TPravno_lice">
+<!--     	<Autor primarni="true" xsi:type="TAutor"> -->
+<!--           	<zaj:Adresa> -->
+<!--                  <zaj:Grad>Novi Sad</zaj:Grad> -->
+<!--                  <zaj:Ulica>Maksima Gorkog</zaj:Ulica> -->
+<!--                  <zaj:Broj>46</zaj:Broj> -->
+<!--              </zaj:Adresa> -->
+<!--              <zaj:Kontakt_podaci> -->
+<!--              	<zaj:Telefon>065/222-3332</zaj:Telefon> -->
+<!--           	<zaj:Email>kk@gmail.com</zaj:Email> -->
+<!--         		</zaj:Kontakt_podaci> -->
+<!--              <zaj:Ime>Katarina</zaj:Ime> -->
+<!--              <zaj:Prezime>Komad</zaj:Prezime> -->
+            
+<!--              <zaj:Drzavljanstvo>Srpsko</zaj:Drzavljanstvo> -->
+<!--         </Autor> -->
+    	<Punomocnik>
         	<zaj:Adresa>
-                <zaj:Grad>Novi Sad</zaj:Grad>
-                <zaj:Ulica>Urosa Predica</zaj:Ulica>
+                <zaj:Grad>GRAD PUNOMOCNIKA</zaj:Grad>
+                <zaj:Ulica>ULICA PUNOMOCNIKA</zaj:Ulica>
                 <zaj:Broj>7</zaj:Broj>
             </zaj:Adresa>
             <zaj:Kontakt_podaci>
 	            <zaj:Telefon>065/222-3332</zaj:Telefon>
 	            <zaj:Email>pera@gmail.com</zaj:Email>
        		</zaj:Kontakt_podaci>
-        	<zaj:Naziv>Pera organization</zaj:Naziv>
-        </Pravno_lice>
+       		<zaj:Ime>Katarina</zaj:Ime>
+            <zaj:Prezime>Komad</zaj:Prezime>
+        </Punomocnik>
+        
+<!--      	<Pravno_lice xsi:type="zaj:TPravno_lice"> -->
+<!--         	<zaj:Adresa> -->
+<!--                 <zaj:Grad>GRAD PRAVNOG LICA</zaj:Grad> -->
+<!--                 <zaj:Ulica>ULICA PRAVNOG LICA</zaj:Ulica> -->
+<!--                 <zaj:Broj>7</zaj:Broj> -->
+<!--             </zaj:Adresa> -->
+<!--             <zaj:Kontakt_podaci> -->
+<!-- 	            <zaj:Telefon>065/222-3332</zaj:Telefon> -->
+<!-- 	            <zaj:Email>pera@gmail.com</zaj:Email> -->
+<!--        		</zaj:Kontakt_podaci> -->
+<!--         	<zaj:Naziv>Pera organization</zaj:Naziv> -->
+<!--         </Pravno_lice> -->
+        
+        
        
     </Podnosilac>
 

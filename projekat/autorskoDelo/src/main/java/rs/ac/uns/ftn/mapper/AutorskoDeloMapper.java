@@ -41,7 +41,7 @@ public class AutorskoDeloMapper {
 		zahtev.setAutorskoDelo(getAutorskoDeloFromDTO(zahtevDTO.getAutorskoDelo()));
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
 		zahtev.setNaslov(NASLOV_ZAHTEVA);
-		zahtev.setPodnosilac(getPodnosilacFromDTO(zahtevDTO.getPodnosilac()));	// TODO: ispraviti
+		zahtev.setPodnosilac(getPodnosilacFromDTO(zahtevDTO.getPodnosilac()));
 		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi()));	
 		zahtev.setZavod(createZavod());
 		zahtev.setStatus(StatusZahteva.NEOBRADJEN);
@@ -148,16 +148,16 @@ public class AutorskoDeloMapper {
 			name = formatName(autor.getIme(), autor.getPrezime(), autor.getPseudonim());
 		}
 		
-//		if(email != null) {
-			podnosilac.getOtherAttributes().put(new QName("id"), "pera@gmail.com");
+		if(email != null) {
+			podnosilac.getOtherAttributes().put(new QName("id"), email);
 			podnosilac.getOtherAttributes().put(new QName("rel"), "pred:podnosilac");
-			podnosilac.getOtherAttributes().put(new QName("href"), USERS_PREFIX + "pera@gmail.com");
-//		}
-//		if(name != null) {
-			podnosilac.getOtherAttributes().put(new QName("property"), "pred:ime_podnosioca");
+			podnosilac.getOtherAttributes().put(new QName("href"), USERS_PREFIX + email);
+		}
+		if(name != null) {
+			podnosilac.getOtherAttributes().put(new QName("property"), "pred:ime_prodnosioca");
 			podnosilac.getOtherAttributes().put(new QName("datatype"), "xs:string");
-			podnosilac.getOtherAttributes().put(new QName("content"), "Pera organization");
-//		}
+			podnosilac.getOtherAttributes().put(new QName("content"), name);
+		}
 		
 		podnosilac.setPravnoLice(pravnoLice);
 		podnosilac.setPunomocnik(fizickoLice);

@@ -47,9 +47,9 @@
     </xs:complexType>
     <xs:complexType name="TPodnosilac">
         <xs:choice>
-            <xs:element minOccurs="0" name="Autor" type="a1:TAutor"/>
-            <xs:element name="Punomocnik" nillable="false" type="zaj:TFizicko_lice" minOccurs="0"/>
-            <xs:element name="Pravno_lice" nillable="false" type="zaj:TPravno_lice" minOccurs="0"/>
+            <xs:element name="Autor" type="a1:TAutor" minOccurs="0" nillable="true"  />
+            <xs:element name="Punomocnik" type="zaj:TFizicko_lice" minOccurs="0" nillable="true" />
+            <xs:element name="Pravno_lice" type="zaj:TPravno_lice" minOccurs="0" nillable="true" />
         </xs:choice>
         <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
