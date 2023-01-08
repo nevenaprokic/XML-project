@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "nacin_dostavljanja")
+@XmlType(name = "Nacin_dostavljanja")
 @XmlEnum
 public enum NacinDostavljanja {
 	
