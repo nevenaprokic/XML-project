@@ -40,7 +40,6 @@
                     font-family: sans-serif;
                     color: white;
                     }
-                    tr { border: 2px solid black; }
                     
                     .uputstvo{
                     margin:0;
@@ -53,8 +52,9 @@
                     padding: 10px 0 20px 5px;
                     }
                     .line{
-                    border-top:1px;
-                    border-bottom:1px;
+	              	border-collapse: collapse;
+					border-top-style: solid;
+					border-top-width: 1px;
                     }
                     .ustanova{
                     margin: 0 0 0 20px;
@@ -83,7 +83,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 0; margin: 0; " class="line">
+                        <td style="padding: 0; margin: 0;" class="line">
                             <table style="margin:0;">
                                 <tr>
                                     <td style="width:90%; padding:5px;">
@@ -101,10 +101,17 @@
                         <td>
                             <table style="margin:0;">
                                 <tr>
-                                    <td style="width:40% padding:5px;">
+                                    <td style="width:40% padding:5px; border-collapse: collapse;
+													border-top-style: solid;
+													border-top-width: 1px;">
                                         <p class="text">Datum prijema</p>
                                     </td>
-                                    <td style="border-left: 1px; width:50% padding:5px;">
+                                    <td style="border-collapse: collapse;
+												border-top-style: solid;
+												border-top-width: 1px; 
+												border-left-style: solid;
+												border-left-width: 1px; 
+												width:50% padding:5px;">
                                         <p class="text">Priznati datum podnošenja	(22)</p>
                                     </td>
                                 </tr>
@@ -188,10 +195,20 @@
                                                 <tr><td>
                                                     <table style="margin:0;">
                                                         <tr>
-                                                            <td style="padding: 5px 5px 130px 5px; width:50%;">
+                                                            <td style="padding: 5px 5px 130px 5px; width:50%; 
+		                                                            border-collapse: collapse;
+																	border-top-style: solid;
+																	border-top-width: 1px; ">
                                                                 <p>Ime i prezime / Poslovno ime: <span style="font-size:12px;">(prezime / poslovno ime upisati velikim slovima)</span></p>
                                                             </td>
-                                                            <td style="border-left:1px; padding: 5px 5px 130px 5px; width:50%;">
+                                                            <td style="border-collapse: collapse;
+																		border-right-style: solid;
+																		border-right-width: 1px;
+																		border-left-style: solid;
+																		border-left-width: 1px; 
+																		border-top-style: solid;
+																		border-top-width: 1px; 
+                                                            		   padding: 5px 5px 130px 5px; width:50%;">
                                                                 <p>Ulica i broj, poštanski broj, mesto i država:</p>
                                                             </td>
                                                         </tr>
@@ -200,10 +217,15 @@
                                                 <tr><td style="padding: 10px 5px 30px 5px;">
                                                     <table style="margin:0; border-top:1px;">
                                                         <tr>
-                                                            <td>
+                                                            <td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                                                                 <p>Državljanstvo: </p>
                                                             </td>
-                                                            <td style="font-size: 14px;">
+                                                            <td style="font-size: 14px; 
+                                                            border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                                                                 <p>(popuniti samo za fizička lica)</p>
                                                             </td>
                                                         </tr>
@@ -213,9 +235,20 @@
                                         </td>
                                         <td style="width:30%">
                                             <table style="margin:0; border-left:1px;">
-                                                <tr><td style="border-bottom:1px; padding: 20px 5px 43px 5px;"><p>Broj telefona:</p></td></tr>
-                                                <tr><td style="border-bottom:1px; padding: 20px 5px 43px 5px;"><p>Broj faksa:</p></td></tr>
-                                                <tr><td style="padding: 20px 5px 43px 5px;"><p>E-pošta:</p></td></tr>
+                                                <tr><td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;  
+														padding: 20px 5px 43px 5px;"><p>Broj telefona:</p></td></tr>
+                                                <tr><td style="border-collapse: collapse;
+													border-top-style: solid;
+													border-top-width: 1px; 
+													padding: 20px 5px 43px 5px;"><p>Broj faksa:</p></td></tr>
+	                                              <tr><td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; 
+														border-left-style: solid;
+														border-left-width: 1px;
+														padding: 20px 5px 43px 5px;"><p>E-pošta:</p></td></tr>
                                             </table>
                                         </td>
                                     </tr>
@@ -261,10 +294,19 @@
                                             <tr><td>
                                                 <table style="margin:0;">
                                                     <tr>
-                                                        <td style="padding: 5px 5px 70px 5px; width:50%;">
+                                                        <td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; padding: 5px 5px 70px 5px; width:50%;">
                                                             <p>Ime i prezime / Poslovno ime: <span>(prezime / poslovno ime upisati velikim slovima)</span></p>
                                                         </td>
-                                                        <td style="border-left:1px; padding: 5px 5px 70px 5px; width:50%;">
+                                                        <td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;
+																		border-right-style: solid;
+																		border-right-width: 1px;
+																		border-left-style: solid;
+																		border-left-width: 1px; 
+																		padding: 5px 5px 70px 5px; width:50%;">
                                                             <p>Ulica i broj, poštanski broj, mesto i država:</p>
                                                         </td>
                                                     </tr>
@@ -274,9 +316,15 @@
                                     </td>
                                     <td style="width:30%;">
                                         <table style="margin:0; border-left:1px;">
-                                            <tr><td style="border-bottom:1px; padding: 5px 5px 15px 5px;"><p>Broj telefona:</p></td></tr>
-                                            <tr><td style="border-bottom:1px; padding: 5px 5px 15px 5px;"><p>Broj faksa:</p></td></tr>
-                                            <tr><td style="padding: 5px 5px 15px 5px;"><p>E-pošta:</p></td></tr>
+                                            <tr><td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; padding: 5px 5px 15px 5px;"><p>Broj telefona:</p></td></tr>
+                                            <tr><td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; padding: 5px 5px 15px 5px;"><p>Broj faksa:</p></td></tr>
+                                            <tr><td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; padding: 5px 5px 15px 5px;"><p>E-pošta:</p></td></tr>
                                         </table>
                                     </td>
                                 </tr>
@@ -333,10 +381,18 @@
                                             <tr><td>
                                                 <table style="margin:0;">
                                                     <tr>
-                                                        <td style="padding: 5px 5px 40px 5px; width:50%;">
+                                                        <td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; padding: 5px 5px 40px 5px; width:50%;">
                                                             <p>Ime i prezime / Poslovno ime: <span>(prezime / poslovno ime upisati velikim slovima)</span></p>
                                                         </td>
-                                                        <td style="border-left:1px; padding: 5px 5px 40px 5px; width:50%;">
+                                                        <td style="border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;
+																		border-right-style: solid;
+																		border-right-width: 1px;
+																		border-left-style: solid;
+																		border-left-width: 1px; padding: 5px 5px 40px 5px; width:50%;">
                                                             <p>Ulica i broj, poštanski broj, mesto i država:</p>
                                                         </td>
                                                     </tr>
@@ -346,8 +402,12 @@
                                     </td>
                                     <td style="width:30%;">
                                         <table style="margin:0; border-left:1px;">
-                                            <tr><td style="border-bottom:1px; padding: 5px 5px 20px 5px;"><p>Broj telefona:</p></td></tr>
-                                            <tr><td style="padding: 5px 5px 20px 5px;"><p>E-pošta:</p></td></tr>
+                                            <tr><td style="border-bottom:1px; padding: 5px 5px 20px 5px; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;"><p>Broj telefona:</p></td></tr>
+                                            <tr><td style="padding: 5px 5px 20px 5px; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;"><p>E-pošta:</p></td></tr>
                                         </table>
                                     </td>
                                 </tr>
@@ -358,10 +418,14 @@
                         <td style="border-top:1px; padding: 15px 5px 5px 5px;">
                             <table style="margin:0;">
                                 <tr>
-                                    <td style="width:20%">
+                                    <td style="width:20%; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                                         <p class="row-title">Polje broj V </p>
                                     </td>
-                                    <td style="width:80%">
+                                    <td style="width:80%; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                                         <p class="row-title">ADRESA ZA DOSTAVLJANJE </p>
                                     </td>
                                 </tr>
@@ -374,7 +438,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 5px 0 5px;">
+                        <td style="padding: 10px 5px 0 5px; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                             <p>Ulica i broj, poštanski broj i mesto:</p>
                         </td>
                     </tr>
@@ -393,7 +459,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 5px 5px 5px 5px; margin:0;">
+                        <td style="padding: 5px 5px 5px 5px; margin:0; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                             <p>cek Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena isključivo elektronskim putem u formi elektronskog dokumenta (u ovom slučaju neophodna je registracija na portalu „eUprave”)</p>
                         </td>
                     </tr>
@@ -426,7 +494,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 5px 0 5px;">
+                        <td style="padding: 10px 5px 0 5px; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;">
                             <p>Broj prvobitne prijave / osnovne prijave, odnosno osnovnog patenta:   </p>
                         </td>
                     </tr>
@@ -457,16 +527,33 @@
                 <table  style="border: 1px; margin-top:0;">
                     <thead>
                         <tr>
-                            <td style="width:4%; text-align:center; border-left:1px; padding:5px;">N</td>
+                            <td style="width:4%; text-align:center;  padding:5px;">N</td>
                             <td style="width:32%; text-align:center; border-left:1px;  padding:5px;">Datum podnošenja ranije prijave</td>
-                            <td style="width:32%; text-align:center; border-left:1px;  padding:5px;">Broj ranije prijave</td>
-                            <td style="width:32%; text-align:center; border-left:1px;  padding:5px;">Dvoslovna oznaka države, regionalne ili međunarodne organizacije</td>
+                            <td style="width:32%; text-align:center; 
+                       								border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;
+													border-right-style: solid;
+													border-right-width: 1px;
+													border-left-style: solid;
+													border-left-width: 1px;  padding:5px;">Broj ranije prijave</td>
+                            <td style="width:32%; text-align:center; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px;  padding:5px;">Dvoslovna oznaka države, regionalne ili međunarodne organizacije</td>
                         </tr>
                         <tr>
-                            <td style="width:4%; border-left:1px; border-top:1px;"><xsl:value-of select="position()"/></td>
-                            <td style="width:32%; border-left:1px; border-top:1px;">x</td>
-                            <td style="width:32%; border-left:1px; border-top:1px;">x</td>
-                            <td style="width:32%; border-left:1px; border-top:1px;">x</td>
+                            <td style="width:4%; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; border-top:1px;"><xsl:value-of select="position()"/></td>
+                            <td style="width:32%; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; border-top:1px;">x</td>
+                            <td style="width:32%; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; border-top:1px;">x</td>
+                            <td style="width:32%; border-collapse: collapse;
+														border-top-style: solid;
+														border-top-width: 1px; border-top:1px;">x</td>
                         </tr>
                     </thead>
                 </table>
