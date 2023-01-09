@@ -1,0 +1,43 @@
+<div class="paper-form">
+  <div>
+    <h1>ZAHTEV ZA PRIZNANJE ŽIGA</h1>
+    <h4>Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+  </div>
+  <form [formGroup]="this.zigForm">
+    <div> 1. Podnosilac prijave:
+      <section>
+        <mat-radio-group formControlName="podnosilacPrijave">
+          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <div *ngIf="zigForm.value.podnosilacPrijave === 'TFizicko_lice'">
+        <app-form-fizicko-lice></app-form-fizicko-lice>
+      </div>
+      <div *ngIf="zigForm.value.podnosilacPrijave === 'TPravno_lice'">
+        <app-form-pravno-lice></app-form-pravno-lice>
+      </div>
+      <app-form-adresa></app-form-adresa>
+      <app-form-kontakt-podaci></app-form-kontakt-podaci>
+      </div>
+    <div>2. Punomoćnik:
+      <section>
+        <mat-radio-group formControlName="punomocnik">
+          <mat-radio-button value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button [checked]="true" value="TPravno_lice">Pravno lice</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <div *ngIf="zigForm.value.punomocnik === 'TFizicko_lice'">
+        <app-form-fizicko-lice></app-form-fizicko-lice>
+      </div>
+      <div *ngIf="zigForm.value.punomocnik === 'TPravno_lice'">
+        <app-form-pravno-lice></app-form-pravno-lice>
+      </div>
+      <app-form-adresa></app-form-adresa>
+      <app-form-kontakt-podaci></app-form-kontakt-podaci>
+    </div>
+    <div>
+      <app-form-znak></app-form-znak>
+    </div>
+  </form>
+</div>
