@@ -1,1 +1,95 @@
-<p>form-patent works!</p>
+<div class="paper-form">
+  <div class="header">
+    <h1 class="title">ZAHTEV ZA PRIZNANJE PATENTA</h1>
+    <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+  </div>
+  <form [formGroup]="this.patentForm">
+    <app-form-pronalazak></app-form-pronalazak>
+    <div>
+      <div class="description">
+        <p class="polje">Polje broj II</p>
+        <p class="subtitle">PODNOSILAC PRIJAVE</p>
+        <section class="checkbox">
+          <mat-checkbox formControlName="podnosilacJePronalazac">Podnosilac prijave je i pronalazač</mat-checkbox>
+        </section>
+      </div>
+      <section class="section-lice">
+        <mat-radio-group formControlName="podnosilacPrijave">
+          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <div *ngIf="patentForm.value.podnosilacPrijave === 'TFizicko_lice'">
+        <app-form-fizicko-lice></app-form-fizicko-lice>
+        <div class="input-drzavljanstvo">
+          Drzavljanstvo:
+          <mat-form-field appearance="fill">
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="patentForm.value.podnosilacPrijave === 'TPravno_lice'">
+        <app-form-pravno-lice></app-form-pravno-lice>
+      </div>
+      <app-form-adresa></app-form-adresa>
+      <app-form-kontakt-podaci></app-form-kontakt-podaci>
+    </div>
+    <div class="description">
+      <p class="polje">Polje broj III</p>
+      <p class="subtitle">PRONALAZAČ</p>
+      <section class="checkbox">
+        <mat-checkbox formControlName="podnosilacJePronalazac">Pronalazač ne želi da bude naveden u prijavi</mat-checkbox>
+      </section>
+    </div>
+    <div *ngIf="patentForm.value.podnosilacJePronalazac === false && patentForm.value.pronalazacNijeNaveden == false">
+      <app-form-fizicko-lice></app-form-fizicko-lice>
+      <app-form-adresa></app-form-adresa>
+      <app-form-kontakt-podaci></app-form-kontakt-podaci>
+    </div>
+
+    <div class="description">
+      <p class="polje">Polje broj IV</p>
+      <section class="checkbox">
+        <mat-checkbox formControlName="podnosilacJePronalazac">Punomoćnik za zastupanje</mat-checkbox>
+        <mat-checkbox formControlName="podnosilacJePronalazac">Punomoćnik za prijem pismena</mat-checkbox>
+        <mat-checkbox formControlName="podnosilacJePronalazac">Zajednički predstavnik</mat-checkbox>
+      </section>
+    </div>
+<!--    OVO TREBA JOS DORADITI NIJE MI NAJJASNIJE-->
+    <div class="description">
+      <p class="polje">Polje broj V</p>
+      <p class="subtitle">ADRESA DOSTAVLJANJA</p>
+    </div>
+    <p class="instruction">(ovo polje se popunjava ako podnosilac prijave, zajednički predstavnik ili punomoćnik želi da se dostavljanje podnesaka vrši na drugoj adresi od njegove navedene adrese)</p>
+    <div>
+      <app-form-adresa></app-form-adresa>
+<!--      ovde nije potrebna drzva-->
+    </div>
+    <div class="description">
+      <p class="polje">Polje broj VI</p>
+      <p class="subtitle">NAČIN DOSTAVLJANJA</p>
+    </div>
+    <section class="section-nacin-dostavljanja">
+      <mat-radio-group formControlName="nacinDostavljanja">
+        <mat-radio-button value="elektronski">Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena isključivo elektronskim putem u formi elektronskog dokumenta (u ovom slučaju neophodna je registracija na portalu „eUprave”)</mat-radio-button>
+        <mat-radio-button [checked]="true" value="papirna_forma">Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena u papirnoj formi</mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <div class="description">
+      <p class="polje">Polje broj VII</p>
+      <mat-radio-group formControlName="vrstaPrijave">
+        <mat-radio-button value="dopunska">DOPUNSKA PRIJAVA</mat-radio-button>
+        <mat-radio-button [checked]="true" value="izdvojena">IZDVOJENA PRIJAVA</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="patentForm.value.vrstaPrijave === 'dopunska'">
+      <app-form-dopunska-prijava></app-form-dopunska-prijava>
+    </div>
+
+    <div class="submit-item">
+      <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
+    </div>
+  </form>
+</div>

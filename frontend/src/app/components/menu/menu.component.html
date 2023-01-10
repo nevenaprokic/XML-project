@@ -7,30 +7,30 @@
 
   <div class="profile_options">
     <mat-selection-list #menuItems [multiple]="false">
-      <div>Podnošenje zahteva</div>
+      <div><p class="title">Podnošenje zahteva</p></div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">perm_identity</mat-icon>
         <mat-list-option (click)="openFormAutorskoDelo()">
-          Autorsko delo
+         <p>Autorsko delo</p>
         </mat-list-option>
       </div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">lock</mat-icon>
         <mat-list-option (click)="openFormPatent()">
-          Patent
+          <p>Patent</p>
         </mat-list-option>
       </div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">lock</mat-icon>
         <mat-list-option (click)="openFormZig()">
-          Zig
+          <p>Zig</p>
         </mat-list-option>
       </div>
       <div class="delimiter"></div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">exit_to_app</mat-icon>
         <mat-list-option>
-          Odjava
+          <p>Odjava</p>
         </mat-list-option>
       </div>
 

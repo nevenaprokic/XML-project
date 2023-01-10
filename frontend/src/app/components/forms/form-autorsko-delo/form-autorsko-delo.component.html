@@ -1,1 +1,103 @@
-<p>form-autorsko-delo works!</p>
+<div class="paper-form">
+  <div class="header">
+    <h1 class="title">ZAHTEV ZA UNOŠENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</h1>
+    <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+  </div>
+  <form [formGroup]="this.autorskoDeloForm">
+    <div> <p class="description">1. Podnosilac prijave:</p>
+      <section class="section-lice">
+        <mat-radio-group formControlName="podnosilacPrijave">
+<!--          moze biti i radio button autor - proveriti sa kacom kako ide-->
+          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <div *ngIf="autorskoDeloForm.value.podnosilacPrijave === 'TFizicko_lice'">
+        <app-form-fizicko-lice></app-form-fizicko-lice>
+      </div>
+      <div *ngIf="autorskoDeloForm.value.podnosilacPrijave === 'TPravno_lice'">
+        <app-form-pravno-lice></app-form-pravno-lice>
+      </div>
+      <app-form-adresa></app-form-adresa>
+<!--      NEMA FAKS-->
+      <app-form-kontakt-podaci></app-form-kontakt-podaci>
+    </div>
+    <div class="input-autorsko-delo">
+      <p class="description">2. Pseudonim ili znak autora, (ako ga ima):</p>
+      <mat-form-field appearance="fill" class="input-zig">
+        <input matInput>
+      </mat-form-field>
+    </div>
+<!--    4.pnomocnik-->
+    <div>
+      <p class="description">4. Naslov:</p>
+      <div class="input-autorsko-delo">
+        Naslov autorskog dela:
+        <mat-form-field appearance="fill" class="input-zig">
+          <input matInput>
+        </mat-form-field>
+      </div>
+      <div class="input-autorsko-delo">
+        Alternativni naslov (ako ga ima, po kome autorsko delo može da se identifikuje):
+        <mat-form-field appearance="fill" class="input-zig">
+          <input matInput>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <p class="description">5. Prerada autorskog dela:</p>
+<!--      nisam sigurna sta ide ovde-->
+      <div class="input-autorsko-delo">
+        Naslov autorskog dela:
+        <mat-form-field appearance="fill" class="input-zig">
+          <input matInput>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="vrasta-autorskog-dela">
+      <p class="description">6. Podaci o vrsti autorskog dela:</p>
+      <section>
+        <mat-radio-group formControlName="vrstaAutorskogDela">
+          <mat-radio-button [checked]="true" value="knjizevno delo">knjizevno delo</mat-radio-button>
+          <mat-radio-button value="muzicko delo">muzicko delo</mat-radio-button>
+          <mat-radio-button value="likovno delo">likovno delo</mat-radio-button>
+          <mat-radio-button value="racunarski program">racunarski program</mat-radio-button>
+          <mat-radio-button value="ostalo">ostalo</mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+    <div class="forma-zapisa-autorskog-dela">
+      <p class="description">7. Podaci o formi zapisa autorskog dela:</p>
+      <section>
+        <mat-radio-group formControlName="formaZapisaAutorskogDela">
+          <mat-radio-button [checked]="true" value="stamparski tekst">stamparski tekst</mat-radio-button>
+          <mat-radio-button value="opticki disk">opticki disk</mat-radio-button>
+          <mat-radio-button value="ostalo">ostalo</mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+<!--    8. tacka ko je kome tu sta-->
+    <div>
+      <p class="description">9. Podaci o radnom odnosu:</p>
+      <div class="input-autorsko-delo">
+        Podatak da li je u pitanju autorsko delo stvoreno u radnom odnosu:
+        <mat-form-field appearance="fill" class="input-zig">
+          <input matInput>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <p class="description">10. Način korišćenja autorskog dela:</p>
+      <div class="input-autorsko-delo">
+        Način korišćenja autorskog dela ili nameravani način korišćenja autorskog dela:
+        <mat-form-field appearance="fill" class="input-zig">
+          <input matInput>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="submit-item">
+      <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
+    </div>
+  </form>
+</div>

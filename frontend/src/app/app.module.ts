@@ -20,6 +20,9 @@ import { FormFizickoLiceComponent } from './components/forms/form-items/zajednic
 import { FormAdresaComponent } from './components/forms/form-items/zajednicko/form-adresa/form-adresa.component';
 import { FormZnakComponent } from './components/forms/form-items/zaZig/form-znak/form-znak.component';
 import { FormTakseComponent } from './components/forms/form-items/zaZig/form-takse/form-takse.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { FormDopunskaPrijavaComponent } from './components/forms/form-items/zaPatent/form-dopunska-prijava/form-dopunska-prijava.component';
+import { FormPronalazakComponent } from './components/forms/form-items/zaPatent/form-pronalazak/form-pronalazak.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { FormTakseComponent } from './components/forms/form-items/zaZig/form-tak
     FormFizickoLiceComponent,
     FormAdresaComponent,
     FormZnakComponent,
-    FormTakseComponent
+    FormTakseComponent,
+    FormDopunskaPrijavaComponent,
+    FormPronalazakComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,8 @@ import { FormTakseComponent } from './components/forms/form-items/zaZig/form-tak
     MatInputModule,
     FormsModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

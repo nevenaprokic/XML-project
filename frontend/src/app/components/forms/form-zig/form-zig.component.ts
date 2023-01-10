@@ -13,4 +13,7 @@ export class FormZigComponent {
     punomocnik: new FormControl('TPravno_lice')
   })
 
+  onSubmit() {
+
+  }
 }
