@@ -72,6 +72,11 @@ public class TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava {
         }
         return this.ranijaPrijava;
     }
+    
+    public void setRanijaPrijava(List<RanijaPrijava> value) {
+       this.ranijaPrijava = value;
+    }
+
 
     public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;

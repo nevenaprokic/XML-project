@@ -50,8 +50,8 @@ public class PatentServiceImpl implements PatentService {
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		//ovde da ne bude uvek A1 vec A pa indeks koji se posalje
-		String outputFilePDF = PATH + documentId + "/" + timeStamp + ".pdf";
-		String outputFileXHTML = PATH + documentId + "/" + timeStamp + ".html";
+		String outputFilePDF = PATH + documentId + "-" + timeStamp + ".pdf";
+		String outputFileXHTML = PATH + documentId + "-" + timeStamp + ".html";
     	
     	// Creates parent directory if necessary
     	File pdfFile = new File(outputFilePDF);

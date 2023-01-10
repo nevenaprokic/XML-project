@@ -1,6 +1,7 @@
 
 package rs.ac.uns.ftn.jaxb.z1;
 
+import rs.ac.uns.ftn.jaxb.zajednicko.Adresa;
 import rs.ac.uns.ftn.jaxb.zajednicko.KontaktPodaci;
 
 import java.util.HashMap;
@@ -34,13 +35,15 @@ import javax.xml.namespace.QName;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "kontaktPodaci"
+        "kontaktPodaci", "adresa"
 })
 @XmlRootElement(name = "Zajednicki_predstavnik", namespace = "http://ftn.uns.ac.rs/zig")
 public class ZajednickiPredstavnik {
 
     @XmlElement(name = "Kontakt_podaci", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
     protected KontaktPodaci kontaktPodaci;
+    @XmlElement(name = "Adresa", namespace = "http://www.ftn.uns.ac.rs/zaj", required = true)
+    protected Adresa adresa;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -63,6 +66,30 @@ public class ZajednickiPredstavnik {
     public void setKontaktPodaci(KontaktPodaci value) {
         this.kontaktPodaci = value;
     }
+    /**
+     * Gets the value of the adresa property.
+     *
+     * @return
+     *     possible object is
+     *     {@link Adresa }
+     *
+     */
+    public Adresa getAdresa() {
+        return adresa;
+    }
+
+    /**
+     * Sets the value of the adresa property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Adresa }
+     *
+     */
+    public void setAdresa(Adresa value) {
+        this.adresa = value;
+    }
+
 
     public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;

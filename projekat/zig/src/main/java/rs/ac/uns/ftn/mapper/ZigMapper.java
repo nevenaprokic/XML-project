@@ -3,10 +3,16 @@ package rs.ac.uns.ftn.mapper;
 import javax.xml.namespace.QName;
 
 import rs.ac.uns.ftn.jaxb.z1.ObjectFactory;
+import rs.ac.uns.ftn.jaxb.z1.TDopuna;
+import rs.ac.uns.ftn.jaxb.z1.TPrilozi;
+import rs.ac.uns.ftn.jaxb.z1.TTakse;
+import rs.ac.uns.ftn.jaxb.z1.TZig;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
+import rs.ac.uns.ftn.jaxb.z1.ZajednickiPredstavnik;
 import rs.ac.uns.ftn.jaxb.zajednicko.Adresa;
 import rs.ac.uns.ftn.jaxb.zajednicko.KontaktPodaci;
 import rs.ac.uns.ftn.jaxb.zajednicko.TFizickoLice;
+import rs.ac.uns.ftn.jaxb.zajednicko.TLice;
 import rs.ac.uns.ftn.jaxb.zajednicko.TPravnoLice;
 
 public class ZigMapper {
@@ -17,13 +23,35 @@ public class ZigMapper {
 	private static ObjectFactory objectFactory = new ObjectFactory();
 	private static rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory objectFactoryZajednicki = new rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory();
 	
-//	private static final String GRAD_ZAVODA = "Beograd";
-//	private static final String ULICA_ZAVODA = "Kneginje Ljubice";
-//	private static final BigInteger BROJ_ZAVODA = BigInteger.valueOf(2);
-//	private static final String NAZIV_ZAVODA = "Zavod za intelektualnu svojinu";
-	
 	public static ZahtevZaPriznanjeZiga mapFromDTO(ZahtevZaPriznanjeZiga zahtevDTO, String id) {
 		ZahtevZaPriznanjeZiga zahtev = objectFactory.createZahtevZaPriznanjeZiga();		
+		
+		zahtev.setBrojPrijaveZiga(zahtevDTO.getBrojPrijaveZiga());
+		
+		for(TLice lice: zahtevDTO.getPodnosiocPrijave()) {
+			TLice podnosilacZahteva = getLiceFromDTO(lice);
+			podnosilacZahteva.getOtherAttributes().put(new QName("id"), lice.getKontaktPodaci().getEmail());
+			podnosilacZahteva.getOtherAttributes().put(new QName("property"), "pred:podnosilac_prijave");
+			podnosilacZahteva.getOtherAttributes().put(new QName("datatype"), "xs:string");
+			podnosilacZahteva.getOtherAttributes().put(new QName("content"), lice.getKontaktPodaci().getEmail());
+			
+			zahtev.getPodnosiocPrijave().add(podnosilacZahteva);
+		}
+		
+		if(zahtevDTO.getPunomocnik() != null) {
+			zahtev.setPunomocnik(getLiceFromDTO(zahtevDTO.getPunomocnik()));
+		}
+		if(zahtevDTO.getZajednickiPredstavnik() != null) {
+			zahtev.setZajednickiPredstavnik(getZajednickiPredstavnik(zahtevDTO.getZajednickiPredstavnik()));
+		}
+		
+		zahtev.setZig(getZigFromDTO(zahtevDTO.getZig()));
+		if(zahtevDTO.getPravoPrvenstvaIOsnov() != null) {
+			zahtev.setPravoPrvenstvaIOsnov(zahtevDTO.getPravoPrvenstvaIOsnov());
+		}
+		
+		zahtev.setPlaceneTakse(getPlaceneTakseFromDTO(zahtevDTO.getPlaceneTakse()));
+		zahtev.setPriloziUzZahtev(getPriloziUzZahtevFromDTO(zahtevDTO.getPriloziUzZahtev()));
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
 		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);
@@ -34,9 +62,103 @@ public class ZigMapper {
 		
 		return zahtev;
 	}
+	
+	private static TDopuna getDopunaFromDTO(TDopuna dopunaDTO) {
+		TDopuna dopuna = objectFactory.createTDopuna();
+		if(dopuna.getPutanjaDoFajla() != null) {
+			dopuna.setPutanjaDoFajla(dopunaDTO.getPutanjaDoFajla());
+		}
+		if(dopuna.isDostavljeno() != null) {
+			dopuna.setDostavljeno(dopunaDTO.isDostavljeno());
+		}
+		return dopuna;
+	}
+	
+	private static TPrilozi getPriloziUzZahtevFromDTO(TPrilozi priloziDTO) {
+		TPrilozi prilozi = objectFactory.createTPrilozi();
+		prilozi.setPrimerakZnaka(getDopunaFromDTO(priloziDTO.getPrimerakZnaka()));
+		prilozi.setSpisakRobeIUsluga(getDopunaFromDTO(priloziDTO.getSpisakRobeIUsluga()));
+		if(priloziDTO.getPunomocje() != null) {
+			prilozi.setPunomocje(getDopunaFromDTO(priloziDTO.getPunomocje()));
+		}
+		if(priloziDTO.getPunomocjeRanijePrilozeno() != null) {
+			prilozi.setPunomocjeRanijePrilozeno(getDopunaFromDTO(priloziDTO.getPunomocjeRanijePrilozeno()));
+		}
+		if(priloziDTO.getPunomocjeNaknadnoDostavljeno() != null) {
+			prilozi.setPunomocjeNaknadnoDostavljeno(getDopunaFromDTO(priloziDTO.getPunomocjeNaknadnoDostavljeno()));
+		}
+		
+		prilozi.setOpstiAktOKolektivnomZiguGarancije(getDopunaFromDTO(priloziDTO.getOpstiAktOKolektivnomZiguGarancije()));
+		prilozi.setDokazOPravuPrvenstva(getDopunaFromDTO(priloziDTO.getDokazOPravuPrvenstva()));
+		prilozi.setDokazOUplatiTakse(getDopunaFromDTO(priloziDTO.getDokazOUplatiTakse()));
+		return prilozi;
+	}
+	
+	private static TTakse getPlaceneTakseFromDTO(TTakse takseDTO) {
+		TTakse takse = objectFactory.createTTakse();
+		takse.setOsnovnaTaksa(takseDTO.getOsnovnaTaksa());
+		if(takseDTO.getGrafickoResenje() != null) {
+			takse.setGrafickoResenje(takse.getGrafickoResenje());
+		}
+		if(takseDTO.getZaKlasu() != null) {
+			takse.setZaKlasu(takseDTO.getZaKlasu());
+		}
+		
+		takse.setUkupanIznosTakse(takseDTO.getUkupanIznosTakse());
+		return takse;
+	}
+	
+	private static TZig getZigFromDTO(TZig zigDTO) {
+		TZig zig = objectFactory.createTZig();
+		
+		zig.setVrstaZigaNaOsnovuKorisnika(zigDTO.getVrstaZigaNaOsnovuKorisnika());
+		zig.setVrstaZigaNaOsnovuIzgleda(zigDTO.getVrstaZigaNaOsnovuIzgleda());
+		zig.setIzgledZnaka(zigDTO.getIzgledZnaka());
+		if(zigDTO.getPodaciOBojiZnaka() != null) {
+			zig.setPodaciOBojiZnaka(zigDTO.getPodaciOBojiZnaka());
+		}
+		if(zigDTO.getTransliteracijaZnaka() != null) {
+			zig.setTransliteracijaZnaka(zigDTO.getTransliteracijaZnaka());
+		}
+		if(zigDTO.getPrevodZnaka() != null) {
+			zig.setPrevodZnaka(zigDTO.getPrevodZnaka());
+		}
+		if(zigDTO.getOpisZnaka() != null) {
+			zig.setOpisZnaka(zigDTO.getOpisZnaka());
+		}
+		
+		for(Integer number: zigDTO.getPodaciOBrojevimaKlasaRobeIUsluga()) {
+			zig.getPodaciOBrojevimaKlasaRobeIUsluga().add(number);
+		}
 
-
-
+		zig.getOtherAttributes().put(new QName("property"), "pred:vrsta_ziga_korisnik");
+		zig.getOtherAttributes().put(new QName("datatype"), "xs:string");
+		zig.getOtherAttributes().put(new QName("content"), zig.getVrstaZigaNaOsnovuKorisnika().value());
+		
+		zig.getOtherAttributes().put(new QName("property"), "pred:vrsta_ziga_izgled");
+		zig.getOtherAttributes().put(new QName("datatype"), "xs:string");
+		zig.getOtherAttributes().put(new QName("content"), zig.getVrstaZigaNaOsnovuIzgleda());
+		
+		return zig;
+		
+	}
+	
+	private static ZajednickiPredstavnik getZajednickiPredstavnik(ZajednickiPredstavnik zajednickiPredstavnikDTO) {
+		ZajednickiPredstavnik zajednickiPredstavnik = objectFactory.createZajednickiPredstavnik();
+		zajednickiPredstavnik.setAdresa(getAdresaFromDTO(zajednickiPredstavnikDTO.getAdresa()));
+		zajednickiPredstavnik.setKontaktPodaci(getKontaktPodaciFromDTO(zajednickiPredstavnikDTO.getKontaktPodaci()));
+		return zajednickiPredstavnik;
+	}
+	
+	private static TLice getLiceFromDTO(TLice liceDTO) {
+		
+		if(liceDTO instanceof TFizickoLice) {
+			return getFizickoLiceFromDTO((TFizickoLice) liceDTO);
+		}
+		else {
+			return getPravnoLiceFromDTO((TPravnoLice) liceDTO);
+		}
+	}
 
 	private static TPravnoLice getPravnoLiceFromDTO(TPravnoLice pravnoLiceDto) {
 		TPravnoLice pravnoLice = objectFactoryZajednicki.createTPravnoLice();
