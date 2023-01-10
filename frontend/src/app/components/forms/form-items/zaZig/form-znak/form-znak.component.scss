@@ -1,0 +1,46 @@
+@import "src/style/styles";
+
+.znak {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.input-znak{
+  margin: 10px;
+}
+
+.vrste {
+  display: flex;
+  justify-content: center;
+
+  .vrsta-naslov {
+    font-weight: bold;
+    margin: 10px 20px;
+  }
+
+  .vrasta-korisnik,.vrsta-izgled {
+    margin: 10px 20px;
+    border: 1px solid $fontColor;
+  }
+}
+
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px 10px;
+}
+
+.description {
+  margin: 10px 10px 0 10px;
+  padding-top: 5px;
+  font-weight: bold;
+  border-top: 1px solid $fontColor;
+}
+
+.instruction {
+  font-size: 14px;
+  color: $dark1;
+  margin: 5px 10px 10px 15px;
+}

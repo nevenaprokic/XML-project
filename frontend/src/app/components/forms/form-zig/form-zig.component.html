@@ -1,11 +1,11 @@
 <div class="paper-form">
-  <div>
-    <h1>ZAHTEV ZA PRIZNANJE ŽIGA</h1>
-    <h4>Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+  <div class="header">
+    <h1 class="title">ZAHTEV ZA PRIZNANJE ŽIGA</h1>
+    <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
   </div>
   <form [formGroup]="this.zigForm">
-    <div> 1. Podnosilac prijave:
-      <section>
+    <div> <p class="description">1. Podnosilac prijave:</p>
+      <section class="section-lice">
         <mat-radio-group formControlName="podnosilacPrijave">
           <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
           <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
@@ -20,8 +20,8 @@
       <app-form-adresa></app-form-adresa>
       <app-form-kontakt-podaci></app-form-kontakt-podaci>
       </div>
-    <div>2. Punomoćnik:
-      <section>
+    <div> <p class="description">2. Punomoćnik:</p>
+      <section class="section-lice">
         <mat-radio-group formControlName="punomocnik">
           <mat-radio-button value="TFizicko_lice">Fizicko lice</mat-radio-button>
           <mat-radio-button [checked]="true" value="TPravno_lice">Pravno lice</mat-radio-button>
@@ -38,6 +38,16 @@
     </div>
     <div>
       <app-form-znak></app-form-znak>
+    </div>
+    <div>
+      <p class="description">10. Zatraženo pravo prvenstva i osnov:</p>
+      <mat-form-field appearance="fill" class="input-zig">
+        <input matInput>
+      </mat-form-field>
+    </div>
+    <div>
+      <p class="description">11. Plaćene takse:</p>
+      <app-form-takse></app-form-takse>
     </div>
   </form>
 </div>

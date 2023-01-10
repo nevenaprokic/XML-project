@@ -19,6 +19,7 @@ import { FormPravnoLiceComponent } from './components/forms/form-items/zajednick
 import { FormFizickoLiceComponent } from './components/forms/form-items/zajednicko/form-fizicko-lice/form-fizicko-lice.component';
 import { FormAdresaComponent } from './components/forms/form-items/zajednicko/form-adresa/form-adresa.component';
 import { FormZnakComponent } from './components/forms/form-items/zaZig/form-znak/form-znak.component';
+import { FormTakseComponent } from './components/forms/form-items/zaZig/form-takse/form-takse.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormZnakComponent } from './components/forms/form-items/zaZig/form-znak
     FormPravnoLiceComponent,
     FormFizickoLiceComponent,
     FormAdresaComponent,
-    FormZnakComponent
+    FormZnakComponent,
+    FormTakseComponent
   ],
   imports: [
     BrowserModule,

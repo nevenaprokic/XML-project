@@ -1,0 +1,11 @@
+@import "src/style/styles";
+
+.fizicko-lice {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+
+  .input-lice {
+    margin: 0 10px;
+  }
+}
