@@ -65,8 +65,9 @@ import javax.xml.namespace.QName;
     "pronalazac",
     "podnosilacZahteva",
     "punomocnik",
-    "podaciODostavljanju",
-    "zahtevZaPriznanjePrvenstvaIzRanijihPrijava"
+    "podaciODostavljanju",    
+    "zahtevZaPriznanjePrvenstvaIzRanijihPrijava",
+    "podaciODodatnojPrijavi"
 })
 @XmlRootElement(name = "Zahtev_za_priznanje_patenta", namespace = "http://www.ftn.uns.ac.rs/p1")
 public class ZahtevZaPriznanjePatenta {
@@ -93,8 +94,8 @@ public class ZahtevZaPriznanjePatenta {
     @XmlAttribute(name = "priznati_datum_podnosenja", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar priznatiDatumPodnosenja;
-    @XmlAttribute(name = "tip_prijave", required = true)
-    protected TipPrijave tipPrijave;
+    @XmlElement(name = "Podaci_o_dodatnoj_prijavi", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    protected PodaciODodatnojPrijavi podaciODodatnojPrijavi;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -346,8 +347,8 @@ public class ZahtevZaPriznanjePatenta {
      *     {@link String }
      *     
      */
-    public TipPrijave getTipPrijave() {
-        return tipPrijave;
+    public PodaciODodatnojPrijavi getODodatnojPrijavi() {
+        return podaciODodatnojPrijavi;
     }
 
     /**
@@ -358,8 +359,8 @@ public class ZahtevZaPriznanjePatenta {
      *     {@link String }
      *     
      */
-    public void setTipPrijave(TipPrijave value) {
-        this.tipPrijave = value;
+    public void setPodaciODodatnojPrijavi(PodaciODodatnojPrijavi value) {
+        this.podaciODodatnojPrijavi = value;
     }
 
     public Map<QName, String> getOtherAttributes() {
@@ -372,7 +373,6 @@ public class ZahtevZaPriznanjePatenta {
                 "informacje: " + "\n\t\t" + " broj prjave: " + brojPrijave +   "\n\t\t" +
                 " datum prijema: " +datumPrijemaPrijave +  "\n\t\t" +
                 " priznati datum podnosenja prijave: " +priznatiDatumPodnosenja +  "\n\t\t" +
-                " tip prjave: " + tipPrijave + "\n\t\n\t" +
                 primalacZahteva +  "\n\t" +
                 pronalazak +  "\n\t" +
                 podnosilacZahteva +  "\n\t" +

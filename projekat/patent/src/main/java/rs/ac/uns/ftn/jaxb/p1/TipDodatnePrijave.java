@@ -4,17 +4,17 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "nacin_dostavljanja")
+@XmlType(name = "tip_dodatne_prijave")
 @XmlEnum
-public enum NacinDostavljanja {
-	
-	@XmlEnumValue("elektronski")
-    ELEKTRONSKI("elektronski"),
-    @XmlEnumValue("papirna_forma")
-    PAPIRNA_FORMA("papirna_forma");
+public enum TipDodatnePrijave {
+
+	@XmlEnumValue("dopunska")
+    DOPUNSKA("dopunska"),
+    @XmlEnumValue("izdvojena")
+    IZDVOJENA("izdvojena");
     private final String value;
 
-    NacinDostavljanja(String v) {
+    TipDodatnePrijave(String v) {
         value = v;
     }
 
@@ -22,8 +22,8 @@ public enum NacinDostavljanja {
         return value;
     }
 
-    public static NacinDostavljanja fromValue(String v) {
-        for (NacinDostavljanja c: NacinDostavljanja.values()) {
+    public static TipDodatnePrijave fromValue(String v) {
+        for (TipDodatnePrijave c: TipDodatnePrijave.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

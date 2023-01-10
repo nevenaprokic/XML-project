@@ -116,6 +116,11 @@ public class ObjectFactory {
     public RanijaPrijava createRanijaPrijava() {
         return new RanijaPrijava();
     }
+    
+    public PodaciODodatnojPrijavi crePodaciODodatnojPrijavi() {
+        return new PodaciODodatnojPrijavi();
+    }
+
 
 //    /**
 //     * Create an instance of {@link TPravnoLice }

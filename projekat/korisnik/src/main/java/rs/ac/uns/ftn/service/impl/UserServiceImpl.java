@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean saveNewUser(User user) {
         if (getUserByEmail(user.getEmail()) != null) {
-        	throw new BadRequestException(ErrorMessageConstants.USER_ALREADY_EXISTS); //user already exist
+        	throw new BadRequestException(ErrorMessageConstants.USER_ALREADY_EXISTS);
         }
     	user.setPassword(passwordEncoder.encode(user.getPassword()));
     	System.out.println(jaxb.validate(user.getClass(), user));

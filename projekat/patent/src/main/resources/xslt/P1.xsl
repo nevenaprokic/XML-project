@@ -74,14 +74,44 @@
                     margin:0;
                     margin-top: 50px;
                     }
-                    
+                    .left-border{
+	                    border-collapse: collapse;
+						border-left-style: solid;
+						border-left-width: 1px;
+                    }
+                    .right-border{
+                    	border-collapse: collapse;
+						border-right-style: solid;
+						border-right-width: 1px;
+                    }
+                    .top-border{
+                    	border-collapse: collapse;
+						border-top-style: solid;
+						border-top-width: 1px;
+                    }
+					.bottom-border{
+						border-collapse: collapse;
+						border-bottom-style: solid;
+						border-bottom-width: 1px;
+					}       
+					.all-border{
+						border-collapse: collapse;
+						border-left-style: solid;
+						border-left-width: 1px;
+						border-right-style: solid;
+						border-right-width: 1px;
+						border-top-style: solid;
+						border-top-width: 1px;
+						border-bottom-style: solid;
+						border-bottom-width: 1px;
+					}             
                     
                 </style>
             </head>
             <body>
             	<xsl:variable name="ujedno_pronalazac" select="p:Zahtev_za_priznanje_patenta/p:Podnosilac_zahteva/p:pronalazac"/>
                 <p style="text-align:right; font-size:12px; color:silver;">Obrazac P-1</p>
-                <table style="border: 1px; width: 70%">
+                <table style="width: 70%" class="all-border">
                     <tr>
                         <td style="padding: 5px; margin: 0;">
                             <p class="title-table">Popunjava Zavod</p>
@@ -106,22 +136,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <table style="margin:0;">
+                            <table style="margin:0;" class="top-border">
                                 <tr>
-                                    <td style="width:40% padding:5px; border-collapse: collapse;
-													border-top-style: solid;
-													border-top-width: 1px;">
+                                    <td style="width:40% padding:5px;">
                                         <p class="text">Datum prijema</p>
                                          <p style="text-align: center; font-weight: bold;">
                                             <xsl:value-of select="p:Zahtev_za_priznanje_patenta/@datum_prijema_prijave"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
-                                    <td style="border-collapse: collapse;
-												border-top-style: solid;
-												border-top-width: 1px; 
-												border-left-style: solid;
-												border-left-width: 1px; 
-												width:50% padding:5px;">
+                                    <td style="width:50% padding:5px;" class="left-border">
                                         <p class="text">Priznati datum podnošenja	(22)</p>
                                          <p style="text-align: center; font-weight: bold;">
                                             <xsl:value-of select="p:Zahtev_za_priznanje_patenta/@priznati_datum_podnosenja"/><xsl:text></xsl:text>
@@ -148,8 +171,8 @@
                     <p class="title">ZA PRIZNANJE PATENTA</p>
                     <p class="description">(popuniti pisaćom mašinom ili računarom)</p>
                 </div>
-                <table  style="border: 1px; margin-bottom:10px; margin-top:0px; width:100%">
-                    <tbody  style="border: 1px">
+                <table  style="margin-bottom:10px; margin-top:0px; width:100%" class="all-border">
+                    <tbody class="all-border">
                         <tr>
                             <td style="padding: 15px 5px;">
                                 <table style="margin:0;">
@@ -169,7 +192,6 @@
                         </tr>
                         <tr>
                             <td style="padding: 5px 5px 20px 5px;">
-                                <p>* Naziv pronalaska treba da jasno i sažeto izražava suštinu pronalaska i ne sme da sadrži izmišljene ili komercijalne nazive, žigove, imena, šifre, uobičajene skraćenice za proizvode i sl.</p>
                             </td>
                         </tr>
                         <tr>
@@ -194,7 +216,7 @@
                                         </td>
                                         <xsl:if test="$ujedno_pronalazac='true'">
 	                                        <td style="width:40%">
-	                                            <p>&#x2610; Podnosilac prijave je i pronalazač </p>
+	                                            <p>&#x2610; Podnosilac prijave je i pronalazac </p>
 	                                        </td>
                                         </xsl:if>
                                         <td style="width:5%">
@@ -206,11 +228,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <table style="margin:0; border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px;
-														border-bottom-style: solid;
-														border-bottom-width: 1px;">
+                                <table style="margin:0;" class="top-border bottom-border">
                                     <tr>
                                         <td style="width:70%">
                                             <table style="margin:0;">
@@ -239,10 +257,7 @@
 								                        			</xsl:choose>
                                                                 </p>
                                                             </td>
-                                                            <td style="border-collapse: collapse;
-																		border-left-style: solid;
-																		border-left-width: 1px; 
-                                                            		   padding: 5px 5px 130px 5px; width:50%;">
+                                                            <td style="padding: 5px 5px 130px 5px; width:50%;" class="left-border ">
                                                                 <p>Ulica i broj, poštanski broj, mesto i država:</p>
                                                                 <P>
                                                                			<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Podnosilac_zahteva/p:Lice/zaj:Adresa/zaj:Ulica"/> <xsl:text></xsl:text> &#160;
@@ -267,7 +282,7 @@
                                                                 </p>
                                                             </td>
                                                             <td style="font-size: 14px;">
-                                                                <p>(popuniti samo za fizička lica)</p>
+                                                                <p>(popuniti samo za fizicka lica)</p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -275,29 +290,18 @@
                                             </table>
                                         </td>
                                         <td style="width:30%" >
-                                            <table style="margin:0; border-left:1px; 
-                                            			border-collapse: collapse;
-														border-left-style: solid;
-														border-left-width: 1px;">
-                                                <tr><td style="padding: 5px 5px 15px 5px;"><p>Broj telefona:</p>
+                                            <table style="margin:0; border-left:1px;" class="left-border">
+                                                <tr><td style="padding: 5px 5px 15px 5px;" class="left-border"><p>Broj telefona:</p>
 														<p>
 															<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Podnosilac_zahteva/p:Lice/zaj:Kontakt_podaci/zaj:Telefon"/> <xsl:text></xsl:text> &#160;
 														</p>
 														</td></tr>
-                                                <tr><td style="border-collapse: collapse;
-													border-top-style: solid;
-													border-top-width: 1px; 
-													padding: 5px 5px 15px 5px;"><p>Broj faksa:</p>
+                                                <tr><td style="padding: 5px 5px 15px 5px;" class="top-border left-border"><p>Broj faksa:</p>
 														<p>
 															<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Podnosilac_zahteva/p:Lice/zaj:Kontakt_podaci/zaj:Faks"/> <xsl:text></xsl:text> &#160;
 														</p>
 												</td></tr>
-	                                            <tr><td style="border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px; 
-														border-left-style: solid;
-														border-left-width: 1px;
-														padding: 5px 5px 15px 5px;"><p>E-pošta:</p>
+	                                            <tr><td style="padding: 5px 5px 15px 5px;" class="top-border left-border"><p>E-pošta:</p>
 														<p>
 															<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Podnosilac_zahteva/p:Lice/zaj:Kontakt_podaci/zaj:Email"/> <xsl:text></xsl:text> &#160;
 														</p>
@@ -310,7 +314,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table style="border: 1px; margin-top:0; margin-bottom:0px;">
+                <table style="margin-top:0; margin-bottom:0px;" class="all-border">
                     <tr>
                         <td style="padding: 10px 5px 5px 5px;">
                             <table style="margin:0;">
@@ -319,7 +323,7 @@
                                         <p class="row-title">Polje broj III </p>
                                     </td>
                                     <td style="width:40%">
-                                        <p class="row-title"> PRONALAZAČ </p>
+                                        <p class="row-title"> PRONALAZAC </p>
                                     </td>
                                     <td style="width:5%">
                                         <p>(72)</p>
@@ -342,11 +346,7 @@
                     </tr>
                     <tr>
                             <td>
-                                <table style="margin:0; border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px;
-														border-bottom-style: solid;
-														border-bottom-width: 1px;">
+                                <table style="margin:0;" class="top-border bottom-border">
                                     <tr>
                                     	<xsl:variable name="anoniman" select="p:Zahtev_za_priznanje_patenta/p:Pronalazac/@anoniman"/>
                                         <td style="width:70%">
@@ -368,10 +368,7 @@
                                                                 </xsl:if>
                                                                 
                                                             </td>
-                                                            <td style="border-collapse: collapse;
-																		border-left-style: solid;
-																		border-left-width: 1px; 
-                                                            		   padding: 5px 5px 130px 5px; width:50%;">
+                                                            <td style="padding: 5px 5px 130px 5px; width:50%;" class="left-border">
                                                                 <p>Ulica i broj, poštanski broj, mesto i država:</p>
                                                                 
                                                                 <xsl:if test="$anoniman='false' and $ujedno_pronalazac='false'">
@@ -391,10 +388,7 @@
                                             </table>
                                         </td>
                                         <td style="width:30%" >
-                                            <table style="margin:0; border-left:1px; 
-                                            			border-collapse: collapse;
-														border-left-style: solid;
-														border-left-width: 1px;">
+                                            <table style="margin:0;" class="left-border">
                                                 <tr><td style="padding: 5px 5px 15px 5px;"><p>Broj telefona:</p>
 													
                                                         <xsl:if test="$anoniman='false' and $ujedno_pronalazac='false'">
@@ -403,10 +397,7 @@
 															</p>
 														</xsl:if>
 														</td></tr>
-                                                <tr><td style="border-collapse: collapse;
-													border-top-style: solid;
-													border-top-width: 1px; 
-													padding: 5px 5px 15px 5px;"><p>Broj faksa:</p>
+                                                <tr><td style="padding: 5px 5px 15px 5px;" class="top-border"><p>Broj faksa:</p>
 														
 														
                                                          <xsl:if test="$anoniman='false' and $ujedno_pronalazac='false'">
@@ -415,12 +406,7 @@
 															</p>
 														</xsl:if>
 												</td></tr>
-	                                            <tr><td style="border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px; 
-														border-left-style: solid;
-														border-left-width: 1px;
-														padding: 5px 5px 15px 5px;"><p>E-pošta:</p>
+	                                            <tr><td style="padding: 5px 5px 15px 5px;" class="top-border left-boder"><p>E-pošta:</p>
 														
                                                         <xsl:if test="$anoniman='false' and $ujedno_pronalazac='false'">
 															<p>
@@ -439,7 +425,7 @@
                 
                 
                 
-                <table style="border: 1px; margin-top:10px;">
+                <table style="margin-top:10px;" class="all-border">
                     <tr>
                         <td style="padding: 10px 5px 5px 5px;">
                             <table style="margin:0;">
@@ -454,17 +440,17 @@
                                     <xsl:variable name="za_prijem_pismena" select="p:Zahtev_za_priznanje_patenta/p:Punomocnik/p:za_prijem_pismena"/>
                                     <xsl:if test="$za_zastupanje='true' and $za_prijem_pismena='false'">
 	                                    <td style="width:60%">
-	                                        <p class="row-title">PUNOMOĆNIK ZA ZASTUPANJE  </p>
+	                                        <p class="row-title">PUNOMOCNIK ZA ZASTUPANJE  </p>
 	                                    </td>
 	                                </xsl:if>
 	                                <xsl:if test="$za_zastupanje='false' and $za_prijem_pismena='true'">
 	                                    <td style="width:60%">
-	                                        <p class="row-title">PUNOMOĆNIK ZA PRIJEM PISMENA  </p>
+	                                        <p class="row-title">PUNOMOCNIK ZA PRIJEM PISMENA  </p>
 	                                    </td>
                                     </xsl:if>
                                     <xsl:if test="$za_zastupanje='true' and $za_prijem_pismena='true'">
 	                                    <td style="width:60%">
-	                                        <p class="row-title">ZAJEDNIČKI PREDSTAVNIK</p>
+	                                        <p class="row-title">ZAJEDNICKI PREDSTAVNIK</p>
 	                                    </td>
                                     </xsl:if>
                                     <td style="width:5%">
@@ -483,11 +469,7 @@
                     </tr>
                     <tr>
                             <td>
-                                <table style="margin:0; border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px;
-														border-bottom-style: solid;
-														border-bottom-width: 1px;">
+                                <table style="margin:0;" class="top-border bottom-border">
                                     <tr>
                                         <td style="width:70%">
                                             <table style="margin:0;">
@@ -516,10 +498,7 @@
 								                        			</xsl:choose>
                                                                 </p>
                                                             </td>
-                                                            <td style="border-collapse: collapse;
-																		border-left-style: solid;
-																		border-left-width: 1px; 
-                                                            		   padding: 5px 5px 130px 5px; width:50%;">
+                                                            <td style="padding: 5px 5px 130px 5px; width:50%;" class="left-border">
                                                                 <p>Ulica i broj, poštanski broj, mesto i država:</p>
                                                                 <P>
                                                                			<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Punomocnik/p:Lice/zaj:Adresa/zaj:Ulica"/> <xsl:text></xsl:text> &#160;
@@ -535,29 +514,18 @@
                                             </table>
                                         </td>
                                         <td style="width:30%" >
-                                            <table style="margin:0; border-left:1px; 
-                                            			border-collapse: collapse;
-														border-left-style: solid;
-														border-left-width: 1px;">
+                                            <table style="margin:0;" class="left-border">
                                                 <tr><td style="padding: 5px 5px 15px 5px;"><p>Broj telefona:</p>
 														<p>
 															<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Punomocnik/p:Lice/zaj:Kontakt_podaci/zaj:Telefon"/> <xsl:text></xsl:text> &#160;
 														</p>
 														</td></tr>
-                                                <tr><td style="border-collapse: collapse;
-													border-top-style: solid;
-													border-top-width: 1px; 
-													padding: 5px 5px 15px 5px;"><p>Broj faksa:</p>
+                                                <tr><td style="padding: 5px 5px 15px 5px;" class="top-border"><p>Broj faksa:</p>
 														<p>
 															<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Punomocnik/p:Lice/zaj:Kontakt_podaci/zaj:Faks"/> <xsl:text></xsl:text> &#160;
 														</p>
 												</td></tr>
-	                                            <tr><td style="border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px; 
-														border-left-style: solid;
-														border-left-width: 1px;
-														padding: 5px 5px 15px 5px;"><p>E-pošta:</p>
+	                                            <tr><td style="padding: 5px 5px 15px 5px;" class="top-border left-border"><p>E-pošta:</p>
 														<p>
 															<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Punomocnik/p:Lice/zaj:Kontakt_podaci/zaj:Email"/> <xsl:text></xsl:text> &#160;
 														</p>
@@ -584,13 +552,11 @@
                     </tr>
                     <tr>
                         <td style="border-bottom:1px;  padding: 0px 5px 20px 5px;">
-                            <p>(ovo polje se popunjava ako podnosilac prijave, zajednički predstavnik ili punomoćnik želi da se dostavljanje podnesaka vrši na drugoj adresi od njegove navedene adrese)</p>
+                            <p>(ovo polje se popunjava ako podnosilac prijave, zajednicki predstavnik ili punomocnik želi da se dostavljanje podnesaka vrši na drugoj adresi od njegove navedene adrese)</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 5px 0 5px; border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px;">
+                        <td style="padding: 10px 5px 0 5px;" class="top-border">
                             <p>Ulica i broj, poštanski broj i mesto:</p>
                         </td>
                     </tr>
@@ -602,7 +568,7 @@
                                         <p class="row-title">Polje broj VI </p>
                                     </td>
                                     <td style="width:80%">
-                                        <p class="row-title">NAČIN DOSTAVLJANJA </p>
+                                        <p class="row-title">NACIN DOSTAVLJANJA </p>
                                     </td>
                                 </tr>
                             </table>
@@ -612,10 +578,8 @@
                     	<xsl:variable name="nacin_dostavljanja" select="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dostavljanju/p:Nacin_dostavljanja"/>
                         <xsl:if test="$nacin_dostavljanja='elektronski'">
 	                                    
-	                        <td style="padding: 5px 5px 5px 5px; margin:0; border-collapse: collapse;
-															border-top-style: solid;
-															border-top-width: 1px;">
-	                            <p>Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena isključivo elektronskim putem u formi elektronskog dokumenta (u ovom slučaju neophodna je registracija na portalu „eUprave”)</p>
+	                        <td style="padding: 5px 5px 5px 5px; margin:0;" class="top-border">
+	                            <p>Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena iskljucivo elektronskim putem u formi elektronskog dokumenta (u ovom slucaju neophodna je registracija na portalu „eUprave”)</p>
 	                        </td>
                         </xsl:if>
                     </tr>
@@ -634,17 +598,26 @@
                                     <td style="width:20%">
                                         <p class="row-title">Polje broj VII </p>
                                     </td>
-                                    <xsl:variable name="tip_prijave" select="p:Zahtev_za_priznanje_patenta/@tip_prijave"/>
-                        			<xsl:if test="$tip_prijave='dopunska'">
-	                                    <td style="width:70%">
-	                                        <p class="row-title">DOPUNSKA PRIJAVA  </p>
-	                                    </td>
-                                    </xsl:if>
-                                    <xsl:if test="$tip_prijave='izdvojena'">
-	                                    <td style="width:70%">
-	                                        <p class="row-title">IZDVOJENA PRIJAVA  </p>
-	                                    </td>
-                                    </xsl:if>
+                                    <xsl:choose>
+										<xsl:when test="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dodatnoj_prijavi">
+	                        				<xsl:variable name="tip_prijave" select="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dodatnoj_prijavi/p:Tip_prijave"/>
+		                        				<xsl:if test="$tip_prijave='dopunska'">
+				                                    <td style="width:70%">
+				                                        <p class="row-title">DOPUNSKA PRIJAVA  </p>
+				                                    </td>
+		                                    	</xsl:if>
+				                                    <xsl:if test="$tip_prijave='izdvojena'">
+					                                    <td style="width:70%">
+					                                        <p class="row-title">IZDVOJENA PRIJAVA  </p>
+					                                    </td>
+				                                    </xsl:if>
+		                                    </xsl:when>
+											<xsl:otherwise>
+			                                    <td style="width:70%">
+			                                        <p class="row-title">NIJE DODATNA PRIJAVA</p>
+			                                    </td>
+	                                  		</xsl:otherwise>
+	                                  </xsl:choose>
                                     <td style="width:6%">
                                         <p class="row-title">(61)/(62)  </p>
                                     </td>
@@ -653,15 +626,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 5px 0 5px; border-collapse: collapse;
-														border-top-style: solid;
-														border-top-width: 1px;">
-                            <p>Broj prvobitne prijave / osnovne prijave, odnosno osnovnog patenta:   </p>
+                        <td style="padding: 10px 5px 0 5px;" class="top-border">
+                            <p>Broj prvobitne prijave / osnovne prijave, odnosno osnovnog patenta:   
+                            <xsl:if test="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dodatnoj_prijavi">
+                            	<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dodatnoj_prijavi/p:Broj_prvobitne_prijave"/> <xsl:text></xsl:text> &#160;
+                            </xsl:if>
+                            </p>
                         </td>
                     </tr>
                     <tr>
                         <td class="line" style="padding: 10px 5px 0 5px;">
-                            <p>Datum podnošenja prvobitne prijave / osnovne prijave:   </p>
+                            <p>Datum podnošenja prvobitne prijave / osnovne prijave:   
+	                            <xsl:if test="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dodatnoj_prijavi">
+	                            	<xsl:value-of select="p:Zahtev_za_priznanje_patenta/p:Podaci_o_dodatnoj_prijavi/p:Datum_podnosenja_prvobitne_prijave"/> <xsl:text></xsl:text> &#160;
+	                            </xsl:if>
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -682,51 +661,30 @@
                         </td>
                     </tr>
                 </table>
-                <table  style="border: 1px; margin-top:0;">
+                <table  style="margin-top:0;" class="all-border">
                     <thead>
                         <tr>
-                            <td style="width:4%; text-align:center;  padding:5px; 
-                            						border-collapse: collapse;
-													border-right-style: solid;
-													border-right-width: 1px;">Br.</td>
+                            <td style="width:4%; text-align:center;  padding:5px;" class="right-border">Br.</td>
                             <td style="width:32%; text-align:center; border-left:1px;  padding:5px;">Datum podnošenja ranije prijave</td>
-                            <td style="width:32%; text-align:center; 
-                       								border-collapse: collapse;
-													border-right-style: solid;
-													border-right-width: 1px;
-													border-left-style: solid;
-													border-left-width: 1px;  padding:5px;">Broj ranije prijave</td>
+                            <td style="width:32%; text-align:center; padding:5px;" class="right-border left-brder">Broj ranije prijave</td>
                             <td style="width:32%; text-align:center; padding:5px;">Dvoslovna oznaka države, regionalne ili međunarodne organizacije</td>
                         </tr>
                         <tr>
                         <xsl:for-each select="p:Zahtev_za_priznanje_patenta/p:Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava">
-                            <td style="width:4%; border-collapse: collapse;
-														border-right-style: solid;
-														border-right-width: 1px;
-														padding-top: 5px; border-top-style: solid;
-														border-top-width: 1px;">
+                            <td style="width:4%;padding-top: 5px;" class="right-border top-border">
 														<xsl:value-of select="position()"/>
 							</td>
-                            <td style="width:32%; padding-top: 5px; border-top-style: solid;
-														border-top-width: 1px; ">
+                            <td style="width:32%; padding-top: 5px;" class="top-border">
 														<p>
 															<xsl:value-of select="p:Ranija_prijava/p:Datum_podnosenja"/> <xsl:text></xsl:text>
 														</p>
 							</td>
-                            <td style="width:32%; border-collapse: collapse;
-														border-left-style: solid;
-														border-left-width: 1px; 
-														border-right-style: solid;
-														border-right-width: 1px;
-														border-top-style: solid;
-														border-top-width: 1px; 
-														padding-top: 5px;">
+                            <td style="width:32%; padding-top: 5px;" class="left-border right-border top-border">
 														<p>
 															<xsl:value-of select="p:Ranija_prijava/p:Broj_prijave"/> <xsl:text></xsl:text>
 														</p>
 							</td>
-                            <td style="width:32%; padding-top: 5px; border-top-style: solid;
-														border-top-width: 1px; ">
+                            <td style="width:32%; padding-top: 5px;" class="top-border">
 														<p>
 															<xsl:value-of select="p:Ranija_prijava/p:Dvoslovna_oznaka_drzave"/> <xsl:text></xsl:text>
 														</p>

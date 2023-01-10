@@ -7,25 +7,57 @@
     <xs:element name="Zahtev_za_priznanje_patenta">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Primalac_zahteva" type="p1:TPrimalac_zahteva"/>
-                <xs:element ref="p1:Pronalazak"/>
-                <xs:element name="Pronalazac" type="p1:TPronalazac"/>
-                <xs:element name="Podnosilac_zahteva" type="p1:TPodnosilac_zahteva"/>
-                <xs:element name="Punomocnik" type="p1:TPunomocnik"/>
-                <xs:element ref="p1:Podaci_o_dostavljanju"/>
+                <xs:element name="Primalac_zahteva" minOccurs="1" maxOccurs="1" type="p1:TPrimalac_zahteva">
+                	<xs:annotation>
+                        <xs:documentation>Primalac zahteva je ustanova kojoj se salje zahtev za priznanje patenta - podaci</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="p1:Pronalazak" minOccurs="1" maxOccurs="1">
+                	<xs:annotation>
+                        <xs:documentation>Pronalazak je patent koji treba da bude priznat - naslov</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Pronalazac" minOccurs="1" maxOccurs="1" type="p1:TPronalazac">
+                	<xs:annotation>
+                        <xs:documentation>Pronalazac je osoba koja koja je otkrila patent - podaci</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Podnosilac_zahteva" minOccurs="1" maxOccurs="1" type="p1:TPodnosilac_zahteva">
+                	<xs:annotation>
+                        <xs:documentation>Podnosilac zahteva je osoba koja podnosi zahtev za priznanje patenta - podaci</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Punomocnik" minOccurs="0" maxOccurs="1" type="p1:TPunomocnik">
+                	<xs:annotation>
+                        <xs:documentation>Punomocnik je ovlasceno lice za zahtev za priznanje patenta - podaci </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="p1:Podaci_o_dostavljanju" minOccurs="1" maxOccurs="1">
+                	<xs:annotation>
+                        <xs:documentation>Podaci o adresi i nacina dostavljanja</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava"
-                    type="p1:TZahtev_za_priznanje_prava_prvenstva_iz_ranijih_prijava"/>
+                    type="p1:TZahtev_za_priznanje_prava_prvenstva_iz_ranijih_prijava" minOccurs="0" maxOccurs="1">
+                	<xs:annotation>
+                        <xs:documentation>Navedene ranije prijave na osnovu kojih se trazi prvenstvo - podaci</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+               <xs:element ref="p1:Podaci_o_dodatnoj_prijavi" minOccurs="0" maxOccurs="1">
+                	<xs:annotation>
+                        <xs:documentation>Oznaka ukoliko je ova prijava dodatna u odnosu na neku prethodnu prijavu - podaci</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attribute name="broj_prijave" use="required">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:pattern value="[P][0-9]+"/>
+                        <xs:pattern value="[P][0-9]+[/][1-2][0-9]{3,3}"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="datum_prijema_prijave" type="xs:date" use="required"/>
             <xs:attribute name="priznati_datum_podnosenja" type="xs:date" use="required"/>
-            <xs:attribute name="tip_prijave" use="required" type="p1:tip_prijave"/>
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
@@ -39,6 +71,12 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="elektronski"/>
             <xs:enumeration value="papirna_forma"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="tip_dodatne_prijave">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="dopunska"/>
+            <xs:enumeration value="izdvojena"/>
         </xs:restriction>
     </xs:simpleType>
     
@@ -60,16 +98,32 @@
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="Podaci_o_dodatnoj_prijavi">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Tip_prijave" type="p1:tip_dodatne_prijave" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Broj_prvobitne_prijave" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+	                    <xs:restriction base="xs:string">
+	                        <xs:pattern value="[P][0-9]+[/][1-2][0-9]{3,3}"/>
+	                    </xs:restriction>
+                	</xs:simpleType>
+                </xs:element>
+                <xs:element name="Datum_podnosenja_prvobitne_prijave" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            </xs:all>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="Ranija_prijava">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Datum_podnosenja" type="xs:date"/>
                 <xs:element name="Broj_prijave">
                     <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:pattern value="[P][0-9]+"/>
-                        </xs:restriction>
-                    </xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[P][0-9]+[/][1-2][0-9]{3,3}"/>
+                    </xs:restriction>
+                </xs:simpleType>
                 </xs:element>
                 <xs:element name="Dvoslovna_oznaka_drzave">
                     <xs:simpleType>

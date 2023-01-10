@@ -6,11 +6,15 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
+import org.xmldb.api.base.XMLDBException;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
+import rs.ac.uns.ftn.exception.BadRequestException;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
+import rs.ac.uns.ftn.jaxb.Jaxb;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.mapper.PatentMapper;
 import rs.ac.uns.ftn.repository.PatentRepository;
@@ -25,11 +29,19 @@ public class PatentServiceImpl implements PatentService {
 	@Autowired
 	private PatentRepository patentRepository;
 	
-	public void saveNewFile(ZahtevZaPriznanjePatenta zahtevDTO) {
-		String documentId = generateDocumentId();
-		System.out.println(documentId);
-		ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
-		patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
+    @Autowired
+    private Jaxb jaxb;
+	
+	public void saveNewFile(ZahtevZaPriznanjePatenta zahtevDTO) throws XMLDBException{
+		String xpath = "/Zahtev_za_priznanje_patenta[@broj_prijave='" + zahtevDTO.getBrojPrijave() + "']";
+		if (patentRepository.getZahtevZaPriznanjePatentaByXPath(xpath).getSize() != 0) {
+			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_EXITS);
+		}
+        if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
+    		String documentId = generateDocumentId();
+    		ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
+    		patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
+        }
 	}
 
 	@Override

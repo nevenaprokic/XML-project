@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.xmldb.api.base.XMLDBException;
+
 import rs.ac.uns.ftn.exception.*;
 
 @ControllerAdvice
@@ -63,6 +65,17 @@ public class ExceptionHandlerController {
         );
 
         return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+    }
+    
+    @ExceptionHandler(XMLDBException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessage> xmlDatabaseException(XMLDBException ex) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

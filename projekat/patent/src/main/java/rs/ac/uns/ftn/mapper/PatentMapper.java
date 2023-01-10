@@ -15,6 +15,7 @@ import javax.xml.namespace.QName;
 
 import javafx.geometry.Pos;
 import rs.ac.uns.ftn.jaxb.p1.ObjectFactory;
+import rs.ac.uns.ftn.jaxb.p1.PodaciODodatnojPrijavi;
 import rs.ac.uns.ftn.jaxb.p1.PodaciODostavljanju;
 import rs.ac.uns.ftn.jaxb.p1.Pronalazak;
 import rs.ac.uns.ftn.jaxb.p1.RanijaPrijava;
@@ -49,14 +50,14 @@ public class PatentMapper {
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
 		zahtev.setDatumPrijemaPrijave(zahtevDTO.getDatumPrijemaPrijave());
 		zahtev.setPriznatiDatumPodnosenja(zahtevDTO.getPriznatiDatumPodnosenja());
-		zahtev.setTipPrijave(zahtevDTO.getTipPrijave());
 		zahtev.setPrimalacZahteva(createZavod());
 		zahtev.setPronalazak(getPronalazak(zahtevDTO.getPronalazak()));
 		zahtev.setPronalazac(getPronalazac(zahtevDTO.getPronalazac()));
 		zahtev.setPodnosilacZahteva(getPodnosilacZahteva(zahtevDTO.getPodnosilacZahteva()));
 		zahtev.setPunomocnik(getPunomocnik(zahtevDTO.getPunomocnik()));
 		zahtev.setPodaciODostavljanju(zahtevDTO.getPodaciODostavljanju());
-		zahtev.setZahtevZaPriznanjePrvenstvaIzRanijihPrijava(getIzRanijihPrijava(zahtevDTO.getZahtevZaPriznanjePrvenstvaIzRanijihPrijava()));;
+		zahtev.setZahtevZaPriznanjePrvenstvaIzRanijihPrijava(getIzRanijihPrijava(zahtevDTO.getZahtevZaPriznanjePrvenstvaIzRanijihPrijava()));
+		zahtev.setPodaciODodatnojPrijavi(getPodaciODodatnojPrijavi(zahtevDTO.getODodatnojPrijavi()));
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
 		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);
@@ -66,6 +67,20 @@ public class PatentMapper {
 		zahtev.setDatumPrijemaPrijave(zahtevDTO.getDatumPrijemaPrijave());
 		
 		return zahtev;
+	}
+
+
+	private static PodaciODodatnojPrijavi getPodaciODodatnojPrijavi(PodaciODodatnojPrijavi oDodatnojPrijavi) {
+		if (oDodatnojPrijavi != null) {
+			PodaciODodatnojPrijavi podaci = objectFactory.crePodaciODodatnojPrijavi();
+			podaci.setTipDodatnePrijave(oDodatnojPrijavi.getTipDodatnePrijave());
+			podaci.setBrojPrvobitnePrijave(oDodatnojPrijavi.getBrojPrvobitnePrijave());
+			podaci.setDatumPrvobitnePrijave(oDodatnojPrijavi.getDatumPrvobitnePrijave()); 
+			 
+			return podaci;
+		}
+		return null;
+		
 	}
 
 
@@ -123,18 +138,21 @@ public class PatentMapper {
 	}
 	
 	public static TPunomocnik getPunomocnik(TPunomocnik punomocnik) {
-		TPunomocnik p = objectFactory.createTPunomocnik();
-		if (punomocnik.getLice() instanceof TFizickoLice) {
-			TFizickoLice lice = getFizickoLiceFromDTO((TFizickoLice) punomocnik.getLice());
-			p.setLice(lice);
+		if(punomocnik != null) {
+			TPunomocnik p = objectFactory.createTPunomocnik();
+			if (punomocnik.getLice() instanceof TFizickoLice) {
+				TFizickoLice lice = getFizickoLiceFromDTO((TFizickoLice) punomocnik.getLice());
+				p.setLice(lice);
+			}
+			else {
+				TPravnoLice lice = getPravnoLiceFromDTO((TPravnoLice) punomocnik.getLice());
+				p.setLice(lice);
+			}
+			p.setZaPrijemPismena(punomocnik.isZaPrijemPismena());
+			p.setZaZastupanje(punomocnik.isZaPrijemPismena());
+			return p;
 		}
-		else {
-			TPravnoLice lice = getPravnoLiceFromDTO((TPravnoLice) punomocnik.getLice());
-			p.setLice(lice);
-		}
-		p.setZaPrijemPismena(punomocnik.isZaPrijemPismena());
-		p.setZaZastupanje(punomocnik.isZaPrijemPismena());
-		return p;
+		return null;
 	}
 	
 	public static PodaciODostavljanju getPodaciODostavljanju(PodaciODostavljanju podaci) {
@@ -145,17 +163,20 @@ public class PatentMapper {
 	}
 	
 	public static TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava getIzRanijihPrijava(TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava zahtevi) {
-		TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava izRanijihPrijava = objectFactory.createTZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava();
-		List<RanijaPrijava> listaRanijihPrijava = new ArrayList<RanijaPrijava>();
-		int counter = 1;
-		System.out.println(zahtevi.getRanijaPrijava().size());
-		for (RanijaPrijava p : zahtevi.getRanijaPrijava()) {
-			RanijaPrijava ranijaPrijava = getraRanijaPrijava(p, counter);
-			listaRanijihPrijava.add(ranijaPrijava);
-			counter += 1;
+		if(zahtevi != null) {
+			TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava izRanijihPrijava = objectFactory.createTZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava();
+			List<RanijaPrijava> listaRanijihPrijava = new ArrayList<RanijaPrijava>();
+			int counter = 1;
+			System.out.println(zahtevi.getRanijaPrijava().size());
+			for (RanijaPrijava p : zahtevi.getRanijaPrijava()) {
+				RanijaPrijava ranijaPrijava = getraRanijaPrijava(p, counter);
+				listaRanijihPrijava.add(ranijaPrijava);
+				counter += 1;
+			}
+			izRanijihPrijava.setRanijaPrijava(listaRanijihPrijava);
+			return izRanijihPrijava;
 		}
-		izRanijihPrijava.setRanijaPrijava(listaRanijihPrijava);
-		return izRanijihPrijava;
+		return null;
 	}
 	
 	public static RanijaPrijava getraRanijaPrijava(RanijaPrijava ranijaPrijava, int order) {
