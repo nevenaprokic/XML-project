@@ -470,15 +470,26 @@
                         <tr>
                             <td>
                                 <p class="prilog">
-                                
-                                    opis autorskog dela (ako je delo podneto na optickom disku)
+	                                <xsl:if test="a:Zahtev_za_autorsko_delo/a:Prilozi/a:Prisutan_opis = 'true'">
+	                                	(x)
+	                                </xsl:if>
+	                                <xsl:if test="a:Zahtev_za_autorsko_delo/a:Prilozi/a:Prisutan_opis = 'false'">
+	                                	( )
+	                                </xsl:if>
+                                   opis autorskog dela (ako je delo podneto na optickom disku)
                                 </p>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <p class="prilog">
-                                     primer autorskog dela (slika, video zapis, audio zapis)
+	                                <xsl:if test="a:Zahtev_za_autorsko_delo/a:Prilozi/a:Prisutan_primer = 'true'">
+	                                	(x)
+	                                </xsl:if>
+	                                 <xsl:if test="a:Zahtev_za_autorsko_delo/a:Prilozi/a:Prisutan_primer = 'false'">
+	                                	( )
+	                                </xsl:if>
+                                    primer autorskog dela (slika, video zapis, audio zapis)
                                 </p>
                             </td>
                         </tr>
