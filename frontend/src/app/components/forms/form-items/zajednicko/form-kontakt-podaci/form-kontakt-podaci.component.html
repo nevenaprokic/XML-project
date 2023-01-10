@@ -1,20 +1,20 @@
-<div class="kontakt-podaci">
+<div class="kontakt-podaci" [formGroup]="form">
   <div class="input-podatak">
     Telefon:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="065/222-4444">
+      <input matInput placeholder="065/222-4444" formControlName="telefon" pattern="[0][6][0-9]/[0-9]{3,3}-[0-9]{3,4}">
     </mat-form-field>
   </div>
   <div class="input-podatak">
     Email:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="mika@gmail.com">
+      <input matInput placeholder="mika@gmail.com" formControlName="email" pattern="[^@]+@[^\.]+\..+">
     </mat-form-field>
   </div>
   <div class="input-podatak">
     Faks:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="125/7517444">
+      <input matInput placeholder="125/7517444" formControlName="faks" pattern="[0-9]{3,4}/[0-9]{5,7}">
     </mat-form-field>
   </div>
 </div>

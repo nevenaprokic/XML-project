@@ -1,14 +1,14 @@
-<div class="fizicko-lice">
+<div class="fizicko-lice" [formGroup]="form">
   <div class="input-lice">
     Ime:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="Petar">
+      <input matInput placeholder="Petar" formControlName="ime">
     </mat-form-field>
   </div>
   <div class="input-lice">
     Prezime:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="Perić">
+      <input matInput placeholder="Perić" formControlName="prezime">
     </mat-form-field>
   </div>
 </div>

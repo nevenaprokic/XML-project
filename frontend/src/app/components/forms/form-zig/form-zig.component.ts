@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {Component, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-form-zig',
@@ -8,12 +8,23 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class FormZigComponent {
 
-  zigForm = new FormGroup({
-    podnosilacPrijave: new FormControl('TFizicko_lice'),
-    punomocnik: new FormControl('TPravno_lice')
+  zigForm = this.fb.group({});
+  form = new FormGroup({
+    pravoPrvenstvaIOsnov : new FormControl(''),
+    punomocnik: new FormControl('TFizicko_lice'),
+    podnosilacPrijave: new FormControl('TFizicko_lice')
   })
 
-  onSubmit() {
+  constructor(private fb: FormBuilder) {
+  }
 
+  addChildForm(name: string, group: FormGroup) {
+    this.zigForm.addControl(name, group);
+  }
+
+  onSubmit() {
+    // const {personal, contact} = this.form.value;
+    this.addChildForm('pravoPrvenstvaIosnov', this.form);
+    console.log(this.zigForm.value);
   }
 }

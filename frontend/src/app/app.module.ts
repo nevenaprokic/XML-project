@@ -23,6 +23,7 @@ import { FormTakseComponent } from './components/forms/form-items/zaZig/form-tak
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { FormDopunskaPrijavaComponent } from './components/forms/form-items/zaPatent/form-dopunska-prijava/form-dopunska-prijava.component';
 import { FormPronalazakComponent } from './components/forms/form-items/zaPatent/form-pronalazak/form-pronalazak.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FormPronalazakComponent } from './components/forms/form-items/zaPatent/
     FormsModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

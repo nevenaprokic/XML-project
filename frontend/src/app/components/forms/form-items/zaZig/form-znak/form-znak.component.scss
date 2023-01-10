@@ -44,3 +44,18 @@
   color: $dark1;
   margin: 5px 10px 10px 15px;
 }
+
+.nicanskaKlasifikacija{
+  margin: 10px;
+  display: grid;
+  grid-template-columns: repeat(23, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px 10px;
+}
+
+.klasa{
+  @include size(35px, 20px);
+  background-color: $fontColor;
+  color: $light1;
+  cursor: pointer;
+}

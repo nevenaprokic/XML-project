@@ -1,15 +1,15 @@
-<div class="adresa">
+<div class="adresa" [formGroup]="form">
   <div class="row">
     <div class="input-adresa">
       Ulica:
       <mat-form-field appearance="fill">
-        <input matInput placeholder="Somborska">
+        <input matInput placeholder="Somborska" formControlName="ulica" required>
       </mat-form-field>
     </div>
     <div class="input-adresa">
       Broj:
       <mat-form-field appearance="fill">
-        <input matInput placeholder="13">
+        <input matInput placeholder="13" formControlName="broj" type="number" min="1">
       </mat-form-field>
     </div>
   </div>
@@ -17,19 +17,19 @@
     <div class="input-adresa">
       Grad:
       <mat-form-field appearance="fill">
-        <input matInput placeholder="Novi Sad">
+        <input matInput placeholder="Novi Sad" formControlName="grad" required>
       </mat-form-field>
     </div>
     <div class="input-adresa">
       Poštanski broj:
       <mat-form-field appearance="fill">
-        <input matInput placeholder="21000">
+        <input matInput placeholder="21000" formControlName="postanskiBroj" type="number" min="11000" max="40000">
       </mat-form-field>
     </div>
     <div class="input-adresa">
       Država:
       <mat-form-field appearance="fill">
-        <input matInput placeholder="Republika Srbija">
+        <input matInput placeholder="Republika Srbija" formControlName="drzava">
       </mat-form-field>
     </div>
   </div>

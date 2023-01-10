@@ -1,8 +1,8 @@
-<div class="pravno-lice">
+<div class="pravno-lice" [formGroup]="form">
   <div class="input-lice">
     Naziv:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="STR 'Jabuka' preduzetnik Petar Petrović">
+      <input matInput placeholder="STR 'Jabuka' preduzetnik Petar Petrović" formControlName="nazivPravnoLice">
     </mat-form-field>
   </div>
 </div>
