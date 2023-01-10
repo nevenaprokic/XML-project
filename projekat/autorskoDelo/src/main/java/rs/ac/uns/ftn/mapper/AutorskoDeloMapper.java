@@ -136,16 +136,19 @@ public class AutorskoDeloMapper {
 			pravnoLice = getPravnoLiceFromDTO(podnosilacDto.getPravnoLice());
 			email = pravnoLice.getKontaktPodaci().getEmail();
 			name = pravnoLice.getNaziv();
+			podnosilac.setPravnoLice(pravnoLice);
 		}
 		else if(podnosilacDto.getPunomocnik()!=null) {
 			fizickoLice = getFizickoLiceFromDTO(podnosilacDto.getPunomocnik());
 			email = fizickoLice.getKontaktPodaci().getEmail();
 			name = formatName(fizickoLice.getIme(), fizickoLice.getPrezime(), null);
+			podnosilac.setPunomocnik(fizickoLice);
 		}
 		else if(podnosilacDto.getAutor()!=null){
 			autor = getAutorFromDTO(podnosilacDto.getAutor());
 			email = autor.getKontaktPodaci().getEmail();
 			name = formatName(autor.getIme(), autor.getPrezime(), autor.getPseudonim());
+			podnosilac.setAutor(autor);
 		}
 		
 		if(email != null) {
@@ -158,10 +161,6 @@ public class AutorskoDeloMapper {
 			podnosilac.getOtherAttributes().put(new QName("datatype"), "xs:string");
 			podnosilac.getOtherAttributes().put(new QName("content"), name);
 		}
-		
-		podnosilac.setPravnoLice(pravnoLice);
-		podnosilac.setPunomocnik(fizickoLice);
-		podnosilac.setAutor(autor);
 		return podnosilac;
 	}
 
