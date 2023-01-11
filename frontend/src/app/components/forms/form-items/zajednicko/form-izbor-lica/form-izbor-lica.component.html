@@ -1,0 +1,14 @@
+<div [formGroup]="liceForm">
+  <section class="section-lice" [formGroup]="form">
+    <mat-radio-group formControlName="lice">
+      <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
+      <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <div *ngIf="form.value.lice === 'TFizicko_lice'">
+    <app-form-fizicko-lice (formReady)="addChildForm(liceOdredjenje +'FizickoLice', $event)"></app-form-fizicko-lice>
+  </div>
+  <div *ngIf="form.value.lice === 'TPravno_lice'">
+    <app-form-pravno-lice (formReady)="addChildForm(liceOdredjenje + 'PravnoLice', $event)"></app-form-pravno-lice>
+  </div>
+</div>

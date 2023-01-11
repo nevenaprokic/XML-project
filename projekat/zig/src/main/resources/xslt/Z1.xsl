@@ -80,7 +80,7 @@
                     .uputstvo{
                     margin:0;
                     margin-left: 20px !important;
-                    margin-bottom:100px;
+                    margin-bottom:140px;
                     
                     }
                     

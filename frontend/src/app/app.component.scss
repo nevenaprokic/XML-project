@@ -1,0 +1,16 @@
+@import "src/style/styles";
+
+.full-height {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  background-color: $backgroundColor;
+}
+.page{
+  @include size(100vw, 100vh);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
+

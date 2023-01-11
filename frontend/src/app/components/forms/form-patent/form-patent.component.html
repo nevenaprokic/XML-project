@@ -1,0 +1,120 @@
+<div class="paper-form">
+  <div class="header">
+    <h1 class="title">ZAHTEV ZA PRIZNANJE PATENTA</h1>
+    <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+  </div>
+  <form [formGroup]="this.patentForm">
+    <app-form-pronalazak (formReady)="addChildForm('pronalazak', $event)"></app-form-pronalazak>
+    <div>
+      <div class="description">
+        <p class="polje">Polje broj II</p>
+        <p class="subtitle">PODNOSILAC PRIJAVE</p>
+        <div *ngIf="form.value.podnosilacPrijave === 'TFizicko_lice'">
+          <section class="checkbox" [formGroup]="formPatentGroup">
+            <mat-checkbox formControlName="podnosilacJePronalazac">Podnosilac prijave je i pronalazač</mat-checkbox>
+          </section>
+        </div>
+      </div>
+      <section class="section-lice" [formGroup]="form">
+        <mat-radio-group formControlName="podnosilacPrijave">
+          <mat-radio-button value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <div *ngIf="form.value.podnosilacPrijave === 'TFizicko_lice'">
+        <app-form-fizicko-lice
+          (formReady)="addChildForm('podnosilacPrijaveFizickoLice', $event)"></app-form-fizicko-lice>
+        <div class="input-drzavljanstvo" [formGroup]="formPatentGroup">
+          Drzavljanstvo:
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="drzavjanstvo">
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="form.value.podnosilacPrijave === 'TPravno_lice'">
+        <app-form-pravno-lice (formReady)="addChildForm('podnosilacPrijavePravnoLice', $event)"></app-form-pravno-lice>
+      </div>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('podnosilacPrijaveAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true"
+                               (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci', $event)"></app-form-kontakt-podaci>
+    </div>
+    <div *ngIf="formPatentGroup.value.podnosilacJePronalazac === false">
+      <div class="description">
+        <p class="polje">Polje broj III</p>
+        <p class="subtitle">PRONALAZAČ</p>
+        <section class="checkbox" [formGroup]="formPatentGroup">
+          <mat-checkbox formControlName="pronalazacNijeNaveden">Pronalazač ne želi da bude naveden u prijavi
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+    <div
+      *ngIf="formPatentGroup.value.podnosilacJePronalazac === false && formPatentGroup.value.pronalazacNijeNaveden == false">
+      <app-form-fizicko-lice (formReady)="addChildForm('pronalazacFizickoLice', $event)"></app-form-fizicko-lice>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('pronalazacAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true"
+                               (formReady)="addChildForm('pronalazacKontaktPodaci', $event)"></app-form-kontakt-podaci>
+    </div>
+
+    <div class="description">
+      <p class="polje">Polje broj IV</p>
+      <section class="checkbox" [formGroup]="formPatentGroup">
+        <mat-radio-group class="section" formControlName="podnosilacJePunomocnik">
+          <mat-radio-button [checked]="true" value="punomoćnik za zastupanje">Punomoćnik za zastupanje
+          </mat-radio-button>
+          <mat-radio-button value="punomoćnik za prijem pismena">Punomoćnik za prijem pismena</mat-radio-button>
+          <mat-radio-button value="zajednički predstavnik">Zajednički predstavnik</mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+    <div>
+      <app-form-izbor-lica (formReady)="addChildForm('punomocnik', $event)"
+                           liceOdredjenje="punomocnik"></app-form-izbor-lica>
+      <app-form-adresa [drzava]="false" (formReady)="addChildForm('punomocnikAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="false"
+                               (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
+    </div>
+    <div class="description">
+      <p class="polje">Polje broj V</p>
+      <p class="subtitle">ADRESA DOSTAVLJANJA</p>
+    </div>
+    <div>
+      <app-form-adresa [drzava]="false" (formReady)="addChildForm('adresaDostavljanja', $event)"></app-form-adresa>
+    </div>
+    <div class="description">
+      <p class="polje">Polje broj VI</p>
+      <p class="subtitle">NAČIN DOSTAVLJANJA</p>
+    </div>
+    <section class="section-nacin-dostavljanja" [formGroup]="formPatentGroup">
+      <mat-radio-group formControlName="nacinDostavljanja">
+        <mat-radio-button [checked]="true" value="elektronski">Podnosilac prijave je saglasan da Zavod vrši dostavljanje
+          pismena isključivo elektronskim putem u formi elektronskog dokumenta (u ovom slučaju neophodna je registracija
+          na portalu „eUprave”)
+        </mat-radio-button>
+        <mat-radio-button value="papirna_forma">Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena u
+          papirnoj formi
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <div class="description" [formGroup]="formPatentGroup">
+      <p class="polje">Polje broj VII</p>
+      <mat-radio-group formControlName="vrstaPrijave">
+        <mat-radio-button value="dopunska">DOPUNSKA PRIJAVA</mat-radio-button>
+        <mat-radio-button value="izdvojena">IZDVOJENA PRIJAVA</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div
+      *ngIf="formPatentGroup.value.vrstaPrijave === 'dopunska' || formPatentGroup.value.vrstaPrijave  === 'izdvojena'">
+      <app-form-dopunska-prijava (formReady)="addChildForm('dopunskaPrijava', $event)"></app-form-dopunska-prijava>
+    </div>
+
+    <app-form-tabela></app-form-tabela>
+    <!--    ovde treba dinamicko dodavanje iz tabele-->
+
+    <div class="submit-item">
+      <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
+    </div>
+  </form>
+</div>

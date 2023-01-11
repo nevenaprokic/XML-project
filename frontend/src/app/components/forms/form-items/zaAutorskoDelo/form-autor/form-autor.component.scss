@@ -1,0 +1,25 @@
+@import "src/style/styles";
+
+.description {
+  margin: 10px;
+}
+
+.input-autorsko-delo {
+  margin: 5px 10px;
+}
+
+.autor-izbor {
+  margin: 0 10px;
+}
+
+.input-autor {
+  display: flex;
+  margin: 0 10px;
+}
+
+.autor{
+  border-bottom: 1px dotted $fontColor;
+}
+
+
+

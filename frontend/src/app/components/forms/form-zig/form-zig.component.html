@@ -1,0 +1,50 @@
+<div class="paper-form">
+  <div class="header">
+    <h1 class="title">ZAHTEV ZA PRIZNANJE ŽIGA</h1>
+    <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+  </div>
+  <form [formGroup]="this.zigForm">
+    <div>
+      <p class="description">1. Podnosilac prijave:</p>
+      <div *ngFor="let num of this.brojPodnosiocaPrijave">
+        <app-form-izbor-lica (formReady)="addChildForm('podnosilacPrijave'+num, $event)"
+                             liceOdredjenje="podnosilacPrijave"></app-form-izbor-lica>
+        <app-form-adresa [drzava]="true" (formReady)="addChildForm('podnosilacPrijaveAdresa'+num, $event)"></app-form-adresa>
+        <app-form-kontakt-podaci [faks]="true"
+          (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci'+num, $event)"></app-form-kontakt-podaci>
+      </div>
+      <button type="button" class="button-add-remove" (click)="addPodnosiocPrijave()">Dodaj podnosioca</button>
+      <button type="button" class="button-add-remove" (click)="removePodnosiocPrijave()">Obriši podnosioca</button>
+    </div>
+    <div [formGroup]="form">
+      <p class="description">2. Punomoćnik:</p>
+      <app-form-izbor-lica (formReady)="addChildForm('punomocnik', $event)"
+                           liceOdredjenje="punomocnik"></app-form-izbor-lica>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('punomocnikAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true" (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
+    </div>
+    <div>
+      <p class="description">3. Zajednički predstavnik:</p>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('zajednickiPredstavnikAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true" (formReady)="addChildForm('zajednickiPredstavnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
+    </div>
+    <div>
+      <app-form-znak (formReady)="addChildForm('znak', $event)" (toggleEvent)="addNumber($event)"
+                     (toggle)="toggle"></app-form-znak>
+    </div>
+    <div [formGroup]="form">
+      <p class="description">10. Zatraženo pravo prvenstva i osnov:</p>
+      <mat-form-field appearance="fill" class="input-zig">
+        <input matInput formControlName="pravoPrvenstvaIOsnov">
+      </mat-form-field>
+    </div>
+    <div>
+      <p class="description">11. Plaćene takse:</p>
+      <app-form-takse (formReady)="addChildForm('takse', $event)"></app-form-takse>
+    </div>
+
+    <div class="submit-item">
+      <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
+    </div>
+  </form>
+</div>

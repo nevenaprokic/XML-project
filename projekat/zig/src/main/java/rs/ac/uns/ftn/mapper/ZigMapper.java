@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.mapper;
 import javax.xml.namespace.QName;
 
 import rs.ac.uns.ftn.jaxb.z1.ObjectFactory;
+import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.TDopuna;
 import rs.ac.uns.ftn.jaxb.z1.TPrilozi;
 import rs.ac.uns.ftn.jaxb.z1.TTakse;
@@ -52,6 +53,7 @@ public class ZigMapper {
 		
 		zahtev.setPlaceneTakse(getPlaceneTakseFromDTO(zahtevDTO.getPlaceneTakse()));
 		zahtev.setPriloziUzZahtev(getPriloziUzZahtevFromDTO(zahtevDTO.getPriloziUzZahtev()));
+		zahtev.setStatus(StatusZahteva.NEOBRADJEN);
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
 		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);
@@ -105,6 +107,10 @@ public class ZigMapper {
 		}
 		
 		takse.setUkupanIznosTakse(takseDTO.getUkupanIznosTakse());
+		
+		takse.getOtherAttributes().put(new QName("property"), "pred:ukupna_taksa");
+		takse.getOtherAttributes().put(new QName("datatype"), "xs:positiveInteger");
+		takse.getOtherAttributes().put(new QName("content"), String.valueOf(takse.getUkupanIznosTakse()));
 		return takse;
 	}
 	
@@ -131,13 +137,13 @@ public class ZigMapper {
 			zig.getPodaciOBrojevimaKlasaRobeIUsluga().add(number);
 		}
 
-		zig.getOtherAttributes().put(new QName("property"), "pred:vrsta_ziga_korisnik");
-		zig.getOtherAttributes().put(new QName("datatype"), "xs:string");
-		zig.getOtherAttributes().put(new QName("content"), zig.getVrstaZigaNaOsnovuKorisnika().value());
+//		zig.getOtherAttributes().put(new QName("property"), "pred:vrsta_ziga_korisnik");
+//		zig.getOtherAttributes().put(new QName("datatype"), "xs:string");
+//		zig.getOtherAttributes().put(new QName("content"), zig.getVrstaZigaNaOsnovuKorisnika().value());
 		
-		zig.getOtherAttributes().put(new QName("property"), "pred:vrsta_ziga_izgled");
+		zig.getOtherAttributes().put(new QName("property"), "pred:vrsta");
 		zig.getOtherAttributes().put(new QName("datatype"), "xs:string");
-		zig.getOtherAttributes().put(new QName("content"), zig.getVrstaZigaNaOsnovuIzgleda());
+		zig.getOtherAttributes().put(new QName("content"), zig.getVrstaZigaNaOsnovuIzgleda() + " | " + zig.getVrstaZigaNaOsnovuKorisnika().value());
 		
 		return zig;
 		

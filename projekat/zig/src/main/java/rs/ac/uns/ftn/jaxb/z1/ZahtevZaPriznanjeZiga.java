@@ -83,6 +83,8 @@ public class ZahtevZaPriznanjeZiga {
     @XmlAttribute(name = "datum_podnosenja_prijave", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar datumPodnosenjaPrijave;
+    @XmlAttribute(name = "status")
+    protected StatusZahteva status;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -272,6 +274,15 @@ public class ZahtevZaPriznanjeZiga {
     public void setDatumPodnosenjaPrijave(XMLGregorianCalendar value) {
         this.datumPodnosenjaPrijave = value;
     }
+    
+    public StatusZahteva getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusZahteva status) {
+		this.status = status;
+	}
+
 
     public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;

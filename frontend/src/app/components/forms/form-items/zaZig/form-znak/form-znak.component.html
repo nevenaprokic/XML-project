@@ -1,0 +1,76 @@
+<div class="znak" [formGroup]="form">
+  <div>
+    <p class="description">4. Prijava se podnosi za:</p>
+    <div class="vrste">
+      <div class="vrasta-korisnik">
+        <p class="vrsta-naslov">Odabir na osnovu korisnika:</p>
+        <section>
+          <mat-radio-group class="section" formControlName="vrstaNaOsnovuKorisnika">
+            <mat-radio-button [checked]="true" value="individualni zig">individualni zig</mat-radio-button>
+            <mat-radio-button value="kolektivni zig">kolektivni zig</mat-radio-button>
+            <mat-radio-button value="zig garancije">zig garancije</mat-radio-button>
+          </mat-radio-group>
+        </section>
+      </div>
+      <div class="vrsta-izgled">
+        <p class="vrsta-naslov">Odabir na osnovu izgleda:</p>
+        <section>
+          <mat-radio-group class="section" formControlName="vrstaNaOsnovuIzgleda">
+            <mat-radio-button [checked]="true" value="verbalni zig">verbalni znak (znak u reči)</mat-radio-button>
+            <mat-radio-button value="grafički zig">grafički znak; boja, kombinacija boja</mat-radio-button>
+            <mat-radio-button value="kombinovani znak">kombinovani znak</mat-radio-button>
+            <mat-radio-button value="trodemenzionalni znak">trodemenzionalni znak</mat-radio-button>
+            <mat-radio-button value="drugo">drugu vrstu znaka (navesti koju)</mat-radio-button>
+            <!--            ako je drugo treba dodati input polje-->
+          </mat-radio-group>
+        </section>
+        <div *ngIf="form.value.vrstaNaOsnovuIzgleda === 'drugo'" class="dodatna-vrsta">
+          <p class="title-vrsta">Navedite vrstu znaka:</p>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="vrstaNaOsnovuIzgledaStr">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    Izgled znaka --treba upload fajla--obavezno
+  </div>
+  <div>
+    <p class="description">5. Naznačenje boje, odnosno boja iz kojih se znak sastoji:</p>
+    <mat-form-field appearance="fill" class="input-znak">
+      <input matInput formControlName="bojaZnaka">
+    </mat-form-field>
+  </div>
+  <div>
+    <p class="description">6. Transliteracija znaka:</p>
+    <p class="instruction">*Popuniti samo ako je znak ili element znaka ispisan slovima koja nisu ćirilična ili
+      latinična</p>
+    <mat-form-field appearance="fill" class="input-znak">
+      <input matInput formControlName="transliteracijaZnaka">
+    </mat-form-field>
+  </div>
+  <div>
+    <p class="description">7. Prevod znaka:</p>
+    <p class="instruction">*Popuniti samo ako je znak ili element znaka ispisan slovima koja nisu ćirilična ili
+      latinična</p>
+    <mat-form-field appearance="fill" class="input-znak">
+      <input matInput formControlName="prevodZnaka">
+    </mat-form-field>
+  </div>
+  <div>
+    <p class="description">8. Opis znaka:</p>
+    <mat-form-field appearance="fill" class="input-znak">
+      <input matInput formControlName="opisZnaka">
+    </mat-form-field>
+  </div>
+  <div>
+    <p class="description">9. Zaokružiti brojeve klasa robe i usluga prema Ničanskoj klasifikaciji : </p>
+    <div class="nicanskaKlasifikacija">
+      <div *ngFor="let numCounter of counter(45) ;let num = index">
+        <button type="button" [ngClass]="{'klasa' : toggle[num], 'stiklirano': !toggle[num]}"
+                (click)="addNumber(num+1)">{{num + 1}}</button>
+      </div>
+    </div>
+  </div>
+</div>

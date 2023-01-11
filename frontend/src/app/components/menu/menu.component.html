@@ -1,0 +1,46 @@
+<div class="menu-container" id="menuDiv">
+  <div class="close_button">
+    <button mat-icon-button (click)="colapseMenu()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  </div>
+
+  <div class="profile_options">
+    <mat-selection-list #menuItems [multiple]="false">
+      <div><p class="title">Podnošenje zahteva</p></div>
+      <div class="menu_item">
+        <mat-icon class="menu_item_icon">perm_identity</mat-icon>
+        <mat-list-option (click)="openFormAutorskoDelo()">
+         <p>Autorsko delo</p>
+        </mat-list-option>
+      </div>
+      <div class="menu_item">
+        <mat-icon class="menu_item_icon">lock</mat-icon>
+        <mat-list-option (click)="openFormPatent()">
+          <p>Patent</p>
+        </mat-list-option>
+      </div>
+      <div class="menu_item">
+        <mat-icon class="menu_item_icon">lock</mat-icon>
+        <mat-list-option (click)="openFormZig()">
+          <p>Zig</p>
+        </mat-list-option>
+      </div>
+      <div class="delimiter"></div>
+      <div class="menu_item">
+        <mat-icon class="menu_item_icon">exit_to_app</mat-icon>
+        <mat-list-option>
+          <p>Odjava</p>
+        </mat-list-option>
+      </div>
+
+    </mat-selection-list>
+  </div>
+</div>
+<div id="collapsedMenu" class="open_menu_button">
+  <button mat-icon-button (click)="openMenu()">
+    <mat-icon>list</mat-icon>
+  </button>
+</div>
+
+
