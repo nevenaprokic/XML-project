@@ -4,52 +4,34 @@
     <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
   </div>
   <form [formGroup]="this.zigForm">
-    <div [formGroup]="form">
+    <div>
       <p class="description">1. Podnosilac prijave:</p>
-      <section class="section-lice">
-        <mat-radio-group formControlName="podnosilacPrijave">
-          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
-          <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
-        </mat-radio-group>
-      </section>
-      <div *ngIf="form.value.podnosilacPrijave === 'TFizicko_lice'">
-        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveFizickoLice', $event)"></app-form-fizicko-lice>
-      </div>
-      <div *ngIf="form.value.podnosilacPrijave === 'TPravno_lice'">
-        <app-form-pravno-lice (formReady)="addChildForm('podnosilacPrijavePravnoLice', $event)"></app-form-pravno-lice>
-      </div>
+      <app-form-izbor-lica (formReady)="addChildForm('podnosilacPrijave', $event)"
+                           liceOdredjenje="podnosilacPrijave"></app-form-izbor-lica>
       <app-form-adresa (formReady)="addChildForm('podnosilacPrijaveAdresa', $event)"></app-form-adresa>
-      <app-form-kontakt-podaci (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci', $event)"></app-form-kontakt-podaci>
+      <app-form-kontakt-podaci
+        (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
     <div [formGroup]="form">
       <p class="description">2. Punomoćnik:</p>
-      <section class="section-lice">
-        <mat-radio-group formControlName="punomocnik">
-          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
-          <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
-        </mat-radio-group>
-      </section>
-      <div *ngIf="form.value.punomocnik === 'TFizicko_lice'">
-        <app-form-fizicko-lice (formReady)="addChildForm('punomocnikFizickoLice', $event)"></app-form-fizicko-lice>
-      </div>
-      <div *ngIf="form.value.punomocnik === 'TPravno_lice'">
-        <app-form-pravno-lice (formReady)="addChildForm('punomocnikPravnoLice', $event)"></app-form-pravno-lice>
-      </div>
+      <app-form-izbor-lica (formReady)="addChildForm('punomocnik', $event)"
+                           liceOdredjenje="punomocnik"></app-form-izbor-lica>
       <app-form-adresa (formReady)="addChildForm('punomocnikAdresa', $event)"></app-form-adresa>
       <app-form-kontakt-podaci (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
     <div>
-      <app-form-znak (formReady)="addChildForm('znak', $event)"></app-form-znak>
+      <app-form-znak (formReady)="addChildForm('znak', $event)" (toggleEvent)="addNumber($event)"
+                     (toggle)="toggle"></app-form-znak>
     </div>
     <div [formGroup]="form">
       <p class="description">10. Zatraženo pravo prvenstva i osnov:</p>
-      <mat-form-field appearance="fill" class="input-zig" >
+      <mat-form-field appearance="fill" class="input-zig">
         <input matInput formControlName="pravoPrvenstvaIOsnov">
       </mat-form-field>
     </div>
     <div>
       <p class="description">11. Plaćene takse:</p>
-      <app-form-takse (formReady)="addChildForm('takse', $event)" ></app-form-takse>
+      <app-form-takse (formReady)="addChildForm('takse', $event)"></app-form-takse>
     </div>
 
     <div class="submit-item">

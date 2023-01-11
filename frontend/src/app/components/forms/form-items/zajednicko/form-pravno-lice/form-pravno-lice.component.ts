@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   templateUrl: './form-pravno-lice.component.html',
   styleUrls: ['./form-pravno-lice.component.scss']
 })
-export class FormPravnoLiceComponent implements OnInit{
+export class FormPravnoLiceComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
 

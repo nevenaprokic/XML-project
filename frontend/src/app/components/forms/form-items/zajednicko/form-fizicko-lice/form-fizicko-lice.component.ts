@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   templateUrl: './form-fizicko-lice.component.html',
   styleUrls: ['./form-fizicko-lice.component.scss']
 })
-export class FormFizickoLiceComponent implements OnInit{
+export class FormFizickoLiceComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
 
@@ -15,7 +15,8 @@ export class FormFizickoLiceComponent implements OnInit{
     prezime: ['']
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     this.formReady.emit(this.form);

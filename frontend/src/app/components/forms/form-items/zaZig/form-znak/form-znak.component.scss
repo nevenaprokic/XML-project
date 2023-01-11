@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-.input-znak{
+.input-znak {
   margin: 10px;
 }
 
@@ -19,7 +19,7 @@
     margin: 10px 20px;
   }
 
-  .vrasta-korisnik,.vrsta-izgled {
+  .vrasta-korisnik, .vrsta-izgled {
     margin: 10px 20px;
     border: 1px solid $fontColor;
   }
@@ -45,7 +45,7 @@
   margin: 5px 10px 10px 15px;
 }
 
-.nicanskaKlasifikacija{
+.nicanskaKlasifikacija {
   margin: 10px;
   display: grid;
   grid-template-columns: repeat(23, 1fr);
@@ -53,9 +53,16 @@
   gap: 5px 10px;
 }
 
-.klasa{
+.klasa {
   @include size(35px, 20px);
   background-color: $fontColor;
   color: $light1;
+  cursor: pointer;
+}
+
+.stiklirano {
+  @include size(35px, 20px);
+  color: $fontColor;
+  background-color: $light1;
   cursor: pointer;
 }

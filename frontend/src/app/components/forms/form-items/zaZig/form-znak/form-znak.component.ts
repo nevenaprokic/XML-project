@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   templateUrl: './form-znak.component.html',
   styleUrls: ['./form-znak.component.scss']
 })
-export class FormZnakComponent implements OnInit{
+export class FormZnakComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
 
@@ -18,8 +18,14 @@ export class FormZnakComponent implements OnInit{
     prevodZnaka: [''],
     opisZnaka: ['']
   });
+  @Output()
+  toggleEvent = new EventEmitter<number>();
+
+  @Input()
+  toggle: Array<boolean>;
 
   constructor(private fb: FormBuilder) {
+    this.toggle = Array.from({length: 45}, () => true);
   }
 
   ngOnInit() {
@@ -31,8 +37,7 @@ export class FormZnakComponent implements OnInit{
   }
 
   addNumber(i: number) {
-    //naklik treba dodati broj u listu
-    //treba promeniti boju dugmetu
-    //da li dozvoliti da se predomisli i opet klikne kako bi izbacio iz liste i boja da se vrati na staro
+    this.toggleEvent.emit(i);
+    this.toggle = this.toggle.map((value, index) => index + 1 === i ? !value : value);
   }
 }

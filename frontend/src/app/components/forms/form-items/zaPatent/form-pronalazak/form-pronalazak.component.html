@@ -1,17 +1,20 @@
-<div class="description">
-  <p class="polje">Polje broj I</p>
-  <p class="subtitle">NAZIV PRONALSKA</p>
-</div>
-<p class="instruction">* Naziv pronalaska treba da jasno i sažeto izražava suštinu pronalaska i ne sme da sadrži izmišljene ili komercijalne nazive, žigove, imena, šifre, uobičajene skraćenice za proizvode i sl.</p>
-<div class="input-jezik srpski">
-  Na srpskom jeziku:
-  <mat-form-field appearance="fill" >
-    <input matInput>
-  </mat-form-field>
-</div>
-<div class="input-jezik">
-  Na engleskom jeziku:
-  <mat-form-field appearance="fill" >
-    <input matInput>
-  </mat-form-field>
+<div [formGroup]="form">
+  <div class="description">
+    <p class="polje">Polje broj I</p>
+    <p class="subtitle">NAZIV PRONALSKA</p>
+  </div>
+  <p class="instruction">* Naziv pronalaska treba da jasno i sažeto izražava suštinu pronalaska i ne sme da sadrži
+    izmišljene ili komercijalne nazive, žigove, imena, šifre, uobičajene skraćenice za proizvode i sl.</p>
+  <div class="input-jezik srpski">
+    Na srpskom jeziku:
+    <mat-form-field appearance="fill">
+      <input matInput required formControlName="pronalazakNaSrpskom">
+    </mat-form-field>
+  </div>
+  <div class="input-jezik">
+    Na engleskom jeziku:
+    <mat-form-field appearance="fill">
+      <input matInput required formControlName="pronalazakNaEngleskom">
+    </mat-form-field>
+  </div>
 </div>

@@ -67,8 +67,9 @@
   <div>
     <p class="description">9. Zaokružiti brojeve klasa robe i usluga prema Ničanskoj klasifikaciji : </p>
     <div class="nicanskaKlasifikacija">
-      <div *ngFor="let numCounter of counter(45) ;let num = index" >
-        <button type="button" class="klasa" (click)="addNumber(num+1)">{{num + 1}}</button>
+      <div *ngFor="let numCounter of counter(45) ;let num = index">
+        <button type="button" [ngClass]="{'klasa' : toggle[num], 'stiklirano': !toggle[num]}"
+                (click)="addNumber(num+1)">{{num + 1}}</button>
       </div>
     </div>
   </div>

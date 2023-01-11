@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   templateUrl: './form-takse.component.html',
   styleUrls: ['./form-takse.component.scss']
 })
-export class FormTakseComponent implements OnInit{
+export class FormTakseComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
 
@@ -16,7 +16,8 @@ export class FormTakseComponent implements OnInit{
     zaGrafickoTaksa: ['']
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     this.formReady.emit(this.form);

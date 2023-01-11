@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {Component} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-form-patent',
@@ -7,15 +7,33 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./form-patent.component.scss']
 })
 export class FormPatentComponent {
-  patentForm = new FormGroup({
-    podnosilacPrijave: new FormControl('TFizicko_lice'),
-    punomocnik: new FormControl('TPravno_lice'),
+
+  patentForm = this.fb.group({});
+  formPatentGroup = new FormGroup({
+    nacinDostavljanja: new FormControl('elektronski'),
+    podnosilacJePunomocnik: new FormControl('punomoćnik za zastupanje'),
+    vrstaPrijave: new FormControl(''),
     podnosilacJePronalazac: new FormControl(false),
-    pronalazacNijeNaveden: new FormControl(false),
-    vrstaPrijave: new  FormControl("izdvojena")
+    drzavjanstvo: new FormControl(''),
+    pronalazacNijeNaveden: new FormControl(false)
   })
 
-  onSubmit() {
+  form = this.fb.group({
+    podnosilacPrijave: ['']
+  });
 
+  toggle = Array.from({length: 45}, () => true);
+
+  constructor(private fb: FormBuilder) {
   }
+
+  addChildForm(name: string, group: FormGroup) {
+    this.patentForm.addControl(name, group);
+  }
+
+  onSubmit() {
+    this.addChildForm('patentFormParent', this.formPatentGroup);
+    console.log(this.patentForm.value);
+  }
+
 }

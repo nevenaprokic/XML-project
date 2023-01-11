@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-form-kontakt-podaci',
   templateUrl: './form-kontakt-podaci.component.html',
   styleUrls: ['./form-kontakt-podaci.component.scss']
 })
-export class FormKontaktPodaciComponent implements OnInit{
+export class FormKontaktPodaciComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
 
@@ -16,7 +16,8 @@ export class FormKontaktPodaciComponent implements OnInit{
     faks: ['']
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     this.formReady.emit(this.form);

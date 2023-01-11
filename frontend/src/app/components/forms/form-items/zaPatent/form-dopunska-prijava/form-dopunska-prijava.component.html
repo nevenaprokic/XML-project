@@ -1,67 +1,15 @@
-<div class="input-prijava">
-  Broj prvobitne prijave / osnovne prijave, odnosno osnovnog patenta:
-  <mat-form-field appearance="fill">
-    <input matInput>
-  </mat-form-field>
+<div [formGroup]="form">
+  <div class="input-prijava">
+    Broj prvobitne prijave / osnovne prijave, odnosno osnovnog patenta:
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="brojPrvobitnePrijave">
+    </mat-form-field>
+  </div>
+  <div class="input-prijava">
+    Datum podnošenja prvobitne prijave / osnovne prijave:
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="datumPodnosenja">
+    </mat-form-field>
+  </div>
 </div>
-<div class="input-prijava">
-  Datum podnošenja prvobitne prijave / osnovne prijave:
-  <mat-form-field appearance="fill" >
-    <input matInput>
-  </mat-form-field>
-</div>
-<div class="description">
-  <p class="polje">Polje broj VIII</p>
-  <p class="subtitle">ZAHTEV ZA PRIZNANJE PRAVA PRVENSTVA IZ RANIJIH PRIJAVA:</p>
-</div>
-<table class="table-prijava">
-  <thead>
-  <tr>
-    <th>Datum podnošenja ranije prijave</th>
-    <th>Broj ranije prijave</th>
-    <th>Dvoslovna oznaka države, regionalne ili međunarodne organizacije</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let field of fieldArray; let i = index">
-    <td>
-      <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput class="text-input"></textarea>
-      </mat-form-field>
-    </td>
-    <td>
-      <button class="button"  type="button" (click)="deleteFieldValue(i)">Delete</button>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
-      </mat-form-field>
-    </td>
-    <td>
-      <button class="button" type="button" (click)="addFieldValue()">Add</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+

@@ -24,6 +24,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { FormDopunskaPrijavaComponent } from './components/forms/form-items/zaPatent/form-dopunska-prijava/form-dopunska-prijava.component';
 import { FormPronalazakComponent } from './components/forms/form-items/zaPatent/form-pronalazak/form-pronalazak.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { FormTabelaComponent } from './components/forms/form-items/zaPatent/form-tabela/form-tabela.component';
+import { FormIzborLicaComponent } from './components/forms/form-items/zajednicko/form-izbor-lica/form-izbor-lica.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormZnakComponent,
     FormTakseComponent,
     FormDopunskaPrijavaComponent,
-    FormPronalazakComponent
+    FormPronalazakComponent,
+    FormTabelaComponent,
+    FormIzborLicaComponent
   ],
   imports: [
     BrowserModule,

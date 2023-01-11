@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -10,10 +10,10 @@ export class FormZigComponent {
 
   zigForm = this.fb.group({});
   form = new FormGroup({
-    pravoPrvenstvaIOsnov : new FormControl(''),
-    punomocnik: new FormControl('TFizicko_lice'),
-    podnosilacPrijave: new FormControl('TFizicko_lice')
+    pravoPrvenstvaIOsnov: new FormControl('')
   })
+
+  toggle = Array.from({length: 45}, () => true);
 
   constructor(private fb: FormBuilder) {
   }
@@ -23,8 +23,12 @@ export class FormZigComponent {
   }
 
   onSubmit() {
-    // const {personal, contact} = this.form.value;
     this.addChildForm('pravoPrvenstvaIosnov', this.form);
     console.log(this.zigForm.value);
+  }
+
+  addNumber(i: number) {
+    this.toggle = this.toggle.map((value, index) => index + 1 === i ? !value : value);
+    console.log(this.toggle);
   }
 }

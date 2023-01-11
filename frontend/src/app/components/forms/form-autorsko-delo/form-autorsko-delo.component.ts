@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
@@ -9,7 +9,9 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class FormAutorskoDeloComponent {
   autorskoDeloForm = new FormGroup({
     podnosilacPrijave: new FormControl('TFizicko_lice'),
-    punomocnik: new FormControl('TPravno_lice')
+    punomocnik: new FormControl('TPravno_lice'),
+    vrstaAutorskogDela: new FormControl('knjizevno delo'),
+    formaZapisaAutorskogDela: new FormControl('tamparski tekst')
   })
 
   onSubmit() {
