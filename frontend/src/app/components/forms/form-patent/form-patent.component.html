@@ -36,7 +36,7 @@
       </div>
       <app-form-adresa [drzava]="true" (formReady)="addChildForm('podnosilacPrijaveAdresa', $event)"></app-form-adresa>
       <app-form-kontakt-podaci [faks]="true"
-        (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci', $event)"></app-form-kontakt-podaci>
+                               (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
     <div *ngIf="formPatentGroup.value.podnosilacJePronalazac === false">
       <div class="description">
@@ -50,9 +50,10 @@
     </div>
     <div
       *ngIf="formPatentGroup.value.podnosilacJePronalazac === false && formPatentGroup.value.pronalazacNijeNaveden == false">
-      <app-form-fizicko-lice></app-form-fizicko-lice>
-      <app-form-adresa [drzava]="true"></app-form-adresa>
-      <app-form-kontakt-podaci [faks]="true"></app-form-kontakt-podaci>
+      <app-form-fizicko-lice (formReady)="addChildForm('pronalazacFizickoLice', $event)"></app-form-fizicko-lice>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('pronalazacAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true"
+                               (formReady)="addChildForm('pronalazacKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
 
     <div class="description">
@@ -70,7 +71,8 @@
       <app-form-izbor-lica (formReady)="addChildForm('punomocnik', $event)"
                            liceOdredjenje="punomocnik"></app-form-izbor-lica>
       <app-form-adresa [drzava]="false" (formReady)="addChildForm('punomocnikAdresa', $event)"></app-form-adresa>
-      <app-form-kontakt-podaci [faks]="false" (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
+      <app-form-kontakt-podaci [faks]="false"
+                               (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
     <div class="description">
       <p class="polje">Polje broj V</p>

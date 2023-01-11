@@ -24,6 +24,11 @@
       <app-form-kontakt-podaci [faks]="true" (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
     <div>
+      <p class="description">3. Zajednički predstavnik:</p>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('zajednickiPredstavnikAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true" (formReady)="addChildForm('zajednickiPredstavnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
+    </div>
+    <div>
       <app-form-znak (formReady)="addChildForm('znak', $event)" (toggleEvent)="addNumber($event)"
                      (toggle)="toggle"></app-form-znak>
     </div>

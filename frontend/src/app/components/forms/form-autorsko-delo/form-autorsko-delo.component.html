@@ -5,64 +5,63 @@
   </div>
   <form [formGroup]="this.autorskoDeloForm">
     <div><p class="description">1. Podnosilac prijave:</p>
-      <section class="section-lice">
+      <section class="section-lice" [formGroup]="formPodnosilac">
         <mat-radio-group formControlName="podnosilacPrijave">
-          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button value="TFizicko_lice">Fizicko lice</mat-radio-button>
           <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
           <mat-radio-button value="TAutor">Autor</mat-radio-button>
         </mat-radio-group>
       </section>
-      <div *ngIf="autorskoDeloForm.value.podnosilacPrijave === 'TFizicko_lice'">
-        <app-form-fizicko-lice></app-form-fizicko-lice>
+      <div *ngIf="formPodnosilac.value.podnosilacPrijave === 'TFizicko_lice'">
+        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveFizickoLice', $event)"></app-form-fizicko-lice>
       </div>
-      <div *ngIf="autorskoDeloForm.value.podnosilacPrijave === 'TPravno_lice'">
-        <app-form-pravno-lice></app-form-pravno-lice>
+      <div *ngIf="formPodnosilac.value.podnosilacPrijave === 'TPravno_lice'">
+        <app-form-pravno-lice (formReady)="addChildForm('podnosilacPrijavePravnoLice', $event)"></app-form-pravno-lice>
       </div>
-      <div *ngIf="autorskoDeloForm.value.podnosilacPrijave === 'TAutor'">
-        <app-form-fizicko-lice></app-form-fizicko-lice>
-        <app-form-autor></app-form-autor>
+      <div *ngIf="formPodnosilac.value.podnosilacPrijave === 'TAutor'">
+        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveAutorLice', $event)"></app-form-fizicko-lice>
+        <app-form-autor (formReady)="addChildForm('podnosilacPrijaveAutorObelezja', $event)"></app-form-autor>
       </div>
       <app-form-adresa [drzava]="true"></app-form-adresa>
       <app-form-kontakt-podaci [faks]="false"></app-form-kontakt-podaci>
     </div>
-    <div class="input-autorsko-delo">
+    <div class="input-autorsko-delo" [formGroup]="form">
       <p class="description">2. Pseudonim ili znak autora, (ako ga ima):</p>
       <mat-form-field appearance="fill">
-        <input matInput>
+        <input matInput formControlName="pseudonimAutora">
       </mat-form-field>
     </div>
-    <div>
+    <div [formGroup]="form">
       <p class="description">3. Naslov:</p>
       <div class="input-autorsko-delo">
         Naslov autorskog dela:
         <mat-form-field appearance="fill" class="input-zig">
-          <input matInput>
+          <input matInput formControlName="naslovAutorskogDela">
         </mat-form-field>
       </div>
       <div class="input-autorsko-delo">
         Alternativni naslov (ako ga ima, po kome autorsko delo može da se identifikuje):
         <mat-form-field appearance="fill" class="input-zig">
-          <input matInput>
+          <input matInput formControlName="alternativniNaslovAutorskogDela">
         </mat-form-field>
       </div>
     </div>
     <div>
       <p class="description">4. Prerada autorskog dela:</p>
-      <!--      nisam sigurna sta ide ovde-->
-      <div class="input-autorsko-delo">
+      <div class="input-autorsko-delo" [formGroup]="form">
         Naslov autorskog dela:
         <mat-form-field appearance="fill" class="input-zig">
-          <input matInput>
+          <input matInput formControlName="naslovPreradeAutorskogDela">
         </mat-form-field>
       </div>
       <div *ngFor="let num of this.brojAutorPrerada">
-        <app-form-fizicko-lice></app-form-fizicko-lice>
-        <app-form-autor></app-form-autor>
+        <app-form-fizicko-lice (formReady)="addChildForm('autoriPreradeFizickoLice'+num, $event)"></app-form-fizicko-lice>
+        <app-form-autor (formReady)="addChildForm('autoriPreradeAutor'+num, $event)"></app-form-autor>
       </div>
       <button type="button" class="button-add-remove" (click)="addAutorPrerada()">Dodaj autora</button>
       <button type="button" class="button-add-remove" (click)="removeAutorPrerada()">Obriši autora</button>
     </div>
-    <div class="vrasta-autorskog-dela">
+    <div class="vrasta-autorskog-dela" [formGroup]="form">
       <p class="description">5. Podaci o vrsti autorskog dela:</p>
       <section>
         <mat-radio-group formControlName="vrstaAutorskogDela">
@@ -74,7 +73,7 @@
         </mat-radio-group>
       </section>
     </div>
-    <div class="forma-zapisa-autorskog-dela">
+    <div class="forma-zapisa-autorskog-dela" [formGroup]="form">
       <p class="description">6. Podaci o formi zapisa autorskog dela:</p>
       <section>
         <mat-radio-group formControlName="formaZapisaAutorskogDela">
@@ -84,32 +83,31 @@
         </mat-radio-group>
       </section>
     </div>
-    <!--    8. tacka ko je kome tu sta-->
     <div>
       <p class="description">7. Podaci o autoru ako podnosilac prijave iz tačke 1. ovog zahteva nije autor i to: prezime, ime, adresa i državljanstvo autora (grupe autora ili koautora), a ako su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora a ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog autora:
       </p>
       <div *ngFor="let num of this.brojAutori">
-        <app-form-fizicko-lice></app-form-fizicko-lice>
-        <app-form-autor></app-form-autor>
+        <app-form-fizicko-lice (formReady)="addChildForm('autoriNijepodnosilacFizickoLice'+num, $event)"></app-form-fizicko-lice>
+        <app-form-autor (formReady)="addChildForm('autoriNijepodnosilacAutor'+num, $event)"></app-form-autor>
       </div>
       <button type="button" class="button-add-remove" (click)="addAutori()">Dodaj autora</button>
       <button type="button" class="button-add-remove" (click)="removeAutori()">Obriši autora</button>
     </div>
-    <div>
+    <div [formGroup]="form">
       <p class="description">8. Podaci o radnom odnosu:</p>
       <div class="input-autorsko-delo">
         Podatak da li je u pitanju autorsko delo stvoreno u radnom odnosu:
         <mat-form-field appearance="fill" class="input-zig">
-          <input matInput>
+          <input matInput formControlName="podaciORadnomOdnosu">
         </mat-form-field>
       </div>
     </div>
-    <div>
+    <div [formGroup]="form">
       <p class="description">9. Način korišćenja autorskog dela:</p>
       <div class="input-autorsko-delo">
         Način korišćenja autorskog dela ili nameravani način korišćenja autorskog dela:
         <mat-form-field appearance="fill" class="input-zig">
-          <input matInput>
+          <input  matInput formControlName="nacinKoriscenja">
         </mat-form-field>
       </div>
     </div>
