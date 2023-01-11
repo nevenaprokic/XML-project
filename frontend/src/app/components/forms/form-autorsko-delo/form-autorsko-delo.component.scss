@@ -47,3 +47,11 @@
     width: 20%;
   }
 }
+
+.button-add-remove {
+  @include buttonStyle();
+  width: 20%;
+  margin: 10px;
+  height: 5vh;
+}
+

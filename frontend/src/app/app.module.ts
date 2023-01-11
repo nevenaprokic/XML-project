@@ -26,25 +26,27 @@ import { FormPronalazakComponent } from './components/forms/form-items/zaPatent/
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FormTabelaComponent } from './components/forms/form-items/zaPatent/form-tabela/form-tabela.component';
 import { FormIzborLicaComponent } from './components/forms/form-items/zajednicko/form-izbor-lica/form-izbor-lica.component';
+import {FormAutorComponent} from "./components/forms/form-items/zaAutorskoDelo/form-autor/form-autor.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MenuComponent,
-    FormAutorskoDeloComponent,
-    FormPatentComponent,
-    FormZigComponent,
-    FormKontaktPodaciComponent,
-    FormPravnoLiceComponent,
-    FormFizickoLiceComponent,
-    FormAdresaComponent,
-    FormZnakComponent,
-    FormTakseComponent,
-    FormDopunskaPrijavaComponent,
-    FormPronalazakComponent,
-    FormTabelaComponent,
-    FormIzborLicaComponent
-  ],
+    declarations: [
+        AppComponent,
+        MenuComponent,
+        FormAutorskoDeloComponent,
+        FormPatentComponent,
+        FormZigComponent,
+        FormKontaktPodaciComponent,
+        FormPravnoLiceComponent,
+        FormFizickoLiceComponent,
+        FormAdresaComponent,
+        FormZnakComponent,
+        FormTakseComponent,
+        FormDopunskaPrijavaComponent,
+        FormPronalazakComponent,
+        FormTabelaComponent,
+        FormIzborLicaComponent,
+        FormAutorComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-form-pravno-lice',
@@ -11,7 +11,7 @@ export class FormPravnoLiceComponent implements OnInit {
   formReady = new EventEmitter<FormGroup>();
 
   form = this.fb.group({
-    nazivPravnoLice: ['']
+    nazivPravnoLice: ['', [Validators.required]]
   });
 
   constructor(private fb: FormBuilder) {

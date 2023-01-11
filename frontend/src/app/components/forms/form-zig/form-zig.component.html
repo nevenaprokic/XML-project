@@ -6,18 +6,22 @@
   <form [formGroup]="this.zigForm">
     <div>
       <p class="description">1. Podnosilac prijave:</p>
-      <app-form-izbor-lica (formReady)="addChildForm('podnosilacPrijave', $event)"
-                           liceOdredjenje="podnosilacPrijave"></app-form-izbor-lica>
-      <app-form-adresa (formReady)="addChildForm('podnosilacPrijaveAdresa', $event)"></app-form-adresa>
-      <app-form-kontakt-podaci
-        (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci', $event)"></app-form-kontakt-podaci>
+      <div *ngFor="let num of this.brojPodnosiocaPrijave">
+        <app-form-izbor-lica (formReady)="addChildForm('podnosilacPrijave'+num, $event)"
+                             liceOdredjenje="podnosilacPrijave"></app-form-izbor-lica>
+        <app-form-adresa [drzava]="true" (formReady)="addChildForm('podnosilacPrijaveAdresa'+num, $event)"></app-form-adresa>
+        <app-form-kontakt-podaci [faks]="true"
+          (formReady)="addChildForm('podnosilacPrijaveKontaktPodaci'+num, $event)"></app-form-kontakt-podaci>
+      </div>
+      <button type="button" class="button-add-remove" (click)="addPodnosiocPrijave()">Dodaj podnosioca</button>
+      <button type="button" class="button-add-remove" (click)="removePodnosiocPrijave()">Obriši podnosioca</button>
     </div>
     <div [formGroup]="form">
       <p class="description">2. Punomoćnik:</p>
       <app-form-izbor-lica (formReady)="addChildForm('punomocnik', $event)"
                            liceOdredjenje="punomocnik"></app-form-izbor-lica>
-      <app-form-adresa (formReady)="addChildForm('punomocnikAdresa', $event)"></app-form-adresa>
-      <app-form-kontakt-podaci (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
+      <app-form-adresa [drzava]="true" (formReady)="addChildForm('punomocnikAdresa', $event)"></app-form-adresa>
+      <app-form-kontakt-podaci [faks]="true" (formReady)="addChildForm('punomocnikKontaktPodaci', $event)"></app-form-kontakt-podaci>
     </div>
     <div>
       <app-form-znak (formReady)="addChildForm('znak', $event)" (toggleEvent)="addNumber($event)"

@@ -8,10 +8,11 @@
   <div class="input-podatak">
     Email:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="mika@gmail.com" formControlName="email" pattern="[^@]+@[^\.]+\..+">
+      <input matInput placeholder="mika@gmail.com" formControlName="email" required pattern="[^@]+@[^\.]+\..+">
+      <mat-error>Email je obavezan</mat-error>
     </mat-form-field>
   </div>
-  <div class="input-podatak">
+  <div *ngIf="faks === true" class="input-podatak">
     Faks:
     <mat-form-field appearance="fill">
       <input matInput placeholder="125/7517444" formControlName="faks" pattern="[0-9]{3,4}/[0-9]{5,7}">

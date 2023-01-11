@@ -51,10 +51,17 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+             <xs:attribute name="status" type="zig:status_zahteva" />
             <xs:attribute name="datum_podnosenja_prijave" type="xs:date" use="required"/>
         	<xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
+    <xs:simpleType name="status_zahteva">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="neobradjen"/>
+            <xs:enumeration value="obradjen"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="TZig">
         <xs:sequence>
             <xs:element name="Vrsta_ziga_na_osnovu_korisnika"

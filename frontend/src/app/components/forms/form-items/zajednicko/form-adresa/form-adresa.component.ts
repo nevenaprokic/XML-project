@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -9,6 +9,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class FormAdresaComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
+
+  @Input()
+  drzava!:boolean;
 
   form = this.fb.group({
     ulica: ['', [Validators.required]],

@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-form-kontakt-podaci',
@@ -10,9 +10,12 @@ export class FormKontaktPodaciComponent implements OnInit {
   @Output()
   formReady = new EventEmitter<FormGroup>();
 
+  @Input()
+  faks!:boolean;
+
   form = this.fb.group({
     telefon: [''],
-    email: [''],
+    email: ['', [Validators.required]],
     faks: ['']
   });
 

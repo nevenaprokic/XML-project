@@ -24,10 +24,10 @@
             <!--            ako je drugo treba dodati input polje-->
           </mat-radio-group>
         </section>
-        <div *ngIf="form.value.vrstaNaOsnovuIzgleda === 'drugo'">
-          <p>Navedite vrstu znaka:</p>
+        <div *ngIf="form.value.vrstaNaOsnovuIzgleda === 'drugo'" class="dodatna-vrsta">
+          <p class="title-vrsta">Navedite vrstu znaka:</p>
           <mat-form-field appearance="fill">
-            <input matInput formControlName="vrstaNaOsnovuIzgleda">
+            <input matInput formControlName="vrstaNaOsnovuIzgledaStr">
           </mat-form-field>
         </div>
       </div>

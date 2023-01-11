@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Zahtev_za_priznanje_ziga broj_prijave_ziga="Ž-123/23" datum_podnosenja_prijave="2008-09-29"
+<Zahtev_za_priznanje_ziga broj_prijave_ziga="Ž-193/23" datum_podnosenja_prijave="2008-09-29"  status="neobradjen"
                               xmlns="http://ftn.uns.ac.rs/zig"
                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                               xsi:schemaLocation="http://ftn.uns.ac.rs/zig  ./zahtev_za_prijavu_ziga.xsd"

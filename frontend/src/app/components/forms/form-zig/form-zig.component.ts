@@ -14,6 +14,7 @@ export class FormZigComponent {
   })
 
   toggle = Array.from({length: 45}, () => true);
+  brojPodnosiocaPrijave = [1];
 
   constructor(private fb: FormBuilder) {
   }
@@ -30,5 +31,17 @@ export class FormZigComponent {
   addNumber(i: number) {
     this.toggle = this.toggle.map((value, index) => index + 1 === i ? !value : value);
     console.log(this.toggle);
+  }
+
+  addPodnosiocPrijave(){
+    if(this.brojPodnosiocaPrijave.length<5) {
+      this.brojPodnosiocaPrijave.push(this.brojPodnosiocaPrijave.length+1);
+    }
+  }
+
+  removePodnosiocPrijave() {
+    if(this.brojPodnosiocaPrijave.length>1){
+      this.brojPodnosiocaPrijave.pop();
+    }
   }
 }

@@ -12,6 +12,7 @@ export class FormZnakComponent implements OnInit {
 
   form = this.fb.group({
     vrstaNaOsnovuIzgleda: ['individualni zig'],
+    vrstaNaOsnovuIzgledaStr: '',
     vrstaNaOsnovuKorisnika: ['verbalni zig'],
     bojaZnaka: [''],
     transliteracijaZnaka: [''],

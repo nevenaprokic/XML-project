@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-form-fizicko-lice',
@@ -11,8 +11,8 @@ export class FormFizickoLiceComponent implements OnInit {
   formReady = new EventEmitter<FormGroup>();
 
   form = this.fb.group({
-    ime: [''],
-    prezime: ['']
+    ime: ['', [Validators.required]],
+    prezime: ['', [Validators.required]]
   });
 
   constructor(private fb: FormBuilder) {

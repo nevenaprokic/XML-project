@@ -66,3 +66,11 @@
   background-color: $light1;
   cursor: pointer;
 }
+
+.dodatna-vrsta {
+  margin: 10px 30px;
+
+  .title-vrsta {
+    font-weight: bold;
+  }
+}
