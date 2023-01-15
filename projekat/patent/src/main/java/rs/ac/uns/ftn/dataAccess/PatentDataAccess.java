@@ -120,6 +120,7 @@ public class PatentDataAccess {
 		Collection col = null;
 		try {
 			col = ConnectionUtilities.getCollection(collectionId);
+			System.out.println(col);
 			return DBManipulationUtilities.getResourceSetByXPath(col, TARGET_NAMESPACE, xPathExpression);
 
 		} catch (Exception e) {

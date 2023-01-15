@@ -2,7 +2,7 @@
 <Zahtev_za_priznanje_patenta xmlns="http://www.ftn.uns.ac.rs/p1"
                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                              xsi:schemaLocation="http://www.ftn.uns.ac.rs/p1 ./zahtev_za_priznanje_patenta.xsd"
-                             broj_prijave="P3" datum_prijema_prijave="2022-09-24-06:00" priznati_datum_podnosenja="2022-09-25-06:00" tip_prijave="izdvojena"
+                             broj_prijave="P3/2022" datum_prijema_prijave="2022-09-24-06:00" priznati_datum_podnosenja="2022-09-25-06:00"
                              xmlns:zaj="http://www.ftn.uns.ac.rs/zaj">
 
   <Primalac_zahteva>
@@ -85,13 +85,18 @@
   <Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava>
     <Ranija_prijava>
       <Datum_podnosenja>2022-09-24-06:00</Datum_podnosenja>
-      <Broj_prijave>P2</Broj_prijave>
+      <Broj_prijave>P2/2020</Broj_prijave>
       <Dvoslovna_oznaka_drzave>RS</Dvoslovna_oznaka_drzave>
     </Ranija_prijava>
     <Ranija_prijava>
       <Datum_podnosenja>2022-09-26-06:00</Datum_podnosenja>
-      <Broj_prijave>P3</Broj_prijave>
+      <Broj_prijave>P2/2019</Broj_prijave>
       <Dvoslovna_oznaka_drzave>RS</Dvoslovna_oznaka_drzave>
     </Ranija_prijava>
   </Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava>
+  <Podaci_o_dodatnoj_prijavi>
+  	<Tip_prijave>izdvojena</Tip_prijave>
+  	<Broj_prvobitne_prijave>P2/2020</Broj_prvobitne_prijave>
+  	<Datum_podnosenja_prvobitne_prijave>2019-09-26-06:00</Datum_podnosenja_prvobitne_prijave>
+  </Podaci_o_dodatnoj_prijavi>
 </Zahtev_za_priznanje_patenta>

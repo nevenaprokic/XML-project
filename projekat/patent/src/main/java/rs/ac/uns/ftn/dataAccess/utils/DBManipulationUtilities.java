@@ -51,10 +51,10 @@ public class DBManipulationUtilities {
 	}
 	
 	public static ResourceSet getResourceSetByXPath(Collection col, String targetNamespace, String xPathExpression) throws XMLDBException {
-		System.out.println("[INFO] Invoking XPath query service for: " + xPathExpression);
-		XPathQueryService xpathService = getXPathService(col, targetNamespace);
-        ResourceSet result = xpathService.query(xPathExpression);
-        return result;
+			System.out.println("[INFO] Invoking XPath query service for: " + xPathExpression);
+			XPathQueryService xpathService = getXPathService(col, targetNamespace);
+	        ResourceSet result = xpathService.query(xPathExpression);
+	        return result;		
 	}
 	
 
