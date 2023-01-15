@@ -41,6 +41,8 @@ public class PatentMapper {
 	
 	private static final String GRAD_ZAVODA = "Beograd";
 	private static final String ULICA_ZAVODA = "Kneginje Ljubice";
+	private static final String DRZAVA_ZAVODA = "Republika Srbija";
+	private static final int POSTANSKI_BROJ_ZAVODA = 11000;
 	private static final BigInteger BROJ_ZAVODA = BigInteger.valueOf(2);
 	private static final String NAZIV_ZAVODA = "Zavod za intelektualnu svojinu";
 	
@@ -205,7 +207,6 @@ public class PatentMapper {
 
 	private static TFizickoLice getFizickoLiceFromDTO(TFizickoLice punomocnikDto) {
 		TFizickoLice fizickoLice = objectFactoryZajednicki.createTFizickoLice();
-
 		fizickoLice.setAdresa(getAdresaFromDTO(punomocnikDto.getAdresa()));
 		fizickoLice.setKontaktPodaci(getKontaktPodaciFromDTO(punomocnikDto.getKontaktPodaci()));
 		fizickoLice.setIme(punomocnikDto.getIme());
@@ -219,6 +220,8 @@ public class PatentMapper {
 		adresa.setBroj(adresaDto.getBroj());
 		adresa.setGrad(adresaDto.getGrad());
 		adresa.setUlica(adresaDto.getUlica());
+		adresa.setPostanskiBroj(adresaDto.getPostanskiBroj());
+		adresa.setDrzava(adresaDto.getDrzava());
 		return adresa;
 	}
 	
@@ -237,6 +240,8 @@ public class PatentMapper {
 		adresa.setBroj(BROJ_ZAVODA);
 		adresa.setGrad(GRAD_ZAVODA);
 		adresa.setUlica(ULICA_ZAVODA);
+		adresa.setPostanskiBroj(POSTANSKI_BROJ_ZAVODA);
+		adresa.setDrzava(DRZAVA_ZAVODA);
 
 		TPrimalacZahteva zavod = objectFactory.createTPrimalacZahteva();
 

@@ -12,13 +12,13 @@ import rs.ac.uns.ftn.model.User;
 import rs.ac.uns.ftn.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping(value="/user", consumes=MediaType.APPLICATION_XML_VALUE, produces=MediaType.APPLICATION_XML_VALUE)
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public ResponseEntity addNewUser(@RequestBody User user) {
 			userService.saveNewUser(user);
 			return ResponseEntity.ok().build();

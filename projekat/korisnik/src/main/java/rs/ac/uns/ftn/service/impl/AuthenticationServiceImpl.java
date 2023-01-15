@@ -7,6 +7,8 @@ import rs.ac.uns.ftn.service.AuthenticationService;
 import rs.ac.uns.ftn.utils.TokenUtils;
 import rs.ac.uns.ftn.utils.UserToken;
 
+import java.io.Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,12 +28,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     public User createAuthenticationToken(LoginData loginData) {
+    	System.out.println(loginData.getUsername() + " " + loginData.getPassword());
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginData.getUsername(), loginData.getPassword()));
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
             User user = (User) authentication.getPrincipal();
             String jwt = tokenUtils.generateTokenForUsername(user.getUsername());
             user.setJwt(jwt);
