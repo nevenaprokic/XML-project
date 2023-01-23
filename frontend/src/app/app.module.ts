@@ -27,6 +27,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FormTabelaComponent } from './components/forms/form-items/zaPatent/form-tabela/form-tabela.component';
 import { FormIzborLicaComponent } from './components/forms/form-items/zajednicko/form-izbor-lica/form-izbor-lica.component';
 import {FormAutorComponent} from "./components/forms/form-items/zaAutorskoDelo/form-autor/form-autor.component";
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -59,7 +61,9 @@ import {FormAutorComponent} from "./components/forms/form-items/zaAutorskoDelo/f
     MatIconModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

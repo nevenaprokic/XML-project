@@ -25,11 +25,11 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	private AutorskoDeloRepository autorskoDeloRepository;
 	
 	@Override
-	public void saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
+	public String saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		String documentId = generateDocumentId();
-		System.out.println(documentId);
 		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
 		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
+		return documentId;
 	}
 
 	@Override

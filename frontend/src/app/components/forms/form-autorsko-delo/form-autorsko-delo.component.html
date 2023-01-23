@@ -112,6 +112,24 @@
       </div>
     </div>
 
+    <div [formGroup]="form">
+      <p class="description">10. Prilozi:</p>
+      <div class="input-autorsko-delo">
+          Opis autorskog dela:
+          <button class="button-add-remove" >
+            <span>Dodaj opis</span>
+            <input #opisInput type="file" accept="image/*" formControlName="opis"  (change)="uploadPrilog(opisInput, prilogTypes.OPIS)">
+          </button>
+      </div>
+      <div class="input-autorsko-delo">
+          Primer autorskog dela:
+          <button class="button-add-remove" >
+            <span>Dodaj primer</span>
+            <input #primerInput type="file" accept="image/*" (change)="uploadPrilog(primerInput, prilogTypes.PRIMER)">
+          </button>
+      </div>
+    </div>
+
     <div class="submit-item">
       <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
     </div>

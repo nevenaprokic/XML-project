@@ -58,8 +58,8 @@ public class AutorskoDeloMapper {
 
 	private static TPrilog getPriloziFromDTO(TPrilog priloziDto) {
 		TPrilog prilog = objectFactory.createTPrilog();
-		prilog.setPrisutanOpis(priloziDto.isPrisutanOpis());
-		prilog.setPrisutanPrimer(priloziDto.isPrisutanPrimer());
+		prilog.setPrisutanOpis(priloziDto.getPrisutanOpis());
+		prilog.setPrisutanPrimer(priloziDto.getPrisutanPrimer());
 		return prilog;
 	}
 
@@ -97,7 +97,7 @@ public class AutorskoDeloMapper {
 			for (TAutor autorDto : autoriDto.getAutor()) {
 				TAutor autor = getAutorFromDTO(autorDto);
 				
-				String predicate = autor.isPrimarni() ? "pred:primarni_autor" : "pred:autor"; 
+				String predicate = autor.isPrimarni() ? "pred:primarni_autor" : "pred:koautor";
 				autor.getOtherAttributes().put(new QName("property"), predicate);
 				autor.getOtherAttributes().put(new QName("datatype"), "xs:string");
 				autor.getOtherAttributes().put(new QName("content"), formatName(autor.getIme(), autor.getPrezime(), autor.getPseudonim()));

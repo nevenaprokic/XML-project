@@ -8,6 +8,7 @@
 
 package rs.ac.uns.ftn.jaxb.a1;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,10 +46,10 @@ import javax.xml.namespace.QName;
 })
 public class TPrilog {
 
-    @XmlElement(name = "Prisutan_opis")
-    protected boolean prisutanOpis;
-    @XmlElement(name = "Prisutan_primer")
-    protected boolean prisutanPrimer;
+    @XmlElement(name = "Prisutan_opis", nillable=true, required = false)
+    protected Base64 prisutanOpis;
+    @XmlElement(name = "Prisutan_primer", nillable=true, required = false)
+    protected Base64 prisutanPrimer;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -56,7 +57,7 @@ public class TPrilog {
      * Gets the value of the prisutanOpis property.
      * 
      */
-    public boolean isPrisutanOpis() {
+    public Base64 getPrisutanOpis() {
         return prisutanOpis;
     }
 
@@ -64,7 +65,7 @@ public class TPrilog {
      * Sets the value of the prisutanOpis property.
      * 
      */
-    public void setPrisutanOpis(boolean value) {
+    public void setPrisutanOpis(Base64 value) {
         this.prisutanOpis = value;
     }
 
@@ -72,7 +73,7 @@ public class TPrilog {
      * Gets the value of the prisutanPrimer property.
      * 
      */
-    public boolean isPrisutanPrimer() {
+    public Base64 getPrisutanPrimer() {
         return prisutanPrimer;
     }
 
@@ -80,7 +81,7 @@ public class TPrilog {
      * Sets the value of the prisutanPrimer property.
      * 
      */
-    public void setPrisutanPrimer(boolean value) {
+    public void setPrisutanPrimer(Base64 value) {
         this.prisutanPrimer = value;
     }
 
@@ -90,8 +91,8 @@ public class TPrilog {
 
 	@Override
     public String toString() {
-		String opis = prisutanOpis ? "DA" : "NE";
-		String primer = prisutanPrimer ? "DA" : "NE";
+		String opis = prisutanOpis != null ? "DA" : "NE";
+		String primer = prisutanPrimer != null ? "DA" : "NE";
 		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("\n\t\t");

@@ -102,10 +102,11 @@
         <xs:anyAttribute namespace="##any" processContents="lax"/>
         
     </xs:complexType>
-    <xs:complexType name="TPrilog">
+
+	<xs:complexType name="TPrilog">
         <xs:all>
-            <xs:element name="Prisutan_opis" type="xs:boolean"/>
-            <xs:element name="Prisutan_primer" type="xs:boolean"/>
+            <xs:element name="Prisutan_opis" type="xs:base64Binary" minOccurs="0" nillable="true"/>
+            <xs:element name="Prisutan_primer" type="xs:base64Binary" minOccurs="0" nillable="true"/>
         </xs:all>
 		<xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
@@ -117,4 +118,5 @@
         </xs:all>
         <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
+
 </xs:schema>
