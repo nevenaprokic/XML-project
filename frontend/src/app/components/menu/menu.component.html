@@ -9,21 +9,28 @@
     <mat-selection-list #menuItems [multiple]="false">
       <div><p class="title">Podnošenje zahteva</p></div>
       <div class="menu_item">
-        <mat-icon class="menu_item_icon">perm_identity</mat-icon>
+        <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormAutorskoDelo()">
          <p>Autorsko delo</p>
         </mat-list-option>
       </div>
       <div class="menu_item">
-        <mat-icon class="menu_item_icon">lock</mat-icon>
+        <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormPatent()">
           <p>Patent</p>
         </mat-list-option>
       </div>
       <div class="menu_item">
-        <mat-icon class="menu_item_icon">lock</mat-icon>
+        <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormZig()">
           <p>Zig</p>
+        </mat-list-option>
+      </div>
+      <div class="delimiter"></div>
+      <div class="menu_item">
+        <mat-icon class="menu_item_icon">attach_file</mat-icon>
+        <mat-list-option (click)="openIzvestaji()">
+          <p>Izveštaji</p>
         </mat-list-option>
       </div>
       <div class="delimiter"></div>

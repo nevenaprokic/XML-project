@@ -1,0 +1,38 @@
+@import "src/style/styles";
+
+.resenje-dialog{
+  @include size(50vw, 35vh);
+  align-content: center;
+  flex-wrap: wrap;
+
+  .title{
+    @include size(45vw, auto);
+    @include setFont(26px);
+    margin: 3% 5% 1% 5%;
+    padding: 1%;
+    border-bottom: $fontColor solid 2px;
+    color: $fontColor;
+    border-color: $fontColor;
+  }
+
+  .choose{
+    margin: 3% 10% 1% 10%;
+
+    .input{
+      margin: 5% 0;
+      color: $fontColor;
+    }
+  }
+}
+
+.submit-item {
+  display: flex;
+  justify-content: flex-end;
+  height: 5vh;
+  margin-right: 10%;
+
+  .submit-button {
+    @include buttonStyle();
+    width: 20%;
+  }
+}
