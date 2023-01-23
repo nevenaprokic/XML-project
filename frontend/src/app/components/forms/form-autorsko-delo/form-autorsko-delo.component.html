@@ -22,8 +22,8 @@
         <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveAutorLice', $event)"></app-form-fizicko-lice>
         <app-form-autor (formReady)="addChildForm('podnosilacPrijaveAutorObelezja', $event)"></app-form-autor>
       </div>
-      <app-form-adresa [drzava]="true"></app-form-adresa>
-      <app-form-kontakt-podaci [faks]="false"></app-form-kontakt-podaci>
+      <app-form-adresa (formReady)="addChildForm('podnosilacPrijaveAdresa', $event)" [drzava]="true"></app-form-adresa>
+      <app-form-kontakt-podaci (formReady)="addChildForm('podnosilacPrijaveKontakt', $event)" [faks]="false"></app-form-kontakt-podaci>
     </div>
     <div class="input-autorsko-delo" [formGroup]="form">
       <p class="description">2. Pseudonim ili znak autora, (ako ga ima):</p>

@@ -3,13 +3,13 @@
     <div class="input-autorsko-delo">
       Pseudonim ili znak autora, (ako ga ima):
       <mat-form-field appearance="fill">
-        <input matInput formControlName="pseudonim">
+        <input matInput formControlName="pseudonim" (change)="emitForm()">
       </mat-form-field>
     </div>
     <div class="input-autorsko-delo">
       Godina smrti:
       <mat-form-field appearance="fill">
-        <input matInput formControlName="godinaSmrti">
+        <input matInput formControlName="godinaSmrti" (change)="emitForm()">
       </mat-form-field>
     </div>
   </div>

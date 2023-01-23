@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ZahtevType } from 'src/app/model/model';
+import { Adresa, Autor, AutroskoDelo, FizickoLice, Identifikator, KontaktPodaci, PravnoLice, ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ export class XMLTemplateService {
   
   constructor() { }
 
-  createNewXML(values: any) : string {
+  createNewXML(values: ZahtevZaAutorskoDelo) : string {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <?xml-stylesheet type="text/xsl" href="../xsl/grddl.xsl"?>
     
@@ -21,7 +20,7 @@ export class XMLTemplateService {
     
         naslov="ZAHTEV ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA"
         broj_prijave='A-100'
-        datum_podnosenja="2022-12-08"
+        datum_podnosenja='${new Date()}'
         status="neobradjen">
     
         <Zavod>
@@ -34,78 +33,12 @@ export class XMLTemplateService {
         </Zavod>
     
         <Podnosilac>
-           <Autor primarni="true" xsi:type="TAutor">
-                <zaj:Adresa>
-                     <zaj:Grad>Novi Sad</zaj:Grad>
-                     <zaj:Ulica>Maksima Gorkog</zaj:Ulica>
-                     <zaj:Broj>46</zaj:Broj>
-                 </zaj:Adresa>
-                 <zaj:Kontakt_podaci>
-                   <zaj:Telefon>065/222-3332</zaj:Telefon>
-                <zaj:Email>kk@gmail.com</zaj:Email>
-                </zaj:Kontakt_podaci>
-                 <zaj:Ime>Katarina</zaj:Ime>
-                 <zaj:Prezime>Komad</zaj:Prezime>
-                
-                 <zaj:Drzavljanstvo>Srpsko</zaj:Drzavljanstvo>
-            </Autor>
-           
+          ${values.podnosilacAutor ? this.formatAutor(values.podnosilacAutor): ''}
+          ${values.podnosilacPravnoLice ? this.formatPodnosilacPravnoLice(values.podnosilacPravnoLice): ''}
+          ${values.podnosilacFizickoLice ? this.formatPodnosilacPunomocnik(values.podnosilacFizickoLice): ''}
         </Podnosilac>
     
-        <Autorsko_delo vrsta="racunarski program" forma_zapisa="ostalo" prerada="true">
-            
-            <Identifikator>
-                <Naslov>XML</Naslov>
-                <Alternativni_naslov>A1</Alternativni_naslov>
-            </Identifikator>
-            
-            <Autori>
-                <Autor primarni="true" xsi:type="TAutor">
-                   <zaj:Adresa>
-                        <zaj:Grad>Novi Sad</zaj:Grad>
-                        <zaj:Ulica>Maksima Gorkog</zaj:Ulica>
-                        <zaj:Broj>46</zaj:Broj>
-                    </zaj:Adresa>
-                    <zaj:Kontakt_podaci>
-                      <zaj:Telefon>065/222-3332</zaj:Telefon>
-                    <zaj:Email>kk@gmail.com</zaj:Email>
-                  </zaj:Kontakt_podaci>
-                    <zaj:Ime>Katarina</zaj:Ime>
-                    <zaj:Prezime>Komad</zaj:Prezime>
-                   
-                    <zaj:Drzavljanstvo>Srpsko</zaj:Drzavljanstvo>
-                </Autor>
-    
-                <Autor anonimni="true" primarni="false">
-                    <zaj:Adresa>
-                        <zaj:Grad>Nis</zaj:Grad>
-                        <zaj:Ulica>Bulevar Oslobodjenja</zaj:Ulica>
-                        <zaj:Broj>1</zaj:Broj>
-                    </zaj:Adresa>
-                    <zaj:Kontakt_podaci>
-                      <zaj:Telefon>065/222-3332</zaj:Telefon>
-                    <zaj:Email>jhon.doe@gmail.com</zaj:Email>
-                  </zaj:Kontakt_podaci>
-                    <zaj:Ime>Jhon</zaj:Ime>
-                    <zaj:Prezime>Doe</zaj:Prezime>
-                   
-                    <zaj:Drzavljanstvo>Srpsko</zaj:Drzavljanstvo>
-                    
-                    <Pseudonim>Anonimus</Pseudonim>
-                    <Godina_smrti>2010</Godina_smrti>
-                </Autor>
-            </Autori>
-            
-            <Podaci_o_originalu>
-                <Identifikator>
-                    <Naslov>XML-01</Naslov>
-                </Identifikator>
-            </Podaci_o_originalu>
-            
-            <!-- <Radni_odnos> Delo stvoreno u radnom odnosu sa FTN-om u Novom Sadu</Radni_odnos> -->
-            <Nacin_koriscenja>Delo ce biti korisceno u naucne svrhe</Nacin_koriscenja>
-            
-        </Autorsko_delo>
+        ${this.formatAutorskoDelo(values.autorskoDelo)}
         
         
         <Prilozi>
@@ -114,5 +47,96 @@ export class XMLTemplateService {
         </Prilozi>
     
     </Zahtev_za_autorsko_delo>`
+  }
+
+  formatAutorskoDelo(values: AutroskoDelo){
+    const a = values.autori.map(autor => this.formatAutor(autor)).join(' ');
+
+    return `
+    <Autorsko_delo 
+      ${values.vrsta ? `vrsta='${values.vrsta}'`: ''} 
+      ${values.formaZapisa ? `forma_zapisa='${values.formaZapisa}'`: ''} 
+      ${values.prerada ? `prerada='${values.prerada}'`: ''} >
+            
+       ${this.formatIdentifikator(values.identifikator)}
+        
+        <Autori>
+            ${a}
+        </Autori>
+        
+        <Podaci_o_originalu>
+            ${this.formatIdentifikator(values.podaciOOriginalu.identifikator)}
+        </Podaci_o_originalu>
+        
+        <Radni_odnos>${values.radniOdnos}</Radni_odnos>
+        <Nacin_koriscenja>${values.nacinKoriscenja}</Nacin_koriscenja>
+        
+    </Autorsko_delo>
+    `//.replaceAll('\n', '').replaceAll('\r', '')
+
+    // Delo stvoreno u radnom odnosu sa FTN-om u Novom Sadu
+    // Delo ce biti korisceno u naucne svrhe
+  }
+
+  formatIdentifikator(values: Identifikator){
+    return `
+    <Identifikator>
+      <Naslov>${values.naslov}</Naslov>
+      <Alternativni_naslov>${values.alternativniNaslov}</Alternativni_naslov>
+    </Identifikator>
+    `
+  }
+
+
+  formatPodnosilacPunomocnik(values: FizickoLice){
+    return `
+    <Punomocnik>
+      ${this.formatAdresa(values.adresa)}
+      ${this.formatKontaktPodaci(values.kontaktPodaci)}
+      <zaj:Ime>${values.ime}</zaj:Ime>
+      <zaj:Prezime>${values.prezime}</zaj:Prezime>
+    </Punomocnik>`
+  }
+
+  formatPodnosilacPravnoLice(values: PravnoLice){
+    return `
+    <Pravno_lice xsi:type="zaj:TPravno_lice">
+        ${this.formatAdresa(values.adresa)}
+        ${this.formatKontaktPodaci(values.kontaktPodaci)}
+        <zaj:Naziv>${values.naziv}</zaj:Naziv>
+    </Pravno_lice>`
+  }
+
+  formatAutor(values: Autor) {
+    return `
+    <Autor xsi:type="TAutor" anonimni='${values.anonimni ? true : false}' primarni='${values.primarni ? true : false}'>
+      ${this.formatAdresa(values.adresa)}
+      ${this.formatKontaktPodaci(values.kontaktPodaci)}
+      <zaj:Ime>${values.ime}</zaj:Ime>
+      <zaj:Prezime>${values.prezime}</zaj:Prezime>
+      
+      ${values.drzavljanstvo ? `<zaj:Drzavljanstvo>${values.drzavljanstvo}</zaj:Drzavljanstvo>`: ''}>
+
+      ${values.pseudonim ? `<Pseudonim>${values.pseudonim}</Pseudonim>`: ''}>
+      ${values.godinaSmrti ? `<Godina_smrti>${values.godinaSmrti}</Godina_smrti>`: ''}>
+    </Autor>`
+  }
+
+  formatAdresa(values: Adresa | undefined) {
+    return `
+    <zaj:Adresa>
+      <zaj:Grad>${values?.grad}</zaj:Grad>
+      <zaj:Ulica>${values?.ulica}</zaj:Ulica>
+      <zaj:Broj>${values?.broj}</zaj:Broj>
+    </zaj:Adresa>`
+  }
+
+  formatKontaktPodaci(values: KontaktPodaci | undefined) {
+    return `
+    <zaj:Kontakt_podaci>
+        <zaj:Telefon>${values?.telefon}</zaj:Telefon>
+        <zaj:Email>${values?.email}</zaj:Email>
+        ${values?.faks ? `<zaj:Faks>${values?.faks}</zaj:Faks>` : '' }
+    </zaj:Kontakt_podaci>`
   }
 }

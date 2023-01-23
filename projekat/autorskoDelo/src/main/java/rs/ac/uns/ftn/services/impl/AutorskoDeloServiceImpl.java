@@ -12,6 +12,18 @@ import rs.ac.uns.ftn.transformations.PDFTransformer;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
@@ -27,6 +39,15 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	@Override
 	public String saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		String documentId = generateDocumentId();
+		GregorianCalendar c = new GregorianCalendar();
+		c.setTime(new Date());
+		XMLGregorianCalendar date2;
+		try {
+			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+			zahtevDTO.setDatumPodnosenja(date2);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
 		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
 		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
 		return documentId;

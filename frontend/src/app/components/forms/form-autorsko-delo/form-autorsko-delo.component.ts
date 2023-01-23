@@ -1,7 +1,8 @@
 import {Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import { AD_PrilogType } from 'src/app/model/model';
+import { AD_PrilogType, FormaZapisaAutorskogDela, VrstaAutorskogDela, ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
 import { AutorskoDeloService } from 'src/app/services/autorsko-delo/autorsko-delo.service';
+import { FormConverterService } from 'src/app/services/autorsko-delo/form-converter/form-converter.service';
 import { XMLTemplateService } from 'src/app/services/autorsko-delo/xml-template/xml-template.service';
 import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 
@@ -41,7 +42,8 @@ export class FormAutorskoDeloComponent {
     private fb: FormBuilder,
     private templateService: XMLTemplateService,
     private autorskoDeloService: AutorskoDeloService,
-    private toastr: Toastr
+    private toastr: Toastr,
+    private formConverter: FormConverterService
   ) {
     // this.autorskoDeloForm.addControl("pondosilac", this.formPodnosilac)
   }
@@ -53,7 +55,13 @@ export class FormAutorskoDeloComponent {
   onSubmit() {
     this.addChildForm('podaciOAutorskomDelu', this.form);
     console.log(this.autorskoDeloForm.value);
-    const xml = this.templateService.createNewXML(this.formatData());
+    const zahtevJSON = this.formConverter.convertFormToZahtev(this.autorskoDeloForm, this.opisEncoded, this.primerEncoded, this.brojAutorPrerada.length, this.brojAutori.length);
+    const zahtevXML = this.templateService.createNewXML(zahtevJSON);
+    console.log(zahtevXML)
+    this.saveRequest(zahtevXML);
+  }
+
+  private saveRequest(xml: string){
     this.autorskoDeloService.saveNew(xml).subscribe({
       next: (documentId: string) => {
         console.log(documentId)
@@ -66,10 +74,6 @@ export class FormAutorskoDeloComponent {
     })
   }
   
-  private formatData(): any{
-    return {opis: this.opisEncoded, 
-            primer: this.primerEncoded}
-  }
 
   addAutorPrerada() {
     if (this.brojAutorPrerada.length < 5) {
