@@ -243,7 +243,7 @@ public class TOsnovniPodaciODelu {
 
         if(autori!=null) {
         	buffer.append("\n\t\t Autori: ");
-          	buffer.append(autori);	
+          	buffer.append(autori.toString());	
         }
         
 

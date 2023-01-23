@@ -89,12 +89,15 @@ public class TAutori {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		int i = 0;
-        for (TAutor tAutor : autor) {
-        	buffer.append("\n\t\t Autor br." + (i+1));
-			buffer.append(tAutor);
-			i++;
-			
+		if(autor!=null) {
+			for (TAutor tAutor : autor) {
+	        	buffer.append("\n\t\t Autor br." + (i+1));
+				buffer.append(tAutor);
+				i++;
+				
+			}
 		}
+        
 
         return buffer.toString();
 	}

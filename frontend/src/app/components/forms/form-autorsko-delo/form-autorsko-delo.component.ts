@@ -12,8 +12,8 @@ import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 })
 export class FormAutorskoDeloComponent {
 
-  opisEncoded: any;
-  primerEncoded: any;
+  opisEncoded: any ='';
+  primerEncoded: any = '';
 
   prilogTypes=AD_PrilogType
 

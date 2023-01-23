@@ -237,7 +237,7 @@ public class TAutorskoDelo
         	if(prerada) {
         		buffer.append("\n");
         		buffer.append("\n\t\t Podaci o originalu:");
-        		buffer.append(podaciOOriginalu);
+        		buffer.append(podaciOOriginalu.toString());
         	}
         }
         

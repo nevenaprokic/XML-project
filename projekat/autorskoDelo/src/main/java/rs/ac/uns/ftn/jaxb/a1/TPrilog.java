@@ -47,9 +47,9 @@ import javax.xml.namespace.QName;
 public class TPrilog {
 
     @XmlElement(name = "Prisutan_opis", nillable=true, required = false)
-    protected Base64 prisutanOpis;
+    protected String prisutanOpis;
     @XmlElement(name = "Prisutan_primer", nillable=true, required = false)
-    protected Base64 prisutanPrimer;
+    protected String prisutanPrimer;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -57,7 +57,7 @@ public class TPrilog {
      * Gets the value of the prisutanOpis property.
      * 
      */
-    public Base64 getPrisutanOpis() {
+    public String getPrisutanOpis() {
         return prisutanOpis;
     }
 
@@ -65,7 +65,7 @@ public class TPrilog {
      * Sets the value of the prisutanOpis property.
      * 
      */
-    public void setPrisutanOpis(Base64 value) {
+    public void setPrisutanOpis(String value) {
         this.prisutanOpis = value;
     }
 
@@ -73,7 +73,7 @@ public class TPrilog {
      * Gets the value of the prisutanPrimer property.
      * 
      */
-    public Base64 getPrisutanPrimer() {
+    public String getPrisutanPrimer() {
         return prisutanPrimer;
     }
 
@@ -81,7 +81,7 @@ public class TPrilog {
      * Sets the value of the prisutanPrimer property.
      * 
      */
-    public void setPrisutanPrimer(Base64 value) {
+    public void setPrisutanPrimer(String value) {
         this.prisutanPrimer = value;
     }
 
@@ -91,8 +91,8 @@ public class TPrilog {
 
 	@Override
     public String toString() {
-		String opis = prisutanOpis != null ? "DA" : "NE";
-		String primer = prisutanPrimer != null ? "DA" : "NE";
+		String opis = (prisutanOpis != null && !prisutanOpis.equals(""))? "DA" : "NE";
+		String primer = (prisutanPrimer != null && !prisutanPrimer.equals("")) ? "DA" : "NE";
 		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("\n\t\t");
