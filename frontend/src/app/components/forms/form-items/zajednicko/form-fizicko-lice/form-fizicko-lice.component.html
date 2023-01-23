@@ -2,14 +2,14 @@
   <div class="input-lice">
     Ime:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="Petar" formControlName="ime" required>
+      <input matInput placeholder="Petar" formControlName="ime" required (change)="emitForm()">
       <mat-error>Ime je obavezno</mat-error>
     </mat-form-field>
   </div>
   <div class="input-lice">
     Prezime:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="Perić" formControlName="prezime" required>
+      <input matInput placeholder="Perić" formControlName="prezime" required (change)="emitForm()">
       <mat-error>Prezime je obavezno</mat-error>
     </mat-form-field>
   </div>

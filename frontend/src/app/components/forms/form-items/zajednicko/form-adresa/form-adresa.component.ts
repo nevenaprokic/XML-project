@@ -27,4 +27,8 @@ export class FormAdresaComponent implements OnInit {
   ngOnInit() {
     this.formReady.emit(this.form);
   }
+
+  emitForm(){
+    this.formReady.emit(this.form);
+  }
 }

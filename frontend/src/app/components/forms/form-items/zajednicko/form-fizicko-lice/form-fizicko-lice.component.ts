@@ -21,4 +21,8 @@ export class FormFizickoLiceComponent implements OnInit {
   ngOnInit() {
     this.formReady.emit(this.form);
   }
+
+  emitForm(){
+    this.formReady.emit(this.form);
+  }
 }

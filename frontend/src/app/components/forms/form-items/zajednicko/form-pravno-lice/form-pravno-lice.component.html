@@ -2,7 +2,7 @@
   <div class="input-lice">
     Naziv:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="STR 'Jabuka' preduzetnik Petar Petrović" formControlName="nazivPravnoLice" required>
+      <input matInput placeholder="STR 'Jabuka' preduzetnik Petar Petrović" formControlName="nazivPravnoLice" required (change)="emitForm()">
       <mat-error>Naziv je obavezan</mat-error>
     </mat-form-field>
   </div>
