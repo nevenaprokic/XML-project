@@ -43,6 +43,52 @@
       <app-form-takse (formReady)="addChildForm('takse', $event)"></app-form-takse>
     </div>
 
+    <div [formGroup]="form">
+      <p class="description">12. Prilozi:</p>
+      <div class="input-zig">
+        <span class="text">Primerak znaka:</span>
+        <button class="button-add-remove" >
+          <span>Dodaj opis</span>
+          <input #primerakZnakaInput type="file" accept="image/*" formControlName="primerakZnaka"  (change)="uploadPrilog(primerakZnakaInput, prilogTypes.PRIMERAK_ZNAKA)">
+        </button>
+      </div>
+      <div class="input-zig">
+        <span class="text">Spisak robe i usluga:</span>
+        <button class="button-add-remove" >
+          <span>Dodaj primer</span>
+          <input #spisakRobeIUslugaInput type="file" accept="image/*" formControlName="spisakRobeIUsluga" (change)="uploadPrilog(spisakRobeIUslugaInput, prilogTypes.SPISAK_ROBE_I_USLUGA)">
+        </button>
+      </div>
+      <div class="input-zig">
+        <span class="text">Opšti akt o kolektivnom žigu-žigu garancije:</span>
+        <button class="button-add-remove" >
+          <span>Dodaj opis</span>
+          <input #opstiAktInput type="file" accept="image/*" formControlName="opstiAkt"  (change)="uploadPrilog(opstiAktInput, prilogTypes.OPSTI_AKT)">
+        </button>
+      </div>
+      <div class="input-zig">
+        <span class="text">Dokaz o pravu prvenstva:</span>
+        <button class="button-add-remove" >
+          <span>Dodaj primer</span>
+          <input #dokazOPravuPrvenstvaInput type="file" accept="image/*" formControlName="dokazOPravuPrvenstva" (change)="uploadPrilog(dokazOPravuPrvenstvaInput, prilogTypes.DOKAZ_O_PRAVU_PRVENSTVA)">
+        </button>
+      </div>
+      <div class="input-zig">
+        <span class="text">Dokaz o uplati takse:</span>
+        <button class="button-add-remove" >
+          <span>Dodaj opis</span>
+          <input #dokazTakseInput type="file" accept="image/*" formControlName="dokazOUplatiTakse"  (change)="uploadPrilog(dokazTakseInput, prilogTypes.DOKAZ_O_UPLATI_TAKSE)">
+        </button>
+      </div>
+      <div class="input-zig">
+        <span class="text">Punomocje:</span>
+        <button class="button-add-remove" >
+          <span>Dodaj primer</span>
+          <input #punomocjeInput type="file" accept="image/*" formControlName="punomocje" (change)="uploadPrilog(punomocjeInput, prilogTypes.PUNOMOCJE)">
+        </button>
+      </div>
+    </div>
+
     <div class="submit-item">
       <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
     </div>
