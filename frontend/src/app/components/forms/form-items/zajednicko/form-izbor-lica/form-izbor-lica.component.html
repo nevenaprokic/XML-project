@@ -1,6 +1,6 @@
 <div [formGroup]="liceForm">
   <section class="section-lice" [formGroup]="form">
-    <mat-radio-group formControlName="lice">
+    <mat-radio-group formControlName="lice" (change)="emitForm()">
       <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
       <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
     </mat-radio-group>

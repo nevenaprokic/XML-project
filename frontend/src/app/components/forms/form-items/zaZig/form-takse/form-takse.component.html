@@ -2,20 +2,20 @@
   <div class="taksa">
     <p class="description">Iznos osnovne takse*:</p>
     <mat-form-field appearance="fill">
-      <input matInput type="number" required formControlName="osnovnaTaksa">
+      <input matInput type="number" required formControlName="osnovnaTaksa" (change)="emitForm()">
       <mat-error>Osnovna taksa je obavezna</mat-error>
     </mat-form-field>
   </div>
   <div class="taksa">
     <p class="description">Iznos takse za klase robe i usluge:</p>
     <mat-form-field appearance="fill">
-      <input matInput type="number" formControlName="zaKlasuTaksa">
+      <input matInput type="number" formControlName="zaKlasu" (change)="emitForm()">
     </mat-form-field>
   </div>
   <div class="taksa">
     <p class="description">Iznos takse za graficko resenje:</p>
     <mat-form-field appearance="fill">
-      <input matInput type="number" formControlName="zaGrafickoTaksa">
+      <input matInput type="number" formControlName="zaGraficko" (change)="emitForm()">
     </mat-form-field>
   </div>
 </div>

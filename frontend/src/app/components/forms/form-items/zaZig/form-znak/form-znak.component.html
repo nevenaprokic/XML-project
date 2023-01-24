@@ -5,7 +5,7 @@
       <div class="vrasta-korisnik">
         <p class="vrsta-naslov">Odabir na osnovu korisnika:</p>
         <section>
-          <mat-radio-group class="section" formControlName="vrstaNaOsnovuKorisnika">
+          <mat-radio-group class="section" formControlName="vrstaNaOsnovuKorisnika" (change)="emitForm()">
             <mat-radio-button [checked]="true" value="individualni zig">individualni zig</mat-radio-button>
             <mat-radio-button value="kolektivni zig">kolektivni zig</mat-radio-button>
             <mat-radio-button value="zig garancije">zig garancije</mat-radio-button>
@@ -15,7 +15,7 @@
       <div class="vrsta-izgled">
         <p class="vrsta-naslov">Odabir na osnovu izgleda:</p>
         <section>
-          <mat-radio-group class="section" formControlName="vrstaNaOsnovuIzgleda">
+          <mat-radio-group class="section" formControlName="vrstaNaOsnovuIzgleda" (change)="emitForm()">
             <mat-radio-button [checked]="true" value="verbalni zig">verbalni znak (znak u reči)</mat-radio-button>
             <mat-radio-button value="grafički zig">grafički znak; boja, kombinacija boja</mat-radio-button>
             <mat-radio-button value="kombinovani znak">kombinovani znak</mat-radio-button>
@@ -27,7 +27,7 @@
         <div *ngIf="form.value.vrstaNaOsnovuIzgleda === 'drugo'" class="dodatna-vrsta">
           <p class="title-vrsta">Navedite vrstu znaka:</p>
           <mat-form-field appearance="fill">
-            <input matInput formControlName="vrstaNaOsnovuIzgledaStr">
+            <input matInput formControlName="vrstaNaOsnovuIzgledaStr" (change)="emitForm()">
           </mat-form-field>
         </div>
       </div>
@@ -39,7 +39,7 @@
   <div>
     <p class="description">5. Naznačenje boje, odnosno boja iz kojih se znak sastoji:</p>
     <mat-form-field appearance="fill" class="input-znak">
-      <input matInput formControlName="bojaZnaka">
+      <input matInput formControlName="bojaZnaka" (change)="emitForm()">
     </mat-form-field>
   </div>
   <div>
@@ -47,7 +47,7 @@
     <p class="instruction">*Popuniti samo ako je znak ili element znaka ispisan slovima koja nisu ćirilična ili
       latinična</p>
     <mat-form-field appearance="fill" class="input-znak">
-      <input matInput formControlName="transliteracijaZnaka">
+      <input matInput formControlName="transliteracijaZnaka" (change)="emitForm()">
     </mat-form-field>
   </div>
   <div>
@@ -55,13 +55,13 @@
     <p class="instruction">*Popuniti samo ako je znak ili element znaka ispisan slovima koja nisu ćirilična ili
       latinična</p>
     <mat-form-field appearance="fill" class="input-znak">
-      <input matInput formControlName="prevodZnaka">
+      <input matInput formControlName="prevodZnaka" (change)="emitForm()">
     </mat-form-field>
   </div>
   <div>
     <p class="description">8. Opis znaka:</p>
     <mat-form-field appearance="fill" class="input-znak">
-      <input matInput formControlName="opisZnaka">
+      <input matInput formControlName="opisZnaka" (change)="emitForm()">
     </mat-form-field>
   </div>
   <div>

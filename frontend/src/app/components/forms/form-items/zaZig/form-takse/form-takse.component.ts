@@ -2,25 +2,29 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-form-takse',
-  templateUrl: './form-takse.component.html',
-  styleUrls: ['./form-takse.component.scss']
+    selector: 'app-form-takse',
+    templateUrl: './form-takse.component.html',
+    styleUrls: ['./form-takse.component.scss']
 })
 export class FormTakseComponent implements OnInit {
-  @Output()
-  formReady = new EventEmitter<FormGroup>();
+    @Output()
+    formReady = new EventEmitter<FormGroup>();
 
-  form = this.fb.group({
-    osnovnaTaksa: ['', [Validators.required]],
-    zaKlasuTaksa: [''],
-    zaGrafickoTaksa: ['']
-  });
+    form = this.fb.group({
+        osnovnaTaksa: ['', [Validators.required]],
+        zaKlasu: [''],
+        zaGraficko: ['']
+    });
 
-  constructor(private fb: FormBuilder) {
-  }
+    constructor(private fb: FormBuilder) {
+    }
 
-  ngOnInit() {
-    this.formReady.emit(this.form);
-  }
+    ngOnInit() {
+        this.formReady.emit(this.form);
+    }
+
+    emitForm() {
+        this.formReady.emit(this.form);
+    }
 }
 

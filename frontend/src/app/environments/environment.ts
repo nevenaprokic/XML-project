@@ -2,13 +2,15 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const AUTORSKO_DELO_BASE_URL= 'http://localhost:8900/xml';
+const AUTORSKO_DELO_BASE_URL = 'http://localhost:8900/xml';
+const ZIG_BASE_URL = "http://localhost:8902/xml";
 
 
 export const environment = {
-  production: false,
+    production: false,
 
-  AUTORSKO_DELO_BASE_URL: AUTORSKO_DELO_BASE_URL,
+    AUTORSKO_DELO_BASE_URL: AUTORSKO_DELO_BASE_URL,
+    ZIG_BASE_URL: ZIG_BASE_URL,
 };
 
 /*

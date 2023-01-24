@@ -2,20 +2,20 @@
   <div class="input-podatak">
     Telefon:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="065/222-4444" formControlName="telefon" pattern="[0][6][0-9]/[0-9]{3,3}-[0-9]{3,4}">
+      <input matInput placeholder="065/222-4444" formControlName="telefon" pattern="[0][6][0-9]/[0-9]{3,3}-[0-9]{3,4}" (change)="emitForm()">
     </mat-form-field>
   </div>
   <div class="input-podatak">
     Email:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="mika@gmail.com" formControlName="email" required pattern="[^@]+@[^\.]+\..+">
+      <input matInput placeholder="mika@gmail.com" formControlName="email" required pattern="[^@]+@[^\.]+\..+" (change)="emitForm()">
       <mat-error>Email je obavezan</mat-error>
     </mat-form-field>
   </div>
   <div *ngIf="faks === true" class="input-podatak">
     Faks:
     <mat-form-field appearance="fill">
-      <input matInput placeholder="125/7517444" formControlName="faks" pattern="[0-9]{3,4}/[0-9]{5,7}">
+      <input matInput placeholder="125/7517444" formControlName="faks" pattern="[0-9]{3,4}/[0-9]{5,7}" (change)="emitForm()">
     </mat-form-field>
   </div>
 </div>

@@ -2,29 +2,33 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-form-adresa',
-  templateUrl: './form-adresa.component.html',
-  styleUrls: ['./form-adresa.component.scss']
+    selector: 'app-form-adresa',
+    templateUrl: './form-adresa.component.html',
+    styleUrls: ['./form-adresa.component.scss']
 })
 export class FormAdresaComponent implements OnInit {
-  @Output()
-  formReady = new EventEmitter<FormGroup>();
+    @Output()
+    formReady = new EventEmitter<FormGroup>();
 
-  @Input()
-  drzava!:boolean;
+    @Input()
+    drzava!: boolean;
 
-  form = this.fb.group({
-    ulica: ['', [Validators.required]],
-    broj: [''],
-    grad: ['', [Validators.required]],
-    postanskiBroj: [''],
-    drzava: ['']
-  });
+    form = this.fb.group({
+        ulica: ['', [Validators.required]],
+        broj: [''],
+        grad: ['', [Validators.required]],
+        postanskiBroj: [''],
+        drzava: ['']
+    });
 
-  constructor(private fb: FormBuilder) {
-  }
+    constructor(private fb: FormBuilder) {
+    }
 
-  ngOnInit() {
-    this.formReady.emit(this.form);
-  }
+    emitForm() {
+        this.formReady.emit(this.form);
+    }
+
+    ngOnInit() {
+        this.formReady.emit(this.form);
+    }
 }
