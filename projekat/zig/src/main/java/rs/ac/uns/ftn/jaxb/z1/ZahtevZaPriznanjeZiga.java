@@ -78,7 +78,7 @@ public class ZahtevZaPriznanjeZiga {
     protected TTakse placeneTakse;
     @XmlElement(name = "Prilozi_uz_zahtev", namespace = "http://ftn.uns.ac.rs/zig", required = true)
     protected TPrilozi priloziUzZahtev;
-    @XmlAttribute(name = "broj_prijave_ziga", required = true)
+    @XmlAttribute(name = "broj_prijave_ziga")
     protected String brojPrijaveZiga;
     @XmlAttribute(name = "datum_podnosenja_prijave", required = true)
     @XmlSchemaType(name = "date")

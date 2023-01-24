@@ -41,17 +41,17 @@ export class FormZigComponent {
         console.log(zahtevJSON);
         const zahtevXML = this.templateService.createNewXML(zahtevJSON);
         console.log(zahtevXML)
-        // this.saveRequest(zahtevXML);
+        this.saveRequest(zahtevXML);
     }
 
     private saveRequest(xml: string) {
         this.zigService.saveNew(xml).subscribe({
             next: (documentId: string) => {
                 console.log(documentId)
-                this.toastr.success('Uspešno poslat zahtev za priznavanje autorskog dela')
+                this.toastr.success('Uspešno poslat zahtev za priznavanje žiga')
             },
             error: (err: any) => {
-                this.toastr.error('Došlo je do greško pri slanju zahteva za priznavanje autorskog dela', "Greška!")
+                this.toastr.error('Došlo je do greško pri slanju zahteva za priznavanje žiga', "Greška!")
                 console.log(err)
             }
         })
