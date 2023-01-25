@@ -104,6 +104,22 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		return resourceSetToList(result);
 	}
 	
+	@Override
+	public ListaZahtevaAutorskoDelo searchText(String txt) throws XMLDBException, JAXBException {
+		String[] keywords = txt.split(";");
+		String conditions = "";
+		for (int i = 0; i < keywords.length; i++) {
+			conditions += String.format(QueryUtils.CONDITION_TEPMLATE, "'" + keywords[i] + "'");
+			if(i != keywords.length-1) {
+				conditions += " AND ";
+			}
+		}
+		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
+		System.out.println(xQuery);
+		ResourceSet result = autorskoDeloRepository.getByXQuery(xQuery);
+		return resourceSetToList(result);
+	}
+	
 	private ListaZahtevaAutorskoDelo resourceSetToList(ResourceSet result) throws XMLDBException, JAXBException {
 		List<ZahtevZaAutorskoDelo> zahteviList= new ArrayList<>();
 		ResourceIterator i = result.getIterator();

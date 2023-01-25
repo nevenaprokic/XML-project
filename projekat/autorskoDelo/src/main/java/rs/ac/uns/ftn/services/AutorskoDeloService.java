@@ -22,4 +22,6 @@ public interface AutorskoDeloService {
 	void getPDF(String documentId) throws IOException, DocumentException;
 
 	ListaZahtevaAutorskoDelo findAll() throws XMLDBException, JAXBException;
+
+	ListaZahtevaAutorskoDelo searchText(String txt) throws XMLDBException, JAXBException;
 }
