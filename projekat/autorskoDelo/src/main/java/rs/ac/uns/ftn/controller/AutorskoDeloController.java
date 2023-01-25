@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.github.andrewoma.dexx.collection.ArrayList;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 
 
@@ -47,6 +49,18 @@ public class AutorskoDeloController {
 		}
 		catch (Exception e) {
 			return ResponseEntity.badRequest().build();
+		}
+		
+	}
+	
+	@GetMapping(value="/findAll")
+	public ResponseEntity<ListaZahtevaAutorskoDelo> findAll() {
+		try {
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.findAll();
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 	}
