@@ -40,7 +40,6 @@ export class XMLTemplateService {
     
         ${this.formatAutorskoDelo(values.autorskoDelo)}
         
-        
         <Prilozi>
             <Prisutan_opis>${values.opis}</Prisutan_opis>
             <Prisutan_primer>${values.primer}</Prisutan_primer>
@@ -95,6 +94,7 @@ export class XMLTemplateService {
       ${this.formatKontaktPodaci(values.kontaktPodaci)}
       <zaj:Ime>${values.ime}</zaj:Ime>
       <zaj:Prezime>${values.prezime}</zaj:Prezime>
+      ${values.drzavljanstvo ? `<zaj:Drzavljanstvo>${values.drzavljanstvo}</zaj:Drzavljanstvo>`: ''}
     </Punomocnik>`
   }
 
@@ -114,11 +114,9 @@ export class XMLTemplateService {
       ${this.formatKontaktPodaci(values.kontaktPodaci)}
       <zaj:Ime>${values.ime}</zaj:Ime>
       <zaj:Prezime>${values.prezime}</zaj:Prezime>
-      
-      ${values.drzavljanstvo ? `<zaj:Drzavljanstvo>${values.drzavljanstvo}</zaj:Drzavljanstvo>`: ''}>
-
-      ${values.pseudonim ? `<Pseudonim>${values.pseudonim}</Pseudonim>`: ''}>
-      ${values.godinaSmrti ? `<Godina_smrti>${values.godinaSmrti}</Godina_smrti>`: ''}>
+      ${values.drzavljanstvo ? `<zaj:Drzavljanstvo>${values.drzavljanstvo}</zaj:Drzavljanstvo>`: ''}
+      ${values.pseudonim ? `<Pseudonim>${values.pseudonim}</Pseudonim>`: ''}
+      ${values.godinaSmrti ? `<Godina_smrti>${values.godinaSmrti}</Godina_smrti>`: ''}
     </Autor>`
   }
 

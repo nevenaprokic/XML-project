@@ -32,7 +32,7 @@ export class FormAutorskoDeloComponent {
     primer: new FormControl(),
   })
   formPodnosilac = this.fb.group({
-    podnosilacPrijave: ['']
+    podnosilacPrijave: ['TFizicko_lice']
   });
 
   brojAutorPrerada = [1];
@@ -83,7 +83,10 @@ export class FormAutorskoDeloComponent {
 
   removeAutorPrerada() {
     if (this.brojAutorPrerada.length > 1) {
+      const num = this.brojAutorPrerada.length
       this.brojAutorPrerada.pop();
+      this.autorskoDeloForm.removeControl(`autoriPreradeFizickoLice${num}`)
+      this.autorskoDeloForm.removeControl(`autoriPreradeAutor${num}`)
     }
   }
 
@@ -95,7 +98,12 @@ export class FormAutorskoDeloComponent {
 
   removeAutori() {
     if (this.brojAutori.length > 1) {
+      const num = this.brojAutori.length
       this.brojAutori.pop();
+      this.autorskoDeloForm.removeControl(`autoriNijepodnosilacFizickoLice${num}`)
+      this.autorskoDeloForm.removeControl(`autoriNijepodnosilacAdresa${num}`)
+      this.autorskoDeloForm.removeControl(`autoriNijepodnosilacKontakt${num}`)
+      this.autorskoDeloForm.removeControl(`autoriNijepodnosilacAutor${num}`)
     }
   }
 

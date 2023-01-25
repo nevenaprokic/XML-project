@@ -7,19 +7,19 @@
     <div><p class="description">1. Podnosilac prijave:</p>
       <section class="section-lice" [formGroup]="formPodnosilac">
         <mat-radio-group formControlName="podnosilacPrijave">
-          <mat-radio-button value="TFizicko_lice">Fizicko lice</mat-radio-button>
+          <mat-radio-button [checked]="true" value="TFizicko_lice">Fizicko lice</mat-radio-button>
           <mat-radio-button value="TPravno_lice">Pravno lice</mat-radio-button>
           <mat-radio-button value="TAutor">Autor</mat-radio-button>
         </mat-radio-group>
       </section>
       <div *ngIf="formPodnosilac.value.podnosilacPrijave === 'TFizicko_lice'">
-        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveFizickoLice', $event)"></app-form-fizicko-lice>
+        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveFizickoLice', $event)"  [drzavljanstvo]="true"></app-form-fizicko-lice>
       </div>
       <div *ngIf="formPodnosilac.value.podnosilacPrijave === 'TPravno_lice'">
         <app-form-pravno-lice (formReady)="addChildForm('podnosilacPrijavePravnoLice', $event)"></app-form-pravno-lice>
       </div>
       <div *ngIf="formPodnosilac.value.podnosilacPrijave === 'TAutor'">
-        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveAutorLice', $event)"></app-form-fizicko-lice>
+        <app-form-fizicko-lice (formReady)="addChildForm('podnosilacPrijaveAutorLice', $event)" [drzavljanstvo]="true"></app-form-fizicko-lice>
         <app-form-autor (formReady)="addChildForm('podnosilacPrijaveAutorObelezja', $event)"></app-form-autor>
       </div>
       <app-form-adresa (formReady)="addChildForm('podnosilacPrijaveAdresa', $event)" [drzava]="true"></app-form-adresa>
@@ -87,8 +87,11 @@
       <p class="description">7. Podaci o autoru ako podnosilac prijave iz tačke 1. ovog zahteva nije autor i to: prezime, ime, adresa i državljanstvo autora (grupe autora ili koautora), a ako su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora a ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog autora:
       </p>
       <div *ngFor="let num of this.brojAutori">
-        <app-form-fizicko-lice (formReady)="addChildForm('autoriNijepodnosilacFizickoLice'+num, $event)"></app-form-fizicko-lice>
+        <app-form-fizicko-lice (formReady)="addChildForm('autoriNijepodnosilacFizickoLice'+num, $event)" [drzavljanstvo]="true"></app-form-fizicko-lice>
+        <app-form-adresa (formReady)="addChildForm('autoriNijepodnosilacAdresa'+num, $event)" [drzava]="true"></app-form-adresa>
+        <app-form-kontakt-podaci (formReady)="addChildForm('autoriNijepodnosilacKontakt'+num, $event)" [faks]="false"></app-form-kontakt-podaci>
         <app-form-autor (formReady)="addChildForm('autoriNijepodnosilacAutor'+num, $event)"></app-form-autor>
+        
       </div>
       <button type="button" class="button-add-remove" (click)="addAutori()">Dodaj autora</button>
       <button type="button" class="button-add-remove" (click)="removeAutori()">Obriši autora</button>

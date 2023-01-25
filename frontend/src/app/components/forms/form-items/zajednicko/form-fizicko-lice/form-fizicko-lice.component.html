@@ -13,4 +13,10 @@
       <mat-error>Prezime je obavezno</mat-error>
     </mat-form-field>
   </div>
+  <div class="input-drzavljanstvo" *ngIf="drzavljanstvo === true" >
+    Drzavljanstvo:
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="drzavljanstvo" (change)="emitForm()">
+    </mat-form-field>
+  </div>
 </div>

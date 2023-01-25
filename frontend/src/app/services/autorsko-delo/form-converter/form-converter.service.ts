@@ -40,13 +40,20 @@ export class FormConverterService {
     for (let index = 1; index <= brojAutora; index++) {
       const autorData = form.get(`autori${controlName}Autor${index}`).value;
       const fizickoLiceData = form.get(`autori${controlName}FizickoLice${index}`).value;
+      let adresaData = undefined;
+      let kontaktData = undefined;
+      if(controlName==='Nijepodnosilac'){
+        adresaData = form.get(`autori${controlName}Adresa${index}`).value;
+        kontaktData = form.get(`autori${controlName}Kontakt${index}`).value;
+      }
+      
       autori.push({
         ime: fizickoLiceData.ime,
-        prezime: fizickoLiceData.ime,
-        drzavljanstvo: 'DRZAVLJANSTVO',
+        prezime: fizickoLiceData.prezime,
+        drzavljanstvo: fizickoLiceData.drzavljanstvo,
 
-        adresa: undefined,
-        kontaktPodaci: undefined,
+        adresa: adresaData,
+        kontaktPodaci: kontaktData,
 
         anonimni: autorData.anonimni,
         godinaSmrti: autorData.godinaSmrti,
@@ -63,7 +70,8 @@ export class FormConverterService {
       kontaktPodaci: forms.podnosilacPrijaveKontakt,
       ime: forms.podnosilacPrijaveAutorLice.ime,
       prezime: forms.podnosilacPrijaveAutorLice.prezime,
-      drzavljanstvo: 'Српско',
+      drzavljanstvo: forms.podnosilacPrijaveAutorLice.drzavljanstvo,
+
       anonimni: forms.podnosilacPrijaveAutorObelezja.anonimni,
       primarni: forms.podnosilacPrijaveAutorObelezja.primarni,
       godinaSmrti: forms.podnosilacPrijaveAutorObelezja.godinaSmrti,
@@ -75,7 +83,7 @@ export class FormConverterService {
     return {
       adresa: forms.podnosilacPrijaveAdresa,
       kontaktPodaci: forms.podnosilacPrijaveKontakt,
-      naziv: forms.podnosilacPrijavePravnoLice.naziv
+      naziv: forms.podnosilacPrijavePravnoLice.nazivPravnoLice
     }
   }
 
@@ -85,7 +93,7 @@ export class FormConverterService {
       kontaktPodaci: forms.podnosilacPrijaveKontakt,
       ime: forms.podnosilacPrijaveFizickoLice.ime,
       prezime: forms.podnosilacPrijaveFizickoLice.prezime,
-      drzavljanstvo: 'Српско'
+      drzavljanstvo: forms.podnosilacPrijaveFizickoLice.drzavljanstvo
     }
   }
 
