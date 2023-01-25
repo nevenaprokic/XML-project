@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.repository;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.w3c.dom.Node;
@@ -27,6 +29,10 @@ public class ZigRepository {
 	
 	public Node getXMLZahtevZaZigbyId(String id) {
 		return zigDataAccess.getXMLZahtevById(id);
+	}
+	
+	public ArrayList<ZahtevZaPriznanjeZiga> getAll(){
+		return zigDataAccess.getAll();
 	}
 	
 	

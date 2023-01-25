@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.dataAccess;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -98,6 +99,31 @@ public class ZigDataAccess {
 		} finally {
 			ConnectionUtilities.cleanup(col , res);
 		}
+	}
+	
+	public ArrayList<ZahtevZaPriznanjeZiga> getAll(){
+		Collection col = null;
+		XMLResource res = null;
+		try {
+			col = ConnectionUtilities.getCollection(collectionId);
+//			res = col.ge
+//			res = ConnectionUtilities.getResource(col, documentId);
+//			
+//			if(res == null) {
+//	            System.out.println("[WARNING] Document '" + documentId + "' can not be found!");
+//	            return null;
+//	        } else {
+//	        	
+//	        	return JaxbMapper.unmarshalZahtevFromNode(res.getContentAsDOM());
+//	        }
+//			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			ConnectionUtilities.cleanup(col , res);
+		}
+		return null;
 	}
 	
 	public Node getXMLZahtevById(String documentId) {

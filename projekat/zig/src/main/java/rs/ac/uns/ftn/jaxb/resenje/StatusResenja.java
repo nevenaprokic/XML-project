@@ -1,5 +1,5 @@
 
-package main.java.rs.ac.uns.ftn.jaxb.resenje;
+package rs.ac.uns.ftn.jaxb.resenje;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;

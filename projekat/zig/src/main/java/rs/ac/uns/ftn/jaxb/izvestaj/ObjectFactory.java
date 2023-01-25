@@ -1,5 +1,5 @@
 
-package main.java.rs.ac.uns.ftn.jaxb.izvestaj;
+package rs.ac.uns.ftn.jaxb.izvestaj;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

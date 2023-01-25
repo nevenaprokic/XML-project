@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.services;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
@@ -15,4 +16,6 @@ public interface ZigService {
 	String generateDocumentId();
 	
 	void getPDF(String documentId) throws IOException, DocumentException;
+
+	ArrayList<ZahtevZaPriznanjeZiga> getAll();
 }
