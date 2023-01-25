@@ -111,7 +111,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		for (int i = 0; i < keywords.length; i++) {
 			conditions += String.format(QueryUtils.CONDITION_TEPMLATE, "'" + keywords[i] + "'");
 			if(i != keywords.length-1) {
-				conditions += " AND ";
+				conditions += " and ";
 			}
 		}
 		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
