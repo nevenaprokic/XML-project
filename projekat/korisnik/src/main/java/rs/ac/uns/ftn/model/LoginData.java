@@ -32,7 +32,7 @@ public class LoginData {
     
     
     public void setPassword(String password) {
-    	this.username = username;
+    	this.password = password;
     }
     
     
@@ -42,6 +42,6 @@ public class LoginData {
     
     
     public String getPassword() {
-    	return this.username;
+    	return this.password;
     }
 }
