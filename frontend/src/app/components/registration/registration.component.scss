@@ -81,10 +81,15 @@
 .disable-login-button{
     @include disableButtonStyle();
     width: 100%;
+    color: $medium1 !important;
 }
 
 .button-container{
     width: 50%;
     align-self: center;
+}
+
+.background-red{
+    background-color: $dark3;
 }
 

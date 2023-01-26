@@ -3,8 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user/user';
+import { ErrorFromXmlService } from 'src/app/services/error/error-from-xml.service';
 import { UserToXmlService } from 'src/app/services/user/converter/to-xml/user-to-xml.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
   selector: 'app-registration',
@@ -29,8 +31,11 @@ export class RegistrationComponent implements OnInit {
     
   }
 
-  constructor(private userService: UserService, private userToXML : UserToXmlService, private snackbar: MatSnackBar, private router: Router) {
-    
+  constructor(private userService: UserService, 
+    private userToXML : UserToXmlService, 
+    private snackbar: MatSnackBar, 
+    private router: Router, 
+    private errorService: ErrorFromXmlService) {
   }
 
   validatePassword(): boolean{
@@ -45,11 +50,12 @@ export class RegistrationComponent implements OnInit {
       let userXML = this.userToXML.convertusertoXML(this.registerForm.value)
       this.userService.registeruser(userXML).subscribe({
         next: (response) =>{
+          this.openMessage("Uspesna registracija, možete se prijaviti na sistem", "OK");
           this.router.navigateByUrl("/login")
         },
         error : (error) =>{
-          console.log(error)
-          this.openMessage(error.error, "GREŠKA")
+          let errorMessage: Error = this.errorService.getErrorFromXML(error.error)
+          this.openMessage(errorMessage.message, "GREŠKA")
         }
   
       })
@@ -57,11 +63,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   openMessage(message: string, action: string) {
-    this.snackbar.open(message, action,
-    {
-      horizontalPosition: "center",
-      verticalPosition: "top",
-      duration: 3000, //fali klasa za boju
-      });
+    this.errorService.showNotificationComponent(message, ErrorMessageComponent);
+  }
+
+  onLogin(){
+    this.router.navigateByUrl("/login")
   }
 }
