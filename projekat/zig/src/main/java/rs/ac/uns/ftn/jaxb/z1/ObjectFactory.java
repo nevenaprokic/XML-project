@@ -76,6 +76,10 @@ public class ObjectFactory {
     public TDopuna createTDopuna() {
         return new TDopuna();
     }
+    
+    public IdZiga createIdZiga() {
+        return new IdZiga();
+    }
 
 
 }

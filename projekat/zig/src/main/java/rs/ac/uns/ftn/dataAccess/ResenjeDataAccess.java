@@ -11,21 +11,21 @@ import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
-import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
+import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.services.MetadataService;
 
 @Component
-public class ZigDataAccess {
-	
+public class ResenjeDataAccess {
+
 	@Autowired
 	private MetadataService metadataService;
 	
 	
-	private final String collectionId = "db/project/zigovi";
-	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/z1";
+	private final String collectionId = "db/project/resenja";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/resenje";
 	
-	public ZigDataAccess() {
+	public ResenjeDataAccess() {
 		setupDB();
 	}
 
@@ -44,12 +44,12 @@ public class ZigDataAccess {
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
 			
-			ZahtevZaPriznanjeZiga delo = JaxbMapper.unmarshalZahtevFromFile(filePath);
+			Resenje resneje = JaxbMapper.unmarshalResenjeFromFile(filePath);
 			
 			// do something to delo;
 			
-			OutputStream os = JaxbMapper.marshallZahtev(delo);
-			metadataService.extractMetadata("/zig", os, resourceId);
+			OutputStream os = JaxbMapper.marshallResenje(resneje);
+			metadataService.extractMetadata("/resenja", os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
@@ -59,15 +59,15 @@ public class ZigDataAccess {
 		}
 	}
 	
-	public void saveFile(String resourceId, ZahtevZaPriznanjeZiga delo) {
+	public void saveFile(String resourceId, Resenje resenje) {
 		Collection col = null;
 		XMLResource res = null;
 		try {
 			col = ConnectionUtilities.initCollection(collectionId);
 			res = ConnectionUtilities.initResource(col, resourceId);
 
-			OutputStream os = JaxbMapper.marshallZahtev(delo);
-			metadataService.extractMetadata("/zig", os, resourceId);
+			OutputStream os = JaxbMapper.marshallResenje(resenje);
+			metadataService.extractMetadata("/resenja", os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
@@ -77,7 +77,7 @@ public class ZigDataAccess {
 		}
 	}
 	
-	public ZahtevZaPriznanjeZiga getZahtevById(String documentId) {
+	public Resenje getResenjeById(String documentId) {
 		Collection col = null;
 		XMLResource res = null;
 		try {
@@ -89,7 +89,7 @@ public class ZigDataAccess {
 	            return null;
 	        } else {
 	        	
-	        	return JaxbMapper.unmarshalZahtevFromNode(res.getContentAsDOM());
+	        	return JaxbMapper.unmarshalResenjeFromNode(res.getContentAsDOM());
 	        }
 			
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class ZigDataAccess {
 		}
 	}
 	
-	public Node getXMLZahtevById(String documentId) {
+	public Node getXMLResenjeById(String documentId) {
 		Collection col = null;
 		XMLResource res = null;
 		try {

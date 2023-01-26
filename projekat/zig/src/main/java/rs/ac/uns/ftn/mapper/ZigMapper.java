@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.mapper;
 
 import javax.xml.namespace.QName;
 
+import rs.ac.uns.ftn.jaxb.z1.IdZiga;
 import rs.ac.uns.ftn.jaxb.z1.ObjectFactory;
 import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.TDopuna;
@@ -28,6 +29,10 @@ public class ZigMapper {
 		ZahtevZaPriznanjeZiga zahtev = objectFactory.createZahtevZaPriznanjeZiga();		
 		
 		zahtev.setBrojPrijaveZiga(zahtevDTO.getBrojPrijaveZiga());
+		
+		IdZiga idZiga = objectFactory.createIdZiga();
+		idZiga.setIdZ(zahtevDTO.getId().getIdZ());
+		zahtev.setId(idZiga);
 		
 		for(TLice lice: zahtevDTO.getPodnosiocPrijave()) {
 			TLice podnosilacZahteva = getLiceFromDTO(lice);

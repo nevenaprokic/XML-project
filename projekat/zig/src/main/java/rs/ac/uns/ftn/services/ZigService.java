@@ -2,10 +2,13 @@ package rs.ac.uns.ftn.services;
 
 import java.io.IOException;
 
-import java.util.ArrayList;
+import javax.xml.bind.JAXBException;
+
 import com.itextpdf.text.DocumentException;
 
+import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
+import org.xmldb.api.base.XMLDBException;
 
 public interface ZigService {
 
@@ -17,5 +20,5 @@ public interface ZigService {
 	
 	void getPDF(String documentId) throws IOException, DocumentException;
 
-	ArrayList<ZahtevZaPriznanjeZiga> getAll();
+	ListaZahtevaZiga findAll() throws XMLDBException, JAXBException;
 }
