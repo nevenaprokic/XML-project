@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../services/user/user.service';
-import { User } from '../model/user/user';
-import { UserFromXmlService } from '../services/user/converter/from-xml/user-from-xml.service';
-import { Role } from '../model/user/role';
+import { UserService } from '../../services/user/user.service';
+import { User } from '../../model/user/user';
+import { UserFromXmlService } from '../../services/user/converter/from-xml/user-from-xml.service';
+import { Role } from '../../model/user/role';
 
 @Component({
   selector: 'app-login',
@@ -67,5 +67,9 @@ export class LoginComponent implements OnInit {
 
   routeToHomePage(userRole : string){
     userRole === Role.KORISNIK.toString()?  this.router.navigateByUrl("/home-page-user") : this.router.navigateByUrl("/home-page-employee")
+  }
+
+  onRegister(){
+    this.router.navigateByUrl("/registration")
   }
 }

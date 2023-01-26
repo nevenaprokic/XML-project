@@ -43,4 +43,8 @@ export class UserService{
     return this.http.post(environment.USER_BASE_URL + "/auth/login", user, {headers: this.headers, responseType: 'text'});
   }
 
+  registeruser(userXML: string){
+    return this.http.post(environment.USER_BASE_URL + "/user/add", userXML, {headers: this.headers, responseType: 'text'})
+  }
+
 }

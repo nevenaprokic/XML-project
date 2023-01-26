@@ -1,0 +1,70 @@
+<div class="login-page-contaier">
+    <div class="login-form-container">
+        <p class="form_tittle">Dobrodošli</p>
+
+    <form class="input-fields-container" [formGroup]="this.registerForm"
+      (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Unesite email</mat-label>
+        <input matInput
+          placeholder="pat@example.com"
+          required
+          formControlName="email">
+        <mat-error>Email je obavezan u formatu 'pat@example.com</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unesite ime</mat-label>
+        <input matInput
+          placeholder="Patar"
+          required
+          formControlName="firstName">
+        <mat-error>Ime je obavezano, samo slova</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unesite prezime</mat-label>
+        <input matInput
+          placeholder="Petrović"
+          required
+          formControlName="lastName">
+        <mat-error>Prezime je obavezano, samo slova</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label >Unesite lozinku</mat-label>
+        <input matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          required
+          ngModel
+          formControlName="password">
+        <button class="icon" mat-icon-button matSuffix (click)="hidePassword= !hidePassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>Lozinka je obavezna, minimalno 8 karaktera</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label >Potvrdite lozinku</mat-label>
+        <input matInput
+          [type]="hideRepeatPassword ? 'password' : 'text'"
+          required
+          ngModel
+          formControlName="repeatPassword">
+        <button class="icon" mat-icon-button matSuffix (click)="hideRepeatPassword= !hideRepeatPassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeatPassword">
+          <mat-icon>{{hideRepeatPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>Potvrda lozinke je obavezna</mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-button [disabled]="this.registerForm.invalid"
+                [ngClass] = "{'disable-login-button': this.registerForm.invalid,  'login-button': !this.registerForm.invalid}"
+                type="submit">Kreiraj nalog</button>
+      </div>
+
+    </form>
+</div>
+

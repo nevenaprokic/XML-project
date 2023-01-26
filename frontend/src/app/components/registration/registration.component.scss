@@ -75,6 +75,7 @@
 .login-button{
     @include buttonStyle();
     width: 100%;
+    color: $light1 !important;
 }
 
 .disable-login-button{
@@ -83,7 +84,7 @@
 }
 
 .button-container{
-    width: 30%;
+    width: 50%;
     align-self: center;
 }
 
