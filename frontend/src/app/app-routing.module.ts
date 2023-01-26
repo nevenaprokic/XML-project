@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {FormAutorskoDeloComponent} from "./components/forms/form-autorsko-delo/form-autorsko-delo.component";
 import {FormPatentComponent} from "./components/forms/form-patent/form-patent.component";
 import {FormZigComponent} from "./components/forms/form-zig/form-zig.component";
+import { HomePageEmployeeComponent } from './components/home-page-employee/home-page-employee.component';
+import { HomePageUserComponent } from './components/home-page-user/home-page-user.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -23,8 +25,16 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: '**',
+    path: '',
     component: LoginComponent
+  },
+  {
+    path: 'home-page-employee',
+    component: HomePageEmployeeComponent,
+  },
+  {
+    path: 'home-page-user',
+    component: HomePageUserComponent,
   }
 ];
 

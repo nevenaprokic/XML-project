@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../services/user/user.service';
+import { User } from '../model/user/user';
+import { UserFromXmlService } from '../services/user/converter/from-xml/user-from-xml.service';
+import { Role } from '../model/user/role';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +26,28 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private router: Router, private matDialog: MatDialog, private userService: UserService) {}
+  constructor(private router: Router, private matDialog: MatDialog, private userService: UserService, private userFromXML : UserFromXmlService) {}
 
   onSubmit() {
     console.log(this.loginForm.value)
+    const convert = require('xml-js');
+    let loginUserXML = this.convertUserXML(convert);
+      
+    this.userService.login(loginUserXML).subscribe({
+      next: (response) => {
+        console.log(response); //konvertovati xml u objekat
+        const user : User = this.userFromXML.getUserFromXML(response);
+        const token : string = this.userFromXML.getTokenFromXML(response);
+        this.userService.setCurrentUser({email : user.email, token: token, role: user.role});
+        this.routeToHomePage(user.role);
+      },
+      error: (error) => {
+        
+    }
+    })
+  }
 
+  convertUserXML(convert:any){
     const auth: any = {};
     auth.username = this.loginForm.value.email;
     auth.password = this.loginForm.value.password;
@@ -40,16 +60,12 @@ export class LoginComponent implements OnInit {
     signInUser.token.username = auth.username;
     signInUser.token.password = auth.password;
     console.log(signInUser)
-    const convert = require('xml-js');
-    const signInUserXML = convert.js2xml(signInUser, {compact: true, ignoreComment: true, spaces: 4});
-      
-    this.userService.login(signInUserXML).subscribe({
-      next: (response) => {
-        console.log(response); //konvertovati xml u objekat
-      },
-      error: (error) => {
-        console.log(error);
-    }
-    })
+    
+    const loginUserXML = convert.js2xml(signInUser, {compact: true, ignoreComment: true, spaces: 4});
+    return loginUserXML;
+  }
+
+  routeToHomePage(userRole : string){
+    userRole === Role.KORISNIK.toString()?  this.router.navigateByUrl("/home-page-user") : this.router.navigateByUrl("/home-page-employee")
   }
 }

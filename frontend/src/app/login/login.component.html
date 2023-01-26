@@ -1,20 +1,20 @@
 <div class="login-page-contaier">
     <div class="login-form-container">
-        <p class="form_tittle">Welcome back</p>
+        <p class="form_tittle">Dobrodošli</p>
 
     <form class="input-fields-container" [formGroup]="this.loginForm"
       (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline">
-        <mat-label>Enter your email</mat-label>
+        <mat-label>Unesite email</mat-label>
         <input matInput
           placeholder="pat@example.com"
           required
           formControlName="email">
-        <mat-error>Email is required in form 'pat@example.com</mat-error>
+        <mat-error>Email je obaveyan u formatu 'pat@example.com</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label >Enter your password</mat-label>
+        <mat-label >Unesite lozinku</mat-label>
         <input matInput
           [type]="hide ? 'password' : 'text'"
           required
@@ -24,15 +24,23 @@
           [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error>Password is required</mat-error>
+        <mat-error>Lozinka je obavezna</mat-error>
       </mat-form-field>
 
       <div class="button-container">
         <button mat-button [disabled]="this.loginForm.invalid"
                 [ngClass] = "{'disable-login-button': this.loginForm.invalid,  'login-button': !this.loginForm.invalid}"
-                type="submit">Log in</button>
+                type="submit">Prijavi se</button>
       </div>
 
     </form>
+    <div class="sign_up_text">
+        <p>
+          Nemate nalog? &nbsp;
+        </p>
+        <a routerLink="/register" href="/anon/register" class="sign_up_link">
+          Kreirajte ga
+        </a>
+      </div>
     </div>
 </div>

@@ -30,7 +30,9 @@ import {FormAutorComponent} from "./components/forms/form-items/zaAutorskoDelo/f
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
-import {MatDialogModule} from "@angular/material/dialog"
+import {MatDialogModule} from "@angular/material/dialog";
+import { HomePageEmployeeComponent } from './components/home-page-employee/home-page-employee.component';
+import { HomePageUserComponent } from './components/home-page-user/home-page-user.component';
 
 const MaterialModule = [
   BrowserModule,
@@ -68,7 +70,9 @@ const MaterialModule = [
         FormTabelaComponent,
         FormIzborLicaComponent,
         FormAutorComponent,
-        LoginComponent
+        LoginComponent,
+        HomePageEmployeeComponent,
+        HomePageUserComponent
     ],
   imports: [
     ... MaterialModule
