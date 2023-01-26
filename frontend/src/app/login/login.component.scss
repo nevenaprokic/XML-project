@@ -1,0 +1,89 @@
+@import "src/style/styles";
+
+.login-page-contaier{
+    width:100%; 
+    height: 100%; 
+    background-color: $dark1;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    align-self: center;
+    width: 30%;
+    height: 40%;
+    background-color: $light1;
+}
+
+.sign_up_link{
+    color: $dark3;
+}
+
+.sign_up_text{
+    display: flex; 
+    flex-direction: row; 
+    align-self: center;
+    margin-top: 15%;
+    font-size: medium;
+}
+
+.sign_up_buttons{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 5%;
+    flex-wrap: wrap;
+}
+
+
+.form_tittle {
+    color: $fontColor1;
+    font-weight: bold;
+    font-size: xx-large;
+    font-family: 'Inter';
+    margin-bottom: 15%;
+  
+  }
+  
+  .sign-up-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    width: 100%;
+    margin-top: 10%;
+  }
+  
+  .black-line {
+    width: 30%;
+    height: 1px;
+    border: 0px;
+    background: black;
+  }
+  
+  .input-fields-container {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+}
+
+.login-button{
+    @include buttonStyle();
+    width: 100%;
+}
+
+.disable-login-button{
+    @include disableButtonStyle();
+    width: 100%;
+}
+
+.button-container{
+    width: 30%;
+    align-self: center;
+}
+

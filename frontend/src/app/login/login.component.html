@@ -1,0 +1,38 @@
+<div class="login-page-contaier">
+    <div class="login-form-container">
+        <p class="form_tittle">Welcome back</p>
+
+    <form class="input-fields-container" [formGroup]="this.loginForm"
+      (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your email</mat-label>
+        <input matInput
+          placeholder="pat@example.com"
+          required
+          formControlName="email">
+        <mat-error>Email is required in form 'pat@example.com</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label >Enter your password</mat-label>
+        <input matInput
+          [type]="hide ? 'password' : 'text'"
+          required
+          ngModel
+          formControlName="password">
+        <button class="icon" mat-icon-button matSuffix (click)="hide= !hide"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>Password is required</mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-button [disabled]="this.loginForm.invalid"
+                [ngClass] = "{'disable-login-button': this.loginForm.invalid,  'login-button': !this.loginForm.invalid}"
+                type="submit">Log in</button>
+      </div>
+
+    </form>
+    </div>
+</div>

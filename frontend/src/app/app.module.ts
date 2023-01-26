@@ -29,6 +29,26 @@ import { FormIzborLicaComponent } from './components/forms/form-items/zajednicko
 import {FormAutorComponent} from "./components/forms/form-items/zaAutorskoDelo/form-autor/form-autor.component";
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginComponent } from './login/login.component';
+import {MatDialogModule} from "@angular/material/dialog"
+
+const MaterialModule = [
+  BrowserModule,
+  AppRoutingModule,
+  MatListModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatRadioModule,
+  MatInputModule,
+  FormsModule,
+  MatIconModule,
+  ReactiveFormsModule,
+  MatCheckboxModule,
+  BrowserAnimationsModule,
+  HttpClientModule,
+  ToastrModule.forRoot(),
+  MatDialogModule
+]
 
 @NgModule({
     declarations: [
@@ -47,24 +67,13 @@ import { ToastrModule } from 'ngx-toastr';
         FormPronalazakComponent,
         FormTabelaComponent,
         FormIzborLicaComponent,
-        FormAutorComponent
+        FormAutorComponent,
+        LoginComponent
     ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatRadioModule,
-    MatInputModule,
-    FormsModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatCheckboxModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
+    ... MaterialModule
   ],
+  exports: [MaterialModule],
   providers: [],
   bootstrap: [AppComponent]
 })

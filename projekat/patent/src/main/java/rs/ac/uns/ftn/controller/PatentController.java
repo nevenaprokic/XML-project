@@ -21,7 +21,7 @@ import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.services.PatentService;
 
 @Controller
-@RequestMapping("/patent")
+@RequestMapping(value="/patent", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
 public class PatentController {
 	
 	@Autowired
@@ -43,8 +43,8 @@ public class PatentController {
 		
 	}
 	
-	@GetMapping(value="/{documentId}")
-	public ResponseEntity<ZahtevZaPriznanjePatenta> getZahtevZaAutorskoDeloById(@PathVariable String documentId) {
+	@GetMapping(value="/{documentId}", produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<?> getZahtevZaAutorskoDeloById(@PathVariable String documentId) {
 			ZahtevZaPriznanjePatenta zahtev = patentService.getZahtevZaPriznanjePatenta(documentId);
 			return ResponseEntity.ok(zahtev);
 	}
