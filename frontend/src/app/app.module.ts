@@ -29,10 +29,13 @@ import { FormIzborLicaComponent } from './components/forms/form-items/zajednicko
 import {FormAutorComponent} from "./components/forms/form-items/zaAutorskoDelo/form-autor/form-autor.component";
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-import { LoginComponent } from './login/login.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { HomePageEmployeeComponent } from './components/home-page-employee/home-page-employee.component';
 import { HomePageUserComponent } from './components/home-page-user/home-page-user.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 const MaterialModule = [
   BrowserModule,
@@ -49,7 +52,8 @@ const MaterialModule = [
   BrowserAnimationsModule,
   HttpClientModule,
   ToastrModule.forRoot(),
-  MatDialogModule
+  MatDialogModule,
+  MatSnackBarModule
 ]
 
 @NgModule({
@@ -72,7 +76,9 @@ const MaterialModule = [
         FormAutorComponent,
         LoginComponent,
         HomePageEmployeeComponent,
-        HomePageUserComponent
+        HomePageUserComponent,
+        RegistrationComponent,
+        ErrorMessageComponent
     ],
   imports: [
     ... MaterialModule

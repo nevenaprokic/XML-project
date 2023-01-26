@@ -1,0 +1,14 @@
+@import "src/style/styles";
+
+.message-container{
+    display:flex; 
+    flex-direction: row;
+    color: $light1;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.action{
+    color: rgb(231, 82, 82);
+}

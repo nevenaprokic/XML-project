@@ -5,7 +5,8 @@ import {FormPatentComponent} from "./components/forms/form-patent/form-patent.co
 import {FormZigComponent} from "./components/forms/form-zig/form-zig.component";
 import { HomePageEmployeeComponent } from './components/home-page-employee/home-page-employee.component';
 import { HomePageUserComponent } from './components/home-page-user/home-page-user.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'home-page-user',
     component: HomePageUserComponent,
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent,
   }
 ];
 
