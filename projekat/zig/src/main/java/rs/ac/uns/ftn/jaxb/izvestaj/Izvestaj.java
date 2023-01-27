@@ -42,13 +42,13 @@ import java.util.Map;
 @XmlRootElement(name = "Izvestaj", namespace = "http://ftn.uns.ac.rs/izvestaj")
 public class Izvestaj {
 
-    @XmlElement(name = "BrojPodnetihZahteva", namespace = "http://ftn.uns.ac.rs/izvestaj", required = true)
+    @XmlElement(name = "BrojPodnetihZahteva", namespace = "http://ftn.uns.ac.rs/izvestaj")
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger brojPodnetihZahteva;
-    @XmlElement(name = "BrojPrihvacenihZahteva", namespace = "http://ftn.uns.ac.rs/izvestaj", required = true)
+    @XmlElement(name = "BrojPrihvacenihZahteva", namespace = "http://ftn.uns.ac.rs/izvestaj")
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger brojPrihvacenihZahteva;
-    @XmlElement(name = "BrojOdbijenihZahteva", namespace = "http://ftn.uns.ac.rs/izvestaj", required = true)
+    @XmlElement(name = "BrojOdbijenihZahteva", namespace = "http://ftn.uns.ac.rs/izvestaj")
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger brojOdbijenihZahteva;
     @XmlAttribute(name = "pocetni_datum_izvestaja", required = true)

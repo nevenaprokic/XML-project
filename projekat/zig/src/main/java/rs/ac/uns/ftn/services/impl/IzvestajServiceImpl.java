@@ -32,6 +32,8 @@ public class IzvestajServiceImpl implements IzvestajService {
 		Integer brojPodnetihZahteva = 0;
 		Integer brojOdbijenihZahteva = 0;
 		Integer brojPrihvacenihZahteva = 0;
+		System.out.println(izvestaj.getKrajnjiDatumIzvestaja());
+		System.out.println(izvestaj.getPocetniDatumIzvestaja());
 
 		ListaZahtevaZiga zahtevi = zigService.findAll();
 		for (ZahtevZaPriznanjeZiga zahtev : zahtevi.getListaZahtevaZig()) {

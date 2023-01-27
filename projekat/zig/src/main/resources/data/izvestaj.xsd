@@ -4,9 +4,9 @@
     <xs:element name="Izvestaj">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="BrojPodnetihZahteva" type="xs:nonNegativeInteger"/>
-                <xs:element name="BrojPrihvacenihZahteva" type="xs:nonNegativeInteger"/>
-                <xs:element name="BrojOdbijenihZahteva" type="xs:nonNegativeInteger"/>
+                <xs:element name="BrojPodnetihZahteva" type="xs:nonNegativeInteger" minOccurs="0"/>
+                <xs:element name="BrojPrihvacenihZahteva" type="xs:nonNegativeInteger" minOccurs="0"/>
+                <xs:element name="BrojOdbijenihZahteva" type="xs:nonNegativeInteger" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="pocetni_datum_izvestaja" type="xs:date" use="required"/>
             <xs:attribute name="krajnji_datum_izvestaja" type="xs:date" use="required"/>
