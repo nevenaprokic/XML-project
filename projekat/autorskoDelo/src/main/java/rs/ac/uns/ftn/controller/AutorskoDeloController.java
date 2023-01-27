@@ -1,6 +1,13 @@
 package rs.ac.uns.ftn.controller;
 
+import java.io.IOException;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.xml.sax.SAXException;
+import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 
 
@@ -23,8 +34,7 @@ public class AutorskoDeloController {
 	
 	@Autowired
 	private AutorskoDeloService autorskoDeloService;
-	
-	
+
 	@PostMapping(value="/save-new")
 	public ResponseEntity<String> saveNewFile(@RequestBody ZahtevZaAutorskoDelo zahtev) {
 		try {
@@ -50,6 +60,40 @@ public class AutorskoDeloController {
 		
 	}
 	
+	@GetMapping(value="/findAll")
+	public ResponseEntity<ListaZahtevaAutorskoDelo> findAll() {
+		try {
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.findAll();
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+
+	@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<ListaZahtevaAutorskoDelo> searchText(@RequestParam("txt") String txt) {
+		try {
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchText(txt);
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
+	}
+	
+	@GetMapping(value="/searchMetadata")
+	public ResponseEntity<ListaZahtevaAutorskoDelo> searchMetadata(@RequestParam("request") String request) {
+		try {
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchMetadata(request);
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
+	}
+	
 
 	@GetMapping("/get-pdf/{documentId}")
 	public ResponseEntity<String> getPDF(@PathVariable String documentId) {
@@ -62,5 +106,35 @@ public class AutorskoDeloController {
 		}
 	}
 	
+	@GetMapping(value = "/get-rdf/{documentId}")
+    public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
 
+       try {
+    	   InputStreamResource rdf = autorskoDeloService.getMetadataAsRdf(documentId);
+           HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
+           return new ResponseEntity<>(rdf, headers, HttpStatus.OK);
+       } catch (Exception e) {
+    	   e.printStackTrace();
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       }
+	}
+    
+	@GetMapping(value = "/get-json/{documentId}")
+    public ResponseEntity<?> downloadZalbaCutanjeJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+
+        try {
+        	InputStreamResource json = autorskoDeloService.getMetadataAsJson(documentId);
+        	HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
+            return new ResponseEntity<>(json, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+	
+	private HttpHeaders getDownloadFileHeaders(String fileName) {
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/xml; charset=utf-8");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName );
+		return headers;
+	}
 }
