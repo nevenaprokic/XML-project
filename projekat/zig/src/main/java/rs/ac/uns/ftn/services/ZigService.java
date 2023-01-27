@@ -21,4 +21,6 @@ public interface ZigService {
 	void getPDF(String documentId) throws IOException, DocumentException;
 
 	ListaZahtevaZiga findAll() throws XMLDBException, JAXBException;
+	
+	void saveFile(ZahtevZaPriznanjeZiga zahtev, String documentId);
 }

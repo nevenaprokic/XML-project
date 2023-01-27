@@ -59,7 +59,8 @@
     <xs:simpleType name="status_zahteva">
         <xs:restriction base="xs:string">
             <xs:enumeration value="neobradjen"/>
-            <xs:enumeration value="obradjen"/>
+            <xs:enumeration value="odobren"/>
+            <xs:enumeration value="odbijen"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="TZig">

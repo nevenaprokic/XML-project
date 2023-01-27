@@ -20,7 +20,6 @@ import com.itextpdf.text.DocumentException;
 import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
-import rs.ac.uns.ftn.dataAccess.utils.QueryUtilsResenje;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.z1.IdZiga;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
@@ -45,6 +44,13 @@ public class ZigServiceImpl implements ZigService {
 		idZiga.setIdZ(documentId);
 		zahtevDTO.setId(idZiga);
 		System.out.println(documentId);
+		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
+		zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
+		
+	}
+	
+	@Override
+	public void saveFile(ZahtevZaPriznanjeZiga zahtevDTO, String documentId) {
 		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
 		zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
 		

@@ -12,11 +12,11 @@ import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
-import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtilsResenje;
 import rs.ac.uns.ftn.jaxb.lists.ListaResenja;
-import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
+import rs.ac.uns.ftn.jaxb.resenje.StatusResenja;
+import rs.ac.uns.ftn.jaxb.resenje.TOdobren;
 import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
@@ -43,8 +43,18 @@ public class ResenjeServiceImpl implements ResenjeService {
 	public void saveNewFile(Resenje resenje) {
 		String documentId = generateDocumentId();
 		ZahtevZaPriznanjeZiga zahtev = zigService.getZahtevZaPriznanjeZiga(resenje.getIdZiga().getIdZ());
-		zahtev.setStatus(StatusZahteva.OBRADJEN);
-		//save zahtev
+		
+		if(resenje.getStatus() == StatusResenja.ODOBREN) {
+			zahtev.setStatus(StatusZahteva.ODOBREN);
+			if(resenje.getDodatak() instanceof TOdobren) {
+				zahtev.setBrojPrijaveZiga(((TOdobren) resenje.getDodatak()).getSifra());
+			}
+		}
+		if(resenje.getStatus() == StatusResenja.ODBIJEN) {
+			zahtev.setStatus(StatusZahteva.ODBIJEN);
+		}
+		zahtev.setId(resenje.getIdZiga());
+		zigService.saveFile(zahtev, resenje.getIdZiga().getIdZ());
 		resenjeRepository.saveResenje(resenje, documentId);
 	}
 	

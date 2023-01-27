@@ -17,7 +17,7 @@ export class XmlTemplateService {
 
   createNewXML(values: ZahtevZaPriznanjeZiga): string {
     const date = new Date();
-    const dateForXML = `${date.getFullYear()}-0${date.getMonth()+1}-${date.getDate()}`;
+    const dateForXML = date.getFullYear()+ "-" +  ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
     console.log(dateForXML);
     return `<?xml version="1.0" encoding="UTF-8"?>
     <Zahtev_za_priznanje_ziga broj_prijave_ziga="Ž-193/23" datum_podnosenja_prijave="${dateForXML}"  status="neobradjen"

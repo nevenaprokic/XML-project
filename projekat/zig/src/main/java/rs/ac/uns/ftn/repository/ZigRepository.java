@@ -14,7 +14,6 @@ public class ZigRepository {
 	private ZigDataAccess zigDataAccess;
 	
 	public void saveZahtevZaPriznanjeZiga(ZahtevZaPriznanjeZiga zahtev, String documentId) {
-		System.out.println(documentId);
 		zigDataAccess.saveFile(documentId, zahtev);
 	}
 	
