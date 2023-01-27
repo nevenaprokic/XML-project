@@ -35,6 +35,7 @@ public class TokenUtils {
 
     public String getToken(HttpServletRequest request) {
         String authHeader = request.getHeader(AUTH_HEADER);
+
         if (authHeader != null && authHeader.startsWith(BEARER_PREFIX)) {
             return authHeader.substring(7);
         }
@@ -52,7 +53,7 @@ public class TokenUtils {
                     .setSigningKey(jwtConfig.jwtSecret())
                     .parseClaimsJws(token)
                     .getBody();
-            
+
             return claims.getSubject();
         } catch (Exception e) {
             return null;

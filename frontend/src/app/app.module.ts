@@ -36,6 +36,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { PatentTabelViewComponent } from './components/patent-tabel-view/patent-tabel-view.component';
 
 const MaterialModule = [
   BrowserModule,
@@ -78,7 +79,8 @@ const MaterialModule = [
         HomePageEmployeeComponent,
         HomePageUserComponent,
         RegistrationComponent,
-        ErrorMessageComponent
+        ErrorMessageComponent,
+        PatentTabelViewComponent
     ],
   imports: [
     ... MaterialModule

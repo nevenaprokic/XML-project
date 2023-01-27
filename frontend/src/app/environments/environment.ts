@@ -4,13 +4,15 @@
 
 const AUTORSKO_DELO_BASE_URL= 'http://localhost:8900/xml';
 const USER_BASE_URL= 'http://localhost:8903/xml';
+const PATENT_BASE_URL= 'http://localhost:8901/xml';
 
 
 export const environment = {
   production: false,
 
   AUTORSKO_DELO_BASE_URL: AUTORSKO_DELO_BASE_URL,
-  USER_BASE_URL: USER_BASE_URL
+  USER_BASE_URL: USER_BASE_URL,
+  PATENT_BASE_URL: PATENT_BASE_URL
 };
 
 /*

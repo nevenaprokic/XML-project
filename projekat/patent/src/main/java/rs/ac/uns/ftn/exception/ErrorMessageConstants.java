@@ -5,5 +5,6 @@ public class ErrorMessageConstants {
 	public static String INVALID_LOGIN = "Invalid username or password";
 	public static String DOCUMENT_ALREADY_EXITS = "Document with same document number already exists";
 	public static String INVALID_XML_FILE = "Invalid data in xml file";
+	public static String INTERNAL_ERROR = "Došlo je do grške. Molimo Vas pokušajte kasnije";
 
 }
