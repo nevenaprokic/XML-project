@@ -25,7 +25,6 @@ import org.xmldb.api.base.XMLDBException;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
-import rs.ac.uns.ftn.services.MetadataService;
 
 
 @Controller
@@ -35,11 +34,7 @@ public class AutorskoDeloController {
 	
 	@Autowired
 	private AutorskoDeloService autorskoDeloService;
-	
-	@Autowired
-	private MetadataService metadataService;
-	
-	
+
 	@PostMapping(value="/save-new")
 	public ResponseEntity<String> saveNewFile(@RequestBody ZahtevZaAutorskoDelo zahtev) {
 		try {
@@ -77,10 +72,21 @@ public class AutorskoDeloController {
 		
 	}
 
-	@GetMapping(value="/searchText", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+	@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ListaZahtevaAutorskoDelo> searchText(@RequestParam("txt") String txt) {
 		try {
 			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchText(txt);
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
+	}
+	
+	@GetMapping(value="/searchMetadata")
+	public ResponseEntity<ListaZahtevaAutorskoDelo> searchMetadata(@RequestParam("request") String request) {
+		try {
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchMetadata(request);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -104,7 +110,7 @@ public class AutorskoDeloController {
     public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
 
        try {
-    	   InputStreamResource rdf = metadataService.getAsRdf(documentId);
+    	   InputStreamResource rdf = autorskoDeloService.getMetadataAsRdf(documentId);
            HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
            return new ResponseEntity<>(rdf, headers, HttpStatus.OK);
        } catch (Exception e) {
@@ -117,7 +123,7 @@ public class AutorskoDeloController {
     public ResponseEntity<?> downloadZalbaCutanjeJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
 
         try {
-        	InputStreamResource json = metadataService.getAsJson(documentId);
+        	InputStreamResource json = autorskoDeloService.getMetadataAsJson(documentId);
         	HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
             return new ResponseEntity<>(json, headers, HttpStatus.OK);
         } catch (Exception e) {

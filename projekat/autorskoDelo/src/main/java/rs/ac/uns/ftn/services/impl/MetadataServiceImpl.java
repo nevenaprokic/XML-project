@@ -3,8 +3,6 @@ package rs.ac.uns.ftn.services.impl;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -12,8 +10,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.TransformerException;
@@ -39,6 +39,8 @@ import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities.ConnectionProperties;
 import rs.ac.uns.ftn.services.metadata.utils.FileUtil;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataExtractor;
+import rs.ac.uns.ftn.services.metadata.utils.MetadataKeys;
+import rs.ac.uns.ftn.services.metadata.utils.SearchRequestParser;
 import rs.ac.uns.ftn.services.metadata.utils.SparqlUtil;
 
 @Service
@@ -63,7 +65,7 @@ public class MetadataServiceImpl implements MetadataService{
 		Model model = createRDFModel(extractedMetadata, documentId);
 		
 		// ispis u fajl RDF/XML format
-		model.write(new FileOutputStream(new File("src/main/resources/rdf_data/" + documentId + ".rdf")), SparqlUtil.RDF_XML);
+		// model.write(new FileOutputStream(new File("src/main/resources/rdf_data/" + documentId + ".rdf")), SparqlUtil.RDF_XML);
 		
 		// ispis na konzolu RDF/XML format
 		System.out.println("[INFO] Extracted metadata as RDF/XML...");
@@ -199,6 +201,34 @@ public class MetadataServiceImpl implements MetadataService{
 		return new InputStreamResource(bis);
 	}
 	
+	@Override	
+	public List<String> searchByMetadata(String request) throws IOException {
+		setupConnection();
+
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByCriteriaQuery(request));
+		ResultSet resultSet = query.execSelect();
+		
+		String varName;
+		RDFNode varValue;
+		
+		List<String> ids = new ArrayList<String>();
+		
+		while(resultSet.hasNext()) {
+			QuerySolution querySolution = resultSet.next() ;
+			Iterator<String> variableBindings = querySolution.varNames();
+
+		    while (variableBindings.hasNext()) {
+		    	varName = variableBindings.next();
+		    	varValue = querySolution.get(varName);
+		    	ids.add(varValue.toString());
+		    	System.out.println(varName + ": " + varValue);
+		    }
+		}
+		
+		return ids;
+
+	}
+	
 
 	private String filterByIdQuery(String documentId) throws IOException {
 		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_filter_by_id_template.rq",StandardCharsets.UTF_8);
@@ -210,12 +240,21 @@ public class MetadataServiceImpl implements MetadataService{
 		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/rdf_metadata_template.rq",StandardCharsets.UTF_8);
 		
 		return String.format(XML_RDF_template, 
-				params.get("zahtevZaAutorskoDelo"), 
-				params.get("datum_podnosenja"), 
-				params.get("autorsko_delo"), 
-				params.get("primarni_autor"), 
-				params.get("koautor"), 
-				params.get("podnosilac"), 
-				params.get("ime_prodnosioca"));
+				params.get(MetadataKeys.ZAHTEV_ZA_AUTORSKO_DELO), 
+				params.get(MetadataKeys.DATUM_PODNOSENJA), 
+				params.get(MetadataKeys.AUTORSKO_DELO), 
+				params.get(MetadataKeys.PRIMARNI_AUTOR), 
+				params.get(MetadataKeys.KOAUTOR), 
+				params.get(MetadataKeys.PODNOSILAC), 
+				params.get(MetadataKeys.IME_PRODNOSIOCA));
+	}
+	
+	public String filterByCriteriaQuery(String request) throws IOException {
+		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_search_filter_template.rq",StandardCharsets.UTF_8);
+		
+		String filterClause = SearchRequestParser.parseFilterClause(request);
+		String a = String.format(XML_RDF_template, filterClause);
+		System.out.println(a);
+		return a;
 	}
 }

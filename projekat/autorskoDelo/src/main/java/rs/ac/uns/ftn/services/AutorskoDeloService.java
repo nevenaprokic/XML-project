@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
+import org.springframework.core.io.InputStreamResource;
 import org.xmldb.api.base.XMLDBException;
 
 import com.itextpdf.text.DocumentException;
@@ -24,4 +25,10 @@ public interface AutorskoDeloService {
 	ListaZahtevaAutorskoDelo findAll() throws XMLDBException, JAXBException;
 
 	ListaZahtevaAutorskoDelo searchText(String txt) throws XMLDBException, JAXBException;
+
+	ListaZahtevaAutorskoDelo searchMetadata(String params) throws IOException;
+
+	InputStreamResource getMetadataAsRdf(String documentId) throws IOException;
+
+	InputStreamResource getMetadataAsJson(String documentId) throws IOException;
 }

@@ -13,6 +13,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
@@ -31,15 +32,20 @@ import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.repository.AutorskoDeloRepository;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
+import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
 @Service
 public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public static final String PATH = "src/main/resources/xslt/";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
 
 	@Autowired
 	private AutorskoDeloRepository autorskoDeloRepository;
 	
+	@Autowired
+	private MetadataService metadataService;
+
 	@Override
 	public String saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		String documentId = generateDocumentId();
@@ -130,6 +136,28 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
             zahteviList.add(zahtev);
         }
 		return new ListaZahtevaAutorskoDelo(zahteviList);
+	}
+
+	@Override
+	public ListaZahtevaAutorskoDelo searchMetadata(String request) throws IOException {
+		List<ZahtevZaAutorskoDelo> zahtevi = new ArrayList<ZahtevZaAutorskoDelo>();
+		List<String> ids = metadataService.searchByMetadata(request);
+		for (String id : ids) {
+			String documentId = id.split(TARGET_NAMESPACE)[1];
+			ZahtevZaAutorskoDelo zahtev = getZahtevZaAutorskoDeloById(documentId);
+			zahtevi.add(zahtev);
+		}
+		return new ListaZahtevaAutorskoDelo(zahtevi);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsRdf(String documentId) throws IOException {
+		return metadataService.getAsRdf(documentId);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsJson(String documentId) throws IOException {
+		return metadataService.getAsJson(documentId);
 	}
 
 }
