@@ -89,23 +89,6 @@ export class XmlTemplateService {
     `;
   }
 
-  // formatPodnosilacPunomocnik(values: FizickoLice) {
-  //     return `<Punomocnik>
-  //           ${this.formatAdresa(values.adresa)}
-  //           ${this.formatKontaktPodaci(values.kontaktPodaci)}
-  //           <zaj:Ime>${values.ime}</zaj:Ime>
-  //           <zaj:Prezime>${values.prezime}</zaj:Prezime>
-  //         </Punomocnik>`
-  // }
-  //
-  // formatPodnosilacPravnoLice(values: PravnoLice) {
-  //     return `<Pravno_lice xsi:type="zaj:TPravno_lice">
-  //             ${this.formatAdresa(values.adresa)}
-  //             ${this.formatKontaktPodaci(values.kontaktPodaci)}
-  //             <zaj:Naziv>${values.naziv}</zaj:Naziv>
-  //         </Pravno_lice>`
-  // }
-
   formatAdresa(values: Adresa | undefined) {
     return `<zaj:Adresa>
                 <zaj:Ulica>${values?.ulica}</zaj:Ulica>

@@ -6,7 +6,7 @@ import {ZigService} from "../../../services/zig/zig.service";
 import {Toastr} from "../../../services/utils/toastr/toastr.service";
 import {FormConverterService} from "../../../services/zig/form-converter/form-converter.service";
 import {XmlTemplateService} from "../../../services/zig/xml-template/xml-template.service";
-import {AD_PrilogType, Z_PrilogType} from "../../../model/model";
+import {Z_PrilogType} from "../../../model/model";
 
 @Component({
     selector: 'app-form-zig',

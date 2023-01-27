@@ -11,10 +11,21 @@
 }
 
 .picker-div {
-  margin: 3% 10% 1% 10%;
+  margin: 3% 1% 1% 5%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
 
   .picker {
     margin: 0 5%;
+  }
+
+  .submit-button {
+    @include buttonStyle();
+    width: 15%;
+    height: 5vh;
+    margin-left: 4%;
+    margin-top: 1%;
   }
 }
 
@@ -25,6 +36,9 @@
   padding: 1%;
 }
 
+.hidden-report{
+  visibility: hidden;
+}
 
 .report {
   @include size(80vw, auto);
@@ -68,17 +82,24 @@
       font-weight: bold;
     }
   }
-
-  .submit-item {
+  .choose-report{
     display: flex;
-    justify-content: flex-end;
-    height: 5vh;
-    margin-bottom: 5%;
+    justify-content: center;
+    flex-direction: row;
+    margin-left: 5%;
+  }
+}
 
-    .submit-button {
-      @include buttonStyle();
-      width: 15%;
-      margin-right: 5%;
-    }
+.submit-item {
+  display: flex;
+  justify-content: flex-end;
+  height: 2vh;
+  margin-bottom: 5%;
+
+  .submit-button {
+    @include buttonStyle();
+    width: 15%;
+    height: 2vh;
+    margin-right: 1%;
   }
 }
