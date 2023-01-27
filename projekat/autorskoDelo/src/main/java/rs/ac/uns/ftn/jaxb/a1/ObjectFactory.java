@@ -31,6 +31,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+	private final static QName _IdAutorksogDeka_QNAME = new QName("http://ftn.uns.ac.rs/a1", "idAutorskogDela");
     private final static QName _TOsnovniPodaciODeluIdentifikatorAlternativniNaslov_QNAME = new QName("http://ftn.uns.ac.rs/a1", "Alternativni_naslov");
     private final static QName _TAutorskoDeloPodaciOOriginalu_QNAME = new QName("http://ftn.uns.ac.rs/a1", "Podaci_o_originalu");
     private final static QName _TAutorskoDeloRadniOdnos_QNAME = new QName("http://ftn.uns.ac.rs/a1", "Radni_odnos");
@@ -114,6 +115,14 @@ public class ObjectFactory {
     public TOsnovniPodaciODelu.Identifikator createTOsnovniPodaciODeluIdentifikator() {
         return new TOsnovniPodaciODelu.Identifikator();
     }
+    
+    /**
+     * Create an instance of {@link TAutori }
+     * 
+     */
+    public IdAutorskogDela createIdAutorskogDela() {
+        return new IdAutorskogDela();
+    } 
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
@@ -166,5 +175,10 @@ public class ObjectFactory {
     public JAXBElement<String> createTAutorskoDeloNacinKoriscenja(String value) {
         return new JAXBElement<String>(_TAutorskoDeloNacinKoriscenja_QNAME, String.class, TAutorskoDelo.class, value);
     }
+    
+//    @XmlElementDecl(namespace = "http://ftn.uns.ac.rs/a1", name = "idAutorskogDela", scope = IdAutorskogDela.class)
+//    public JAXBElement<String> createIdAutorskogDela(String value) {
+//        return new JAXBElement<String>(_IdAutorksogDeka_QNAME, String.class, IdAutorskogDela.class, value);
+//    }
 
 }

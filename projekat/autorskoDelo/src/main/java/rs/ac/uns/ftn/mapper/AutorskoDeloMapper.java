@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import javax.xml.namespace.QName;
 
+import rs.ac.uns.ftn.jaxb.a1.IdAutorskogDela;
 import rs.ac.uns.ftn.jaxb.a1.ObjectFactory;
 import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.a1.TAutor;
@@ -38,6 +39,7 @@ public class AutorskoDeloMapper {
 	public static ZahtevZaAutorskoDelo mapFromDTO(ZahtevZaAutorskoDelo zahtevDTO, String id) {
 		ZahtevZaAutorskoDelo zahtev = objectFactory.createZahtevZaAutorskoDelo();		
 		
+		zahtev.setIdAutorskogDela(getIdAutorskogDelaFromDTO(id));
 		zahtev.setAutorskoDelo(getAutorskoDeloFromDTO(zahtevDTO.getAutorskoDelo()));
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
 		zahtev.setNaslov(NASLOV_ZAHTEVA);
@@ -54,6 +56,12 @@ public class AutorskoDeloMapper {
 		zahtev.getOtherAttributes().put(new QName("datatype"), "xs:dateTime");
 		zahtev.getOtherAttributes().put(new QName("content"), zahtev.getDatumPodnosenja().toString());
 		return zahtev;
+	}
+
+	private static IdAutorskogDela getIdAutorskogDelaFromDTO(String id) {
+		IdAutorskogDela idAutorskogDela = objectFactory.createIdAutorskogDela();
+		idAutorskogDela.setIdA(id);
+		return idAutorskogDela;
 	}
 
 	private static TPrilog getPriloziFromDTO(TPrilog priloziDto) {

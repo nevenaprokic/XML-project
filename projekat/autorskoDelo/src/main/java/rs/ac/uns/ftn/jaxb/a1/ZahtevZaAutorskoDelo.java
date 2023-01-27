@@ -51,7 +51,7 @@ import javax.xml.namespace.QName;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-		"idAutorskogDela"
+		"idAutorskogDela","zavod", "podnosilac", "autorskoDelo", "prilozi"
 })
 @XmlRootElement(name = "Zahtev_za_autorsko_delo")
 public class ZahtevZaAutorskoDelo {
