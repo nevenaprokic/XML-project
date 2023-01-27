@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://ftn.uns.ac.rs/izvestaj" xmlns:iz="http://ftn.uns.ac.rs/izvestaj">
+    <xs:element name="Izvestaj">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="BrojPodnetihZahteva" type="xs:nonNegativeInteger" minOccurs="0"/>
+                <xs:element name="BrojPrihvacenihZahteva" type="xs:nonNegativeInteger" minOccurs="0"/>
+                <xs:element name="BrojOdbijenihZahteva" type="xs:nonNegativeInteger" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="pocetni_datum_izvestaja" type="xs:date" use="required"/>
+            <xs:attribute name="krajnji_datum_izvestaja" type="xs:date" use="required"/>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

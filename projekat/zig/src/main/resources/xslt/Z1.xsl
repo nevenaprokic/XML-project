@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="2.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:z="http://ftn.uns.ac.rs/zig"
     xmlns:zaj="http://www.ftn.uns.ac.rs/zaj"
@@ -7,25 +7,25 @@
     xmlns:str="http://exslt.org/strings"
     extension-element-prefixes="str">
     <xsl:output method="html" encoding="UTF-8" indent="yes"/>
-    
+
     <xsl:template match="/">
         <html>
             <head>
                 <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8"/>
-                <title>Zahtev za priznavanje žiga </title>
-                
+                <title>Zahtev za priznavanje ziga </title>
+
                 <style type="text/css">
                     *{
                     margin:0;
                     padding:0;
                     }
-                    
+
                     body { font-family: sans-serif;
-                    
+
                     }
                     p{
                     margin: 5px 5px 0 5px;
-                    
+
                     }
                     table {
                     font-family: serif;
@@ -35,16 +35,16 @@
                     }
                     th, td {
                     text-align: left;
-                    
+
                     }
-                    
+
                     th {
                     background-color: #4caf50;
                     font-family: sans-serif;
                     color: white;
                     }
                     tr { border: 2px solid black; margin:0; padding:0;}
-                    
+
                     .title{
                     margin: 0;text-align: center; font-weight:bold; font-size: 20px; border-width:10px; border-color:red;
                     }
@@ -81,23 +81,23 @@
                     margin:0;
                     margin-left: 20px !important;
                     margin-bottom:140px;
-                    
+
                     }
-                    
+
                 </style>
             </head>
             <body>
-                
+
                 <div>
-                    <p class="title">ZAHTEV ZA PRIZNANJE ŽIGA</p>
+                    <p class="title">ZAHTEV ZA PRIZNANJE ZIGA</p>
                     <p class="subtitle">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</p>
-                    <p class="description">(popuniti na računaru)</p>
+                    <p class="description">(popuniti na racunaru)</p>
                 </div>
                 <table style="border: 2px; margin-bottom:0;">
                     <tr>
                         <td class="question">
-                            <p><span style="font-weight:bold;">1. Podnosilac prijave: </span>ime i prezime/poslovno ime, ulica i broj, poštanski broj, mesto,
-                                država prebivališta/sedišta:</p>
+                            <p><span style="font-weight:bold;">1. Podnosilac prijave: </span>ime i prezime/poslovno ime, ulica i broj, postanski broj, mesto,
+                                drzava prebivalista/sedista:</p>
                         </td>
                     </tr>
                     <tr><td class="question">
@@ -113,7 +113,7 @@
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <p>
-                                            p<xsl:value-of select="zaj:Naziv"/><xsl:text></xsl:text> 
+                                            p<xsl:value-of select="zaj:Naziv"/><xsl:text></xsl:text>
                                         </p>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -140,14 +140,14 @@
                                         	</xsl:for-each>
                                         </p>
                                     </td>
-                                    <td style="border: 1px;"> 
+                                    <td style="border: 1px;">
                                         <p class="mail-info">e-mail:
 	                                        <xsl:for-each select="z:Zahtev_za_priznanje_ziga/z:Podnosioc_prijave">
 	                                        	<xsl:value-of select="zaj:Kontakt_podaci/zaj:Email"/><xsl:text></xsl:text>&#160;
 	                                        </xsl:for-each>
                                         </p>
                                     </td>
-                                    <td style="border: 1px;"> 
+                                    <td style="border: 1px;">
                                         <p class="mail-info">faks:
 	                                        <xsl:for-each select="z:Zahtev_za_priznanje_ziga/z:Podnosioc_prijave">
 	                                        	<xsl:value-of select="zaj:Kontakt_podaci/zaj:Faks"/><xsl:text></xsl:text>&#160;
@@ -160,11 +160,11 @@
                     </tr>
                     <tr>
                         <td class="question">
-                            <p><span style="font-weight:bold;">2. Punomoćnik: </span>ime i prezime/poslovno ime, ulica i broj, poštanski broj, mesto, država
-                                prebivališta/sedišta:</p>
+                            <p><span style="font-weight:bold;">2. Punomocnik: </span>ime i prezime/poslovno ime, ulica i broj, postanski broj, mesto, drzava
+                                prebivalista/sedista:</p>
                         </td>
                     </tr>
-                    <tr><td class="question"><p class="answer"> 
+                    <tr><td class="question"><p class="answer">
                     	<xsl:variable name="lice" select="z:Zahtev_za_priznanje_ziga/z:Punomocnik/@xsi:type"/>
                         <xsl:choose>
                             <xsl:when test="substring($lice,5)='TFizicko_lice'">
@@ -175,7 +175,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <p>
-                                    <xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Punomocnik/zaj:Naziv"/><xsl:text></xsl:text> 
+                                    <xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Punomocnik/zaj:Naziv"/><xsl:text></xsl:text>
                                 </p>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -197,11 +197,11 @@
                                         <p class="tel-info">telefon:<xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Punomocnik/zaj:Kontakt_podaci/zaj:Telefon"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
-                                    <td style="border: 1px;"> 
+                                    <td style="border: 1px;">
                                         <p class="mail-info">e-mail:<xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Punomocnik/zaj:Kontakt_podaci/zaj:Email"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
-                                    <td style="border: 1px;"> 
+                                    <td style="border: 1px;">
                                         <p class="mail-info">faks:<xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Punomocnik/zaj:Kontakt_podaci/zaj:Faks"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
@@ -211,7 +211,7 @@
                     </tr>
                     <tr>
                         <td class="question">
-                            <p><span style="font-weight:bold;">3. Podaci o zajedničkom predstavniku ako postoji više podnosilaca prijave: </span></p>
+                            <p><span style="font-weight:bold;">3. Podaci o zajednickom predstavniku ako postoji vise podnosilaca prijave: </span></p>
                         </td>
                     </tr>
                     <tr><td class="question"><p class="answer" style="padding-bottom:15px;">
@@ -231,11 +231,11 @@
                                         <p class="tel-info">telefon:<xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Zajednicki_predstavnik/zaj:Kontakt_podaci/zaj:Telefon"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
-                                    <td style="border: 1px;"> 
+                                    <td style="border: 1px;">
                                         <p class="mail-info">e-mail:<xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Zajednicki_predstavnik/zaj:Kontakt_podaci/zaj:Email"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
-                                    <td style="border: 1px;"> 
+                                    <td style="border: 1px;">
                                         <p class="mail-info">faks:<xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Zajednicki_predstavnik/zaj:Kontakt_podaci/zaj:Faks"/><xsl:text></xsl:text>
                                         </p>
                                     </td>
@@ -262,13 +262,13 @@
                                                             <td style="border: 1px; width:70%;">
                                                                 <table class="table-in">
                                                                     <tr style="margin:0; padding:0;">
-                                                                        <td class="question"><p>individualni žig</p></td>
+                                                                        <td class="question"><p>individualni zig</p></td>
                                                                     </tr>
                                                                     <tr style="margin:0; padding:0;">
-                                                                        <td class="question"><p>kolektivni žig</p></td>
+                                                                        <td class="question"><p>kolektivni zig</p></td>
                                                                     </tr>
                                                                     <tr style="margin:0; padding:0;">
-                                                                        <td class="question"><p>žig garancije</p></td>
+                                                                        <td class="question"><p>zig garancije</p></td>
                                                                     </tr>
                                                                 </table>
                                                             </td>
@@ -323,13 +323,13 @@
                                                             <td style="border: 1px; width:10%">
                                                                 <p><span style="font-weight:bold;">b)</span></p>
                                                             </td>
-                                                            <td style="border: 1px; width:70%"> 
+                                                            <td style="border: 1px; width:70%">
                                                                 <table class="table-in">
                                                                     <tr style="margin:0; padding:0;">
-                                                                        <td class="question"><p>verbalni znak (znak u reči)</p></td>
+                                                                        <td class="question"><p>verbalni znak (znak u reci)</p></td>
                                                                     </tr>
                                                                     <tr style="margin:0; padding:0;">
-                                                                        <td class="question"><p>grafički znak; boju, kombinaciju boja</p></td>
+                                                                        <td class="question"><p>graficki znak; boju, kombinaciju boja</p></td>
                                                                     </tr>
                                                                     <tr style="margin:0; padding:0;">
                                                                         <td class="question"><p>kombinovani znak</p></td>
@@ -411,7 +411,7 @@
                                                 </td>
                                             </tr>
                                             <tr style="margin:0; padding:0;"><td class="question" style=" margin:0; padding:0; border: 1px; padding:5px 5px 20px 5px;">
-                                                <p><span style="font-weight:bold;">5. Naznačenje boje, odnosno boja iz kojih se znak sastoji:</span>
+                                                <p><span style="font-weight:bold;">5. Naznacenje boje, odnosno boja iz kojih se znak sastoji:</span>
                                                     <xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Podaci_o_boji_znaka"/> <xsl:text></xsl:text>
                                                 </p>
                                             </td></tr>
@@ -437,7 +437,7 @@
                                                 </td>
                                             </tr>
                                             <tr style="margin:0; padding:0;">
-                                                <td><p style="margin-bottom: 350px;"> 
+                                                <td><p style="margin-bottom: 350px;">
                                                     <xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Izgled_znaka"/> <xsl:text></xsl:text>
                                                 </p></td>
                                             </tr>
@@ -449,7 +449,7 @@
                     </tr>
                     <tr style="margin:0; padding:0;">
                         <td class="question">
-                            <p><span style="font-weight:bold;">9. Zaokružiti brojeve klasa robe i usluga prema Ničanskoj klasifikaciji : </span></p>
+                            <p><span style="font-weight:bold;">9. Zaokruziti brojeve klasa robe i usluga prema Nicanskoj klasifikaciji : </span></p>
                         </td>
                     </tr>
                     <tr style="margin:0; padding:0;">
@@ -489,21 +489,21 @@
                     </tr>
                     <tr style="margin:0; padding:0;">
                         <td class="question" style="padding:5px 5px 10px 5px;">
-                            <p><span style="font-weight:bold;">10. Zatraženo pravo prvenstva i osnov: </span>
+                            <p><span style="font-weight:bold;">10. Zatrazeno pravo prvenstva i osnov: </span>
                                 <xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Pravo_prvenstva_i_osnov"/> <xsl:text></xsl:text>
                             </p>
                         </td>
                     </tr>
                 </table>
-                <p class="uputstvo">*Popuniti samo ako je znak ili element znaka ispisan slovima koja nisu ćirilična ili latinična</p>
-                
+                <p class="uputstvo">*Popuniti samo ako je znak ili element znaka ispisan slovima koja nisu cirilicna ili latinicna</p>
+
                 <table style="border: 2px; margin-bottom:30px;">
                     <tr style="margin:0; padding:0;">
                         <td style="margin:0; padding:0; border-right:1px; width:60%;">
                             <table class="table-in" style="margin:0; padding:0;">
                                 <tr>
                                     <td class="question">
-                                        <p><span style="font-weight:bold;">11. Plaćene takse: </span></p>
+                                        <p><span style="font-weight:bold;">11. Placene takse: </span></p>
                                     </td>
                                     <td style="border:1px;">
                                         <p><span style="font-weight:bold;">Dinara </span></p>
@@ -522,7 +522,7 @@
                                			<table class="table-in">
                                				<tr style="margin:0; padding:0;">
 			                                    <td style="padding:15px 5px 5px 5px;">
-			                                        <p><span style="font-weight:bold;">b) za 
+			                                        <p><span style="font-weight:bold;">b) za
 			                                            <xsl:variable name="match" select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Podaci_o_brojevima_klasa_robe_i_usluga"/>
 			                                            <xsl:value-of select="count(str:tokenize($match,' '))"/>
 			                                            klasa </span></p>
@@ -530,7 +530,7 @@
 			                                </tr>
 			                                <tr style="margin:0; padding:0;">
 			                                    <td style="padding:15px 5px 5px 5px;">
-			                                        <p><span style="font-weight:bold;">v) za grafičko rešenje </span></p>
+			                                        <p><span style="font-weight:bold;">v) za graficko resenje </span></p>
 			                                    </td>
 			                                </tr>
                                			</table>
@@ -563,11 +563,11 @@
                         <td style=" margin:0; padding:0; width:40%; border:1px;">
                             <p style="margin:0; text-align: center; margin-bottom: 100px; font-weight: bold;">Potpis podnosioca zahteva</p>
                             <p style="margin:0; text-align: center; font-style:italic; font-size: 12px; margin-bottom: 50px;">
-                                * Pečat, ukoliko je potreban u skladu sa zakonom</p>
+                                * Pecat, ukoliko je potreban u skladu sa zakonom</p>
                         </td>
                     </tr>
                 </table>
-                
+
                 <table style="border: 2px; ">
                     <tr>
                         <td class="question" style="padding:30px 5px 5px 5px;">
@@ -576,7 +576,7 @@
                     </tr>
                     <tr  style="margin:0; padding:0;">
                         <td  style="margin:0; padding:0;">
-                            <table class="table-in" style="margin:0; padding:0;"> 
+                            <table class="table-in" style="margin:0; padding:0;">
                                 <tr style="margin:0; padding:0;">
                                     <td style="width:60%; margin:0; padding:0;">
                                         <table class="table-in" style="margin:0; padding:0;">
@@ -603,7 +603,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="question" style="padding:5px 5px 15px 5px; width:70%;">
-                                                    <p>Punomoćje</p>
+                                                    <p>Punomocje</p>
                                                 </td>
                                                 <td class="question" style="border:1px; width:30%;">
                                                     <p><xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Prilozi_uz_zahtev/z:Punomocje/z:Putanja_do_fajla"/> <xsl:text></xsl:text></p>
@@ -611,7 +611,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="question" style="padding:5px 5px 15px 5px; width:70%;">
-                                                    <p>Generalno punomoćje ranije priloženo</p>
+                                                    <p>Generalno punomocje ranije prilozeno</p>
                                                 </td>
                                                 <td class="question" style="border:1px; width:30%;">
                                                     <p><xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Prilozi_uz_zahtev/z:Punomocje_ranije_prilozeno/z:Putanja_do_fajla"/> <xsl:text></xsl:text></p>
@@ -619,7 +619,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="question" style="padding:5px 5px 15px 5px; width:70%;">
-                                                    <p>Punomoćje će biti naknadno dostavljeno</p>
+                                                    <p>Punomocje ce biti naknadno dostavljeno</p>
                                                 </td>
                                                 <td class="question" style="border:1px; width:30%;">
                                                     <p><xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Prilozi_uz_zahtev/z:Punomocje_naknadno_dostavljeno/z:Putanja_do_fajla"/> <xsl:text></xsl:text></p>
@@ -627,7 +627,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="question" style="padding:5px 5px 15px 5px; width:70%;">
-                                                    <p>Opšti akt o kolektivnom žigu/žigu garancije</p>
+                                                    <p>Opsti akt o kolektivnom zigu/zigu garancije</p>
                                                 </td>
                                                 <td class="question" style="width:30%;">
                                                     <p><xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Prilozi_uz_zahtev/z:Opsti_akt_o_kolektivnom_zigu_garancije/z:Putanja_do_fajla"/> <xsl:text></xsl:text></p>
@@ -652,11 +652,11 @@
                                         </table>
                                     </td>
                                     <td style="width:40%; border:1px;">
-                                        <p style="text-align: center;">Broj prijave žiga:</p>
+                                        <p style="text-align: center;">Broj prijave ziga:</p>
                                         <p style="text-align: center; ">
                                             <xsl:value-of select="z:Zahtev_za_priznanje_ziga/@broj_prijave_ziga"/><xsl:text></xsl:text>
                                         </p>
-                                        <p style="text-align: center; margin-bottom: 15px; font-weight: bold;"> Datum podnošenja: </p> 
+                                        <p style="text-align: center; margin-bottom: 15px; font-weight: bold;"> Datum podnosenja: </p>
                                         <p style="text-align: center; font-weight: bold;">
                                             <xsl:value-of select="z:Zahtev_za_priznanje_ziga/@datum_podnosenja_prijave"/><xsl:text></xsl:text>
                                         </p>
@@ -667,12 +667,12 @@
                         </td>
                     </tr>
                 </table>
-                
+
                 <p style="margin: 50px 20px;">
-                    **Uz zaokruživanje broja klase robe/usluga Ničanske klasifikacije u rubrici 9 dostavlja se i spisak koji sadrži konkretne nazive robe koju podnosilac prijave proizvodi, odnosno usluga koje pruža. U cilju određenja obima zaštite koja se stiče žigom, spisak treba da sadrži jasne i precizne nazive robe i usluga. U tu svrhu mogu se koristiti pojmovi iz detaljne Liste roba i usluga ili MGS Manager aplikacije, dostupnih na sajtu Zavoda. Ukoliko se u spisak unose termini iz Liste klasa Ničanske klasifikacije, zaštita obuhvata samo tako imenovane, konkretne robe/usluge u njihovom jasnom i nedvosmislenom značenju.
+                    **Uz zaokruzivanje broja klase robe/usluga Nicanske klasifikacije u rubrici 9 dostavlja se i spisak koji sadrzi konkretne nazive robe koju podnosilac prijave proizvodi, odnosno usluga koje pruza. U cilju odredjenja obima zastite koja se stice zigom, spisak treba da sadrzi jasne i precizne nazive robe i usluga. U tu svrhu mogu se koristiti pojmovi iz detaljne Liste roba i usluga ili MGS Manager aplikacije, dostupnih na sajtu Zavoda. Ukoliko se u spisak unose termini iz Liste klasa Nicanske klasifikacije, zastita obuhvata samo tako imenovane, konkretne robe/usluge u njihovom jasnom i nedvosmislenom znacenju.
                 </p>
             </body>
         </html>
     </xsl:template>
-    
+
 </xsl:stylesheet>

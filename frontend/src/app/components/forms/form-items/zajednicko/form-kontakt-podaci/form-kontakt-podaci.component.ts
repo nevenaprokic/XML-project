@@ -11,7 +11,7 @@ export class FormKontaktPodaciComponent implements OnInit {
   formReady = new EventEmitter<FormGroup>();
 
   @Input()
-  faks!:boolean;
+  faks!: boolean;
 
   form = this.fb.group({
     telefon: [''],

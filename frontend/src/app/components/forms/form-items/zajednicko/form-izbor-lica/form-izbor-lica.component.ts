@@ -1,33 +1,39 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-form-izbor-lica',
-  templateUrl: './form-izbor-lica.component.html',
-  styleUrls: ['./form-izbor-lica.component.scss']
+    selector: 'app-form-izbor-lica',
+    templateUrl: './form-izbor-lica.component.html',
+    styleUrls: ['./form-izbor-lica.component.scss']
 })
 export class FormIzborLicaComponent implements OnInit {
-  @Output()
-  formReady = new EventEmitter<FormGroup>();
+    @Output()
+    formReady = new EventEmitter<FormGroup>();
 
-  @Input()
-  liceOdredjenje: string | undefined;
+    @Input()
+    liceOdredjenje: string | undefined;
 
-  form = this.fb.group({
-    lice: ['TFizicko_lice']
-  });
+    form = this.fb.group({
+        lice: ['TFizicko_lice']
+    });
 
-  liceForm = this.fb.group({});
+    liceForm = this.fb.group({});
 
-  constructor(private fb: FormBuilder) {
-  }
+    constructor(private fb: FormBuilder) {
+    }
 
-  ngOnInit() {
-    this.formReady.emit(this.liceForm);
-  }
+    ngOnInit() {
+        this.liceForm.addControl('lice', this.form);
+        this.formReady.emit(this.liceForm);
+    }
 
-  addChildForm(name: string, group: FormGroup) {
-    this.liceForm.addControl(name, group);
-  }
+    addChildForm(name: string, group: FormGroup) {
+        this.liceForm.addControl(name, group);
+    }
+
+    emitForm() {
+        this.liceForm.addControl('lice', this.form);
+        this.formReady.emit(this.liceForm);
+    }
 
 }

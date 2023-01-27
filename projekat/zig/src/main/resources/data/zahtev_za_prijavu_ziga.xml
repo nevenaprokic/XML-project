@@ -5,6 +5,9 @@
                               xsi:schemaLocation="http://ftn.uns.ac.rs/zig  ./zahtev_za_prijavu_ziga.xsd"
                               xmlns:zaj="http://www.ftn.uns.ac.rs/zaj">
     <!--1 or more repetitions:-->
+    <idZiga>
+    	<id>Z29</id>
+    </idZiga>
     <Podnosioc_prijave xsi:type="zaj:TFizicko_lice">
         <zaj:Adresa>
             <zaj:Ulica>Radnicka</zaj:Ulica>

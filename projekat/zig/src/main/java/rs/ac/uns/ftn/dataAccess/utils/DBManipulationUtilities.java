@@ -16,7 +16,7 @@ import org.xmldb.api.modules.XUpdateQueryService;
 
 public class DBManipulationUtilities {
 	
-	private final static String ZAJ_NAMESPACE = "http://www.ftn.uns.ac.rs/zaj";
+	private final static String ZIG_NAMESPACE = "http://ftn.uns.ac.rs/zig";
 
 
 	private static XQueryService getXQueryService(Collection col, String targetNamespace) throws XMLDBException {
@@ -26,7 +26,7 @@ public class DBManipulationUtilities {
         
         // make the service aware of namespaces
         xqueryService.setNamespace("", targetNamespace);
-        xqueryService.setNamespace("zaj", ZAJ_NAMESPACE);
+        xqueryService.setNamespace("zig", ZIG_NAMESPACE);
         return xqueryService;
 	}
 
@@ -46,7 +46,7 @@ public class DBManipulationUtilities {
         
         // make the service aware of namespaces, using the default one
         xpathService.setNamespace("", targetNamespace);
-        xpathService.setNamespace("zaj", ZAJ_NAMESPACE);
+        xpathService.setNamespace("zig", ZIG_NAMESPACE);
         return xpathService;
 	}
 	

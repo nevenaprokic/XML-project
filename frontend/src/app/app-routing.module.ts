@@ -7,6 +7,8 @@ import { HomePageEmployeeComponent } from './components/home-page-employee/home-
 import { HomePageUserComponent } from './components/home-page-user/home-page-user.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import {IzvestajComponent} from "./components/izvestaj/izvestaj.component";
+
 
 const routes: Routes = [
   {
@@ -40,7 +42,10 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent,
-  }
+  },{
+    path: 'izvestaj',
+    component: IzvestajComponent,
+  },
 ];
 
 @NgModule({

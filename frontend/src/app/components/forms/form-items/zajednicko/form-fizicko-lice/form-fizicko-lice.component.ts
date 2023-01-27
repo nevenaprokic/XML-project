@@ -11,7 +11,7 @@ export class FormFizickoLiceComponent implements OnInit {
   formReady = new EventEmitter<FormGroup>();
 
   @Input()
-  drzavljanstvo!:boolean;
+  drzavljanstvo!: boolean;
 
   form = this.fb.group({
     ime: ['', [Validators.required]],
@@ -26,7 +26,7 @@ export class FormFizickoLiceComponent implements OnInit {
     this.formReady.emit(this.form);
   }
 
-  emitForm(){
+  emitForm() {
     this.formReady.emit(this.form);
   }
 }

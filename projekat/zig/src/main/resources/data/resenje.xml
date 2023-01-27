@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Resenje datum_resenja="2018-09-29" status="odobren"
+         xmlns="http://ftn.uns.ac.rs/resenje"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://ftn.uns.ac.rs/resenje  ./resenje.xsd"
+         xmlns:zig="http://ftn.uns.ac.rs/zig">
+    <zig:idZiga>
+    	<zig:id>Z24</zig:id>
+    </zig:idZiga>
+    <Dodatak xsi:type="TOdobren">
+        <Sifra>Z-123/22</Sifra>
+    </Dodatak>
+    <Sluzbenik>
+        <Ime>Pera</Ime>
+        <Prezime>Peric</Prezime>
+    </Sluzbenik>
+</Resenje>

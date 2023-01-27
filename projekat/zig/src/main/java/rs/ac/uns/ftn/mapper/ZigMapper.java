@@ -2,8 +2,8 @@ package rs.ac.uns.ftn.mapper;
 
 import javax.xml.namespace.QName;
 
+import rs.ac.uns.ftn.jaxb.z1.IdZiga;
 import rs.ac.uns.ftn.jaxb.z1.ObjectFactory;
-import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.TDopuna;
 import rs.ac.uns.ftn.jaxb.z1.TPrilozi;
 import rs.ac.uns.ftn.jaxb.z1.TTakse;
@@ -27,7 +27,13 @@ public class ZigMapper {
 	public static ZahtevZaPriznanjeZiga mapFromDTO(ZahtevZaPriznanjeZiga zahtevDTO, String id) {
 		ZahtevZaPriznanjeZiga zahtev = objectFactory.createZahtevZaPriznanjeZiga();		
 		
-		zahtev.setBrojPrijaveZiga(zahtevDTO.getBrojPrijaveZiga());
+		if(zahtevDTO.getBrojPrijaveZiga() != null) {
+			zahtev.setBrojPrijaveZiga(zahtevDTO.getBrojPrijaveZiga());
+		}
+		
+		IdZiga idZiga = objectFactory.createIdZiga();
+		idZiga.setIdZ(id);
+		zahtev.setId(idZiga);
 		
 		for(TLice lice: zahtevDTO.getPodnosiocPrijave()) {
 			TLice podnosilacZahteva = getLiceFromDTO(lice);
@@ -53,7 +59,7 @@ public class ZigMapper {
 		
 		zahtev.setPlaceneTakse(getPlaceneTakseFromDTO(zahtevDTO.getPlaceneTakse()));
 		zahtev.setPriloziUzZahtev(getPriloziUzZahtevFromDTO(zahtevDTO.getPriloziUzZahtev()));
-		zahtev.setStatus(StatusZahteva.NEOBRADJEN);
+		zahtev.setStatus(zahtevDTO.getStatus());
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
 		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);

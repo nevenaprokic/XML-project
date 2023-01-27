@@ -20,8 +20,8 @@ export class FormPravnoLiceComponent implements OnInit {
   ngOnInit() {
     this.formReady.emit(this.form);
   }
-  emitForm(){
+
+  emitForm() {
     this.formReady.emit(this.form);
   }
-
 }

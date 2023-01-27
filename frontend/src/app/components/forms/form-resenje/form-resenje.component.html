@@ -1,0 +1,29 @@
+<div class="resenje-dialog" [formGroup]="form">
+    <div class="title">
+        <p>Rešenje</p>
+    </div>
+    <div class="choose">
+        <section class="resnje-izbor">
+            Da li želite zahtev _____ da:
+            <mat-radio-group formControlName="resenje">
+                <mat-radio-button [checked]="true" value="TOdobren">Odobri</mat-radio-button>
+                <mat-radio-button value="TOdbijen">Odbi</mat-radio-button>
+            </mat-radio-group>
+        </section>
+        <div *ngIf="form.value.resenje === 'TOdobren'" class="input">
+            Šifra:
+            <mat-form-field appearance="fill" [formGroup]="formN">
+                <input matInput formControlName="sifra">
+            </mat-form-field>
+        </div>
+        <div *ngIf="form.value.resenje === 'TOdbijen'" class="input">
+            Obrazloženje:
+            <mat-form-field appearance="fill" [formGroup]="formN">
+                <input matInput formControlName="obrazlozenje">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="submit-item">
+        <button class="submit-button" type="submit" (click)="onSubmit()">Podnesi rešenje</button>
+    </div>
+</div>

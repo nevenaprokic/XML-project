@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Izvestaj pocetni_datum_izvestaja="2023-01-02" krajnji_datum_izvestaja="2023-01-23"
+         xmlns="http://ftn.uns.ac.rs/izvestaj"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://ftn.uns.ac.rs/izvestaj  ./izvestaj.xsd">
+        <BrojPodnetihZahteva>50</BrojPodnetihZahteva>
+        <BrojPrihvacenihZahteva>40</BrojPrihvacenihZahteva>
+        <BrojOdbijenihZahteva>7</BrojOdbijenihZahteva>
+</Izvestaj>

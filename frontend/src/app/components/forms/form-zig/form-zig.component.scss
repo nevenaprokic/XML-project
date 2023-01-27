@@ -48,9 +48,26 @@
   }
 }
 
+.text {
+  margin: 10px;
+  padding-top: 5px;
+  font-weight: bold;
+}
+
 .button-add-remove {
   @include buttonStyle();
   width: 20%;
   margin: 10px;
   height: 5vh;
+}
+
+.button-add-remove {
+  @include buttonStyle();
+  width: 20%;
+  margin: 20px;
+  height: 5vh;
+}
+
+::-webkit-file-upload-button {
+  display: none;
 }
