@@ -152,9 +152,19 @@ public class MetadataServiceImpl implements MetadataService{
 	}
 
 	@Override
-	public InputStreamResource getAsJson(String documentId) {
-		// TODO Auto-generated method stub
-		return null;
+	public InputStreamResource getAsJson(String documentId) throws IOException {
+		setupConnection();
+		
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByIdQuery(documentId));
+		ResultSet resultSet = query.execSelect();
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		
+		ResultSetFormatter.outputAsJSON(outputStream, resultSet);
+		query.close();
+		
+		ByteArrayInputStream bis = new ByteArrayInputStream(outputStream.toByteArray());
+		return new InputStreamResource(bis);
 	}
 
 	@Override

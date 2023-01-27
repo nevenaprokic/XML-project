@@ -13,5 +13,5 @@ public interface MetadataService {
 	
 	public InputStreamResource getAsRdf(String documentId) throws IOException;
 	
-	public InputStreamResource getAsJson(String documentId);	
+	public InputStreamResource getAsJson(String documentId) throws IOException;	
 }
