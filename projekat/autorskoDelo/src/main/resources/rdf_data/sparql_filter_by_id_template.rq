@@ -1,0 +1,11 @@
+SELECT * FROM <http://localhost:8080/fusekiA/AutorskoDelo/data/project/metadata/autorskoDelo>
+WHERE {
+    ?zahtevZaAutorskoDelo <http://examples/predicate/datum_podnosenja> ?datum_podnosenja . 
+  	?zahtevZaAutorskoDelo <http://examples/predicate/autorsko_delo> ?autorsko_delo . 
+  	?zahtevZaAutorskoDelo <http://examples/predicate/primarni_autor> ?primarni_autor . 
+  	?zahtevZaAutorskoDelo <http://examples/predicate/koautor> ?koautor . 
+  	?zahtevZaAutorskoDelo <http://examples/predicate/podnosilac> ?podnosilac . 
+  	?zahtevZaAutorskoDelo <http://examples/predicate/ime_prodnosioca> ?ime_prodnosioca . 
+  	
+  	FILTER (?zahtevZaAutorskoDelo = <http://ftn.uns.ac.rs/a1/%s>)
+}

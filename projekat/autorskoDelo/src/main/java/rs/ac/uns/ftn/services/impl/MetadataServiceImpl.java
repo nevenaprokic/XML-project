@@ -1,45 +1,65 @@
 package rs.ac.uns.ftn.services.impl;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.xml.transform.TransformerException;
+
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities.ConnectionProperties;
+import rs.ac.uns.ftn.services.metadata.utils.FileUtil;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataExtractor;
 import rs.ac.uns.ftn.services.metadata.utils.SparqlUtil;
-
-import javax.xml.transform.TransformerException;
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 @Service
 public class MetadataServiceImpl implements MetadataService{
 
 	private static final String SPARQL_NAMED_GRAPH_URI = "/project/metadata";
+	private static final String GRAPH = "/autorskoDelo";
 	private static String GRAPH_URI = "";
 	private static ConnectionProperties conn;
 
+	private void setupConnection() throws IOException {
+		conn = AuthenticationUtilities.loadProperties();
+		GRAPH_URI = conn.dataEndpoint + SPARQL_NAMED_GRAPH_URI + GRAPH;
+	}
 	@Override
-	public void extractMetadata(String graph, OutputStream xml, String documentId)
+	public void extractMetadata(OutputStream xml, String documentId)
 			throws IOException, SAXException, TransformerException {
 
-		conn = AuthenticationUtilities.loadProperties();
-		GRAPH_URI = conn.dataEndpoint + SPARQL_NAMED_GRAPH_URI + graph;
+		setupConnection();
 
 		ByteArrayOutputStream extractedMetadata = extractMetadata(xml);
-
 		Model model = createRDFModel(extractedMetadata, documentId);
 		
 		// ispis u fajl RDF/XML format
@@ -80,7 +100,7 @@ public class MetadataServiceImpl implements MetadataService{
 		System.out.println("[INFO] Selecting the triples from the named graph \"" + GRAPH_URI + "\".");
 		String sparqlQuery = SparqlUtil.selectData(GRAPH_URI, " ?zahtevZaAutorskoDelo <http://examples/predicate/datum_podnosenja> ?datum_podnosenja ");
 
-		getFromDB(sparqlQuery);		
+		getFromDB(sparqlQuery);
 	}
 
 	private void getFromDB(String sparqlQuery) {
@@ -88,9 +108,7 @@ public class MetadataServiceImpl implements MetadataService{
 		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
 		// Query the collection, dump output response as XML
 		ResultSet results = query.execSelect();
-		
 		ResultSetFormatter.out(System.out, results);
-		
 		query.close();
 	}
 
@@ -131,5 +149,63 @@ public class MetadataServiceImpl implements MetadataService{
 			}
 		}
 		return textBuilder.toString();
+	}
+
+	@Override
+	public InputStreamResource getAsJson(String documentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStreamResource getAsRdf(String documentId) throws IOException {
+		setupConnection();
+		
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByIdQuery(documentId));
+		ResultSet resultSet = query.execSelect();
+		
+		String varName;
+		RDFNode varValue;
+		
+		Map<String, String> params = new HashMap<String, String>();
+		
+		while(resultSet.hasNext()) {
+			QuerySolution querySolution = resultSet.next() ;
+			Iterator<String> variableBindings = querySolution.varNames();
+
+		    while (variableBindings.hasNext()) {
+		    	varName = variableBindings.next();
+		    	varValue = querySolution.get(varName);
+		    	params.put(varName, varValue.toString());
+		    	System.out.println(varName + ": " + varValue);
+		    }
+		    System.out.println();
+		}
+		
+		String rdf = formatRDFXMLTemplate(params);
+		byte[] byteArrray = rdf.getBytes();
+		
+		ByteArrayInputStream bis = new ByteArrayInputStream(byteArrray);
+		return new InputStreamResource(bis);
+	}
+	
+
+	private String filterByIdQuery(String documentId) throws IOException {
+		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_filter_by_id_template.rq",StandardCharsets.UTF_8);
+		return String.format(XML_RDF_template, documentId);
+	}	
+	
+	
+	private String formatRDFXMLTemplate(Map<String, String> params) throws IOException {
+		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/rdf_metadata_template.rq",StandardCharsets.UTF_8);
+		
+		return String.format(XML_RDF_template, 
+				params.get("zahtevZaAutorskoDelo"), 
+				params.get("datum_podnosenja"), 
+				params.get("autorsko_delo"), 
+				params.get("primarni_autor"), 
+				params.get("koautor"), 
+				params.get("podnosilac"), 
+				params.get("ime_prodnosioca"));
 	}
 }

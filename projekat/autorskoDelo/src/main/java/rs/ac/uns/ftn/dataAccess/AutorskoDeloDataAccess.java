@@ -49,7 +49,7 @@ public class AutorskoDeloDataAccess {
 			// do something to delo;
 			
 			OutputStream os = JaxbMapper.marshallZahtevZaAutroskoDelo(delo);
-			metadataService.extractMetadata("/autorskoDelo", os, resourceId);
+			metadataService.extractMetadata(os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
@@ -66,7 +66,7 @@ public class AutorskoDeloDataAccess {
 			res = ConnectionUtilities.initResource(col, resourceId);
 
 			OutputStream os = JaxbMapper.marshallZahtevZaAutroskoDelo(delo);
-			metadataService.extractMetadata("/autorskoDelo", os, resourceId);
+			metadataService.extractMetadata(os, resourceId);
 			ConnectionUtilities.linkResourceToCollection(col, res, os);
 			
 		} catch (Exception e) {
