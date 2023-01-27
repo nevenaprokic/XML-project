@@ -8,7 +8,8 @@ import {Observable} from "rxjs";
 })
 export class ResenjeService {
 
-  private IZVESTAJ_PATH = environment.ZIG_BASE_URL + '/resenje';
+  // private IZVESTAJ_PATH = environment.ZIG_BASE_URL + '/resenje';
+  private IZVESTAJ_PATH = environment.PATENT_BASE_URL + '/resenje';
   constructor(private httpRequestService: HttpRequestService) { }
 
   sendResenje(xml: any): Observable<any> {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://ftn.uns.ac.rs/resenje" xmlns:re="http://ftn.uns.ac.rs/resenje">
+    <xs:element name="Resenje">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Dodatak" type="re:TResenje"/>
+                <xs:element name="Sluzbenik" type="re:TSluzbenik"/>
+            </xs:sequence>
+            <xs:attribute name="status" type="re:status_resenja" use="required"/>
+            <xs:attribute name="datum_resenja" type="xs:date" use="required"/>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="status_resenja">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="odobren"/>
+            <xs:enumeration value="odbijen"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="TSluzbenik">
+        <xs:sequence>
+            <xs:element name="Ime" type="xs:string"/>
+            <xs:element name="Prezime" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType abstract="true" name="TResenje"/>
+    <xs:complexType name="TOdbijen">
+        <xs:complexContent>
+            <xs:extension base="re:TResenje">
+                <xs:sequence maxOccurs="1" minOccurs="1">
+                    <xs:element maxOccurs="1" minOccurs="1" name="Obrazlozenje" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TOdobren">
+        <xs:complexContent>
+            <xs:extension base="re:TResenje">
+                <xs:sequence maxOccurs="1" minOccurs="1">
+                    <xs:element maxOccurs="1" minOccurs="1" name="Sifra" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -7,6 +7,7 @@
     <xs:element name="Zahtev_za_autorsko_delo">
         <xs:complexType>
             <xs:all>
+            	<xs:element ref="a1:idAutorskogDela" minOccurs="0"/>
                 <xs:element name="Zavod" type="a1:TZavod"/>
                 <xs:element name="Podnosilac" type="a1:TPodnosilac"/>
                 <xs:element name="Autorsko_delo" minOccurs="1" type="a1:TAutorsko_delo"/>
@@ -23,7 +24,8 @@
     <xs:simpleType name="status_zahteva">
         <xs:restriction base="xs:string">
             <xs:enumeration value="neobradjen"/>
-            <xs:enumeration value="obradjen"/>
+            <xs:enumeration value="odobren"/>
+            <xs:enumeration value="odbijen"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="TAutor">
@@ -118,5 +120,14 @@
         </xs:all>
         <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
+    
+    <xs:element name="idAutorskogDela" >
+    	<xs:complexType>
+            <xs:sequence>
+               <xs:element name="idA" type="xs:string" />
+            </xs:sequence>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
+        </xs:complexType>
+    </xs:element>
 
 </xs:schema>

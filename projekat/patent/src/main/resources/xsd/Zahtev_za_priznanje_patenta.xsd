@@ -7,6 +7,7 @@
     <xs:element name="Zahtev_za_priznanje_patenta">
         <xs:complexType>
             <xs:sequence>
+            	<xs:element ref="p1:idPatenta" minOccurs="0"/>
                 <xs:element name="Primalac_zahteva" minOccurs="1" maxOccurs="1" type="p1:TPrimalac_zahteva">
                 	<xs:annotation>
                         <xs:documentation>Primalac zahteva je ustanova kojoj se salje zahtev za priznanje patenta - podaci</xs:documentation>
@@ -56,11 +57,19 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+             <xs:attribute name="status" type="p1:status_zahteva" />
             <xs:attribute name="datum_prijema_prijave" type="xs:date" use="required"/>
             <xs:attribute name="priznati_datum_podnosenja" type="xs:date" use="required"/>
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>
+     <xs:simpleType name="status_zahteva">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="neobradjen"/>
+            <xs:enumeration value="odobren"/>
+            <xs:enumeration value="odbijen"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:simpleType name="tip_prijave">
         <xs:restriction base="xs:string">
             <xs:enumeration value="dopunska"/>
@@ -171,4 +180,13 @@
         </xs:sequence>
         <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
+    
+    <xs:element name="idPatenta">
+    	<xs:complexType>
+            <xs:sequence>
+               <xs:element name="idP" type="xs:string"/>
+            </xs:sequence>
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

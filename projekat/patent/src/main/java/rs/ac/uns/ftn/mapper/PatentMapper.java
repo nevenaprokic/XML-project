@@ -2,18 +2,9 @@ package rs.ac.uns.ftn.mapper;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 
-import javafx.geometry.Pos;
 import rs.ac.uns.ftn.jaxb.p1.ObjectFactory;
 import rs.ac.uns.ftn.jaxb.p1.PodaciODodatnojPrijavi;
 import rs.ac.uns.ftn.jaxb.p1.PodaciODostavljanju;

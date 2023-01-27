@@ -7,7 +7,7 @@
     <xs:element name="Zahtev_za_priznanje_ziga">
         <xs:complexType>
             <xs:sequence>
-            	<xs:element ref="zig:idZiga"/>
+            	<xs:element ref="zig:idZiga" minOccurs="0"/>
                 <xs:element name="Podnosioc_prijave" type="zaj:TLice" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>Podnosilac prijave priznanja ziga - podaci</xs:documentation>
@@ -154,10 +154,10 @@
         </xs:complexType>
     </xs:element>
     
-    <xs:element name="idZiga">
+    <xs:element name="idZiga" >
     	<xs:complexType>
             <xs:sequence>
-               <xs:element name="idZ" type="xs:string"/>
+               <xs:element name="idZ" type="xs:string" />
             </xs:sequence>
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>

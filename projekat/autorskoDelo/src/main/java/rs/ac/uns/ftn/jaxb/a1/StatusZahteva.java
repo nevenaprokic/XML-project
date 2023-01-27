@@ -31,10 +31,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum StatusZahteva {
 
-    @XmlEnumValue("neobradjen")
+	@XmlEnumValue("neobradjen")
     NEOBRADJEN("neobradjen"),
-    @XmlEnumValue("obradjen")
-    OBRADJEN("obradjen");
+    @XmlEnumValue("odobren")
+    ODOBREN("odobren"),
+    @XmlEnumValue("odbijen")
+    ODBIJEN("odbijen");
     private final String value;
 
     StatusZahteva(String v) {

@@ -67,7 +67,7 @@ import javax.xml.namespace.QName;
 @XmlRootElement(name = "Zahtev_za_priznanje_ziga", namespace = "http://ftn.uns.ac.rs/zig")
 public class ZahtevZaPriznanjeZiga {
 
-    @XmlElement(namespace = "http://ftn.uns.ac.rs/zig", required = true)
+    @XmlElement(namespace = "http://ftn.uns.ac.rs/zig")
     protected IdZiga idZiga;
 	@XmlElement(name = "Podnosioc_prijave", namespace = "http://ftn.uns.ac.rs/zig", required = true)
 	protected List<TLice> podnosiocPrijave;

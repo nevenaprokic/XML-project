@@ -34,4 +34,8 @@ public class PatentRepository {
 		return patentDataAccess.getXMLZahtevById(id);
 	}
 	
+	public ResourceSet getByXQuery(String xquery) {
+		return patentDataAccess.getByXQuery(xquery);
+	}
+	
 }

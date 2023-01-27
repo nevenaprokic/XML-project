@@ -2,20 +2,30 @@ package rs.ac.uns.ftn.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
+import org.xmldb.api.base.ResourceIterator;
+import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.modules.XMLResource;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
+import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.exception.BadRequestException;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.Jaxb;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
+import rs.ac.uns.ftn.lists.ListaZahtevaPatent;
+import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.PatentMapper;
 import rs.ac.uns.ftn.repository.PatentRepository;
 import rs.ac.uns.ftn.services.PatentService;
@@ -56,6 +66,13 @@ public class PatentServiceImpl implements PatentService {
 	}
 	
 	@Override
+	public void saveFile(ZahtevZaPriznanjePatenta zahtevDTO, String documentId) {
+		ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
+		patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
+		
+	}
+	
+	@Override
 	public void getPDF(String documentId) throws IOException, DocumentException {
 		//ucitavanje xml-a iz baze
 		Node zaPatent = patentRepository.getXMLZahtevZaPatentbyId(documentId);
@@ -80,5 +97,23 @@ public class PatentServiceImpl implements PatentService {
 		
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
 		System.out.println("[INFO] End.");
+	}
+	
+	@Override
+	public ListaZahtevaPatent findAll() throws XMLDBException, JAXBException {
+		ResourceSet result = patentRepository.getByXQuery(QueryUtils.FIND_ALL);
+		return resourceSetToList(result);
+	}
+	
+	private ListaZahtevaPatent resourceSetToList(ResourceSet result) throws XMLDBException, JAXBException {
+		List<ZahtevZaPriznanjePatenta> zahteviList= new ArrayList<>();
+		ResourceIterator i = result.getIterator();
+
+        while(i.hasMoreResources()) {
+    		XMLResource xmlResource = (XMLResource) i.nextResource();
+    		ZahtevZaPriznanjePatenta zahtev = JaxbMapper.unmarshalZahtevFromNode(xmlResource.getContentAsDOM());
+            zahteviList.add(zahtev);
+        }
+		return new ListaZahtevaPatent(zahteviList);
 	}
 }

@@ -3,27 +3,31 @@ package rs.ac.uns.ftn.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
+import org.xmldb.api.base.ResourceIterator;
+import org.xmldb.api.base.ResourceSet;
+import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.modules.XMLResource;
 
+import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
+import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.repository.AutorskoDeloRepository;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.List;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
@@ -65,6 +69,13 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	}
 	
 	@Override
+	public void saveFile(ZahtevZaAutorskoDelo zahtevDTO, String documentId) {
+		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
+		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
+		
+	}
+	
+	@Override
 	public void getPDF(String documentId) throws IOException, DocumentException {
 		//ucitavanje xml-a iz baze
 		Node zaAutorskoDelo = autorskoDeloRepository.getXMLZahtevZaAutorskoDelobyId(documentId);
@@ -90,6 +101,24 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
 		System.out.println("[INFO] End.");
+	}
+	
+	@Override
+	public ListaZahtevaAutorskoDelo findAll() throws XMLDBException, JAXBException {
+		ResourceSet result = autorskoDeloRepository.getByXQuery(QueryUtils.FIND_ALL);
+		return resourceSetToList(result);
+	}
+	
+	private ListaZahtevaAutorskoDelo resourceSetToList(ResourceSet result) throws XMLDBException, JAXBException {
+		List<ZahtevZaAutorskoDelo> zahteviList= new ArrayList<>();
+		ResourceIterator i = result.getIterator();
+
+        while(i.hasMoreResources()) {
+    		XMLResource xmlResource = (XMLResource) i.nextResource();
+    		ZahtevZaAutorskoDelo zahtev = JaxbMapper.unmarshalZahtevZaAutorskoDeloFromNode(xmlResource.getContentAsDOM());
+            zahteviList.add(zahtev);
+        }
+		return new ListaZahtevaAutorskoDelo(zahteviList);
 	}
 
 }

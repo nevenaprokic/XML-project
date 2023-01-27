@@ -23,6 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 
 
+
 /**
  * <p>Java class for anonymous complex type.
  * 
@@ -50,12 +51,14 @@ import javax.xml.namespace.QName;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-
+		"idAutorskogDela"
 })
 @XmlRootElement(name = "Zahtev_za_autorsko_delo")
 public class ZahtevZaAutorskoDelo {
 
-    @XmlElement(name = "Zavod", required = true)
+	@XmlElement()
+	protected IdAutorskogDela idAutorskogDela;
+	@XmlElement(name = "Zavod", required = true)
     protected TZavod zavod;
     @XmlElement(name = "Podnosilac", required = true)
     protected TPodnosilac podnosilac;
@@ -75,6 +78,14 @@ public class ZahtevZaAutorskoDelo {
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+    
+    public IdAutorskogDela getIdAutorskogDela() {
+		return idAutorskogDela;
+	}
+
+	public void setIdAutorskogDela(IdAutorskogDela idAutorskogDela) {
+		this.idAutorskogDela = idAutorskogDela;
+	}
     /**
      * Gets the value of the zavod property.
      * 

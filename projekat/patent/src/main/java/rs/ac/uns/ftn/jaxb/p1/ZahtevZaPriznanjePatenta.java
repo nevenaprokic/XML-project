@@ -16,6 +16,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 
 
+
+
 /**
  * <p>Java class for anonymous complex type.
  * 
@@ -60,6 +62,7 @@ import javax.xml.namespace.QName;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+	"idPatenta",
     "primalacZahteva",
     "pronalazak",
     "pronalazac",
@@ -70,9 +73,11 @@ import javax.xml.namespace.QName;
     "podaciODodatnojPrijavi"
 })
 @XmlRootElement(name = "Zahtev_za_priznanje_patenta", namespace = "http://www.ftn.uns.ac.rs/p1")
-public class ZahtevZaPriznanjePatenta {
-
-    @XmlElement(name = "Primalac_zahteva", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+	public class ZahtevZaPriznanjePatenta {
+	
+	@XmlElement(namespace = "http://www.ftn.uns.ac.rs/p1")
+    protected IdPatenta idPatenta;
+	@XmlElement(name = "Primalac_zahteva", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected TPrimalacZahteva primalacZahteva;
     @XmlElement(name = "Pronalazak", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected Pronalazak pronalazak;
@@ -96,7 +101,26 @@ public class ZahtevZaPriznanjePatenta {
     protected XMLGregorianCalendar priznatiDatumPodnosenja;
     @XmlElement(name = "Podaci_o_dodatnoj_prijavi", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected PodaciODodatnojPrijavi podaciODodatnojPrijavi;
-    @XmlAnyAttribute
+    @XmlAttribute(name = "status")
+	protected StatusZahteva status;
+    
+    public IdPatenta getIdPatenta() {
+		return idPatenta;
+	}
+
+	public void setIdPatenta(IdPatenta idPatenta) {
+		this.idPatenta = idPatenta;
+	}
+    
+    public StatusZahteva getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusZahteva status) {
+		this.status = status;
+	}
+
+	@XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
