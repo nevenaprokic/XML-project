@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,17 +15,17 @@ import rs.ac.uns.ftn.repository.UserRepository;
 import rs.ac.uns.ftn.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	@Autowired
 	private UserRepository userRepository;
-	
-    @Autowired
-    private Jaxb jaxb;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
+
+	@Autowired
+	private Jaxb jaxb;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
@@ -32,24 +33,29 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean saveNewUser(User user) {
-        if (getUserByEmail(user.getEmail()) != null) {
-        	throw new BadRequestException(ErrorMessageConstants.USER_ALREADY_EXISTS);
-        }
-    	user.setPassword(passwordEncoder.encode(user.getPassword()));
-    	System.out.println(jaxb.validate(user.getClass(), user));
-        if (jaxb.validate(user.getClass(), user)) {
-           userRepository.saveNewUser(user);
-           return true;
-        }
-        
-        return false;
+		if (getUserByEmail(user.getEmail()) != null) {
+			throw new BadRequestException(ErrorMessageConstants.USER_ALREADY_EXISTS);
+		}
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		System.out.println(jaxb.validate(user.getClass(), user));
+		if (jaxb.validate(user.getClass(), user)) {
+			userRepository.saveNewUser(user);
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return getUserByEmail(username);
 	}
-	
-	
+
+	@Override
+	public String getLoggedSluzbenik() {
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = getUserByEmail(email);
+		return user.getName() + "," + user.getLastName();
+	}
 
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://ftn.uns.ac.rs/resenje" xmlns:re="http://ftn.uns.ac.rs/resenje" xmlns:p="http://www.ftn.uns.ac.rs/p1">
+    targetNamespace="http://ftn.uns.ac.rs/resenje" xmlns:re="http://ftn.uns.ac.rs/resenje" xmlns:zig="http://ftn.uns.ac.rs/zig">
     <xs:import namespace="http://www.ftn.uns.ac.rs/p1" schemaLocation="Zahtev_za_priznanje_patenta.xsd"/>
     <xs:element name="Resenje">
         <xs:complexType>
             <xs:sequence>
-             	<xs:element ref="p:idPatenta"/>
+             	<xs:element ref="zig:idZiga"/>
                 <xs:element name="Dodatak" type="re:TResenje"/>
                 <xs:element name="Sluzbenik" type="re:TSluzbenik"/>
             </xs:sequence>

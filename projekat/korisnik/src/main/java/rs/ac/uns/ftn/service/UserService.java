@@ -10,4 +10,5 @@ public interface UserService extends UserDetailsService {
 	
 	boolean saveNewUser(User user);
 
+	String getLoggedSluzbenik(); 
 }

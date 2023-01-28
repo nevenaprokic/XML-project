@@ -1,18 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
-import { PatentFromXmlService } from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
-import { PatentService } from 'src/app/services/patent/patent.service';
-import { UserService } from 'src/app/services/user/user.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {ZahtevZaPriznanjePatent} from 'src/app/model/patent/patent';
+import {PatentFromXmlService} from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
+import {PatentService} from 'src/app/services/patent/patent.service';
+import {UserService} from 'src/app/services/user/user.service';
+import {FormResenjeComponent} from "../forms/form-resenje/form-resenje.component";
+import {MatDialog} from "@angular/material/dialog";
+import {typeZahteva} from "../../model/model";
 
 @Component({
   selector: 'app-patent-tabel-view',
   templateUrl: './patent-tabel-view.component.html',
   styleUrls: ['./patent-tabel-view.component.scss']
 })
-export class PatentTabelViewComponent implements OnInit{
+export class PatentTabelViewComponent implements OnInit {
 
   zahteviPatent: ZahtevZaPriznanjePatent[] = [];
   isLoaded: boolean = false;
@@ -24,8 +27,11 @@ export class PatentTabelViewComponent implements OnInit{
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
-  
-  constructor(private patentService: PatentService, private userService: UserService, private patentFromXML: PatentFromXmlService){
+
+  constructor(private patentService: PatentService,
+              private userService: UserService,
+              private patentFromXML: PatentFromXmlService,
+              private dialog: MatDialog) {
 
   }
 
@@ -36,7 +42,7 @@ export class PatentTabelViewComponent implements OnInit{
 
   ngOnInit(): void {
 
-    if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK"){
+    if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK") {
       this.isSluzbenik = true;
       this.displayedColumns.push("rešenje")
       this.displayedColumns.push("pdf")
@@ -44,41 +50,40 @@ export class PatentTabelViewComponent implements OnInit{
       this.displayedColumns.push("rdf")
       this.displayedColumns.push("json")
       this.getDataForSluzbenik()
-    }
-    else{
+    } else {
       this.getDataForUserTabel();
     }
   }
-  
 
-  getDataForUserTabel(){
+
+  getDataForUserTabel() {
 
   }
 
-  getDataForSluzbenik(){
+  getDataForSluzbenik() {
     this.patentService.getAll().subscribe({
       next: (response) => {
-          const convert = require('xml-js');
-          const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-          console.log(zahtevList)
-          let prefix: string = Object.keys(zahtevList.listaZahtevaPatent)[1]
-          prefix = prefix.substring(0,3)
-          console.log(prefix)
-          const zahtevi : any[] = zahtevList.listaZahtevaPatent[prefix + ':Zahtev_za_priznanje_patenta'];
-          zahtevi.forEach((zahtev) => {
-            let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, prefix);
-            console.log(zahtevZaPriznanjePatent)
-            this.zahteviPatent.push(zahtevZaPriznanjePatent)
-          })
-          this.gettingDataFinished = true;
-          this.setDataSource(this.zahteviPatent)
+        const convert = require('xml-js');
+        const zahtevList: any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
+        // console.log(zahtevList, "json")
+        let prefix: string = Object.keys(zahtevList.listaZahtevaPatent)[1]
+        prefix = prefix.substring(0, 3)
+        // console.log(prefix)
+        const zahtevi: any[] = zahtevList.listaZahtevaPatent[prefix + ':Zahtev_za_priznanje_patenta'];
+        zahtevi.forEach((zahtev) => {
+          let zahtevZaPriznanjePatent: ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, prefix);
+          // console.log(zahtevZaPriznanjePatent)
+          this.zahteviPatent.push(zahtevZaPriznanjePatent)
+        })
+        this.gettingDataFinished = true;
+        this.setDataSource(this.zahteviPatent)
       },
       error: (error) => {
         console.log(error)
       }
     })
   }
-  
+
   setDataSource(zahtevSource: ZahtevZaPriznanjePatent[]) {
     this.dataSource = new MatTableDataSource<ZahtevZaPriznanjePatent>(zahtevSource);
     this.dataSource.paginator = this.paginator;
@@ -86,5 +91,9 @@ export class PatentTabelViewComponent implements OnInit{
 
   sortData(sort: Sort) {
     this.setDataSource(this.patentService.sortData(sort, this.dataSource.data))
+  }
+
+  openResenje(element: ZahtevZaPriznanjePatent) {
+    this.dialog.open(FormResenjeComponent, {data: { id: element.idPatenta, type: typeZahteva.PATENT}});
   }
 }

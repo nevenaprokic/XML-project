@@ -2,9 +2,6 @@ package rs.ac.uns.ftn.controller;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.Arrays;
-import java.util.Map;
-
 import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,6 @@ import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.exception.ErrorMessage;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
-import rs.ac.uns.ftn.jaxb.PatentList;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.services.PatentService;
 

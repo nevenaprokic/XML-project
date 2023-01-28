@@ -1,9 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
-import { Role } from 'src/app/model/user/role';
-import { HttpClientService } from '../custom-http/http-client.service';
-import { UserFromXmlService } from './converter/from-xml/user-from-xml.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'

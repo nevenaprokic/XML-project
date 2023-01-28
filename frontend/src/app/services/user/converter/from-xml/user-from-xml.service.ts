@@ -12,6 +12,7 @@ export class UserFromXmlService {
     const convert = require('xml-js');
     const userToken = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
     const user = userToken.user;
+    console.log(user);
     return new User(user.email._text, user.name._text, user.last_name._text, user.role._text);
   }
 

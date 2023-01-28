@@ -37,11 +37,11 @@ export class IzvestajComponent {
   }
 
   private getIzvestaj(izvestajXML: string) {
+    console.log(izvestajXML);
     this.izvestajService.getIzvestaj(izvestajXML).subscribe({
       next: (document: any) => {
         this.getIzvestajFromResponse(document);
         this.toastr.success('Uspešno generisan izveštaj')
-
       },
       error: (err: any) => {
         this.toastr.error('Došlo je do greško pri generisanju izveštaja', "Greška!")

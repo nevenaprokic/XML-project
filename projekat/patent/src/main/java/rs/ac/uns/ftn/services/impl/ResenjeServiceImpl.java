@@ -18,6 +18,7 @@ import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 import rs.ac.uns.ftn.jaxb.resenje.StatusResenja;
 import rs.ac.uns.ftn.jaxb.resenje.TOdobren;
+import rs.ac.uns.ftn.jaxb.resenje.TSluzbenik;
 import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.repository.ResenjeRepository;
@@ -40,7 +41,19 @@ public class ResenjeServiceImpl implements ResenjeService {
 	}
 
 	@Override
-	public void saveNewFile(Resenje resenje) {
+	public void saveNewFile(Resenje resenje, String user) {
+		String[] tokens = user.split(",");
+		String name = tokens[2];
+		String surname = tokens[1];
+		System.out.println(user);
+		System.out.println(name);
+		System.out.println(surname);
+		
+		TSluzbenik sluzbenik = new TSluzbenik();
+		sluzbenik.setIme(name);
+		sluzbenik.setPrezime(surname);
+		resenje.setSluzbenik(sluzbenik);
+		
 		String documentId = generateDocumentId();
 		ZahtevZaPriznanjePatenta zahtev = patentService.getZahtevZaPriznanjePatenta(resenje.getIdPatenta().getIdP());
 		
