@@ -95,11 +95,18 @@ export class PatentTabelViewComponent implements OnInit{
 
   convertFromJSON(zahtevList: any){
     const zahtevi : any[] = zahtevList.listaZahtevaPatent[this.prefix + ':Zahtev_za_priznanje_patenta'];
-    zahtevi.forEach((zahtev) => {
-      let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
+    try{
+      zahtevi.forEach((zahtev) => {
+        let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
+        console.log(zahtevZaPriznanjePatent)
+        this.zahteviPatent.push(zahtevZaPriznanjePatent)
+      })
+    }catch{
+      let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtevi, this.prefix, this.commonPrefix);
       console.log(zahtevZaPriznanjePatent)
       this.zahteviPatent.push(zahtevZaPriznanjePatent)
-    })
+    }
+   
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviPatent)
   }

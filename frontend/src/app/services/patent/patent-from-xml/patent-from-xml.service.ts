@@ -54,7 +54,6 @@ export class PatentFromXmlService {
     let ponosilac = xml[prefix +':Podnosilac_zahteva']
     let isPronalazac = ponosilac[prefix +':pronalazac']._text;
     let lice : FizickoLice | PravnoLice;
-    console.log(ponosilac[prefix +':Lice']['_attributes']['xsi:type'])
     if (ponosilac[prefix +':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice"){
       lice = this.getPravnoLice(ponosilac[prefix +':Lice'])
     }
@@ -115,9 +114,15 @@ export class PatentFromXmlService {
     if(prvenstvo){
         let ranijePrijave: any[] = prvenstvo[prefix +':Ranija_prijava']
         let ranije_prijave : RanijaPrijava[] = [];
-        ranijePrijave.forEach((prijava) => {
-          ranije_prijave.push(this.getRanijaprijava(prijava, prefix))
-        })
+        try{
+          ranijePrijave.forEach((prijava) => {
+            ranije_prijave.push(this.getRanijaprijava(prijava, prefix))
+          })
+        }catch{
+          ranije_prijave.push(this.getRanijaprijava(ranijePrijave, prefix))
+        }
+        
+        return new ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava(ranije_prijave)
     }
     return undefined;
 

@@ -58,6 +58,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { AutorskoDeloTableViewComponent } from './components/autorsko-delo-table-view/autorsko-delo-table-view.component';
+import { DatePipe } from '@angular/common';
 
 const MaterialModule = [
   BrowserModule,
@@ -81,7 +82,8 @@ const MaterialModule = [
   MatSortModule,
   MatTableModule,
   MatPaginatorModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  DatePipe,
 ]
 
 @NgModule({
@@ -116,7 +118,7 @@ const MaterialModule = [
     ...MaterialModule
   ],
   exports: [MaterialModule],
-  providers: [{provide: MAT_DIALOG_DATA, useValue: {}}],
+  providers: [{provide: MAT_DIALOG_DATA, useValue: {}}, DatePipe],
   bootstrap: [AppComponent]
 
 })

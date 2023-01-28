@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -28,7 +29,7 @@ export class AutorskoDeloTableViewComponent implements OnInit{
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
   
-  constructor(private userService : UserService, private autorskoDeloService: AutorskoDeloService, private fromXMLService: AutorskoDeloXmlConvertorService){}
+  constructor(private userService : UserService,public datepipe: DatePipe, private autorskoDeloService: AutorskoDeloService, private fromXMLService: AutorskoDeloXmlConvertorService){}
 
   ngOnInit(): void {
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK"){
@@ -70,13 +71,18 @@ export class AutorskoDeloTableViewComponent implements OnInit{
   }
 
   convertFromJSON(zahtevList: any){
-    console.log(this.prefix)
     const zahtevi : any[] = zahtevList.listaZahtevaAutorskoDelo[this.prefix + ':Zahtev_za_autorsko_delo'];
-    console.log(zahtevi)
-    zahtevi.forEach((zahtev) => {
-      let zahtevAutorskoDelo : ZahtevZaAutorskoDelo = this.fromXMLService.getAutoskoDeloFromXML(zahtev, this.prefix, this.commonPrefix);
+    try{
+      zahtevi.forEach((zahtev) => {
+        let zahtevAutorskoDelo : ZahtevZaAutorskoDelo = this.fromXMLService.getAutoskoDeloFromXML(zahtev, this.prefix, this.commonPrefix);
+        this.zahteviPAutorskoDelo.push(zahtevAutorskoDelo)
+      })
+    }
+    catch{
+      let zahtevAutorskoDelo : ZahtevZaAutorskoDelo = this.fromXMLService.getAutoskoDeloFromXML(zahtevi, this.prefix, this.commonPrefix);
       this.zahteviPAutorskoDelo.push(zahtevAutorskoDelo)
-    })
+    }
+    
     console.log(this.zahteviPAutorskoDelo)
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviPAutorskoDelo)
