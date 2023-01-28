@@ -22,3 +22,9 @@ export class Adresa {
         public kontaktPodaci: KontaktPodaci,
         public naziv: string){}
 }
+
+export enum Status{
+  NEOBRADJEN = "neobradjen",
+  ODBIJEN ="odbijen",
+  ODOBREN="odobren"
+}

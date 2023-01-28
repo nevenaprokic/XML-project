@@ -1,0 +1,14 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:pred="http://examples/predicate/">
+  <rdf:Description rdf:about="http://ftn.uns.ac.rs/z1/Z1">
+    <pred:ukupna_taksa rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger"
+    >74000</pred:ukupna_taksa>
+    <pred:vrsta>graficki | individualni zig</pred:vrsta>
+    <pred:podnosilac_prijave>mika@gmail.com</pred:podnosilac_prijave>
+    <pred:podnosilac_prijave>pera@gmail.com</pred:podnosilac_prijave>
+    <pred:datum_podnosenja_prijave rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2008-09-29</pred:datum_podnosenja_prijave>
+  </rdf:Description>
+</rdf:RDF>

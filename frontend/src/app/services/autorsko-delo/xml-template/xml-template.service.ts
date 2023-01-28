@@ -64,7 +64,7 @@ export class XMLTemplateService {
         </Autori>
         
         <Podaci_o_originalu>
-            ${this.formatIdentifikator(values.podaciOOriginalu.identifikator)}
+            ${this.formatIdentifikator(values.podaciOOriginalu?.identifikator)}
         </Podaci_o_originalu>
         
         <Radni_odnos>${values.radniOdnos}</Radni_odnos>
@@ -77,13 +77,16 @@ export class XMLTemplateService {
     // Delo ce biti korisceno u naucne svrhe
   }
 
-  formatIdentifikator(values: Identifikator){
-    return `
-    <Identifikator>
-      <Naslov>${values.naslov}</Naslov>
-      <Alternativni_naslov>${values.alternativniNaslov}</Alternativni_naslov>
-    </Identifikator>
-    `
+  formatIdentifikator(values: Identifikator | undefined){
+    if (values){
+      return `
+      <Identifikator>
+        <Naslov>${values.naslov}</Naslov>
+        <Alternativni_naslov>${values.alternativniNaslov}</Alternativni_naslov>
+      </Identifikator>
+      `
+    }
+    return ""
   }
 
 

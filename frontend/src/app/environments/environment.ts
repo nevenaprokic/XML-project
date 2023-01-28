@@ -6,6 +6,9 @@ const AUTORSKO_DELO_BASE_URL = 'http://localhost:8900/xml';
 const USER_BASE_URL = 'http://localhost:8903/xml';
 const ZIG_BASE_URL = "http://localhost:8902/xml";
 const PATENT_BASE_URL = "http://localhost:8901/xml";
+const PATENT_NAMESPACE = "http://www.ftn.uns.ac.rs/p1";
+const COMMON_NAMSPACE =  "http://www.ftn.uns.ac.rs/zaj";
+const AUTORSKO_DELO_NAMESPACE = "http://ftn.uns.ac.rs/a1";
 
 
 export const environment = {
@@ -14,7 +17,10 @@ export const environment = {
   AUTORSKO_DELO_BASE_URL: AUTORSKO_DELO_BASE_URL,
   USER_BASE_URL: USER_BASE_URL,
   ZIG_BASE_URL: ZIG_BASE_URL,
-  PATENT_BASE_URL: PATENT_BASE_URL
+  PATENT_BASE_URL: PATENT_BASE_URL,
+  PATENT_NAMESPACE: PATENT_NAMESPACE,
+  COMMON_NAMSPACE: COMMON_NAMSPACE,
+  AUTORSKO_DELO_NAMESPACE: AUTORSKO_DELO_NAMESPACE
 };
 
 /*

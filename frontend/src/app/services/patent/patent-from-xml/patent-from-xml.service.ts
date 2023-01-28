@@ -10,7 +10,8 @@ export class PatentFromXmlService {
   commonPrefix : string = ""
   constructor() { }
 
-  getPatentFromXML(xml:any, prefix: string) : ZahtevZaPriznanjePatent{
+  getPatentFromXML(xml:any, prefix: string, commonPrefix: string) : ZahtevZaPriznanjePatent{
+    this.commonPrefix = commonPrefix;
     let attributes : any = xml["_attributes"]
     let brojPrijave = attributes.broj_prijave;
     let datumPodnosenja = attributes.datum_prijema_prijave;
@@ -44,14 +45,6 @@ export class PatentFromXmlService {
   }
 
   getAdresa(xml:any):Adresa{
-    let obj_keys : string [] = Object.keys(xml)
-    obj_keys.forEach((k) => {
-      if(k.substring(4).startsWith("A")){
-        this.commonPrefix = k.substring(0,3)
-      }
-    })
-    //this.commonPrefix = Object.keys(xml)
-    console.log(this.commonPrefix)
      let adresa = xml[this.commonPrefix + ':Adresa']
      return new Adresa(adresa[this.commonPrefix + ':Broj']._text, adresa[this.commonPrefix + ':Ulica']._text, adresa[this.commonPrefix + ':Grad']._text, adresa[this.commonPrefix + ':Drzava']._text, adresa[this.commonPrefix + ':Postanski_broj']._text,)
   }

@@ -1,3 +1,4 @@
+import { Status } from "./common/common";
 
 export enum AD_PrilogType {
     OPIS='OPIS',
@@ -26,13 +27,13 @@ export interface FizickoLice {
 }
 
 export interface Autor {
-    anonimni?: boolean;
-    godinaSmrti?: number;
-    primarni?: boolean;
+    anonimni : boolean | undefined
+    godinaSmrti: number | undefined
+    primarni: boolean |undefined
     pseudonim?: string;
 
-    adresa?: Adresa;
-    kontaktPodaci?: KontaktPodaci;
+    adresa: Adresa | undefined
+    kontaktPodaci: KontaktPodaci | undefined
     ime: string;
     prezime: string;
     drzavljanstvo?: string;
@@ -60,7 +61,7 @@ export interface AutroskoDelo extends PodaciOOriginalu{
     vrsta: VrstaAutorskogDela;
     formaZapisa: FormaZapisaAutorskogDela;
     prerada: boolean;
-    podaciOOriginalu: PodaciOOriginalu 
+    podaciOOriginalu: PodaciOOriginalu | undefined 
 }
 
 export enum FormaZapisaAutorskogDela {
@@ -83,4 +84,9 @@ export interface ZahtevZaAutorskoDelo{
     autorskoDelo: AutroskoDelo; 
     opis: any; 
     primer: any; 
+    status?: Status;
+    naslov?: string | undefined
+    brojPrijave?: string | undefined
+    datumPodnosenja?: Date | undefined,
+    id?: string;
 }

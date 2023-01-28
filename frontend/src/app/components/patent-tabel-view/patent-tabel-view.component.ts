@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/app/environments/environment';
 import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
 import { PatentFromXmlService } from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
 import { PatentService } from 'src/app/services/patent/patent.service';
@@ -20,6 +21,8 @@ export class PatentTabelViewComponent implements OnInit{
   gettingDataFinished: boolean = false;
   dataSource!: MatTableDataSource<ZahtevZaPriznanjePatent>;
   isSluzbenik: boolean = false;
+  prefix: string = '';
+  commonPrefix : string = '';
 
 
   @ViewChild('paginator') paginator!: MatPaginator;
@@ -60,18 +63,9 @@ export class PatentTabelViewComponent implements OnInit{
       next: (response) => {
           const convert = require('xml-js');
           const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-          console.log(zahtevList)
-          let prefix: string = Object.keys(zahtevList.listaZahtevaPatent)[1]
-          prefix = prefix.substring(0,3)
-          console.log(prefix)
-          const zahtevi : any[] = zahtevList.listaZahtevaPatent[prefix + ':Zahtev_za_priznanje_patenta'];
-          zahtevi.forEach((zahtev) => {
-            let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, prefix);
-            console.log(zahtevZaPriznanjePatent)
-            this.zahteviPatent.push(zahtevZaPriznanjePatent)
-          })
-          this.gettingDataFinished = true;
-          this.setDataSource(this.zahteviPatent)
+          const atrributes = zahtevList.listaZahtevaPatent._attributes;
+          this.getPrefix(atrributes)
+          this.convertFromJSON(zahtevList)
       },
       error: (error) => {
         console.log(error)
@@ -86,5 +80,27 @@ export class PatentTabelViewComponent implements OnInit{
 
   sortData(sort: Sort) {
     this.setDataSource(this.patentService.sortData(sort, this.dataSource.data))
+  }
+
+  getPrefix(atrributes: any){
+    Object.entries(atrributes).map(([key, value]) => {
+      if (value === environment.PATENT_NAMESPACE){
+          this.prefix = key.split(":")[1]
+      }
+      if (value === environment.COMMON_NAMSPACE){
+        this.commonPrefix = key.split(":")[1]
+      }
+    })
+  }
+
+  convertFromJSON(zahtevList: any){
+    const zahtevi : any[] = zahtevList.listaZahtevaPatent[this.prefix + ':Zahtev_za_priznanje_patenta'];
+    zahtevi.forEach((zahtev) => {
+      let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
+      console.log(zahtevZaPriznanjePatent)
+      this.zahteviPatent.push(zahtevZaPriznanjePatent)
+    })
+    this.gettingDataFinished = true;
+    this.setDataSource(this.zahteviPatent)
   }
 }
