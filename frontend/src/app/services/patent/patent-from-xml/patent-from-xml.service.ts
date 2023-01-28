@@ -114,11 +114,11 @@ export class PatentFromXmlService {
     if(prvenstvo){
         let ranijePrijave: any[] = prvenstvo[prefix +':Ranija_prijava']
         let ranije_prijave : RanijaPrijava[] = [];
-        try{
+        if(Array.isArray(ranijePrijave)){
           ranijePrijave.forEach((prijava) => {
             ranije_prijave.push(this.getRanijaprijava(prijava, prefix))
           })
-        }catch{
+        }else{
           ranije_prijave.push(this.getRanijaprijava(ranijePrijave, prefix))
         }
         

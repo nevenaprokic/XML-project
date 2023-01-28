@@ -52,11 +52,9 @@ export class AutorskoDeloTableViewComponent implements OnInit{
   getAutorskaDelaFromResponse(response: any){
     const convert = require('xml-js');
     const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-    console.log(zahtevList)
     const atrributes = zahtevList.listaZahtevaAutorskoDelo._attributes;
     this.getPrefix(atrributes)
     this.convertFromJSON(zahtevList)
-    //const zahtevi : any[] = zahtevList.listaZahtevaPatent[prefix + ':Zahtev_za_priznanje_patenta'];
   }
 
   getPrefix(atrributes: any){
@@ -72,18 +70,16 @@ export class AutorskoDeloTableViewComponent implements OnInit{
 
   convertFromJSON(zahtevList: any){
     const zahtevi : any[] = zahtevList.listaZahtevaAutorskoDelo[this.prefix + ':Zahtev_za_autorsko_delo'];
-    try{
+    if(Array.isArray(zahtevi)){
       zahtevi.forEach((zahtev) => {
         let zahtevAutorskoDelo : ZahtevZaAutorskoDelo = this.fromXMLService.getAutoskoDeloFromXML(zahtev, this.prefix, this.commonPrefix);
         this.zahteviPAutorskoDelo.push(zahtevAutorskoDelo)
       })
     }
-    catch{
+    else{
       let zahtevAutorskoDelo : ZahtevZaAutorskoDelo = this.fromXMLService.getAutoskoDeloFromXML(zahtevi, this.prefix, this.commonPrefix);
       this.zahteviPAutorskoDelo.push(zahtevAutorskoDelo)
     }
-    
-    console.log(this.zahteviPAutorskoDelo)
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviPAutorskoDelo)
   }
