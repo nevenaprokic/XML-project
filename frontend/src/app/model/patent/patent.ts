@@ -1,5 +1,5 @@
 import { PortalModule } from "@angular/cdk/portal";
-import { FizickoLice, Adresa, KontaktPodaci, PravnoLice } from "../common/common";
+import { FizickoLice, Adresa, KontaktPodaci, PravnoLice, Status } from "../common/common";
 
 
 export class ZahtevZaPriznanjePatent{

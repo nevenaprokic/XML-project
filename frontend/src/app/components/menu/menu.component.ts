@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import { Role } from 'src/app/model/user/role';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -9,8 +10,11 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class MenuComponent {
 
+    isSluzbenik : boolean = false;
 
-  constructor(private router: Router, private userService: UserService ) { }
+  constructor(private router: Router, private userService: UserService ) {
+    this.isSluzbenik = this.userService.getRoleCurrentUserRole() === Role.SLUZBENIK
+   }
 
     colapseMenu() {
         const menuContainer = document.getElementById('menuDiv') as HTMLInputElement;

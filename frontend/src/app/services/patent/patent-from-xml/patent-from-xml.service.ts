@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Adresa, FizickoLice, KontaktPodaci, PravnoLice } from 'src/app/model/common/common';
+import { Adresa, FizickoLice, KontaktPodaci, PravnoLice, Status } from 'src/app/model/common/common';
 import { Podaci_o_dodatnoj_prijavi, Podaci_o_dostavljanju, PodnosilacZahteva, PrimalazZahteva, Pronalazac, Pronalazak, Punomcnik, RanijaPrijava, ZahtevZaPriznanjePatent, ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava } from 'src/app/model/patent/patent';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class PatentFromXmlService {
   constructor() { }
 
   getPatentFromXML(xml:any, prefix: string, commonPrefix: string) : ZahtevZaPriznanjePatent{
+    console.log(xml)
     this.commonPrefix = commonPrefix;
     let attributes : any = xml["_attributes"]
     let brojPrijave = attributes.broj_prijave;
@@ -25,7 +26,7 @@ export class PatentFromXmlService {
     let punomocnik : Punomcnik | undefined = this.getPunomocnik(xml, prefix);
     let prventsvo: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava | undefined = this.getZaPrvenstvo(xml, prefix)
     let zahtev : ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent(primalac, podnosilac, pronalazak, pronalazac, 
-                                                                       podatiODostavljanju,  punomocnik, dodatnaPrijava, prventsvo, brojPrijave, 
+                                                                       podatiODostavljanju, punomocnik, dodatnaPrijava, prventsvo, brojPrijave, 
                                                                        datumPodnosenja, priznatiDatumPodnosenja)
     return zahtev;
   }

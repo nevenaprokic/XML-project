@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/app/environments/environment';
 import { AutroskoDelo, ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
@@ -17,7 +18,7 @@ export class AutorskoDeloTableViewComponent implements OnInit{
 
   zahteviPAutorskoDelo: ZahtevZaAutorskoDelo[] = [];
   isLoaded: boolean = false;
-  //displayedColumns = ["pronalazak", "podnosilac", "datum podnošenja", "prikaz"]
+  displayedColumns = ["delo", "podnosilac", "datum podnošenja", "prikaz"]
   gettingDataFinished: boolean = false;
   dataSource!: MatTableDataSource<ZahtevZaAutorskoDelo>;
   isSluzbenik: boolean = false;
@@ -33,6 +34,12 @@ export class AutorskoDeloTableViewComponent implements OnInit{
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK"){
       this.autorskoDeloService.getAll().subscribe({
         next: (response) => {
+          this.isSluzbenik = true;
+          this.displayedColumns.push("rešenje")
+          this.displayedColumns.push("pdf")
+          this.displayedColumns.push("html")
+          this.displayedColumns.push("rdf")
+          this.displayedColumns.push("json")
           this.getAutorskaDelaFromResponse(response)
         },
         error: (error) => {
@@ -68,9 +75,9 @@ export class AutorskoDeloTableViewComponent implements OnInit{
     console.log(zahtevi)
     zahtevi.forEach((zahtev) => {
       let zahtevAutorskoDelo : ZahtevZaAutorskoDelo = this.fromXMLService.getAutoskoDeloFromXML(zahtev, this.prefix, this.commonPrefix);
-      console.log("aaa", zahtevAutorskoDelo)
       this.zahteviPAutorskoDelo.push(zahtevAutorskoDelo)
     })
+    console.log(this.zahteviPAutorskoDelo)
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviPAutorskoDelo)
   }
@@ -79,6 +86,11 @@ export class AutorskoDeloTableViewComponent implements OnInit{
     this.dataSource = new MatTableDataSource<ZahtevZaAutorskoDelo>(zahtevSource);
     this.dataSource.paginator = this.paginator;
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
 
 
 }

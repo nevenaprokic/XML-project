@@ -24,6 +24,7 @@ export class AutorskoDeloXmlConvertorService {
     let id = xml[this.prefix + ":idAutorskogDela"][this.prefix + ":idA"]._text;
     let autorskoDelo : AutroskoDelo = this.getAutoskoDelo(xml);
     let prilozi : {opis: string, primer:string} = this.getPrilozi(xml);
+    let podnosilacnaziv = podnosilac.autor ? podnosilac.autor.ime : podnosilac.pravnoLice ? podnosilac.pravnoLice.naziv : podnosilac.FizickoLice?.ime
 
     return {
       podnosilacAutor : podnosilac.autor,
@@ -36,7 +37,8 @@ export class AutorskoDeloXmlConvertorService {
       status: status,
       naslov: naslov,
       brojPrijave: brojPrijave,
-      datumPodnosenja: datumPodnosenja
+      datumPodnosenja: datumPodnosenja,
+      podnosilacNaziv: podnosilacnaziv
     }
   }
 

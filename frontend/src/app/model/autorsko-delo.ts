@@ -89,4 +89,5 @@ export interface ZahtevZaAutorskoDelo{
     brojPrijave?: string | undefined
     datumPodnosenja?: Date | undefined,
     id?: string;
+    podnosilacNaziv? : string
 }
