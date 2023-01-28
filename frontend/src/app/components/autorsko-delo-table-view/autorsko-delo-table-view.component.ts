@@ -97,6 +97,41 @@ export class AutorskoDeloTableViewComponent implements OnInit{
     this.dataSource.paginator = this.paginator;
   }
 
+  downloadRdf(id: string) {
+    this.autorskoDeloService.downloadRdf(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaAutorskoDelo${id}.rdf`;
+        this.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+  downloadJson(id: string) {
+    this.autorskoDeloService.downloadJson(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaAutorskoDelo${id}.json`;
+        this.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
 
-
+  downloadDocument(result: any, fileName: string){
+    const binaryData = [];
+    binaryData.push(result);
+    const url = window.URL.createObjectURL(new Blob(binaryData, {type: 'application/xml'}));
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.setAttribute('style', 'display: none');
+    a.setAttribute('target', 'blank');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  }
 }

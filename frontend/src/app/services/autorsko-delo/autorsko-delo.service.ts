@@ -27,4 +27,23 @@ export class AutorskoDeloService {
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
+  downloadRdf(documentId: string) {
+    const url = this.AUTORSKO_DELO_PATH + `/get-rdf/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
+  downloadJson(documentId: string) {
+    const url = this.AUTORSKO_DELO_PATH + `/get-json/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
+  downloadPdf(documentId: string) {
+    const url = this.AUTORSKO_DELO_PATH + `/get-pdf/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
+  downloadHtml(documentId: string) {
+    const url = this.AUTORSKO_DELO_PATH + `/get-html/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
 }
