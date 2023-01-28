@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserService } from '../../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,13 @@ import { Observable } from 'rxjs';
 export class HttpRequestService {
 
   
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private userService: UserService) {}
 
   createHeaders(): HttpHeaders {
       const headers = new HttpHeaders({
           'Content-type': 'application/xml',
-          'Response-type': 'application/xml'
+          'Response-type': 'application/xml',
+          'Authorization': "Bearer " + this.userService.getCurrentUserToken()
       });
 
       return headers;

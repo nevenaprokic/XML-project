@@ -3,13 +3,17 @@ package rs.ac.uns.ftn.mapper;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 import org.w3c.dom.Node;
+
+import com.github.andrewoma.dexx.collection.HashMap;
 
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
@@ -47,10 +51,13 @@ public class JaxbMapper {
 
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		 marshaller.setProperty("com.sun.xml.bind.xmlHeaders"," <?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-         marshaller.setProperty("com.sun.xml.bind.xmlHeaders", "<?xml-stylesheet type=\"text/xsl\" href=\"../xsl/grddl.xsl\"?>");
+		marshaller.setProperty("com.sun.xml.bind.xmlHeaders"," <?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        marshaller.setProperty("com.sun.xml.bind.xmlHeaders", "<?xml-stylesheet type=\"text/xsl\" href=\"../xsl/grddl.xsl\"?>");
          
-		marshaller.marshal(patent, os);
+//         HashMap<String, String> urisToPrefixes = new HashMap<String, String>();
+//         urisToPrefixes.put("http://ftn.uns.ac.rs/p1", "rootNS");
+//         marshaller.setProperty(MarshallerProperties.NAMESPACE_PREFIX_MAPPER, urisToPrefixes);
+        marshaller.marshal(patent, os);
 		
 		return os;
 	}

@@ -12,7 +12,7 @@ export class HttpClientService {
 
   public createHeader() {
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/xml',
       'Authorization': "Bearer " + this.userService.getCurrentUserToken()
     });
     return headers;
@@ -21,6 +21,7 @@ export class HttpClientService {
   get(url: any) {
     return this.http.get(url, {
       headers: this.createHeader(),
+      responseType: 'text'
     });
   }
 

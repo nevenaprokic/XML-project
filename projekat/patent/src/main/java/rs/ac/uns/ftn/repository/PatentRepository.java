@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceSet;
 
 import rs.ac.uns.ftn.dataAccess.PatentDataAccess;
+import rs.ac.uns.ftn.jaxb.PatentList;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 
 @Repository
@@ -36,6 +37,5 @@ public class PatentRepository {
 	
 	public ResourceSet getByXQuery(String xquery) {
 		return patentDataAccess.getByXQuery(xquery);
-	}
-	
+		}	
 }

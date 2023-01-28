@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-menu',
@@ -8,9 +9,9 @@ import {Router} from "@angular/router";
 })
 export class MenuComponent {
 
-    constructor(private router: Router) {
-    }
 
+  constructor(private router: Router, private userService: UserService ) { }
+  
     colapseMenu() {
         const menuContainer = document.getElementById('menuDiv') as HTMLInputElement;
         menuContainer.style.display = "none";
@@ -40,4 +41,9 @@ export class MenuComponent {
     openIzvestaji() {
         this.router.navigateByUrl("izvestaj");
     }
+
+    patentOverview(){
+      this.router.navigateByUrl("patents");
+    }
+
 }

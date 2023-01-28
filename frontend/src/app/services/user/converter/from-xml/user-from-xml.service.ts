@@ -18,6 +18,6 @@ export class UserFromXmlService {
   getTokenFromXML(xml:any) : string{
     const convert = require('xml-js');
     const userToken = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
-    return userToken.user.jwt.__text;
+    return userToken.user.jwt._text;
   }
 }

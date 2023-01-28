@@ -52,6 +52,11 @@ import {MAT_DIALOG_DATA, MatDialogModule} from "@angular/material/dialog";
 import {IzvestajComponent} from './components/izvestaj/izvestaj.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
+import { PatentTabelViewComponent } from './components/patent-tabel-view/patent-tabel-view.component';
+import {MatTableModule} from "@angular/material/table"
+import { MatSortModule } from '@angular/material/sort'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const MaterialModule = [
   BrowserModule,
@@ -71,35 +76,40 @@ const MaterialModule = [
   MatDialogModule,
   MatSnackBarModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSortModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatProgressBarModule
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MenuComponent,
-    FormAutorskoDeloComponent,
-    FormPatentComponent,
-    FormZigComponent,
-    FormKontaktPodaciComponent,
-    FormPravnoLiceComponent,
-    FormFizickoLiceComponent,
-    FormAdresaComponent,
-    FormZnakComponent,
-    FormTakseComponent,
-    FormDopunskaPrijavaComponent,
-    FormPronalazakComponent,
-    FormTabelaComponent,
-    FormIzborLicaComponent,
-    FormAutorComponent,
-    LoginComponent,
-    HomePageEmployeeComponent,
-    HomePageUserComponent,
-    RegistrationComponent,
-    ErrorMessageComponent,
-    FormResenjeComponent,
-    IzvestajComponent
-  ],
+    declarations: [
+        AppComponent,
+        MenuComponent,
+        FormAutorskoDeloComponent,
+        FormPatentComponent,
+        FormZigComponent,
+        FormKontaktPodaciComponent,
+        FormPravnoLiceComponent,
+        FormFizickoLiceComponent,
+        FormAdresaComponent,
+        FormZnakComponent,
+        FormTakseComponent,
+        FormDopunskaPrijavaComponent,
+        FormPronalazakComponent,
+        FormTabelaComponent,
+        FormIzborLicaComponent,
+        FormAutorComponent,
+        LoginComponent,
+        HomePageEmployeeComponent,
+        HomePageUserComponent,
+        RegistrationComponent,
+        ErrorMessageComponent,
+        PatentTabelViewComponent,
+        FormResenjeComponent,
+        IzvestajComponent
+    ],
   imports: [
     ...MaterialModule
   ],

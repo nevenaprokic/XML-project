@@ -43,6 +43,7 @@ public class PatentMapper {
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
 		zahtev.setDatumPrijemaPrijave(zahtevDTO.getDatumPrijemaPrijave());
 		zahtev.setPriznatiDatumPodnosenja(zahtevDTO.getPriznatiDatumPodnosenja());
+		zahtev.setStatus(zahtevDTO.getStatus());
 		zahtev.setPrimalacZahteva(createZavod());
 		zahtev.setPronalazak(getPronalazak(zahtevDTO.getPronalazak()));
 		zahtev.setPronalazac(getPronalazac(zahtevDTO.getPronalazac()));

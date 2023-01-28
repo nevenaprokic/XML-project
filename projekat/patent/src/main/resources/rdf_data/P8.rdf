@@ -1,0 +1,15 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:pred="http://examples/predicate/">
+  <rdf:Description rdf:about="http://ftn.uns.ac.rs/p1/P8">
+    <pred:ranija_prijava2>P2/2019</pred:ranija_prijava2>
+    <pred:ranija_prijava1>P2/2020</pred:ranija_prijava1>
+    <pred:ime_podnosioca>Ustnova 1</pred:ime_podnosioca>
+    <pred:podnosilac_email rdf:resource="http://ftn.uns.ac.rs/user/nata@gmail.com"/>
+    <pred:pronalazac>Petar Petrovic</pred:pronalazac>
+    <pred:pronalazak_naslov>Patent New | Patent Novi</pred:pronalazak_naslov>
+    <pred:datum_prijema_prijave rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2023-01-12-06:00</pred:datum_prijema_prijave>
+  </rdf:Description>
+</rdf:RDF>

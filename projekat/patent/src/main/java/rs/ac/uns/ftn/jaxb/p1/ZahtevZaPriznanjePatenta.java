@@ -85,24 +85,27 @@ import javax.xml.namespace.QName;
     protected TPronalazac pronalazac;
     @XmlElement(name = "Podnosilac_zahteva", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected TPodnosilacZahteva podnosilacZahteva;
-    @XmlElement(name = "Punomocnik", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Punomocnik", namespace = "http://www.ftn.uns.ac.rs/p1")
     protected TPunomocnik punomocnik;
     @XmlElement(name = "Podaci_o_dostavljanju", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
     protected PodaciODostavljanju podaciODostavljanju;
-    @XmlElement(name = "Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Zahtev_za_priznanje_prvenstva_iz_ranijih_prijava", namespace = "http://www.ftn.uns.ac.rs/p1")
     protected TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava zahtevZaPriznanjePrvenstvaIzRanijihPrijava;
-    @XmlAttribute(name = "broj_prijave", required = true)
+    @XmlAttribute(name = "broj_prijave")
     protected String brojPrijave;
-    @XmlAttribute(name = "datum_prijema_prijave", required = true)
+    @XmlAttribute(name = "datum_prijema_prijave")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar datumPrijemaPrijave;
-    @XmlAttribute(name = "priznati_datum_podnosenja", required = true)
+    @XmlAttribute(name = "priznati_datum_podnosenja")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar priznatiDatumPodnosenja;
-    @XmlElement(name = "Podaci_o_dodatnoj_prijavi", namespace = "http://www.ftn.uns.ac.rs/p1", required = true)
+    @XmlElement(name = "Podaci_o_dodatnoj_prijavi", namespace = "http://www.ftn.uns.ac.rs/p1")
     protected PodaciODodatnojPrijavi podaciODodatnojPrijavi;
     @XmlAttribute(name = "status")
 	protected StatusZahteva status;
+	@XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+   
     
     public IdPatenta getIdPatenta() {
 		return idPatenta;
@@ -120,8 +123,6 @@ import javax.xml.namespace.QName;
 		this.status = status;
 	}
 
-	@XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the primalacZahteva property.
@@ -389,6 +390,10 @@ import javax.xml.namespace.QName;
 
     public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;
+	}
+
+	public PodaciODodatnojPrijavi getPodaciODodatnojPrijavi() {
+		return podaciODodatnojPrijavi;
 	}
 
 	@Override

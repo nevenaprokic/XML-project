@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         console.log(response); //konvertovati xml u objekat
         const user : User = this.userFromXML.getUserFromXML(response);
         const token : string = this.userFromXML.getTokenFromXML(response);
+        console.log(token)
         this.userService.setCurrentUser({email : user.email, token: token, role: user.role});
         this.routeToHomePage(user.role);
       },

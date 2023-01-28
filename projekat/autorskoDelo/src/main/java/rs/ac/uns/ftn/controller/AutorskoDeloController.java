@@ -1,24 +1,30 @@
 package rs.ac.uns.ftn.controller;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
@@ -34,6 +40,9 @@ public class AutorskoDeloController {
 	
 	@Autowired
 	private AutorskoDeloService autorskoDeloService;
+	
+	private final static String USER_API_SLUZBENIK = "http://localhost:8903/xml/user/authsluzbenik";
+	private final static String USER_API_KORISNIK = "http://localhost:8903/xml/user/authkorisnik";
 
 	@PostMapping(value="/save-new")
 	public ResponseEntity<String> saveNewFile(@RequestBody ZahtevZaAutorskoDelo zahtev) {
@@ -61,7 +70,8 @@ public class AutorskoDeloController {
 	}
 	
 	@GetMapping(value="/findAll")
-	public ResponseEntity<ListaZahtevaAutorskoDelo> findAll() {
+	public ResponseEntity<ListaZahtevaAutorskoDelo> findAll(@RequestHeader MultiValueMap<String, String> headers) {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
 			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.findAll();
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
@@ -136,5 +146,14 @@ public class AutorskoDeloController {
         headers.add("Content-Type", "application/xml; charset=utf-8");
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName );
 		return headers;
+	}
+	
+	private void chechAuthority(MultiValueMap<String, String> headers, String api) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders newHeader = new HttpHeaders(headers);
+		newHeader.setHost(new InetSocketAddress("localhost", 8903));
+		newHeader.setContentType(MediaType.APPLICATION_XML);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
 	}
 }

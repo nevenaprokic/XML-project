@@ -8,6 +8,7 @@ import { HomePageUserComponent } from './components/home-page-user/home-page-use
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {IzvestajComponent} from "./components/izvestaj/izvestaj.component";
+import { PatentTabelViewComponent } from './components/patent-tabel-view/patent-tabel-view.component';
 
 
 const routes: Routes = [
@@ -42,10 +43,15 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent,
-  },{
+  },
+  {
     path: 'izvestaj',
     component: IzvestajComponent,
   },
+  {
+    path: 'patents',
+    component: PatentTabelViewComponent,
+  }
 ];
 
 @NgModule({

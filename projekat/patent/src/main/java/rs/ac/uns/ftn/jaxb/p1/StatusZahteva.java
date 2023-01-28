@@ -21,8 +21,12 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;simpleType name="status_zahteva"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
  *     &lt;enumeration value="neobradjent"/&gt;
+<<<<<<< HEAD
  *     &lt;enumeration value="odobren"/&gt;
  *     &lt;enumeration value="odbijen"/&gt;
+=======
+ *     &lt;enumeration value="obradjen"/&gt;
+>>>>>>> patent-tabel-view
  *   &lt;/restriction&gt;
  * &lt;/simpleType&gt;
  * </pre>
@@ -38,6 +42,8 @@ public enum StatusZahteva {
     ODOBREN("odobren"),
     @XmlEnumValue("odbijen")
     ODBIJEN("odbijen");
+    
+
     private final String value;
 
     StatusZahteva(String v) {
