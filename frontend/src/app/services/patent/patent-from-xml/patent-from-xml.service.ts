@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Adresa, FizickoLice, KontaktPodaci, PravnoLice } from 'src/app/model/common/common';
+import { Adresa, FizickoLice, KontaktPodaci, PravnoLice, Status } from 'src/app/model/common/common';
 import { Podaci_o_dodatnoj_prijavi, Podaci_o_dostavljanju, PodnosilacZahteva, PrimalazZahteva, Pronalazac, Pronalazak, Punomcnik, RanijaPrijava, ZahtevZaPriznanjePatent, ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava } from 'src/app/model/patent/patent';
 
 @Injectable({
@@ -10,7 +10,9 @@ export class PatentFromXmlService {
   commonPrefix : string = ""
   constructor() { }
 
-  getPatentFromXML(xml:any, prefix: string) : ZahtevZaPriznanjePatent{
+  getPatentFromXML(xml:any, prefix: string, commonPrefix: string) : ZahtevZaPriznanjePatent{
+    console.log(xml)
+    this.commonPrefix = commonPrefix;
     let attributes : any = xml["_attributes"]
     let brojPrijave = attributes.broj_prijave;
     let datumPodnosenja = attributes.datum_prijema_prijave;
@@ -24,7 +26,7 @@ export class PatentFromXmlService {
     let punomocnik : Punomcnik | undefined = this.getPunomocnik(xml, prefix);
     let prventsvo: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava | undefined = this.getZaPrvenstvo(xml, prefix)
     let zahtev : ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent(primalac, podnosilac, pronalazak, pronalazac, 
-                                                                       podatiODostavljanju,  punomocnik, dodatnaPrijava, prventsvo, brojPrijave, 
+                                                                       podatiODostavljanju, punomocnik, dodatnaPrijava, prventsvo, brojPrijave, 
                                                                        datumPodnosenja, priznatiDatumPodnosenja)
     return zahtev;
   }
@@ -44,14 +46,6 @@ export class PatentFromXmlService {
   }
 
   getAdresa(xml:any):Adresa{
-    let obj_keys : string [] = Object.keys(xml)
-    obj_keys.forEach((k) => {
-      if(k.substring(4).startsWith("A")){
-        this.commonPrefix = k.substring(0,3)
-      }
-    })
-    //this.commonPrefix = Object.keys(xml)
-    console.log(this.commonPrefix)
      let adresa = xml[this.commonPrefix + ':Adresa']
      return new Adresa(adresa[this.commonPrefix + ':Broj']._text, adresa[this.commonPrefix + ':Ulica']._text, adresa[this.commonPrefix + ':Grad']._text, adresa[this.commonPrefix + ':Drzava']._text, adresa[this.commonPrefix + ':Postanski_broj']._text,)
   }
@@ -60,7 +54,6 @@ export class PatentFromXmlService {
     let ponosilac = xml[prefix +':Podnosilac_zahteva']
     let isPronalazac = ponosilac[prefix +':pronalazac']._text;
     let lice : FizickoLice | PravnoLice;
-    console.log(ponosilac[prefix +':Lice']['_attributes']['xsi:type'])
     if (ponosilac[prefix +':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice"){
       lice = this.getPravnoLice(ponosilac[prefix +':Lice'])
     }
@@ -121,9 +114,15 @@ export class PatentFromXmlService {
     if(prvenstvo){
         let ranijePrijave: any[] = prvenstvo[prefix +':Ranija_prijava']
         let ranije_prijave : RanijaPrijava[] = [];
-        ranijePrijave.forEach((prijava) => {
-          ranije_prijave.push(this.getRanijaprijava(prijava, prefix))
-        })
+        try{
+          ranijePrijave.forEach((prijava) => {
+            ranije_prijave.push(this.getRanijaprijava(prijava, prefix))
+          })
+        }catch{
+          ranije_prijave.push(this.getRanijaprijava(ranijePrijave, prefix))
+        }
+        
+        return new ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava(ranije_prijave)
     }
     return undefined;
 

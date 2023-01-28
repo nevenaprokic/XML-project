@@ -7,28 +7,28 @@
 
   <div class="profile_options">
     <mat-selection-list #menuItems [multiple]="false">
-      <div><p class="title">Podnošenje zahteva</p></div>
-      <div class="menu_item">
+      <div><p class="title"  *ngIf="!isSluzbenik">Podnošenje zahteva</p></div>
+      <div class="menu_item"  *ngIf="!isSluzbenik">
         <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormAutorskoDelo()">
          <p>Autorsko delo</p>
         </mat-list-option>
       </div>
-      <div class="menu_item">
+      <div class="menu_item" *ngIf="!isSluzbenik">
         <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormPatent()">
           <p>Patent</p>
         </mat-list-option>
       </div>
-      <div class="menu_item">
+      <div class="menu_item" *ngIf="!isSluzbenik">
         <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormZig()">
           <p>Zig</p>
         </mat-list-option>
       </div>
-      <div class="delimiter"></div>
-      <div class="menu_item">
-
+      <div class="delimiter" *ngIf="!isSluzbenik"></div>
+      <div><p class="title">Pregled dokumenata</p></div>
+      <div class="menu_item" *ngIf="isSluzbenik">
         <mat-icon class="menu_item_icon">attach_file</mat-icon>
         <mat-list-option (click)="openIzvestaji()">
           <p>Izveštaji</p>

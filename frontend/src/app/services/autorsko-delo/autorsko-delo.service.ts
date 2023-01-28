@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
+import { ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
 import { HttpRequestService } from '../utils/http-request/http-request.service';
 
 @Injectable({
