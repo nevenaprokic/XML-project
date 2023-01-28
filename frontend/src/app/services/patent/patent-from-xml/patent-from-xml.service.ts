@@ -122,7 +122,7 @@ export class PatentFromXmlService {
 
   getRanijaprijava(xml:any) : RanijaPrijava{
      let brojPrijave: string = xml['ns5:Broj_prijave']._text
-     let datumPrijema: string = xml['ns5:Datum_podnosenja']._text
+     let datumPrijema: Date = xml['ns5:Datum_podnosenja']._text
      let dvoslovnaOznakaDrzave: string = xml['ns5:Dvoslovna_oznaka_drzave']._text
      return new RanijaPrijava(dvoslovnaOznakaDrzave, brojPrijave, datumPrijema);
   }

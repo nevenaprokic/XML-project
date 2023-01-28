@@ -37,6 +37,10 @@ import { RegistrationComponent } from './components/registration/registration.co
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { PatentTabelViewComponent } from './components/patent-tabel-view/patent-tabel-view.component';
+import {MatTableModule} from "@angular/material/table"
+import { MatSortModule } from '@angular/material/sort'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const MaterialModule = [
   BrowserModule,
@@ -54,7 +58,12 @@ const MaterialModule = [
   HttpClientModule,
   ToastrModule.forRoot(),
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatProgressBarModule
+  
 ]
 
 @NgModule({

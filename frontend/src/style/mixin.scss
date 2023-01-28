@@ -23,3 +23,18 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+@mixin setTitleStyle($width) {
+  @include size($width, auto);
+  @include setFont(26px);
+  margin: 3% 5% 1% 5%;
+  padding: 1%;
+  border-bottom: $dark3 solid 2px;
+  color: $dark3;
+  border-color: $dark3;
+}

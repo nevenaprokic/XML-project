@@ -12,8 +12,8 @@ export class ZahtevZaPriznanjePatent{
         public podaciORanijojPrijavi?: Podaci_o_dodatnoj_prijavi,
         public prvenstvo?: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava,
         public brojPrijave?: string,
-        public datumPodnosenja? : string,
-        public priznatiDatumPodnosenja?: string){}
+        public datumPodnosenja? : Date,
+        public priznatiDatumPodnosenja?: Date){}
 }
 export class PrimalazZahteva {
     constructor(public adresa: Adresa,
@@ -47,13 +47,13 @@ export class Podaci_o_dostavljanju{
 export class Podaci_o_dodatnoj_prijavi{
     constructor(public tipPrivajve: TipDodatnePrijave, 
         public brojPrvobitnePrijave: string,
-        public datumPodnosenjaPrvobitnePrijave: string){}
+        public datumPodnosenjaPrvobitnePrijave: Date){}
 }
 
 export class RanijaPrijava{
     constructor(public DvoslovnaOznakaDrzave: string, 
         public brojPrijave: string,
-        public datumPodnosenjaPrijave: string){}
+        public datumPodnosenjaPrijave: Date){}
 }
 
 export class ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava{

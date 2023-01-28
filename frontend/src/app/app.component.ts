@@ -17,12 +17,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
   ) {
   }
 
   isUserLoggedIn(){
-    console.log(this.userService.isUserLoggedIn())
     return this.userService.isUserLoggedIn();
   }
 }
