@@ -1,0 +1,35 @@
+<div>
+    <div class="title">Pretraga zahteva za priznanje autorskog dela</div>
+    <div class="table-users">    
+      <div class="subtitle">Po metapodacima:</div>  
+      <div *ngFor="let index of arrayFromNumber()">
+
+        <mat-form-field appearance="fill" class="input-zig"  *ngIf="index !== 0">
+            <mat-label>Operator</mat-label>
+            <mat-select (selectionChange)="operatorSelectChange($event, index)">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let operator of operatori" [value]="operator">{{operator}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input-zig">
+        <mat-label>Metpodatak</mat-label>
+        <mat-select (selectionChange)="metadataSelectChange($event, index)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let metadataOption of metadataOptions" [value]="metadataOption">{{metadataOption}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" class="input-zig">
+            <mat-label>Vrednost</mat-label>
+            <input matInput type="text" (change)="inputValueDone($event, index)" >
+        </mat-form-field>
+
+        <button type="button" class="button-add-remove" (click)="addNewInputField()" *ngIf="index === inputFiledsCount - 1">+</button>
+        <button type="button" class="button-add-remove" (click)="removeInputField(index)" *ngIf="index !== 0">-</button>
+      </div>
+
+    <button type="button" class="submit-button" (click)="search()">Pretrazi</button>
+    </div>    
+</div>
+

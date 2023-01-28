@@ -59,6 +59,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { AutorskoDeloTableViewComponent } from './components/autorsko-delo-table-view/autorsko-delo-table-view.component';
 import { DatePipe } from '@angular/common';
+import { TextSearchComponent } from './components/search-forms/text-search/text-search.component';
+import { MetadataSearchComponent } from './components/search-forms/metadata-search/metadata-search.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 const MaterialModule = [
   BrowserModule,
@@ -84,6 +88,7 @@ const MaterialModule = [
   MatPaginatorModule,
   MatProgressBarModule,
   DatePipe,
+  MatSelectModule
 ]
 
 @NgModule({
@@ -112,7 +117,9 @@ const MaterialModule = [
         PatentTabelViewComponent,
         FormResenjeComponent,
         IzvestajComponent,
-        AutorskoDeloTableViewComponent
+        AutorskoDeloTableViewComponent,
+        TextSearchComponent,
+        MetadataSearchComponent
     ],
   imports: [
     ...MaterialModule

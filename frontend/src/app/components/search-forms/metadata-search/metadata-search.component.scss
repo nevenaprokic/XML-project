@@ -1,0 +1,77 @@
+@import "src/style/tabel-style.scss";
+
+@import "src/style/styles";
+
+.paper-form {
+  @include size(70vw, 90vh);
+  margin: 5vh auto;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  overflow-y: auto;
+  background-color: $light1;
+  color: $fontColor;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0;
+
+    .title {
+      text-align: center;
+      padding: 5px;
+    }
+  }
+}
+
+.description {
+  margin: 10px;
+  padding-top: 5px;
+  font-weight: bold;
+  border-top: 1px solid $fontColor;
+}
+
+.table-users {
+    width: 90vw;
+    min-height: 20vh;
+    margin-left: 5%;
+    margin-top: 2%;
+    box-shadow: 10px 10px 10px rgba(6, 108, 109, 0.337);
+  }
+
+.section-lice {
+  margin: 10px;
+}
+
+.input-autorsko-delo {
+  margin: 5px 10px;
+}
+
+.submit-item {
+  display: flex;
+  justify-content: flex-end;
+  height: 5vh;
+  margin: 20px;
+
+  .submit-button {
+    @include buttonStyle();
+    width: 20%;
+  }
+}
+
+.submit-button {
+    @include buttonStyle();
+    width: 20%;
+    margin: 10px;
+    height: 5vh;
+}
+
+.button-add-remove {
+  @include buttonStyle();
+  width: 5vh;
+  margin: 8px;
+  height: 5vh;
+}
+
+::-webkit-file-upload-button {
+  display: none;
+}

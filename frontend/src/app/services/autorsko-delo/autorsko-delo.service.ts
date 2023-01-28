@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
-import { ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
 import { HttpRequestService } from '../utils/http-request/http-request.service';
 
 @Injectable({
@@ -20,6 +19,11 @@ export class AutorskoDeloService {
 
   getAll(){
     const url = this.AUTORSKO_DELO_PATH + `/findAll`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
+  searchMetadata(request: string) {
+    const url = this.AUTORSKO_DELO_PATH + `/searchMetadata?request=${request}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
