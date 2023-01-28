@@ -1,10 +1,8 @@
 package rs.ac.uns.ftn.config;
 
-//import rs.ac.uns.ftn.utils.TokenUtils;
-//import rs.ac.uns.ftn.model.User;
-//import rs.ac.uns.ftn.security.RestAuthenticationEntryPoint;
-//import rs.ac.uns.ftn.security.TokenAuthenticationFilter;
-//import rs.ac.uns.ftn.service.UserService;
+import rs.ac.uns.ftn.utils.TokenUtils;
+import rs.ac.uns.ftn.security.RestAuthenticationEntryPoint;
+import rs.ac.uns.ftn.security.TokenAuthenticationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,21 +24,21 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
-//	@Autowired
-//	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-//	@Autowired
-//	private TokenUtils tokenUtils;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	@Autowired
+	private TokenUtils tokenUtils;
 //	@Autowired
 //	private UserService userService;
-//	
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-//
+	
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
@@ -50,16 +48,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//            .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
+            .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
             .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()
-            .antMatchers("/user/**").permitAll()
-            .antMatchers("/autorsko-delo/**").permitAll()
+            .antMatchers("/zig/**").permitAll()
+            .antMatchers("/izvestaj/**").permitAll()
+            .antMatchers("/resenje/**").permitAll()
+            		
 
             .anyRequest().authenticated().and()
             .cors();
-            //.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userService), BasicAuthenticationFilter.class);
         http.csrf().disable();
     }
 
@@ -67,7 +65,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(HttpMethod.GET,  "/","/webjars/**", "/*.html", "favicon.ico", "/**/*.html",
                 "/**/*.css", "/**/*.js");
-        web.ignoring().antMatchers(HttpMethod.GET, "/autorsko-delo/**", "/izvestaj/**", "/resenje/**");
-        web.ignoring().antMatchers(HttpMethod.POST,"/auth/**", "/autorsko-delo/**", "/izvestaj/**", "/resenje/**");
+        web.ignoring().antMatchers(HttpMethod.GET,"/zig/**", "/izvestaj/**", "/resenje/**");
+        web.ignoring().antMatchers(HttpMethod.POST,"/resenje/**", "/izvestaj/**", "/zig/**");
 	    }
 }

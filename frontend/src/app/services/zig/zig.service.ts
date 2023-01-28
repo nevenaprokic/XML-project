@@ -15,4 +15,9 @@ export class ZigService {
     const url = this.ZIG_PATH + `/save-new`;
     return this.httpRequestService.post(url, xml) as Observable<any>;
   }
+
+  getAll(){
+    const url = this.ZIG_PATH + `/findAll`;
+    return this.httpRequestService.get(url)
+}
 }

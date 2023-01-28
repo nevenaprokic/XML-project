@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {IzvestajComponent} from "./components/izvestaj/izvestaj.component";
 import { PatentTabelViewComponent } from './components/patent-tabel-view/patent-tabel-view.component';
+import { AutorskoDeloTableViewComponent } from './components/autorsko-delo-table-view/autorsko-delo-table-view.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'patents',
     component: PatentTabelViewComponent,
+  },
+  {
+    path: 'autorska-dela',
+    component: AutorskoDeloTableViewComponent,
   }
 ];
 

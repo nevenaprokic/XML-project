@@ -57,6 +57,7 @@ import {MatTableModule} from "@angular/material/table"
 import { MatSortModule } from '@angular/material/sort'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { AutorskoDeloTableViewComponent } from './components/autorsko-delo-table-view/autorsko-delo-table-view.component';
 
 const MaterialModule = [
   BrowserModule,
@@ -108,7 +109,8 @@ const MaterialModule = [
         ErrorMessageComponent,
         PatentTabelViewComponent,
         FormResenjeComponent,
-        IzvestajComponent
+        IzvestajComponent,
+        AutorskoDeloTableViewComponent
     ],
   imports: [
     ...MaterialModule
