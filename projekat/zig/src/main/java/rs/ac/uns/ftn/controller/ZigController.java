@@ -2,10 +2,13 @@ package rs.ac.uns.ftn.controller;
 
 import java.net.InetSocketAddress;
 
+import javax.xml.bind.JAXBException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
+import org.xmldb.api.base.XMLDBException;
 
+import rs.ac.uns.ftn.exception.ErrorMessage;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.services.ZigService;
 
@@ -69,6 +75,22 @@ public class ZigController {
 		catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
+	}
+	
+	@GetMapping("/findAll")
+	public ResponseEntity<?> getAllPatents(@RequestHeader MultiValueMap<String, String> headers){
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
+		try {
+			return new ResponseEntity<>(this.zigService.findAll(), HttpStatus.OK);
+		} catch (XMLDBException | JAXBException e) {
+			ErrorMessage message = new ErrorMessage(
+	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+	                ErrorMessageConstants.INTERNAL_ERROR
+	        );
+
+	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 	
 	private void chechAuthority(MultiValueMap<String, String> headers, String api) {

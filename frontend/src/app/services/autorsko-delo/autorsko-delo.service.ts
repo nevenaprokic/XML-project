@@ -16,4 +16,9 @@ export class AutorskoDeloService {
     return this.httpRequestService.post(url, xml) as Observable<any>;
   }
 
+  getAll(){
+    const url = this.AUTORSKO_DELO_PATH + `/findAll`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
 }

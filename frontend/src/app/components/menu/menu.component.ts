@@ -11,7 +11,7 @@ export class MenuComponent {
 
 
   constructor(private router: Router, private userService: UserService ) { }
-  
+
     colapseMenu() {
         const menuContainer = document.getElementById('menuDiv') as HTMLInputElement;
         menuContainer.style.display = "none";
@@ -44,6 +44,10 @@ export class MenuComponent {
 
     patentOverview(){
       this.router.navigateByUrl("patents");
+    }
+
+    autorskoDeloOverview(){
+      this.router.navigateByUrl('autorska-dela')
     }
 
 }

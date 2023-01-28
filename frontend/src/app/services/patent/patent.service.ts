@@ -3,16 +3,17 @@ import { Sort } from '@angular/material/sort';
 import { environment } from 'src/app/environments/environment';
 import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
 import { HttpClientService } from '../custom-http/http-client.service';
+import { HttpRequestService } from '../utils/http-request/http-request.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatentService {
 
-  constructor(private http: HttpClientService) { }
+  constructor(private http: HttpRequestService) { }
 
   getAll(){
-      return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents")
+      return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents") //da li radi
   }
 
   sortData(sort: Sort, dataSource: ZahtevZaPriznanjePatent[]): ZahtevZaPriznanjePatent[] {
