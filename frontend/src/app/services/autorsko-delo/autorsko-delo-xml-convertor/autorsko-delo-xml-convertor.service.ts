@@ -23,7 +23,7 @@ export class AutorskoDeloXmlConvertorService {
     let podnosilac : {autor: Autor | undefined, pravnoLice: PravnoLice | undefined, FizickoLice: FizickoLice | undefined,} = this.getPodnosilac(xml)
     let id = xml[this.prefix + ":idAutorskogDela"][this.prefix + ":idA"]._text;
     let autorskoDelo : AutroskoDelo = this.getAutoskoDelo(xml);
-    let prilozi : {opis: string, primer:string} = this.getPrilozi(xml);
+    let prilozi : {opis: string, primer: string} = this.getPrilozi(xml);
     let podnosilacnaziv = podnosilac.autor ? podnosilac.autor.ime : podnosilac.pravnoLice ? podnosilac.pravnoLice.naziv : podnosilac.FizickoLice?.ime
 
     return {
@@ -93,8 +93,8 @@ export class AutorskoDeloXmlConvertorService {
   getAutor(xml:any):Autor{
     let adresa : Adresa = this.getAdresa(xml)
     let kontaktPodaci : KontaktPodaci = this.getKontaktPodaci(xml)
-    let ime = xml[this.commonPrefix + ":Ime"]._text
-    let prezime = xml[this.commonPrefix + ":Prezime"]._text
+    let ime = xml[this.commonPrefix + ":Ime"] ?  xml[this.commonPrefix + ":Ime"]._text : "" 
+    let prezime = xml[this.commonPrefix + ":Prezime"]?  xml[this.commonPrefix + ":Prezime"]._text : ""
     let drzavljanstvo = xml[this.commonPrefix + ":Drzavljanstvo"]?  xml[this.commonPrefix + ":Drzavljanstvo"]._text : ""
     let attributes = xml["_attributes"]
     let anonimni = attributes['anonimni']
@@ -119,7 +119,7 @@ export class AutorskoDeloXmlConvertorService {
 
   getIdentifikator(xml: any):Identifikator{
     let identifikator = xml[this.prefix + ':Identifikator']
-    return{ alternativniNaslov: identifikator[this.prefix + ":Alternativni_naslov"]._text,
+    return{ alternativniNaslov: identifikator[this.prefix + ":Alternativni_naslov"] ? identifikator[this.prefix + ":Alternativni_naslov"]._text : "",
           naslov: identifikator[this.prefix + ":Naslov"]._text }
   }
 
@@ -184,7 +184,6 @@ getPravnoLice(xml:any): PravnoLice{
 }
 
 getFizickoLice(xml:any) :FizickoLice{
-  console.log(xml)
    let kontaktPodaci : KontaktPodaci = this.getKontaktPodaci(xml);
    let adresa: Adresa = this.getAdresa(xml);
    let ime: string =  xml[this.commonPrefix + ':Ime']._text;
@@ -193,10 +192,5 @@ getFizickoLice(xml:any) :FizickoLice{
      return new FizickoLice(adresa, kontaktPodaci, ime, prezime, xml[this.commonPrefix + ':Drzavljanstvo']._text)
    }
    return new FizickoLice(adresa, kontaktPodaci, ime, prezime)
-   
 }
-
-
-
-
 }
