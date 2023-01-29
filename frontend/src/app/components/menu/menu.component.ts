@@ -54,4 +54,8 @@ export class MenuComponent {
       this.router.navigateByUrl('autorska-dela')
     }
 
+    zigOverview(){
+        this.router.navigateByUrl('zigovi')
+      }
+
 }

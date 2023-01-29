@@ -7,6 +7,7 @@ import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
 import { PatentFromXmlService } from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
 import { PatentService } from 'src/app/services/patent/patent.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 
 @Component({
   selector: 'app-patent-tabel-view',
@@ -23,12 +24,13 @@ export class PatentTabelViewComponent implements OnInit{
   isSluzbenik: boolean = false;
   prefix: string = '';
   commonPrefix : string = '';
+  isEmptySource: boolean = false
 
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
   
-  constructor(private patentService: PatentService, private userService: UserService, private patentFromXML: PatentFromXmlService){
+  constructor(private patentService: PatentService, private userService: UserService, private patentFromXML: PatentFromXmlService, private toastr: Toastr){
 
   }
 
@@ -63,9 +65,16 @@ export class PatentTabelViewComponent implements OnInit{
       next: (response) => {
           const convert = require('xml-js');
           const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
+        if(Object.keys(zahtevList.listaZahtevaPatent).length > 1){
           const atrributes = zahtevList.listaZahtevaPatent._attributes;
           this.getPrefix(atrributes)
           this.convertFromJSON(zahtevList)
+        }
+        else{
+          this.isEmptySource = true;
+          this.gettingDataFinished = true;
+          this.toastr.info("Nema odgovarajućih dokumenata")
+        }
       },
       error: (error) => {
         console.log(error)
@@ -95,15 +104,15 @@ export class PatentTabelViewComponent implements OnInit{
 
   convertFromJSON(zahtevList: any){
     const zahtevi : any[] = zahtevList.listaZahtevaPatent[this.prefix + ':Zahtev_za_priznanje_patenta'];
-    try{
+    if(Array.isArray(zahtevi)){
       zahtevi.forEach((zahtev) => {
         let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
         console.log(zahtevZaPriznanjePatent)
         this.zahteviPatent.push(zahtevZaPriznanjePatent)
       })
-    }catch{
+    }
+    else{
       let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtevi, this.prefix, this.commonPrefix);
-      console.log(zahtevZaPriznanjePatent)
       this.zahteviPatent.push(zahtevZaPriznanjePatent)
     }
    

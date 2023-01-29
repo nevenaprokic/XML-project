@@ -1,20 +1,27 @@
+import { Status } from "./common/common";
+
 export interface ZahtevZaPriznanjeZiga {
     podnosiociPrijave: PodnosilacPrijave[];
-    punomocnik: Punomocnik;
-    zajednickiPredstavnik: ZajednickiPredstavnik;
+    punomocnik?: Punomocnik;
+    zajednickiPredstavnik?: ZajednickiPredstavnik;
     zig: TZig;
     pravoPrvenstvaIOsnov: string;
     placeneTakse: TTakse;
     // priloziUzZahtev: TPrilozi;
+    id? : string
+    datumPodnosenjaZahteva?: Date;
+    brojZahteva? : string;
+    status?: Status
+    podnosiociStr? :string
 }
 
 export interface PodnosilacPrijave {
     podnosilacPrijave: FizickoLice | PravnoLice;
-    lice:string;
+    lice?:string;
 }
 
 export interface Punomocnik {
-    lice: string;
+    lice?: string;
     punomocnik: FizickoLice | PravnoLice;
 }
 
@@ -38,6 +45,7 @@ export interface TTakse {
     osnovnaTaksa: number;
     zaGraficko: number;
     zaKlasu: number;
+    ukupno? : number
 }
 
 export interface TZig {
@@ -46,7 +54,7 @@ export interface TZig {
     izgledZnaka: string;
     bojaZnaka: string;
     transliteracijaZnaka: string;
-    vrstaNaOsnovuIzgledaStr: string;
+    vrstaNaOsnovuIzgledaStr?: string;
     prevodZnaka: string;
     opisZnaka: string;
     podaciOBrojevimaKlasaRobeIUsluga: number[];

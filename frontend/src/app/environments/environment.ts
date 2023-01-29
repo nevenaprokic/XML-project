@@ -9,6 +9,7 @@ const PATENT_BASE_URL = "http://localhost:8901/xml";
 const PATENT_NAMESPACE = "http://www.ftn.uns.ac.rs/p1";
 const COMMON_NAMSPACE =  "http://www.ftn.uns.ac.rs/zaj";
 const AUTORSKO_DELO_NAMESPACE = "http://ftn.uns.ac.rs/a1";
+const ZIG_NAMESPACE = "http://ftn.uns.ac.rs/zig"
 
 
 export const environment = {
@@ -20,7 +21,8 @@ export const environment = {
   PATENT_BASE_URL: PATENT_BASE_URL,
   PATENT_NAMESPACE: PATENT_NAMESPACE,
   COMMON_NAMSPACE: COMMON_NAMSPACE,
-  AUTORSKO_DELO_NAMESPACE: AUTORSKO_DELO_NAMESPACE
+  AUTORSKO_DELO_NAMESPACE: AUTORSKO_DELO_NAMESPACE,
+   ZIG_NAMESPACE:ZIG_NAMESPACE
 };
 
 /*

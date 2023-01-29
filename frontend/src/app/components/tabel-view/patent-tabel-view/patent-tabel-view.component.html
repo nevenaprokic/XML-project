@@ -1,31 +1,31 @@
 <div class="dialog">
-    <div class="title">Pregled zahtevza za priznanje autorskog dela</div>
-    <div *ngIf="!this.gettingDataFinished" class="processing_container">
+    <div class="title">Pregled zahtevza za priznanje patenta</div>
+    <div *ngIf="!gettingDataFinished" class="processing_container">
       <p class="processing_text">Dobavljanje podataka...</p>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <div *ngIf="this.gettingDataFinished">
+    <div *ngIf="this.gettingDataFinished && !this.isEmptySource">
       <div>
-        <table #matTabel mat-table [dataSource]="dataSource" matSort class="table-users">
+        <table #matTabel mat-table [dataSource]="dataSource" matSort class="table-users" (matSortChange)="sortData($event)">
   
           <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef> No.</th>
             <td mat-cell *matCellDef="let i = index">{{i + 1}} </td>
           </ng-container>
   
-          <ng-container matColumnDef="delo">
-            <th mat-sort-header="delo" *matHeaderCellDef> delo</th>
-            <td mat-cell *matCellDef="let element"> {{element.autorskoDelo.identifikator.naslov}} </td>
+          <ng-container matColumnDef="pronalazak">
+            <th mat-sort-header="pronalazak" *matHeaderCellDef> pronalazak</th>
+            <td mat-cell *matCellDef="let element"> {{element.pronalazak.nazivNaSrpskom}} </td>
           </ng-container>
 
           <ng-container matColumnDef="podnosilac">podnosilac
             <th mat-sort-header="podnosilac" *matHeaderCellDef> podnosilac</th>
-            <td mat-cell *matCellDef="let element"> {{element.podnosilacNaziv}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.podnosilac.lice.kontaktPodaci.email}} </td>
           </ng-container>
   
           <ng-container matColumnDef="datum podnošenja">
             <th mat-sort-header="datum podnošenja" *matHeaderCellDef>datum podnošenja </th>
-            <td mat-cell *matCellDef="let element"> {{element.datumPodnosenja}}</td>
+            <td mat-cell *matCellDef="let element"> {{element.datumPodnosenja}} </td>
           </ng-container>
  
           <ng-container matColumnDef="prikaz">
@@ -39,7 +39,7 @@
           <ng-container matColumnDef="rešenje" *ngIf="isSluzbenik">
             <th mat-sort-header *matHeaderCellDef>podnesi resnje</th>
             <td mat-cell *matCellDef="let element">
-              <button class="button-evaluate" *ngIf="element.status === 'neobradjen'">resenje
+              <button class="button-evaluate">resenje
               </button>
             </td>
           </ng-container>
@@ -86,7 +86,7 @@
                    showFirstLastButtons
                    aria-label="Select page of periodic elements"
                    #paginator
-                   class="paginator">
+                   class="paginator" *ngIf="this.gettingDataFinished && !this.isEmptySource">
     </mat-paginator>
   
   
