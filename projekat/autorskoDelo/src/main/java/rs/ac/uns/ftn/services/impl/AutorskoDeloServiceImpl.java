@@ -26,10 +26,14 @@ import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
+import rs.ac.uns.ftn.jaxb.a1.TPrilog;
+import rs.ac.uns.ftn.jaxb.a1.TPrilozi;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
+import rs.ac.uns.ftn.mapper.PrilogMapper;
 import rs.ac.uns.ftn.repository.AutorskoDeloRepository;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 import rs.ac.uns.ftn.services.MetadataService;
@@ -58,11 +62,34 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
 		}
+		extractPrilozi(zahtevDTO, documentId);
 		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
 		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
 		return documentId;
 	}
 
+	private void extractPrilozi(ZahtevZaAutorskoDelo zahtev, String documentId) {
+		TPrilozi prilozi = zahtev.getPrilozi();
+		if(prilozi == null) {
+			return;
+		}
+		if(prilozi.getPrisutanOpis()!=null) {
+			PrilogImage prilog = PrilogMapper.mapFromDTO(prilozi.getPrisutanOpis().getPutanjaDoFajla());
+			String prilogId = documentId + "-" + prilog.getNazivPriloga();
+			autorskoDeloRepository.savePrilog(prilog, prilogId);
+			
+			prilozi.getPrisutanOpis().setPutanjaDoFajla(prilog.getNazivPriloga());
+		}
+		if(prilozi.getPrisutanPrimer()!=null) {
+			PrilogImage prilog = PrilogMapper.mapFromDTO(prilozi.getPrisutanPrimer().getPutanjaDoFajla());
+			String prilogId = documentId + "-" + prilog.getNazivPriloga();
+			autorskoDeloRepository.savePrilog(prilog, prilogId);
+			
+			prilozi.getPrisutanPrimer().setPutanjaDoFajla(prilog.getNazivPriloga());
+		}
+	}
+	
+	
 	@Override
 	public ZahtevZaAutorskoDelo getZahtevZaAutorskoDeloById(String id) {
 		return autorskoDeloRepository.getZahtevZaAutorskoDelobyId(id);

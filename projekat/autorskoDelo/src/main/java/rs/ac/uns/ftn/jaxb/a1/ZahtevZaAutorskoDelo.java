@@ -37,7 +37,7 @@ import javax.xml.namespace.QName;
  *         &lt;element name="Zavod" type="{http://ftn.uns.ac.rs/a1}TZavod"/&gt;
  *         &lt;element name="Podnosilac" type="{http://ftn.uns.ac.rs/a1}TPodnosilac"/&gt;
  *         &lt;element name="Autorsko_delo" type="{http://ftn.uns.ac.rs/a1}TAutorsko_delo"/&gt;
- *         &lt;element name="Prilozi" type="{http://ftn.uns.ac.rs/a1}TPrilog" minOccurs="0" form="qualified"/&gt;
+ *         &lt;element name="Prilozi" type="{http://ftn.uns.ac.rs/a1}TPrilozi" minOccurs="0" form="qualified"/&gt;
  *       &lt;/all&gt;
  *       &lt;attribute name="naslov" type="{http://www.w3.org/2001/XMLSchema}string" fixed="\u0417\u0410\u0425\u0422\u0415\u0412 \u0417\u0410 \u0423\u041d\u041e\u0428\u0415\u040a\u0415 \u0423 \u0415\u0412\u0418\u0414\u0415\u041d\u0426\u0418\u0408\u0423 \u0418 \u0414\u0415\u041f\u041e\u041d\u041e\u0412\u0410\u040a\u0415 \u0410\u0423\u0422\u041e\u0420\u0421\u041a\u0418\u0425 \u0414\u0415\u041b\u0410" /&gt;
  *       &lt;attribute name="broj_prijave" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -65,7 +65,7 @@ public class ZahtevZaAutorskoDelo {
     @XmlElement(name = "Autorsko_delo", required = true)
     protected TAutorskoDelo autorskoDelo;
     @XmlElement(name = "Prilozi")
-    protected TPrilog prilozi;
+    protected TPrilozi prilozi;
     @XmlAttribute(name = "naslov")
     protected String naslov;
     @XmlAttribute(name = "broj_prijave")
@@ -166,7 +166,7 @@ public class ZahtevZaAutorskoDelo {
      *     {@link TPrilog }
      *     
      */
-    public TPrilog getPrilozi() {
+    public TPrilozi getPrilozi() {
         return prilozi;
     }
 
@@ -178,7 +178,7 @@ public class ZahtevZaAutorskoDelo {
      *     {@link TPrilog }
      *     
      */
-    public void setPrilozi(TPrilog value) {
+    public void setPrilozi(TPrilozi value) {
         this.prilozi = value;
     }
 
@@ -295,7 +295,7 @@ public class ZahtevZaAutorskoDelo {
         buffer.append(autorskoDelo.toString());
 
         buffer.append("\n\t - Prilozi: ");
-        buffer.append(prilozi.toString());
+        // buffer.append(prilozi.toString());
 
         return buffer.toString();
 	}

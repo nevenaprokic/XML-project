@@ -35,3 +35,9 @@ export enum typeZahteva{
   PATENT="PATENT",
   AUTORSKO_DELO = "AUTORSKO_DELO"
 }
+
+
+export interface PrilogImg{
+  name: string,
+  content: string
+}

@@ -9,4 +9,6 @@ public class MetadataKeys {
 	public static final String KOAUTOR =  "koautor";
 	public static final String PODNOSILAC =  "podnosilac";
 	public static final String IME_PRODNOSIOCA =  "ime_prodnosioca";
+	public static final String PRILOG_OPIS =  "prilog_opis";
+	public static final String PRILOG_PRIMER =  "prilog_primer";
 }

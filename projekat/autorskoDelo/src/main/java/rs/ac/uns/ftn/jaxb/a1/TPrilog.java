@@ -41,66 +41,74 @@ import javax.xml.namespace.QName;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPrilog", propOrder = {
-
+@XmlType(name = "TPrilog", namespace = "http://ftn.uns.ac.rs/a1", propOrder = {
+        "putanjaDoFajla",
+        "dostavljeno"
 })
 public class TPrilog {
 
-    @XmlElement(name = "Prisutan_opis", nillable=true, required = false)
-    protected String prisutanOpis;
-    @XmlElement(name = "Prisutan_primer", nillable=true, required = false)
-    protected String prisutanPrimer;
+    @XmlElement(name = "Putanja_do_fajla", namespace = "http://ftn.uns.ac.rs/a1")
+    protected String putanjaDoFajla;
+    @XmlElement(name = "Dostavljeno", namespace = "http://ftn.uns.ac.rs/a1")
+    protected Boolean dostavljeno;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
-
     /**
-     * Gets the value of the prisutanOpis property.
-     * 
+     * Gets the value of the putanjaDoFajla property.
+     *
+     * @return possible object is
+     * {@link String }
      */
-    public String getPrisutanOpis() {
-        return prisutanOpis;
+    public String getPutanjaDoFajla() {
+        return putanjaDoFajla;
     }
 
     /**
-     * Sets the value of the prisutanOpis property.
-     * 
+     * Sets the value of the putanjaDoFajla property.
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
-    public void setPrisutanOpis(String value) {
-        this.prisutanOpis = value;
+    public void setPutanjaDoFajla(String value) {
+        this.putanjaDoFajla = value;
     }
 
     /**
-     * Gets the value of the prisutanPrimer property.
-     * 
+     * Gets the value of the dostavljeno property.
+     *
+     * @return possible object is
+     * {@link Boolean }
      */
-    public String getPrisutanPrimer() {
-        return prisutanPrimer;
+    public Boolean isDostavljeno() {
+        return dostavljeno;
     }
 
     /**
-     * Sets the value of the prisutanPrimer property.
-     * 
+     * Sets the value of the dostavljeno property.
+     *
+     * @param value allowed object is
+     *              {@link Boolean }
      */
-    public void setPrisutanPrimer(String value) {
-        this.prisutanPrimer = value;
+    public void setDostavljeno(Boolean value) {
+        this.dostavljeno = value;
     }
 
     public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;
 	}
 
-	@Override
-    public String toString() {
-		String opis = (prisutanOpis != null && !prisutanOpis.equals(""))? "DA" : "NE";
-		String primer = (prisutanPrimer != null && !prisutanPrimer.equals("")) ? "DA" : "NE";
-		
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("\n\t\t");
-		buffer.append("Prisutan opis: ");
-		buffer.append(opis);
-		buffer.append("\n\t\t");
-		buffer.append("Prisutan primer: ");
-		buffer.append(primer);
-		return buffer.toString();
+	public String toString() {
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("\n\t\t\t - Putanja do fajla: ");
+        buffer.append(putanjaDoFajla);
+        buffer.append("\n\t\t\t - Da li je dostavljeno: ");
+        if (dostavljeno) {
+            buffer.append("da");
+        } else {
+            buffer.append("ne");
+        }
+
+        return buffer.toString();
     }
 }

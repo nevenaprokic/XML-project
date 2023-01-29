@@ -28,10 +28,22 @@ public class SearchRequestParser {
 		if(operand.toLowerCase().contains("datum")) {
 			return parseDatum(operand);
 		}
+		if(operand.toLowerCase().contains("prilog")) {
+			return parsePrilog(operand);
+		}
 		String[] pair = operand.split("=");
 		return "regex(UCASE(str(?" + pair[0] + ")), UCASE(\".*"+ pair[1].trim()+".*\"))";
 	}
 	
+	private static String parsePrilog(String operand) {
+		String[] pair = operand.split("=");
+		return "( " + 
+			   "regex(UCASE(str(?" + MetadataKeys.PRILOG_OPIS + ")), UCASE(\".*"+ pair[1].trim()+".*\"))" + 
+			   " || " +
+			   "regex(UCASE(str(?" + MetadataKeys.PRILOG_PRIMER + ")), UCASE(\".*"+ pair[1].trim()+".*\"))" + 
+			   " )";
+	}
+
 	private static String parseDatum(String operand) {
 		String relation = getDateRelation(operand);
 		

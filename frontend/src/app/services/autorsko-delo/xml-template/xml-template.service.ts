@@ -41,8 +41,8 @@ export class XMLTemplateService {
         ${this.formatAutorskoDelo(values.autorskoDelo)}
         
         <Prilozi>
-            <Prisutan_opis>${values.opis}</Prisutan_opis>
-            <Prisutan_primer>${values.primer}</Prisutan_primer>
+            ${values.opis? `<Prisutan_opis><Putanja_do_fajla>${values.opis}</Putanja_do_fajla></Prisutan_opis>` : '' }
+            ${values.primer? `<Prisutan_primer><Putanja_do_fajla>${values.primer}</Putanja_do_fajla></Prisutan_primer>` : '' }
         </Prilozi>
     
     </Zahtev_za_autorsko_delo>`

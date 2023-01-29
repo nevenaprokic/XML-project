@@ -11,7 +11,7 @@
                 <xs:element name="Zavod" type="a1:TZavod"/>
                 <xs:element name="Podnosilac" type="a1:TPodnosilac"/>
                 <xs:element name="Autorsko_delo" minOccurs="1" type="a1:TAutorsko_delo"/>
-                <xs:element name="Prilozi" form="qualified" minOccurs="0" nillable="false" type="a1:TPrilog"/>
+                <xs:element name="Prilozi" form="qualified" minOccurs="0" nillable="false" type="a1:TPrilozi"/>
             </xs:all>
             <xs:attribute fixed="ZAHTEV ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA"
                 name="naslov" type="xs:string"/>
@@ -105,12 +105,19 @@
         
     </xs:complexType>
 
-	<xs:complexType name="TPrilog">
+	<xs:complexType name="TPrilozi">
         <xs:all>
-            <xs:element name="Prisutan_opis" type="xs:base64Binary" minOccurs="0" nillable="true"/>
-            <xs:element name="Prisutan_primer" type="xs:base64Binary" minOccurs="0" nillable="true"/>
+            <xs:element name="Prisutan_opis" type="a1:TPrilog" minOccurs="0" nillable="true"/>
+            <xs:element name="Prisutan_primer" type="a1:TPrilog" minOccurs="0" nillable="true"/>
         </xs:all>
 		<xs:anyAttribute namespace="##any" processContents="lax"/>
+    </xs:complexType>
+    <xs:complexType name="TPrilog">
+        <xs:sequence>
+            <xs:element name="Putanja_do_fajla" minOccurs="0" type="xs:string"/>
+            <xs:element name="Dostavljeno" minOccurs="0" type="xs:boolean"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     <xs:complexType name="TZavod">
         <xs:all>

@@ -51,10 +51,10 @@ export class AutorskoDeloXmlConvertorService {
     let podaciOOriginalu : PodaciOOriginalu | undefined = this.getPodaciOOriginalu(xml)
 
     let attributes = autorskoDelo['_attributes']
-    let vrsta = attributes['vrsta']._text
-    let forma_zapisa = attributes['forma_zapisa']._text
-    let prerada = attributes['prerada']._text
-    let id = attributes['id']._text //?
+    let vrsta = attributes['vrsta']
+    let forma_zapisa = attributes['forma_zapisa']
+    let prerada = attributes['prerada']
+    let id = attributes['id']
     
     return {
       autori: autori,
@@ -150,8 +150,10 @@ export class AutorskoDeloXmlConvertorService {
 
   getPrilozi(xml: any) : {opis: string, primer: string}{
     let prilozi = xml[this.prefix + ":Prilozi"]
-    let opis = prilozi[this.prefix + ":Prisutan_opis"]._text
-    let primer = prilozi[this.prefix + ":Prisutan_primer"]._text
+    let prisutanOpis = prilozi[this.prefix + ":Prisutan_opis"]
+    let opis = Object.keys(prisutanOpis).length > 1 ? prisutanOpis[this.prefix + ":Putanja_do_fajla"]._text : undefined;
+    let prisutanPrimer = prilozi[this.prefix + ":Prisutan_primer"]
+    let primer = Object.keys(prisutanPrimer).length > 1 ? prisutanPrimer[this.prefix + ":Putanja_do_fajla"]._text : undefined;
     return {
       opis: opis,
       primer :primer

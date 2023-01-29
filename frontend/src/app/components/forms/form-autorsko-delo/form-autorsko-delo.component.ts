@@ -1,6 +1,7 @@
 import {Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import { AD_PrilogType, FormaZapisaAutorskogDela, VrstaAutorskogDela, ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
+import { PrilogImg } from 'src/app/model/model';
 import { AutorskoDeloService } from 'src/app/services/autorsko-delo/autorsko-delo.service';
 import { FormConverterService } from 'src/app/services/autorsko-delo/form-converter/form-converter.service';
 import { XMLTemplateService } from 'src/app/services/autorsko-delo/xml-template/xml-template.service';
@@ -13,8 +14,8 @@ import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 })
 export class FormAutorskoDeloComponent {
 
-  opisEncoded: any ='';
-  primerEncoded: any = '';
+  prilogOpis: PrilogImg = {content: '', name: ''};
+  prilogPrimer: PrilogImg = {content: '', name: ''};
 
   prilogTypes=AD_PrilogType
 
@@ -54,8 +55,7 @@ export class FormAutorskoDeloComponent {
 
   onSubmit() {
     this.addChildForm('podaciOAutorskomDelu', this.form);
-    console.log(this.autorskoDeloForm.value);
-    const zahtevJSON = this.formConverter.convertFormToZahtev(this.autorskoDeloForm, this.opisEncoded, this.primerEncoded, this.brojAutorPrerada.length, this.brojAutori.length);
+    const zahtevJSON = this.formConverter.convertFormToZahtev(this.autorskoDeloForm, this.prilogOpis, this.prilogPrimer, this.brojAutorPrerada.length, this.brojAutori.length);
     const zahtevXML = this.templateService.createNewXML(zahtevJSON);
     console.log(zahtevXML)
     this.saveRequest(zahtevXML);
@@ -117,9 +117,11 @@ export class FormAutorskoDeloComponent {
     var reader = new FileReader();
     switch (prilogType) {
       case AD_PrilogType.OPIS:
+        this.prilogOpis.name = file.name
         reader.onload = this._handleOpisReader.bind(this);
         break;
       case AD_PrilogType.PRIMER:
+        this.prilogPrimer.name = file.name
         reader.onload = this._handlePrimerReader.bind(this);
         break;
       default:
@@ -132,12 +134,12 @@ export class FormAutorskoDeloComponent {
 
   private _handleOpisReader(readerEvt: any) {
     var binaryString = readerEvt.target.result;
-    this.opisEncoded = btoa(binaryString);
+    this.prilogOpis.content = btoa(binaryString);
   }
 
   private _handlePrimerReader(readerEvt: any) {
     var binaryString = readerEvt.target.result;
-    this.primerEncoded = btoa(binaryString);
+    this.prilogPrimer.content = btoa(binaryString);
   }
 
 

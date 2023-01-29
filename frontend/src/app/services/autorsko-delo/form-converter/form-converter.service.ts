@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { Adresa, Autor, AutroskoDelo, FizickoLice, KontaktPodaci, PravnoLice, ZahtevZaAutorskoDelo } from 'src/app/model/autorsko-delo';
+import { PrilogImg } from 'src/app/model/model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class FormConverterService {
 
   constructor() { }
 
-  convertFormToZahtev(form: any, opis: any, primer: any, brojAutorPrerada: number, brojAutori: number): ZahtevZaAutorskoDelo{
+  convertFormToZahtev(form: any, prilogOpis: PrilogImg, prilogPrimer: PrilogImg, brojAutorPrerada: number, brojAutori: number): ZahtevZaAutorskoDelo{
     const podaciOAutorskomDeluForm = form.value.podaciOAutorskomDelu
     
     const podnosilacPrijaveFizickoLice = form.value.podnosilacPrijaveFizickoLice;
@@ -25,6 +26,9 @@ export class FormConverterService {
     
     const autoriDela = this.convertAutoriDela(brojAutori, form, 'Nijepodnosilac');
     const autoriOriginala = this.convertAutoriDela(brojAutorPrerada, form, 'Prerade');
+
+    const opis = prilogOpis.name ? `${prilogOpis.name};custom_separator;${prilogOpis.content}` : undefined
+    const primer = prilogPrimer.name ? `${prilogPrimer.name};custom_separator;${prilogPrimer.content}` : undefined
     return {
       podnosilacAutor: podnosilacPrijaveAutorLice ? this.convertPodnosilacAutor(podnosilacAutorDTO) : undefined,
       podnosilacPravnoLice: podnosilacPrijavePravnoLice ? this.convertPodnosilacPravnoLice(podnosilacPravnoLiceDTO) : undefined,

@@ -3,6 +3,8 @@ package rs.ac.uns.ftn.services.impl;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -246,7 +248,10 @@ public class MetadataServiceImpl implements MetadataService{
 				params.get(MetadataKeys.PRIMARNI_AUTOR), 
 				params.get(MetadataKeys.KOAUTOR), 
 				params.get(MetadataKeys.PODNOSILAC), 
-				params.get(MetadataKeys.IME_PRODNOSIOCA));
+				params.get(MetadataKeys.IME_PRODNOSIOCA),
+				params.get(MetadataKeys.PRILOG_OPIS),
+				params.get(MetadataKeys.PRILOG_PRIMER)
+				);
 	}
 	
 	public String filterByCriteriaQuery(String request) throws IOException {

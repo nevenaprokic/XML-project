@@ -9,6 +9,8 @@
     <pred:koautor>%5$s</pred:koautor>
     <pred:podnosilac rdf:resource="%6$s"/>
     <pred:ime_prodnosioca>%7$s</pred:ime_prodnosioca>
+    <pred:prilog_opis rdf:resource="%8$s"/>
+    <pred:prilog_primer rdf:resource="%9$s"/>
     
   </rdf:Description>
 </rdf:RDF>

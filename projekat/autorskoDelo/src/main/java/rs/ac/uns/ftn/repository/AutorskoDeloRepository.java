@@ -7,6 +7,7 @@ import org.xmldb.api.base.ResourceSet;
 
 import rs.ac.uns.ftn.dataAccess.AutorskoDeloDataAccess;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 
 @Repository
 public class AutorskoDeloRepository {
@@ -16,6 +17,9 @@ public class AutorskoDeloRepository {
 	
 	public void saveAutorskoDelo(ZahtevZaAutorskoDelo zahtev, String documentId) {
 		autorskoDeloDataAccess.saveFile(documentId, zahtev);
+	}
+	public void savePrilog(PrilogImage prilog, String documentId) {
+		autorskoDeloDataAccess.savePrilog(documentId, prilog);
 	}
 	
 	public ZahtevZaAutorskoDelo getZahtevZaAutorskoDelobyId(String id) {

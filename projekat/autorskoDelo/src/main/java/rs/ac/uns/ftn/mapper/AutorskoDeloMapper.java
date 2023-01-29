@@ -6,7 +6,6 @@ import javax.xml.namespace.QName;
 
 import rs.ac.uns.ftn.jaxb.a1.IdAutorskogDela;
 import rs.ac.uns.ftn.jaxb.a1.ObjectFactory;
-import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.a1.TAutor;
 import rs.ac.uns.ftn.jaxb.a1.TAutori;
 import rs.ac.uns.ftn.jaxb.a1.TAutorskoDelo;
@@ -14,6 +13,7 @@ import rs.ac.uns.ftn.jaxb.a1.TOsnovniPodaciODelu;
 import rs.ac.uns.ftn.jaxb.a1.TOsnovniPodaciODelu.Identifikator;
 import rs.ac.uns.ftn.jaxb.a1.TPodnosilac;
 import rs.ac.uns.ftn.jaxb.a1.TPrilog;
+import rs.ac.uns.ftn.jaxb.a1.TPrilozi;
 import rs.ac.uns.ftn.jaxb.a1.TZavod;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.zajednicko.Adresa;
@@ -26,6 +26,7 @@ public class AutorskoDeloMapper {
 	private static final String PRED_PREFIX = "http://examples/predicate/";
 	private static final String TARGET_NS_PREFIX = "http://ftn.uns.ac.rs/a1/";
 	private static final String USERS_PREFIX = "http://ftn.uns.ac.rs/user/";
+	private static final String PRILOG_PREFIX = "http://ftn.uns.ac.rs/prilog/";
 
 	private static ObjectFactory objectFactory = new ObjectFactory();
 	private static rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory objectFactoryZajednicki = new rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory();
@@ -44,7 +45,7 @@ public class AutorskoDeloMapper {
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
 		zahtev.setNaslov(NASLOV_ZAHTEVA);
 		zahtev.setPodnosilac(getPodnosilacFromDTO(zahtevDTO.getPodnosilac()));
-		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi()));	
+		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi(), id));	
 		zahtev.setZavod(createZavod());
 		zahtev.setStatus(zahtevDTO.getStatus());
 		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
@@ -64,13 +65,27 @@ public class AutorskoDeloMapper {
 		return idAutorskogDela;
 	}
 
-	private static TPrilog getPriloziFromDTO(TPrilog priloziDto) {
-		TPrilog prilog = objectFactory.createTPrilog();
-		prilog.setPrisutanOpis(priloziDto.getPrisutanOpis());
-		prilog.setPrisutanPrimer(priloziDto.getPrisutanPrimer());
+	private static TPrilozi getPriloziFromDTO(TPrilozi priloziDto, String documentId) {
+		TPrilozi prilog = objectFactory.createTPrilozi();
+		prilog.setPrisutanOpis(getPrilogFromDTO(priloziDto.getPrisutanOpis(), "opis", documentId));
+		prilog.setPrisutanPrimer(getPrilogFromDTO(priloziDto.getPrisutanPrimer(), "primer", documentId));
 		return prilog;
 	}
-
+	
+	private static TPrilog getPrilogFromDTO(TPrilog prilogDTO, String prilogType, String documentId) {
+		TPrilog prilog = objectFactory.createTPrilog();
+		if(prilogDTO != null && prilogDTO.getPutanjaDoFajla() != null) {
+			prilog.setPutanjaDoFajla(prilogDTO.getPutanjaDoFajla());
+			prilog.setDostavljeno(true);
+			
+			prilog.getOtherAttributes().put(new QName("rel"), "pred:prilog_" + prilogType);
+			prilog.getOtherAttributes().put(new QName("href"), PRILOG_PREFIX + prilogDTO.getPutanjaDoFajla());
+		}
+//		if(dopuna.isDostavljeno() != null) {
+//			dopuna.setDostavljeno(dopunaDTO.isDostavljeno());
+//		}
+		return prilog;
+	}
 
 	private static TAutorskoDelo getAutorskoDeloFromDTO(TAutorskoDelo autorskoDeloDto) {
 		TAutorskoDelo autorskoDelo = objectFactory.createTAutorskoDelo();

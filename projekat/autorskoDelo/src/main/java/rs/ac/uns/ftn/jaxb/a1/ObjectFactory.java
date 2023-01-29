@@ -86,13 +86,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TPrilozi }
+     * 
+     */
+    public TPrilozi createTPrilozi() {
+        return new TPrilozi();
+    }
+    /**
      * Create an instance of {@link TPrilog }
      * 
      */
     public TPrilog createTPrilog() {
         return new TPrilog();
     }
-
     /**
      * Create an instance of {@link TAutor }
      * 

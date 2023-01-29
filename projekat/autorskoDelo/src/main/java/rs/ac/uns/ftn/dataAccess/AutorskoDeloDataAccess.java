@@ -13,6 +13,7 @@ import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.services.MetadataService;
 
@@ -23,6 +24,7 @@ public class AutorskoDeloDataAccess {
 	private MetadataService metadataService;
 	
 	private final String collectionId = "db/project/autorskaDela";
+	private final String priloziCollectionId = "db/project/prilozi";
 	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
 	
 	public AutorskoDeloDataAccess() {
@@ -174,6 +176,23 @@ public class AutorskoDeloDataAccess {
 	
 	public ResourceSet getAllApproved() {
 		return this.getByXQuery(QueryUtils.FIND_ALL_APPROVED);
+	}
+
+	public void savePrilog(String resourceId, PrilogImage prilog) {
+		Collection col = null;
+		XMLResource res = null;
+		try {
+			col = ConnectionUtilities.initCollection(priloziCollectionId);
+			res = ConnectionUtilities.initResource(col, resourceId);
+
+			OutputStream os = JaxbMapper.marshallPrilogImage(prilog);
+			ConnectionUtilities.linkResourceToCollection(col, res, os);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtilities.cleanup(col , res);
+		}		
 	}
 	
 }

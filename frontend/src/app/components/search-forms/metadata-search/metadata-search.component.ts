@@ -23,7 +23,8 @@ export class MetadataSearchComponent implements OnInit {
     'autorsko_delo', 
     'primarni_autor',
     'koautor',
-    'ime_prodnosioca'
+    'ime_prodnosioca',
+    'prilog'
   ]
 
   operatori: string[] = [

@@ -12,12 +12,14 @@ import javax.xml.bind.Unmarshaller;
 import org.w3c.dom.Node;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 
 public class JaxbMapper {
 
 	private static final String CONTEXT = "rs.ac.uns.ftn.jaxb.a1";
 	private static final String CONTEXT_RESENJE = "rs.ac.uns.ftn.jaxb.resenje";
+	private static final String CONTEXT_PRILOG = "rs.ac.uns.ftn.jaxb.prilog";
 	
 	public static ZahtevZaAutorskoDelo unmarshalZahtevZaAutorskoDeloFromFile(String filePath) throws JAXBException{		
 		System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
@@ -88,6 +90,21 @@ public class JaxbMapper {
 				"<?xml-stylesheet type=\"text/xsl\" href=\"../xsl/grddl.xsl\"?>");
 
 		marshaller.marshal(resenje, os);
+
+		return os;
+	}
+
+	public static OutputStream marshallPrilogImage(PrilogImage prilog) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(CONTEXT_PRILOG);
+		OutputStream os = new ByteArrayOutputStream();
+
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		marshaller.setProperty("com.sun.xml.bind.xmlHeaders", " <?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
+				"<?xml-stylesheet type=\"text/xsl\" href=\"../xsl/grddl.xsl\"?>");
+
+		marshaller.marshal(prilog, os);
 
 		return os;
 	}
