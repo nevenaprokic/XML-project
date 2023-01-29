@@ -1,9 +1,30 @@
 
-<div>
-  <app-metadata-search></app-metadata-search>  
-</div>
-<div class="dialog">    
-    <div class="title">Pregled zahtevza za priznanje autorskog dela</div>
+<div style="overflow-y:scroll; height: 100%;">
+  <h1 class="title">ZAHTEVI ZA UNOŠENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</h1>
+
+  <!-- <div class="section" style="height: auto;">
+    <div class="table-users" style="height: auto;">
+      <div style="float: left; width: 50%">
+        <div class="title">Pretraga zahteva po metapodacima</div>
+        <app-metadata-search (searchResult)="getAutorskaDelaFromResponse($event)"></app-metadata-search>  
+      </div>
+      <div style="float: right; width: 50%">
+        <div class="title">Pretraga zahteva po tekstu</div>
+        <app-text-search (searchResult)="getAutorskaDelaFromResponse($event)"></app-text-search>  
+      </div>
+    </div>
+  </div> -->
+  <div class="section">
+    <div class="title">Pretraga zahteva po metapodacima</div>
+    <app-metadata-search (searchResult)="getAutorskaDelaFromResponse($event)"></app-metadata-search>  
+  </div> 
+  <div class="section"> 
+    <div class="title">Pretraga zahteva po tekstu</div>
+    <app-text-search (searchResult)="getAutorskaDelaFromResponse($event)"></app-text-search>  
+  </div>
+
+  <div class="section">    
+    <div class="title">Pregled zahteva</div>
     <div *ngIf="!this.gettingDataFinished" class="processing_container">
       <p class="processing_text">Dobavljanje podataka...</p>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -92,7 +113,7 @@
                    #paginator
                    class="paginator">
     </mat-paginator>
-  
-  
   </div>
-  
+  <div class="section">
+  </div> 
+</div>

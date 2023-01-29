@@ -50,6 +50,7 @@ export class AutorskoDeloTableViewComponent implements OnInit{
   }}
 
   getAutorskaDelaFromResponse(response: any){
+    this.zahteviPAutorskoDelo = [];
     const convert = require('xml-js');
     const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
     console.log(zahtevList)

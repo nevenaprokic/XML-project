@@ -1,3 +1,5 @@
 /.metadata/
 /.idea/
 .DS_Store
+
+!**autorskoDelo/src/main/resources/application.properties

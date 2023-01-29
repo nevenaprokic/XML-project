@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output,  } from '@angular/core';
 import { AutorskoDeloService } from 'src/app/services/autorsko-delo/autorsko-delo.service';
 
 interface Query {
@@ -15,20 +15,14 @@ interface Query {
 })
 export class MetadataSearchComponent implements OnInit {
 
-  
-	// public static final String ZAHTEV_ZA_AUTORSKO_DELO = "zahtevZaAutorskoDelo";
-	// public static final String DATUM_PODNOSENJA =  "datum_podnosenja";
-	// public static final String AUTORSKO_DELO =  "autorsko_delo";
-	// public static final String PRIMARNI_AUTOR =  "primarni_autor";
-	// public static final String KOAUTOR =  "koautor";
-	// public static final String PODNOSILAC =  "podnosilac";
-	// public static final String IME_PRODNOSIOCA =  "ime_prodnosioca";
+  @Output()
+  searchResult = new EventEmitter<any>();
+
   metadataOptions: string[] = [
     'datum_podnosenja', 
     'autorsko_delo', 
     'primarni_autor',
     'koautor',
-    'podnosilac',
     'ime_prodnosioca'
   ]
 
@@ -48,6 +42,7 @@ export class MetadataSearchComponent implements OnInit {
     const query: string = this.createQuery();
     this.autorskoDeloService.searchMetadata(query).subscribe({
       next: (res: any) => {
+        this.searchResult.emit(res);
         console.log(res)
       },
       error: (res: any) => {

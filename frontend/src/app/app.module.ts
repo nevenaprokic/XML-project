@@ -62,6 +62,8 @@ import { DatePipe } from '@angular/common';
 import { TextSearchComponent } from './components/search-forms/text-search/text-search.component';
 import { MetadataSearchComponent } from './components/search-forms/metadata-search/metadata-search.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 const MaterialModule = [
@@ -88,7 +90,8 @@ const MaterialModule = [
   MatPaginatorModule,
   MatProgressBarModule,
   DatePipe,
-  MatSelectModule
+  MatSelectModule,
+  MatChipsModule
 ]
 
 @NgModule({

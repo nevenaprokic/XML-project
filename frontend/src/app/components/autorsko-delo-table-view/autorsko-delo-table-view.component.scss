@@ -1,1 +1,13 @@
 @import "src/style/tabel-style.scss";
+
+
+.header {
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 10px 0;
+}
+
+.section{
+    @include size(70%, auto);
+  }

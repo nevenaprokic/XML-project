@@ -1,1 +1,28 @@
-<p>text-search works!</p>
+
+    <div  class="table-users">    
+
+      <mat-form-field class="example-chip-list" appearance="fill"  style="width: 50%;">
+        <mat-label>Kljucne reci</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter keywords" >
+          <mat-chip-row *ngFor="let keyword of keywords"
+                        (removed)="remove(keyword)"
+                        [editable]="true"
+                        (edited)="edit(keyword, $event)"
+                        [attr.aria-valuenow]="'press enter to edit ' + keyword">
+            {{keyword}}
+            <button matChipRemove [attr.aria-label]="'remove ' + keyword">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="Novi unos..."
+                 [matChipInputFor]="chipGrid"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"/>
+        </mat-chip-grid>
+      </mat-form-field>
+
+    <button type="button" class="submit-button" (click)="search()">Pretrazi</button>
+    </div>    
+
+

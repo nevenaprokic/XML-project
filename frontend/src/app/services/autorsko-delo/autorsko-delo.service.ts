@@ -27,6 +27,11 @@ export class AutorskoDeloService {
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
+  searchText(request: string){
+    const url = this.AUTORSKO_DELO_PATH + `/searchText?txt=${request}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
   downloadRdf(documentId: string) {
     const url = this.AUTORSKO_DELO_PATH + `/get-rdf/${documentId}`;
     return this.httpRequestService.get(url) as Observable<any>;
