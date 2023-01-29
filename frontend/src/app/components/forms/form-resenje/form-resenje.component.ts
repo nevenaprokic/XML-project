@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {XmlTemplateService} from "../../../services/resenje/xml-template/xml-template.service";
 import {ResenjeService} from "../../../services/resenje/resenje.service";
 import {Toastr} from "../../../services/utils/toastr/toastr.service";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UserService} from "../../../services/user/user.service";
 import {typeZahteva} from "../../../model/model";
 
@@ -21,15 +21,16 @@ export class FormResenjeComponent implements OnInit {
     sifra: new FormControl(''),
     obrazlozenje: new FormControl('')
   });
-
-//staviti patern i placeholder na osnovu dokumenta za koji se podnosi resenje
   placeholder: string = "";
+
+
   constructor(private fb: FormBuilder,
               private templateService: XmlTemplateService,
               private resenjeService: ResenjeService,
               private toastr: Toastr,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private userService:UserService) {
+              private userService:UserService,
+              public dialogRef: MatDialogRef<FormResenjeComponent>) {
     if (data.type===typeZahteva.PATENT){
       this.formField.controls.sifra.setValidators([Validators.pattern("[P][0-9]+[/][1-2][0-9]{3,3}")]);
       this.placeholder = "P223/2003"
@@ -44,6 +45,13 @@ export class FormResenjeComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.form.value.resenje === "TOdobren" && this.formField.value.sifra === ''){
+      return;
+    }
+    if(this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === ''){
+      return;
+    }
+
     const resenjeXML = this.createXML();
     if(resenjeXML !== ""){
       this.sendResenje(resenjeXML);
@@ -65,10 +73,13 @@ export class FormResenjeComponent implements OnInit {
   sendResenje(xml: string) {
     this.resenjeService.sendResenje(xml, this.data.type).subscribe({
       next: (document: any) => {
-        this.toastr.success('Uspešno generisan izveštaj')
+        this.toastr.success('Uspešno podneto rešenje');
+        this.dialogRef.close();
       },
       error: (err: any) => {
-        this.toastr.error('Došlo je do greško pri generisanju izveštaja', "Greška!")
+        console.log(err);
+        this.toastr.error('Došlo je do greško podnošenju rešenja', "Greška!");
+        this.dialogRef.close();
       }
     })
   }

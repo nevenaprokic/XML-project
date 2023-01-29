@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -67,27 +66,6 @@ private static DocumentBuilderFactory documentFactory;
         document.close();
         
     }
-    
-//    public org.w3c.dom.Document buildDocument(String filePath) {
-//
-//    	org.w3c.dom.Document document = null;
-//		try {
-//			
-//			DocumentBuilder builder = documentFactory.newDocumentBuilder();
-//			document = builder.parse(new File(filePath)); 
-//
-//			if (document != null)
-//				System.out.println("[INFO] File parsed with no errors.");
-//			else
-//				System.out.println("[WARN] Document is null.");
-//
-//		} catch (Exception e) {
-//			return null;
-//			
-//		} 
-//
-//		return document;
-//	}
 
     public void generateHTML(Node xmlPath, String htmlFile) throws FileNotFoundException {
     	
