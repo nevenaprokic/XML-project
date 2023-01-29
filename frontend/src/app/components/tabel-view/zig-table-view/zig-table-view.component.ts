@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { environment } from 'src/app/environments/environment';
-import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
-import { ZahtevZaPriznanjeZiga } from 'src/app/model/zig';
-import { UserService } from 'src/app/services/user/user.service';
-import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
-import { ZigXmlConverterService } from 'src/app/services/zig/zig-xml-converter/zig-xml-converter.service';
-import { ZigService } from 'src/app/services/zig/zig.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {environment} from 'src/app/environments/environment';
+import {ZahtevZaPriznanjeZiga} from 'src/app/model/zig';
+import {UserService} from 'src/app/services/user/user.service';
+import {Toastr} from 'src/app/services/utils/toastr/toastr.service';
+import {ZigXmlConverterService} from 'src/app/services/zig/zig-xml-converter/zig-xml-converter.service';
+import {ZigService} from 'src/app/services/zig/zig.service';
+import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
+import {typeZahteva} from "../../../model/model";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-zig-table-view',
@@ -16,7 +18,7 @@ import { ZigService } from 'src/app/services/zig/zig.service';
   styleUrls: ['./zig-table-view.component.scss']
 })
 export class ZigTableViewComponent implements OnInit{
-  
+
   zahteviZig: ZahtevZaPriznanjeZiga[] = [];
   isLoaded: boolean = false;
   displayedColumns = ["vrsta po korisniku", "vrsta po izgledu", "podnosilac", "datum podnošenja", "prikaz"]
@@ -26,11 +28,15 @@ export class ZigTableViewComponent implements OnInit{
   prefix: string = '';
   commonPrefix : string = '';
   isEmptySource : boolean = false;
-  
+
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
 
-  constructor(private zigService: ZigService, private userService: UserService, private zigFromXML: ZigXmlConverterService, private toastr: Toastr){
+  constructor(private zigService: ZigService,
+              private userService: UserService,
+              private zigFromXML: ZigXmlConverterService,
+              private toastr: Toastr,
+              private dialog: MatDialog){
 
   }
 
@@ -52,7 +58,7 @@ export class ZigTableViewComponent implements OnInit{
       this.getDataForUserTabel();
     }
   }
-  
+
 
   getDataForUserTabel(){
     this.zigService.getAllApproved().subscribe({
@@ -90,7 +96,7 @@ export class ZigTableViewComponent implements OnInit{
       }
     })
   }
-  
+
   setDataSource(zahtevSource: ZahtevZaPriznanjeZiga[]) {
     this.dataSource = new MatTableDataSource<ZahtevZaPriznanjeZiga>(zahtevSource);
     this.dataSource.paginator = this.paginator;
@@ -125,8 +131,12 @@ export class ZigTableViewComponent implements OnInit{
       let zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga = this.zigFromXML.getZigFromXML(zahtevi, this.prefix, this.commonPrefix);
       this.zahteviZig.push(zahtevZaPriznanjeZiga)
     }
-   
+
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviZig)
+  }
+
+  openResenje(element: ZahtevZaPriznanjeZiga) {
+    this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.ZIG}});
   }
 }

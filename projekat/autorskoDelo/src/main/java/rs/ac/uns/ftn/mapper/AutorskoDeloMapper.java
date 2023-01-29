@@ -46,7 +46,7 @@ public class AutorskoDeloMapper {
 		zahtev.setPodnosilac(getPodnosilacFromDTO(zahtevDTO.getPodnosilac()));
 		zahtev.setPrilozi(getPriloziFromDTO(zahtevDTO.getPrilozi()));	
 		zahtev.setZavod(createZavod());
-		zahtev.setStatus(StatusZahteva.NEOBRADJEN);
+		zahtev.setStatus(zahtevDTO.getStatus());
 		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
 				
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);

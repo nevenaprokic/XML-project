@@ -13,9 +13,9 @@ public interface ResenjeService {
 
 	ArrayList<Resenje> getAll();
 
-	void saveNewFile(Resenje resenje);
-	
+	void saveNewFile(Resenje resenje, String user);
+
 	String generateDocumentId();
-	
-	 ListaResenja findAll() throws XMLDBException, JAXBException;
+
+	ListaResenja findAll() throws XMLDBException, JAXBException;
 }
