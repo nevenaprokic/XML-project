@@ -9,7 +9,7 @@ export class XmlTemplateService {
   constructor() {
   }
 
-  createNewXML(dateForm: FormGroup<{ endDate: FormControl<Date | null>; startDate: FormControl<Date | null> }>) {
+  createNewXML(dateForm: FormGroup<{ endDate: FormControl<Date | null>; startDate: FormControl<Date | null>, vrstaIzvestaja: FormControl}>) {
     // @ts-ignore
     const startDateForXML = this.convertDate(dateForm.value.startDate);
     // @ts-ignore

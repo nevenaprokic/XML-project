@@ -39,6 +39,7 @@ import rs.ac.uns.ftn.transformations.PDFTransformer;
 public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public static final String PATH = "src/main/resources/xslt/";
 	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
+	public static final String XSL_FILE = "src/main/resources/xslt/A1.xsl";
 
 	@Autowired
 	private AutorskoDeloRepository autorskoDeloRepository;
@@ -104,7 +105,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		PDFTransformer pdfTransformer = new PDFTransformer();
 		
 		//generisanje pdf-a i html-a
-		pdfTransformer.generateHTML(zaAutorskoDelo, outputFileXHTML);
+		pdfTransformer.generateHTML(zaAutorskoDelo, outputFileXHTML, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, outputFileXHTML);
 		
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
