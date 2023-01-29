@@ -15,21 +15,22 @@ export class ZigXmlConverterService {
   getZigFromXML(xml: any, prefix: string, commonPrefix: string): ZahtevZaPriznanjeZiga {
     this.prefix = prefix;
     this.commonPrefix = commonPrefix;
-    let takse : TTakse = this.getPlaceneTakse(xml);
-    let podnosioci : PodnosilacPrijave[] = this.getPodnosiociPrijave(xml);
-    let prvenstvo : string = xml[this.prefix + ':Pravo_prvenstva_i_osnov']? xml[this.prefix + ':Pravo_prvenstva_i_osnov']._text : ""
+    const takse : TTakse = this.getPlaceneTakse(xml);
+    const podnosioci : PodnosilacPrijave[] = this.getPodnosiociPrijave(xml);
+    const prvenstvo : string = xml[this.prefix + ':Pravo_prvenstva_i_osnov']? xml[this.prefix + ':Pravo_prvenstva_i_osnov']._text : ""
     //prilozi
-    let punomocnik = this.getPunomocnik(xml)
-    let zig = this.getZig(xml)
-    let zajPredstavnik = this.getZajednickiPredstavnik(xml)
-    let idZiga = xml[this.prefix + ":idZiga"]._text
+    const punomocnik = this.getPunomocnik(xml)
+    const zig = this.getZig(xml)
+    const zajPredstavnik = this.getZajednickiPredstavnik(xml)
+    const idZiga = xml[this.prefix + ":idZiga"];
+    const id = idZiga[prefix + ':idZ']._text;
 
-    let attributes = xml["_attributes"]
-    let brojprijave = attributes["broj_prijave_ziga"]
-    let status = attributes["status"]
-    let datumPodnosenja = attributes["datum_podnosenja_prijave"]
+    const attributes = xml["_attributes"]
+    const brojprijave = attributes["broj_prijave_ziga"]
+    const status = attributes["status"]
+    const datumPodnosenja = attributes["datum_podnosenja_prijave"]
 
-    let podnosiociStr = ''
+    let podnosiociStr = '';
     podnosioci.forEach((podnosilac) => {
       podnosiociStr += podnosilac.podnosilacPrijave.kontaktPodaci.email + ", "
     })
@@ -41,7 +42,7 @@ export class ZigXmlConverterService {
       punomocnik: punomocnik,
       zig: zig,
       zajednickiPredstavnik: zajPredstavnik,
-      id: idZiga,
+      id: id,
       brojZahteva : brojprijave,
       datumPodnosenjaZahteva: datumPodnosenja,
       status: status,
@@ -149,7 +150,7 @@ export class ZigXmlConverterService {
        return new FizickoLice(adresa, kontaktPodaci, ime, prezime, xml[this.commonPrefix + ':Drzavljanstvo']._text)
      }
      return new FizickoLice(adresa, kontaktPodaci, ime, prezime)
-     
+
   }
 
   getPravnoLice(xml:any): PravnoLice{
@@ -166,10 +167,10 @@ export class ZigXmlConverterService {
 
   getAdresa(xml:any):Adresa{
     let adresa = xml[this.commonPrefix + ':Adresa']
-    return { broj: adresa[this.commonPrefix + ':Broj']._text, 
-    ulica: adresa[this.commonPrefix + ':Ulica']._text, 
-    grad: adresa[this.commonPrefix + ':Grad']._text, 
-    drzava : adresa[this.commonPrefix + ':Drzava']? adresa[this.commonPrefix + ':Drzava']._text : "", 
+    return { broj: adresa[this.commonPrefix + ':Broj']._text,
+    ulica: adresa[this.commonPrefix + ':Ulica']._text,
+    grad: adresa[this.commonPrefix + ':Grad']._text,
+    drzava : adresa[this.commonPrefix + ':Drzava']? adresa[this.commonPrefix + ':Drzava']._text : "",
     postanskiBroj: adresa[this.commonPrefix + ':Postanski_broj']? adresa[this.commonPrefix + ':Postanski_broj']._text: ""}
  }
 }

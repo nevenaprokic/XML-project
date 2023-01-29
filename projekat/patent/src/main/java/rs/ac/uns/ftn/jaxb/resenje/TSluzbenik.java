@@ -38,6 +38,7 @@ public class TSluzbenik {
     protected String ime;
     @XmlElement(name = "Prezime", namespace = "http://ftn.uns.ac.rs/resenje", required = true)
     protected String prezime;
+ 
 
     /**
      * Gets the value of the ime property.

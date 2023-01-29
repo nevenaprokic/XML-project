@@ -28,12 +28,15 @@ public class ResenjeController {
 	private ResenjeService resenjeService;
 	
 	private final static String USER_API_SLUZBENIK = "http://localhost:8903/xml/user/authsluzbenik";
+	private final static String USER_API_SLUZBENIK_GET = "http://localhost:8903/xml/user/";
 	
 	@RequestMapping(value="/save-new", method = RequestMethod.POST)
 	public ResponseEntity<?> saveNewFile(@RequestBody Resenje resenje, @RequestHeader MultiValueMap<String, String> headers) {
 		this.chechAuthority(headers, USER_API_SLUZBENIK);
+		System.out.println(headers);
 		try {
-			resenjeService.saveNewFile(resenje);
+			String user = this.getSluzbenik(headers, USER_API_SLUZBENIK_GET);
+			resenjeService.saveNewFile(resenje, user);
 			return ResponseEntity.ok().build();
 		}
 		catch (Exception e) {
@@ -50,6 +53,16 @@ public class ResenjeController {
 		newHeader.setContentType(MediaType.APPLICATION_XML);
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
+	}
+	
+	private String getSluzbenik(MultiValueMap<String, String> headers, String api) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders newHeader = new HttpHeaders(headers);
+		newHeader.setHost(new InetSocketAddress("localhost", 8903));
+		newHeader.setContentType(MediaType.APPLICATION_XML);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
+		return respEntity.toString();
 	}
 	
 	
