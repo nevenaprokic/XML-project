@@ -22,7 +22,7 @@
             <mat-radio-group class="section" formControlName="vrstaIzvestaja">
                 <mat-radio-button [checked]="true" value="zig">Žig</mat-radio-button>
                 <mat-radio-button value="patent">Patent</mat-radio-button>
-                <mat-radio-button value="autorsko delos">Autotsko delo</mat-radio-button>
+                <mat-radio-button value="autorsko delo">Autotsko delo</mat-radio-button>
             </mat-radio-group>
         </section>
     </div>
@@ -35,7 +35,7 @@
     </div>
     <div class="time">
         <p class="time-title">Za period: </p>
-        <p>10.01.2023 - 15.01.2023.</p>
+        <p>{{dateForm.value.startDate | date: 'dd.MM.yyyy'}} - {{dateForm.value.endDate | date: 'dd.MM.yyyy'}}</p>
     </div>
     <div class="report-item">
         <p class="item">- Broj podnetih zahteva: </p>

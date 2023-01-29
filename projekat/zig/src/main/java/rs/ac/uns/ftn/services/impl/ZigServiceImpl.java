@@ -33,6 +33,7 @@ import rs.ac.uns.ftn.transformations.PDFTransformer;
 public class ZigServiceImpl implements ZigService {
 	
 	public static final String PATH = "src/main/resources/xslt/";
+	public static final String XSL_FILE = "src/main/resources/xslt/Z1.xsl";
 	
 	@Autowired
 	private ZigRepository zigRepository;
@@ -69,12 +70,10 @@ public class ZigServiceImpl implements ZigService {
 	
 	@Override
 	public void getPDF(String documentId) throws IOException, DocumentException {
-		
 		//ucitavanje xml-a iz baze
 		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-		//ovde da ne bude uvek A1 vec A pa indeks koji se posalje
 		String outputFilePDF = PATH + documentId  + "-" + timeStamp + ".pdf";
 		String outputFileXHTML = PATH + documentId + "-" + timeStamp + ".html";
     	
@@ -87,10 +86,7 @@ public class ZigServiceImpl implements ZigService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		
-//		String xml_fileString = "src/main/resources/data/zahtev_za_prijavu_ziga.xml";
-		
-		pdfTransformer.generateHTML(zaZig, outputFileXHTML);
+		pdfTransformer.generateHTML(zaZig, outputFileXHTML, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, outputFileXHTML);
 		
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");

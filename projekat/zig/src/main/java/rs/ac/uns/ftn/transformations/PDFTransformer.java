@@ -26,13 +26,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 public class PDFTransformer {
-	
-private static DocumentBuilderFactory documentFactory;
-	
+
+	private static DocumentBuilderFactory documentFactory;
+
 	private static TransformerFactory transformerFactory;
-	
-	public static final String XSL_FILE = "src/main/resources/xslt/Z1.xsl";
-	
+
 	static {
 
 		/* Inicijalizacija DOM fabrike */
@@ -40,43 +38,44 @@ private static DocumentBuilderFactory documentFactory;
 		documentFactory.setNamespaceAware(true);
 		documentFactory.setIgnoringComments(true);
 		documentFactory.setIgnoringElementContentWhitespace(true);
-		
+
 		/* Inicijalizacija Transformer fabrike */
 		transformerFactory = TransformerFactory.newInstance();
-		
-	}
- 
-    /**
-     * Creates a PDF using iText Java API
-     * @param filePath
-     * @throws IOException
-     * @throws DocumentException
-     */
-    public void generatePDF(String filePath, String xtmlFile) throws IOException, DocumentException {
-    	// step 1
-    	Document document = new Document();
-        // step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        // step 3
-        document.open();
-        // step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document,
-                new FileInputStream(xtmlFile), Charset.forName("UTF-8"));
-        // step 5
-        document.close();
-        
-    }
 
-    public void generateHTML(Node xmlPath, String htmlFile) throws FileNotFoundException {
-    	
+	}
+
+	/**
+	 * Creates a PDF using iText Java API
+	 * 
+	 * @param filePath
+	 * @throws IOException
+	 * @throws DocumentException
+	 */
+	public void generatePDF(String filePath, String xtmlFile) throws IOException, DocumentException {
+		// step 1
+		Document document = new Document();
+		// step 2
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
+		// step 3
+		document.open();
+		// step 4
+		XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(xtmlFile),
+				Charset.forName("UTF-8"));
+		// step 5
+		document.close();
+
+	}
+
+	public void generateHTML(Node xmlPath, String htmlFile, String xslFile) throws FileNotFoundException {
+
 		try {
 
 			// Initialize Transformer instance
-			StreamSource transformSource = new StreamSource(new File(XSL_FILE));
+			StreamSource transformSource = new StreamSource(new File(xslFile));
 			Transformer transformer = transformerFactory.newTransformer(transformSource);
 			transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			
+
 			// Generate XHTML
 			transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
 
@@ -84,7 +83,7 @@ private static DocumentBuilderFactory documentFactory;
 			DOMSource source = new DOMSource(xmlPath);
 			StreamResult result = new StreamResult(new FileOutputStream(htmlFile));
 			transformer.transform(source, result);
-			
+
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerFactoryConfigurationError e) {
@@ -92,8 +91,5 @@ private static DocumentBuilderFactory documentFactory;
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
-    
-    }
-    
-
+	}
 }
