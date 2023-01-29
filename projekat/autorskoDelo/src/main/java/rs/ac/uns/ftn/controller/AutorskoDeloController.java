@@ -28,6 +28,8 @@ import org.springframework.web.client.RestTemplate;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
+import rs.ac.uns.ftn.exception.ErrorMessage;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
@@ -146,6 +148,22 @@ public class AutorskoDeloController {
         headers.add("Content-Type", "application/xml; charset=utf-8");
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName );
 		return headers;
+	}
+	
+
+	@GetMapping("/find-all-approved")
+	public ResponseEntity<?> getAllApproved(@RequestHeader MultiValueMap<String, String> headers){
+		this.chechAuthority(headers, USER_API_KORISNIK);
+		try {
+			return new ResponseEntity<>(this.autorskoDeloService.findAllApproved(), HttpStatus.OK);
+		} catch (XMLDBException | JAXBException e) {
+			ErrorMessage message = new ErrorMessage(
+	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+	                ErrorMessageConstants.INTERNAL_ERROR
+	        );
+
+	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
 	}
 	
 	private void chechAuthority(MultiValueMap<String, String> headers, String api) {

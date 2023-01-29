@@ -105,6 +105,7 @@ public class ZigServiceImpl implements ZigService {
 	
 	private ListaZahtevaZiga resourceSetToList(ResourceSet result) throws XMLDBException, JAXBException {
 		List<ZahtevZaPriznanjeZiga> zahteviList= new ArrayList<>();
+		System.out.println(zahteviList.size());
 		ResourceIterator i = result.getIterator();
 
         while(i.hasMoreResources()) {
@@ -113,6 +114,12 @@ public class ZigServiceImpl implements ZigService {
             zahteviList.add(zahtev);
         }
 		return new ListaZahtevaZiga(zahteviList);
+	}
+
+	@Override
+	public ListaZahtevaZiga findAllApproved() throws XMLDBException, JAXBException {
+		ResourceSet result = zigRepository.getAllApproved();
+		return resourceSetToList(result);
 	}
 
 }

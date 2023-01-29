@@ -1,10 +1,10 @@
 <div class="dialog">
     <div class="title">Pregled zahtevza za priznanje patenta</div>
-    <div *ngIf="!this.gettingDataFinished" class="processing_container">
+    <div *ngIf="!gettingDataFinished" class="processing_container">
       <p class="processing_text">Dobavljanje podataka...</p>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <div *ngIf="this.gettingDataFinished">
+    <div *ngIf="this.gettingDataFinished && !this.isEmptySource">
       <div>
         <table #matTabel mat-table [dataSource]="dataSource" matSort class="table-users" (matSortChange)="sortData($event)">
   
@@ -86,7 +86,7 @@
                    showFirstLastButtons
                    aria-label="Select page of periodic elements"
                    #paginator
-                   class="paginator">
+                   class="paginator" *ngIf="this.gettingDataFinished && !this.isEmptySource">
     </mat-paginator>
   
   

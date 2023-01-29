@@ -75,7 +75,7 @@ export class AutorskoDeloXmlConvertorService {
       return autori;
     }
     let autoriList : any[] = autoriXML[this.prefix + ":Autor"]
-    if(Array.isArray(autoriXML)){
+    if(Array.isArray(autoriList)){
       autoriList.forEach((autorXML) => {
         let autor : Autor = this.getAutor(autorXML);
         autori.push(autor);

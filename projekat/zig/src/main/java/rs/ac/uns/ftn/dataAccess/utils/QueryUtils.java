@@ -16,4 +16,8 @@ public class QueryUtils {
 			+ "	where  %1$s \r\n" + "return $zahtev";
 
 	public static final String CONDITION_TEPMLATE = "z1:someMatch($txt, %1$s)";
+	
+	public static final String FIND_ALL_APPROVED = DECLARE_NAMESPACES + "for $zahtev in collection('/db/project/zigovi')\r\n"
+			+ "    let $txt := $zahtev/z1:Zahtev_za_priznanje_ziga\r\n" + "where $txt/@status = 'odobren'\r\n" + 
+					"" + "return $txt";
 }

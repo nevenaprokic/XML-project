@@ -23,4 +23,6 @@ public interface ZigService {
 	ListaZahtevaZiga findAll() throws XMLDBException, JAXBException;
 	
 	void saveFile(ZahtevZaPriznanjeZiga zahtev, String documentId);
+	
+	ListaZahtevaZiga findAllApproved() throws XMLDBException, JAXBException;
 }

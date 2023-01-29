@@ -6,6 +6,7 @@ import { environment } from 'src/app/environments/environment';
 import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
 import { ZahtevZaPriznanjeZiga } from 'src/app/model/zig';
 import { UserService } from 'src/app/services/user/user.service';
+import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 import { ZigXmlConverterService } from 'src/app/services/zig/zig-xml-converter/zig-xml-converter.service';
 import { ZigService } from 'src/app/services/zig/zig.service';
 
@@ -24,11 +25,12 @@ export class ZigTableViewComponent implements OnInit{
   isSluzbenik: boolean = false;
   prefix: string = '';
   commonPrefix : string = '';
+  isEmptySource : boolean = false;
   
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
 
-  constructor(private zigService: ZigService, private userService: UserService, private zigFromXML: ZigXmlConverterService){
+  constructor(private zigService: ZigService, private userService: UserService, private zigFromXML: ZigXmlConverterService, private toastr: Toastr){
 
   }
 
@@ -53,7 +55,25 @@ export class ZigTableViewComponent implements OnInit{
   
 
   getDataForUserTabel(){
-
+    this.zigService.getAllApproved().subscribe({
+      next: (response) => {
+          const convert = require('xml-js');
+          const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4, encodeURI: "utf-8"}));
+          if(Object.keys(zahtevList.listaZahtevaZiga).length > 1){
+            const atrributes = zahtevList.listaZahtevaZiga._attributes;
+            this.getPrefix(atrributes)
+            this.convertFromJSON(zahtevList)
+          }
+          else{
+            this.isEmptySource = true;
+            this.gettingDataFinished = true;
+            this.toastr.info("Nema odgovarajućih dokumenata")
+          }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   }
 
   getDataForSluzbenik(){
@@ -92,6 +112,7 @@ export class ZigTableViewComponent implements OnInit{
   }
 
   convertFromJSON(zahtevList: any){
+    console.log(zahtevList)
     const zahtevi : any[] = zahtevList.listaZahtevaZiga[this.prefix + ':Zahtev_za_priznanje_ziga'];
     if(Array.isArray(zahtevi)){
       zahtevi.forEach((zahtev) => {
@@ -100,6 +121,7 @@ export class ZigTableViewComponent implements OnInit{
         this.zahteviZig.push(zahtevZaPriznanjeZiga)
       })
     }else{
+      console.log(zahtevi)
       let zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga = this.zigFromXML.getZigFromXML(zahtevi, this.prefix, this.commonPrefix);
       this.zahteviZig.push(zahtevZaPriznanjeZiga)
     }

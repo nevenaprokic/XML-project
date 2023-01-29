@@ -4,7 +4,7 @@
       <p class="processing_text">Dobavljanje podataka...</p>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <div *ngIf="this.gettingDataFinished">
+    <div *ngIf="this.gettingDataFinished && !this.isEmptySource">
       <div>
         <table #matTabel mat-table [dataSource]="dataSource" matSort class="table-users">
   
@@ -86,7 +86,7 @@
                    showFirstLastButtons
                    aria-label="Select page of periodic elements"
                    #paginator
-                   class="paginator">
+                   class="paginator" *ngIf="this.gettingDataFinished && !this.isEmptySource">
     </mat-paginator>
   
   

@@ -33,4 +33,8 @@ public class ZigRepository {
 		return zigDataAccess.getByXQuery(xquery);
 	}
 	
+	public ResourceSet getAllApproved() {
+		return zigDataAccess.getAllApproved();
+	}
+	
 }

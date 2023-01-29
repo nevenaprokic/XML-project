@@ -24,6 +24,11 @@ export class ZigService {
     return this.httpRequestService.get(url)
   }
 
+  getAllApproved(){
+    const url = this.ZIG_PATH + `/find-all-approved`;
+    return this.httpRequestService.get(url)
+  }
+
   sortData(sort: Sort, dataSource: ZahtevZaPriznanjeZiga[]): ZahtevZaPriznanjeZiga[] {
     if (!sort.active || sort.direction === '') {
       return dataSource
