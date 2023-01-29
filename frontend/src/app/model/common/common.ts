@@ -4,9 +4,10 @@ export class Adresa {
   }
   
   export class KontaktPodaci {
-    constructor(public faks: string, 
+    constructor( public faks: string,
         public email: string, 
-        public telefon: string){}
+        public telefon: string,
+        ){}
   }
   
   export class FizickoLice {

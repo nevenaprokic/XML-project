@@ -1,0 +1,21 @@
+<div class="fizicko-lice">
+    <div class="input-lice">
+      Ime:
+      <mat-form-field appearance="fill">
+        <input matInput readonly="true" value={{lice.ime}}>
+      </mat-form-field>
+    </div>
+    <div class="input-lice">
+      Prezime:
+      <mat-form-field appearance="fill">
+        <input matInput  readonly="true" value={{lice.prezime}}>
+      </mat-form-field>
+    </div>
+    <div class="input-drzavljanstvo" *ngIf="lice.drzavljanstvo" >
+      Drzavljanstvo:
+      <mat-form-field appearance="fill">
+        <input matInput  readonly="true" value={{lice.drzavljanstvo}}>
+      </mat-form-field>
+    </div>
+  </div>
+  

@@ -1,0 +1,17 @@
+@import "src/style/styles";
+
+.adresa {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 10px;
+
+  .row {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .input-adresa {
+    margin: 0 10px;
+  }
+}

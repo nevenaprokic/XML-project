@@ -52,7 +52,7 @@ export class PatentFromXmlService {
 
   getPodnosilac(xml:any, prefix: string) : PodnosilacZahteva{
     let ponosilac = xml[prefix +':Podnosilac_zahteva']
-    let isPronalazac = ponosilac[prefix +':pronalazac']._text;
+    let isPronalazac = ponosilac[prefix +':pronalazac']._text === "ture";
     let lice : FizickoLice | PravnoLice;
     if (ponosilac[prefix +':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice"){
       lice = this.getPravnoLice(ponosilac[prefix +':Lice'])
@@ -72,7 +72,7 @@ export class PatentFromXmlService {
   getPronalazac(xml:any, prefix: string) : Pronalazac{
     let pronalazac = xml[prefix +':Pronalazac'];
     let lice : FizickoLice = this.getFizickoLice(pronalazac);
-    let isAnoniman: boolean = pronalazac['_attributes']['anoniman']
+    let isAnoniman: boolean = pronalazac['_attributes']['anoniman']  === "ture"
     if (lice.drzavljanstvo){
       return new Pronalazac(isAnoniman, lice.adresa, lice.kontaktPodaci, lice.ime, lice.prezime, lice.drzavljanstvo)
     }
@@ -94,8 +94,8 @@ export class PatentFromXmlService {
     let punomocnik = xml[prefix +':Punomocnik']
     if (punomocnik){
       let lice : FizickoLice | PravnoLice;
-      let isPrijemPismena: boolean = punomocnik[prefix +':za_prijem_pismena']._text
-      let isZaZastupanje: boolean = punomocnik[prefix +':za_zastupanje']._text
+      let isPrijemPismena: boolean = punomocnik[prefix +':za_prijem_pismena']._text  === "ture"
+      let isZaZastupanje: boolean = punomocnik[prefix +':za_zastupanje']._text  === "ture"
       if (punomocnik[prefix +':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice"){
         lice = this.getPravnoLice(punomocnik[prefix +':Lice'])
       }

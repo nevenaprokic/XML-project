@@ -45,7 +45,7 @@ export class Podaci_o_dostavljanju{
 }
 
 export class Podaci_o_dodatnoj_prijavi{
-    constructor(public tipPrivajve: TipDodatnePrijave, 
+    constructor(public tipPrijave: TipDodatnePrijave, 
         public brojPrvobitnePrijave: string,
         public datumPodnosenjaPrvobitnePrijave: Date){}
 }
@@ -72,7 +72,7 @@ export class PodnosilacZahteva{
 }
 
 export enum NacinDostavljanja{
-    elektronski="elekstronski",
+    elektronski="elektronski",
     papirna_forma="papirna_forma"
 }
 export enum TipPRijave{
@@ -82,5 +82,5 @@ export enum TipPRijave{
 
 export enum TipDodatnePrijave{
     dopunska="dopunska",
-    izdvojena="dopunska"
+    izdvojena="izdvojena"
 }

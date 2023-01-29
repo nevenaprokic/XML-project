@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -8,6 +9,7 @@ import { PatentFromXmlService } from 'src/app/services/patent/patent-from-xml/pa
 import { PatentService } from 'src/app/services/patent/patent.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
+import { PatentDetailViewComponent } from '../../detail-view/patent/patent-detail-view/patent-detail-view.component';
 
 @Component({
   selector: 'app-patent-tabel-view',
@@ -30,7 +32,7 @@ export class PatentTabelViewComponent implements OnInit{
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
   
-  constructor(private patentService: PatentService, private userService: UserService, private patentFromXML: PatentFromXmlService, private toastr: Toastr){
+  constructor(private patentService: PatentService, private userService: UserService, private patentFromXML: PatentFromXmlService, private toastr: Toastr,public dialog: MatDialog,){
 
   }
 
@@ -119,4 +121,10 @@ export class PatentTabelViewComponent implements OnInit{
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviPatent)
   }
+
+openPatenDetailView(element: ZahtevZaPriznanjePatent){
+  this.dialog.open(PatentDetailViewComponent, {
+    data: element,
+  });
+}
 }

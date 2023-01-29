@@ -1,0 +1,30 @@
+<div class="description">
+    <p class="polje">Polje broj VIII</p>
+    <p class="subtitle">ZAHTEV ZA PRIZNANJE PRAVA PRVENSTVA IZ RANIJIH PRIJAVA:</p>
+  </div>
+  <table #matTabel mat-table [dataSource]="dataSource" class="table-users" matSort>
+  
+    <ng-container matColumnDef="br.">
+      <th mat-header-cell *matHeaderCellDef> No.</th>
+      <td mat-cell *matCellDef="let i = index">{{i + 1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="broj prijave">
+      <th mat-sort-header="broj prijave" *matHeaderCellDef>broj prijave</th>
+      <td mat-cell *matCellDef="let element"> {{element.brojPrijave}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="datum podnošenja">
+      <th mat-sort-header="datum podnošenja" *matHeaderCellDef>datum podnošenja</th>
+      <td mat-cell *matCellDef="let element"> {{element.datumPodnosenjaPrijave}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dvoslovna oznaka države">
+      <th mat-sort-header="dvoslovna oznaka države" *matHeaderCellDef>dvoslovna oznaka države</th>
+      <td mat-cell *matCellDef="let element"> {{element.DvoslovnaOznakaDrzave}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
