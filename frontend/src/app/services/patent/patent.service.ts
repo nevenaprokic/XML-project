@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Sort } from '@angular/material/sort';
-import { environment } from 'src/app/environments/environment';
-import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
-import { HttpClientService } from '../custom-http/http-client.service';
-import { HttpRequestService } from '../utils/http-request/http-request.service';
+import {Injectable} from '@angular/core';
+import {Sort} from '@angular/material/sort';
+import {environment} from 'src/app/environments/environment';
+import {ZahtevZaPriznanjePatent} from 'src/app/model/patent/patent';
+import {HttpClientService} from '../custom-http/http-client.service';
+import {HttpRequestService} from '../utils/http-request/http-request.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatentService {
 
-  constructor(private http: HttpRequestService) { }
+  constructor(private http: HttpRequestService) {
+  }
 
-  getAll(){
-      return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents") //da li radi
+  getAll() {
+    return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents"); //da li radi
   }
 
   sortData(sort: Sort, dataSource: ZahtevZaPriznanjePatent[]): ZahtevZaPriznanjePatent[] {
@@ -29,7 +30,7 @@ export class PatentService {
         case 'pronalazak':
           return this.compare(a.pronalazak.nazivNaSrpskom, b.pronalazak.nazivNaSrpskom, isAsc);
         case 'datum podnošenja':
-          if (a.datumPodnosenja && b.datumPodnosenja){
+          if (a.datumPodnosenja && b.datumPodnosenja) {
             return this.compare(a.datumPodnosenja, b.datumPodnosenja, isAsc);
           }
           return 0;
@@ -39,6 +40,7 @@ export class PatentService {
     });
     return sortedData;
   }
+
   compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }

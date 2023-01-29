@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
 
+import rs.ac.uns.ftn.jaxb.p1.IdPatenta;
 import rs.ac.uns.ftn.jaxb.p1.ObjectFactory;
 import rs.ac.uns.ftn.jaxb.p1.PodaciODodatnojPrijavi;
 import rs.ac.uns.ftn.jaxb.p1.PodaciODostavljanju;
@@ -39,6 +40,10 @@ public class PatentMapper {
 	
 	public static ZahtevZaPriznanjePatenta mapFromDTO(ZahtevZaPriznanjePatenta zahtevDTO, String id) {
 		ZahtevZaPriznanjePatenta zahtev = objectFactory.createZahtevZaPriznanjePatenta();		
+		
+		IdPatenta idPatenta = objectFactory.createIdPatenta();
+		idPatenta.setIdP(id);
+		zahtev.setIdPatenta(idPatenta);
 		
 		zahtev.setBrojPrijave(zahtevDTO.getBrojPrijave());
 		zahtev.setDatumPrijemaPrijave(zahtevDTO.getDatumPrijemaPrijave());

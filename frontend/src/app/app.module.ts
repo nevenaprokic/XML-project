@@ -52,19 +52,18 @@ import {MAT_DIALOG_DATA, MatDialogModule} from "@angular/material/dialog";
 import {IzvestajComponent} from './components/izvestaj/izvestaj.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
-import { PatentTabelViewComponent } from './components/patent-tabel-view/patent-tabel-view.component';
+import { PatentTabelViewComponent } from './components/tabel-view/patent-tabel-view/patent-tabel-view.component';
 import {MatTableModule} from "@angular/material/table"
 import { MatSortModule } from '@angular/material/sort'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { AutorskoDeloTableViewComponent } from './components/autorsko-delo-table-view/autorsko-delo-table-view.component';
+import { AutorskoDeloTableViewComponent } from './components/tabel-view/autorsko-delo-table-view/autorsko-delo-table-view.component';
 import { DatePipe } from '@angular/common';
 import { TextSearchComponent } from './components/search-forms/text-search/text-search.component';
 import { MetadataSearchComponent } from './components/search-forms/metadata-search/metadata-search.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
-
-
+import { ZigTableViewComponent } from './components/tabel-view/zig-table-view/zig-table-view.component';
 
 const MaterialModule = [
   BrowserModule,
@@ -122,7 +121,8 @@ const MaterialModule = [
         IzvestajComponent,
         AutorskoDeloTableViewComponent,
         TextSearchComponent,
-        MetadataSearchComponent
+        MetadataSearchComponent,
+        ZigTableViewComponent
     ],
   imports: [
     ...MaterialModule

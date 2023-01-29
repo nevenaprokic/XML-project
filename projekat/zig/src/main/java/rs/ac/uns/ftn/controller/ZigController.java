@@ -78,7 +78,7 @@ public class ZigController {
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<?> getAllPatents(@RequestHeader MultiValueMap<String, String> headers){
+	public ResponseEntity<?> getAll(@RequestHeader MultiValueMap<String, String> headers){
 		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
 			return new ResponseEntity<>(this.zigService.findAll(), HttpStatus.OK);
@@ -91,6 +91,21 @@ public class ZigController {
 	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+	}
+	
+	@GetMapping("/find-all-approved")
+	public ResponseEntity<?> getAllApproved(@RequestHeader MultiValueMap<String, String> headers){
+		this.chechAuthority(headers, USER_API_KORISNIK);
+		try {
+			return new ResponseEntity<>(this.zigService.findAllApproved(), HttpStatus.OK);
+		} catch (XMLDBException | JAXBException e) {
+			ErrorMessage message = new ErrorMessage(
+	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+	                ErrorMessageConstants.INTERNAL_ERROR
+	        );
+
+	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	private void chechAuthority(MultiValueMap<String, String> headers, String api) {

@@ -51,4 +51,10 @@ export class AutorskoDeloService {
     const url = this.AUTORSKO_DELO_PATH + `/get-html/${documentId}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
+
+  getAllApproved(){
+    const url = this.AUTORSKO_DELO_PATH + `/find-all-approved`;
+    return this.httpRequestService.get(url)
+  }
+
 }

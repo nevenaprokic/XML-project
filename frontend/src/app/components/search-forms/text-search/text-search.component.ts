@@ -27,7 +27,6 @@ export class TextSearchComponent {
     this.autorskoDeloService.searchText(query).subscribe({
       next: (res: any) => {
         this.searchResult.emit(res);
-        console.log(res)
       },
       error: (res: any) => {
         console.log(res)

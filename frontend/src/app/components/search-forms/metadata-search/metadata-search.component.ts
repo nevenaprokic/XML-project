@@ -43,7 +43,6 @@ export class MetadataSearchComponent implements OnInit {
     this.autorskoDeloService.searchMetadata(query).subscribe({
       next: (res: any) => {
         this.searchResult.emit(res);
-        console.log(res)
       },
       error: (res: any) => {
         console.log(res)

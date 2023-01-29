@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AutorskoDeloTableViewComponent } from './autorsko-delo-table-view.component';
+
 
 describe('AutorskoDeloTableViewComponent', () => {
   let component: AutorskoDeloTableViewComponent;

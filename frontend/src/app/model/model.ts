@@ -29,3 +29,9 @@ export interface Izvestaj {
 export interface text {
   _text: number;
 }
+
+export enum typeZahteva{
+  ZIG= "ZIG",
+  PATENT="PATENT",
+  AUTORSKO_DELO = "AUTORSKO_DELO"
+}

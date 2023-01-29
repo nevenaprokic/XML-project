@@ -4,6 +4,7 @@ package rs.ac.uns.ftn.jaxb.p1;
 import javax.xml.bind.annotation.XmlRegistry;
 
 
+
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
@@ -119,6 +120,10 @@ public class ObjectFactory {
     
     public PodaciODodatnojPrijavi crePodaciODodatnojPrijavi() {
         return new PodaciODodatnojPrijavi();
+    }
+    
+    public IdPatenta createIdPatenta() {
+        return new IdPatenta();
     }
 
 

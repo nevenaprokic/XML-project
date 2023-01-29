@@ -33,4 +33,8 @@ public class AutorskoDeloRepository {
 	public ResourceSet getByXQuery(String xquery) {
 		return autorskoDeloDataAccess.getByXQuery(xquery);
 	}
+	
+	public ResourceSet getAllApproved() {
+		return autorskoDeloDataAccess.getAllApproved();
+	}
 }

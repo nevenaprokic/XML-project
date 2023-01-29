@@ -33,4 +33,6 @@ public interface AutorskoDeloService {
 	InputStreamResource getMetadataAsRdf(String documentId) throws IOException;
 
 	InputStreamResource getMetadataAsJson(String documentId) throws IOException;
+	
+	ListaZahtevaAutorskoDelo findAllApproved() throws XMLDBException, JAXBException;
 }

@@ -1,5 +1,5 @@
-import { PortalModule } from "@angular/cdk/portal";
 import { FizickoLice, Adresa, KontaktPodaci, PravnoLice, Status } from "../common/common";
+
 
 
 export class ZahtevZaPriznanjePatent{
@@ -13,7 +13,8 @@ export class ZahtevZaPriznanjePatent{
         public prvenstvo?: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava,
         public brojPrijave?: string,
         public datumPodnosenja? : Date,
-        public priznatiDatumPodnosenja?: Date){}
+        public priznatiDatumPodnosenja?: Date,
+        public idPatenta?: string){}
 }
 export class PrimalazZahteva {
     constructor(public adresa: Adresa,
@@ -33,25 +34,25 @@ export class Pronalazac extends FizickoLice{
 }
 
 export class Pronalazak{
-    constructor(public nazivNaSrpskom: string, 
+    constructor(public nazivNaSrpskom: string,
         public nazivNaEngleskom: string){
 
         }
 }
 
 export class Podaci_o_dostavljanju{
-    constructor(public adresa: Adresa, 
+    constructor(public adresa: Adresa,
         public nacinDostavljanja: NacinDostavljanja){}
 }
 
 export class Podaci_o_dodatnoj_prijavi{
-    constructor(public tipPrivajve: TipDodatnePrijave, 
+    constructor(public tipPrivajve: TipDodatnePrijave,
         public brojPrvobitnePrijave: string,
         public datumPodnosenjaPrvobitnePrijave: Date){}
 }
 
 export class RanijaPrijava{
-    constructor(public DvoslovnaOznakaDrzave: string, 
+    constructor(public DvoslovnaOznakaDrzave: string,
         public brojPrijave: string,
         public datumPodnosenjaPrijave: Date){}
 }
@@ -61,13 +62,13 @@ export class ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava{
 }
 
 export class Punomcnik{
-    constructor(public lice: FizickoLice | PravnoLice, 
+    constructor(public lice: FizickoLice | PravnoLice,
         public zaZastupanje: boolean,
         public za_prijem_pismena: boolean){}
 }
 
 export class PodnosilacZahteva{
-    constructor(public lice: FizickoLice | PravnoLice, 
+    constructor(public lice: FizickoLice | PravnoLice,
         public pronalazac: boolean){}
 }
 

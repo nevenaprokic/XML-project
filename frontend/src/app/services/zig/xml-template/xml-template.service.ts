@@ -131,16 +131,23 @@ export class XmlTemplateService {
         `;
   }
 
-  private formatPunomocnik(punomocnik: Punomocnik) {
-    return punomocnik.lice === "TFizicko_lice" ? this.formatPunomocnikFizickoLice(punomocnik.punomocnik as FizickoLice)
+  private formatPunomocnik(punomocnik: Punomocnik | undefined) {
+    if (punomocnik){
+      return punomocnik.lice === "TFizicko_lice" ? this.formatPunomocnikFizickoLice(punomocnik.punomocnik as FizickoLice)
       : this.formatPunomocnikPravnoLice(punomocnik.punomocnik as PravnoLice);
+    }
+    return ""
   }
 
-  private formatZajednickiPredstavnik(zajednickiPredstavnik: ZajednickiPredstavnik) {
-    return `<Zajednicki_predstavnik>
-                   ${this.formatKontaktPodaci(zajednickiPredstavnik.kontaktPodaci)}
-                   ${this.formatAdresa(zajednickiPredstavnik.adresa)}
-                </Zajednicki_predstavnik>`;
+  private formatZajednickiPredstavnik(zajednickiPredstavnik: ZajednickiPredstavnik | undefined) {
+    if (zajednickiPredstavnik){
+      return `<Zajednicki_predstavnik>
+      ${this.formatKontaktPodaci(zajednickiPredstavnik.kontaktPodaci)}
+      ${this.formatAdresa(zajednickiPredstavnik.adresa)}
+      </Zajednicki_predstavnik>`;
+    }
+    return ""
+   
   }
 
   private formatPunomocnikFizickoLice(values: FizickoLice) {

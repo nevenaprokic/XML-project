@@ -11,6 +11,7 @@ import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.ftn.dataAccess.utils.ConnectionUtilities;
 import rs.ac.uns.ftn.dataAccess.utils.DBManipulationUtilities;
+import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.services.MetadataService;
@@ -169,6 +170,10 @@ public class AutorskoDeloDataAccess {
 		} finally {
 			ConnectionUtilities.cleanup(col);
 		}
+	}
+	
+	public ResourceSet getAllApproved() {
+		return this.getByXQuery(QueryUtils.FIND_ALL_APPROVED);
 	}
 	
 }

@@ -167,4 +167,10 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		return metadataService.getAsJson(documentId);
 	}
 
+	@Override
+	public ListaZahtevaAutorskoDelo findAllApproved() throws XMLDBException, JAXBException {
+		ResourceSet result = autorskoDeloRepository.getAllApproved();
+		return resourceSetToList(result);
+	}
+
 }

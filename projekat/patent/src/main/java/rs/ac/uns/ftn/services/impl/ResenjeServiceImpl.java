@@ -13,11 +13,14 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtilsResenje;
+import rs.ac.uns.ftn.exception.BadRequestException;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.lists.ListaResenja;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 import rs.ac.uns.ftn.jaxb.resenje.StatusResenja;
 import rs.ac.uns.ftn.jaxb.resenje.TOdobren;
+import rs.ac.uns.ftn.jaxb.resenje.TSluzbenik;
 import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.repository.ResenjeRepository;
@@ -40,9 +43,16 @@ public class ResenjeServiceImpl implements ResenjeService {
 	}
 
 	@Override
-	public void saveNewFile(Resenje resenje) {
+	public void saveNewFile(Resenje resenje, String user) {
+		TSluzbenik sluzbenik = getSluzbenik(user);
+		resenje.setSluzbenik(sluzbenik);
+		
 		String documentId = generateDocumentId();
 		ZahtevZaPriznanjePatenta zahtev = patentService.getZahtevZaPriznanjePatenta(resenje.getIdPatenta().getIdP());
+		
+		if(zahtev.getStatus() != StatusZahteva.NEOBRADJEN) {
+			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_HAS_RESENJE);
+		}
 		
 		if(resenje.getStatus() == StatusResenja.ODOBREN) {
 			zahtev.setStatus(StatusZahteva.ODOBREN);
@@ -56,6 +66,17 @@ public class ResenjeServiceImpl implements ResenjeService {
 		zahtev.setIdPatenta(resenje.getIdPatenta());
 		patentService.saveFile(zahtev, resenje.getIdPatenta().getIdP());
 		resenjeRepository.saveResenje(resenje, documentId);
+	}
+
+	private TSluzbenik getSluzbenik(String user) {
+		String[] tokens = user.split(",");
+		String name = tokens[2];
+		String surname = tokens[1];
+		
+		TSluzbenik sluzbenik = new TSluzbenik();
+		sluzbenik.setIme(name);
+		sluzbenik.setPrezime(surname);
+		return sluzbenik;
 	}
 	
 	@Override
