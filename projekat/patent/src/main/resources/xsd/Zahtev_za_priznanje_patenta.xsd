@@ -50,7 +50,7 @@
                     </xs:annotation>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="broj_prijave" use="required">
+            <xs:attribute name="broj_prijave">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
                         <xs:pattern value="[P][0-9]+[/][1-2][0-9]{3,3}"/>
@@ -58,8 +58,8 @@
                 </xs:simpleType>
             </xs:attribute>
              <xs:attribute name="status" type="p1:status_zahteva" />
-            <xs:attribute name="datum_prijema_prijave" type="xs:date" use="required"/>
-            <xs:attribute name="priznati_datum_podnosenja" type="xs:date" use="required"/>
+            <xs:attribute name="datum_prijema_prijave" type="xs:date"/>
+            <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>

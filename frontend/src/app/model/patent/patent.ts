@@ -3,7 +3,7 @@ import { FizickoLice, Adresa, KontaktPodaci, PravnoLice, Status } from "../commo
 
 
 export class ZahtevZaPriznanjePatent{
-    constructor(public primalac: PrimalazZahteva,
+    constructor(
         public podnosilac: PodnosilacZahteva,
         public pronalazak: Pronalazak,
         public pronalazac: Pronalazac,
@@ -13,7 +13,8 @@ export class ZahtevZaPriznanjePatent{
         public prvenstvo?: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava,
         public brojPrijave?: string,
         public datumPodnosenja? : Date,
-        public priznatiDatumPodnosenja?: Date){}
+        public priznatiDatumPodnosenja?: Date,
+        public primalac?: PrimalazZahteva,){}
 }
 export class PrimalazZahteva {
     constructor(public adresa: Adresa,
@@ -53,7 +54,7 @@ export class Podaci_o_dodatnoj_prijavi{
 export class RanijaPrijava{
     constructor(public DvoslovnaOznakaDrzave: string, 
         public brojPrijave: string,
-        public datumPodnosenjaPrijave: Date){}
+        public datumPodnosenjaPrijave: string){}
 }
 
 export class ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava{

@@ -70,7 +70,7 @@ public class PatentMapper {
 			podaci.setTipDodatnePrijave(oDodatnojPrijavi.getTipDodatnePrijave());
 			podaci.setBrojPrvobitnePrijave(oDodatnojPrijavi.getBrojPrvobitnePrijave());
 			podaci.setDatumPrvobitnePrijave(oDodatnojPrijavi.getDatumPrvobitnePrijave()); 
-			 
+			podaci.getOtherAttributes().put(new QName("href"), TARGET_NS_PREFIX + podaci.getBrojPrvobitnePrijave()); 
 			return podaci;
 		}
 		return null;
@@ -182,7 +182,7 @@ public class PatentMapper {
 		p.getOtherAttributes().put(new QName("property"), "pred:ranija_prijava" + String.valueOf(order));
 		p.getOtherAttributes().put(new QName("datatype"), "xs:string");
 		p.getOtherAttributes().put(new QName("content"), ranijaPrijava.getBrojPrijave());
-		
+		p.getOtherAttributes().put(new QName("href"), TARGET_NS_PREFIX + p.getBrojPrijave()); 
 		return p;
 	}
 

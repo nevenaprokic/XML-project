@@ -25,9 +25,9 @@ export class PatentFromXmlService {
     let pronalazak : Pronalazak = this.getPronalazak(xml, prefix);
     let punomocnik : Punomcnik | undefined = this.getPunomocnik(xml, prefix);
     let prventsvo: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava | undefined = this.getZaPrvenstvo(xml, prefix)
-    let zahtev : ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent(primalac, podnosilac, pronalazak, pronalazac, 
+    let zahtev : ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent(podnosilac, pronalazak, pronalazac, 
                                                                        podatiODostavljanju, punomocnik, dodatnaPrijava, prventsvo, brojPrijave, 
-                                                                       datumPodnosenja, priznatiDatumPodnosenja)
+                                                                       datumPodnosenja, priznatiDatumPodnosenja,primalac)
     return zahtev;
   }
 
@@ -130,7 +130,7 @@ export class PatentFromXmlService {
 
   getRanijaprijava(xml:any, prefix: string) : RanijaPrijava{
      let brojPrijave: string = xml[prefix +':Broj_prijave']._text
-     let datumPrijema: Date = xml[prefix +':Datum_podnosenja']._text
+     let datumPrijema: string = xml[prefix +':Datum_podnosenja']._text
      let dvoslovnaOznakaDrzave: string = xml[prefix +':Dvoslovna_oznaka_drzave']._text
      return new RanijaPrijava(dvoslovnaOznakaDrzave, brojPrijave, datumPrijema);
   }

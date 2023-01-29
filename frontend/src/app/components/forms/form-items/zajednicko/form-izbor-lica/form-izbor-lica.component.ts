@@ -13,8 +13,10 @@ export class FormIzborLicaComponent implements OnInit {
     @Input()
     liceOdredjenje: string | undefined;
 
+    defaultValue : string = ""
+
     form = this.fb.group({
-        lice: ['TFizicko_lice']
+        lice: ['']
     });
 
     liceForm = this.fb.group({});
@@ -23,6 +25,7 @@ export class FormIzborLicaComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.form.controls.lice.setValue(this.liceOdredjenje === "punomocnik" ? "" : 'TFizicko_lice')
         this.liceForm.addControl('lice', this.form);
         this.formReady.emit(this.liceForm);
     }

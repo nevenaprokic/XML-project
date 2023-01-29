@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sort } from '@angular/material/sort';
+import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
 import { HttpClientService } from '../custom-http/http-client.service';
@@ -10,10 +11,17 @@ import { HttpRequestService } from '../utils/http-request/http-request.service';
 })
 export class PatentService {
 
+  private PATENt_PATH = environment.PATENT_BASE_URL + '/patent'
+
   constructor(private http: HttpRequestService) { }
 
   getAll(){
       return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents") //da li radi
+  }
+
+  saveNew(xml: any): Observable<any> {
+    const url = this.PATENt_PATH + `/save-new`;
+    return this.http.post(url, xml) as Observable<any>;
   }
 
   sortData(sort: Sort, dataSource: ZahtevZaPriznanjePatent[]): ZahtevZaPriznanjePatent[] {

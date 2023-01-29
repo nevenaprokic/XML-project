@@ -59,6 +59,7 @@ public class PatentDataAccess {
 	}
 	
 	public void saveFile(String resourceId, ZahtevZaPriznanjePatenta patent) {
+		resourceId = resourceId.replace('/', '_');
 		Collection col = null;
 		XMLResource res = null;
 		try {

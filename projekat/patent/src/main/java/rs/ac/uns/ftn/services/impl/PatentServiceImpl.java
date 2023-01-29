@@ -2,7 +2,10 @@ package rs.ac.uns.ftn.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 
@@ -16,6 +19,9 @@ import org.xmldb.api.modules.XMLResource;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
@@ -54,8 +60,18 @@ public class PatentServiceImpl implements PatentService {
 //			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_EXITS);
 //		}
         if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
-        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);
+        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);     	
+        	try {
+        		GregorianCalendar c = new GregorianCalendar();
+        		c.setTime(new Date());
+        		XMLGregorianCalendar date2;
+    			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+    			zahtevDTO.setDatumPrijemaPrijave(date2);
+    		} catch (DatatypeConfigurationException e) {
+    			e.printStackTrace();
+    		}
     		String documentId = generateDocumentId();
+    		documentId = documentId.replace('/', '_');
     		ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
     		patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
         }
@@ -69,7 +85,8 @@ public class PatentServiceImpl implements PatentService {
 	@Override
 	public String generateDocumentId() {
 		int curretnNumber = patentRepository.getLenghtOfCollection();
-		return "P" + String.valueOf(curretnNumber + 1); 
+	    int currentYear = LocalDate.now().getYear();
+		return "P" + String.valueOf(curretnNumber + 1) + "/" + currentYear; 
 	}
 	
 	@Override
