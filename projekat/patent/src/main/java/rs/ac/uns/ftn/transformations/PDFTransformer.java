@@ -31,7 +31,7 @@ private static DocumentBuilderFactory documentFactory;
 	
 	private static TransformerFactory transformerFactory;
 	
-	public static final String XSL_FILE = "src/main/resources/xslt/P1.xsl";
+	
 	
 	static {
 
@@ -67,12 +67,12 @@ private static DocumentBuilderFactory documentFactory;
         
     }
     
-    public void generateHTML(Node xmlPath, String htmlFile) throws FileNotFoundException {
+    public void generateHTML(Node xmlPath, String htmlFile, String xslFile) throws FileNotFoundException {
     	
 		try {
 
 			// Initialize Transformer instance
-			StreamSource transformSource = new StreamSource(new File(XSL_FILE));
+			StreamSource transformSource = new StreamSource(new File(xslFile));
 			Transformer transformer = transformerFactory.newTransformer(transformSource);
 			transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");

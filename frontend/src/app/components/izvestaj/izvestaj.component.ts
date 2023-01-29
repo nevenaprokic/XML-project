@@ -17,11 +17,13 @@ export class IzvestajComponent {
   brojPrihvacenih: number = 0;
 
   report: boolean = false;
+  izvestaj: any;
 
   maxDate: Date = new Date();
   dateForm = new FormGroup({
     startDate: new FormControl<Date | null>(null),
     endDate: new FormControl<Date | null>(null),
+    vrstaIzvestaja: new FormControl('zig')
   });
 
   constructor(private izvestajService: IzvestajService,
@@ -38,8 +40,10 @@ export class IzvestajComponent {
 
   private getIzvestaj(izvestajXML: string) {
     console.log(izvestajXML);
-    this.izvestajService.getIzvestaj(izvestajXML).subscribe({
+    // @ts-ignore
+    this.izvestajService.getIzvestaj(izvestajXML, this.dateForm.value.vrstaIzvestaja).subscribe({
       next: (document: any) => {
+        this.izvestaj = document;
         this.getIzvestajFromResponse(document);
         this.toastr.success('Uspešno generisan izveštaj')
       },
@@ -58,6 +62,14 @@ export class IzvestajComponent {
   }
 
   generisiPDF() {
-
+    // @ts-ignore
+    this.izvestajService.getPDF(this.izvestaj, this.dateForm.value.vrstaIzvestaja).subscribe({
+      next: (document: any) => {
+        this.toastr.success('Uspešno skinut PDF');
+      },
+      error: (err: any) => {
+        this.toastr.error('Došlo je do greško pri generisanju PDF-a', "Greška!")
+      }
+    })
   }
 }
