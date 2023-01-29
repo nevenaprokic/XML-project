@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
+import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
-import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
@@ -26,6 +26,7 @@ import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.ZigMapper;
 import rs.ac.uns.ftn.repository.ZigRepository;
+import rs.ac.uns.ftn.services.PrilogService;
 import rs.ac.uns.ftn.services.ZigService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
@@ -38,16 +39,18 @@ public class ZigServiceImpl implements ZigService {
 	@Autowired
 	private ZigRepository zigRepository;
 
+	@Autowired
+	private PrilogService prilogService; 
+
 	@Override
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
 		String documentId = generateDocumentId();
 		IdZiga idZiga = new IdZiga();
 		idZiga.setIdZ(documentId);
 		zahtevDTO.setId(idZiga);
-		System.out.println(documentId);
+		prilogService.extractPrilozi(zahtevDTO, documentId);
 		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
 		zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
-		
 	}
 	
 	@Override

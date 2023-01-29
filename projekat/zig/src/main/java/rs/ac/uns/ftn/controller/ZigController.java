@@ -25,7 +25,9 @@ import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.exception.ErrorMessage;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
+import rs.ac.uns.ftn.services.PrilogService;
 import rs.ac.uns.ftn.services.ZigService;
 
 
@@ -36,6 +38,9 @@ public class ZigController {
 
 	@Autowired
 	private ZigService zigService;
+	
+	@Autowired
+	private PrilogService prilogService;
 	
 	private final static String USER_API_SLUZBENIK = "http://localhost:8903/xml/user/authsluzbenik";
 	private final static String USER_API_KORISNIK = "http://localhost:8903/xml/user/authkorisnik";
@@ -116,4 +121,71 @@ public class ZigController {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
 	}
+	
+	/*@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<ListaZahtevaZiga> searchText(@RequestParam("txt") String txt) {
+		try {
+			ListaZahtevaZiga zahtevi = zigService.searchText(txt);
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
+	}
+	
+	@GetMapping(value="/searchMetadata")
+	public ResponseEntity<ListaZahtevaZiga> searchMetadata(@RequestParam("request") String request) {
+		try {
+			ListaZahtevaZiga zahtevi = zigService.searchMetadata(request);
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
+	}
+
+	@GetMapping(value = "/get-rdf/{documentId}")
+    public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+
+       try {
+    	   InputStreamResource rdf = zigService.getMetadataAsRdf(documentId);
+           HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
+           return new ResponseEntity<>(rdf, headers, HttpStatus.OK);
+       } catch (Exception e) {
+    	   e.printStackTrace();
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       }
+	}
+    
+	@GetMapping(value = "/get-json/{documentId}")
+    public ResponseEntity<?> downloadZalbaCutanjeJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+
+        try {
+        	InputStreamResource json = zigService.getMetadataAsJson(documentId);
+        	HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
+            return new ResponseEntity<>(json, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }*/
+	
+	
+	@GetMapping(value="/get-prilog/{documentId}/{imgName}")
+	public ResponseEntity<PrilogImage> getPrilog(@PathVariable String documentId, @PathVariable String imgName) {
+		try {
+			PrilogImage prilog = prilogService.getPrilog(documentId, imgName);
+			return new ResponseEntity<>(prilog, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
+	}
+	
+	private HttpHeaders getDownloadFileHeaders(String fileName) {
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/xml; charset=utf-8");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName );
+		return headers;
+	}
+
 }

@@ -20,6 +20,7 @@ public class ZigMapper {
 	
 	private static final String PRED_PREFIX = "http://examples/predicate/";
 	private static final String TARGET_NS_PREFIX = "http://ftn.uns.ac.rs/z1/";
+	private static final String PRILOG_PREFIX = "http://ftn.uns.ac.rs/prilog/";
 
 	private static ObjectFactory objectFactory = new ObjectFactory();
 	private static rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory objectFactoryZajednicki = new rs.ac.uns.ftn.jaxb.zajednicko.ObjectFactory();
@@ -58,7 +59,7 @@ public class ZigMapper {
 		}
 		
 		zahtev.setPlaceneTakse(getPlaceneTakseFromDTO(zahtevDTO.getPlaceneTakse()));
-		zahtev.setPriloziUzZahtev(getPriloziUzZahtevFromDTO(zahtevDTO.getPriloziUzZahtev()));
+		zahtev.setPriloziUzZahtev(getPriloziUzZahtevFromDTO(zahtevDTO.getPriloziUzZahtev(), id));
 		zahtev.setStatus(zahtevDTO.getStatus());
 		
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
@@ -71,34 +72,40 @@ public class ZigMapper {
 		return zahtev;
 	}
 	
-	private static TDopuna getDopunaFromDTO(TDopuna dopunaDTO) {
+	private static TDopuna getDopunaFromDTO(TDopuna dopunaDTO, String prilogType, String documentId) {
 		TDopuna dopuna = objectFactory.createTDopuna();
-		if(dopuna.getPutanjaDoFajla() != null) {
+		if(dopunaDTO.getPutanjaDoFajla() != null) {
 			dopuna.setPutanjaDoFajla(dopunaDTO.getPutanjaDoFajla());
+			dopuna.setDostavljeno(true);
 		}
-		if(dopuna.isDostavljeno() != null) {
+		if(dopunaDTO.isDostavljeno() != null) {
 			dopuna.setDostavljeno(dopunaDTO.isDostavljeno());
+			if(dopunaDTO.isDostavljeno()) {
+				String prilogId =  documentId + "-" + dopunaDTO.getPutanjaDoFajla();
+				dopuna.getOtherAttributes().put(new QName("rel"), "pred:prilog_" + prilogType);
+				dopuna.getOtherAttributes().put(new QName("href"), PRILOG_PREFIX + prilogId);	
+			}
 		}
 		return dopuna;
 	}
 	
-	private static TPrilozi getPriloziUzZahtevFromDTO(TPrilozi priloziDTO) {
+	private static TPrilozi getPriloziUzZahtevFromDTO(TPrilozi priloziDTO, String documentId) {
 		TPrilozi prilozi = objectFactory.createTPrilozi();
-		prilozi.setPrimerakZnaka(getDopunaFromDTO(priloziDTO.getPrimerakZnaka()));
-		prilozi.setSpisakRobeIUsluga(getDopunaFromDTO(priloziDTO.getSpisakRobeIUsluga()));
+		prilozi.setPrimerakZnaka(getDopunaFromDTO(priloziDTO.getPrimerakZnaka(), "primerak_znaka", documentId));
+		prilozi.setSpisakRobeIUsluga(getDopunaFromDTO(priloziDTO.getSpisakRobeIUsluga(), "spisak_robe_i_usluga", documentId));
 		if(priloziDTO.getPunomocje() != null) {
-			prilozi.setPunomocje(getDopunaFromDTO(priloziDTO.getPunomocje()));
+			prilozi.setPunomocje(getDopunaFromDTO(priloziDTO.getPunomocje(), "punomocje", documentId));
 		}
 		if(priloziDTO.getPunomocjeRanijePrilozeno() != null) {
-			prilozi.setPunomocjeRanijePrilozeno(getDopunaFromDTO(priloziDTO.getPunomocjeRanijePrilozeno()));
+			prilozi.setPunomocjeRanijePrilozeno(getDopunaFromDTO(priloziDTO.getPunomocjeRanijePrilozeno(), "punomocje_ranije_prilozeno", documentId));
 		}
 		if(priloziDTO.getPunomocjeNaknadnoDostavljeno() != null) {
-			prilozi.setPunomocjeNaknadnoDostavljeno(getDopunaFromDTO(priloziDTO.getPunomocjeNaknadnoDostavljeno()));
+			prilozi.setPunomocjeNaknadnoDostavljeno(getDopunaFromDTO(priloziDTO.getPunomocjeNaknadnoDostavljeno(), "punomocje_naknadno_dostavljeno", documentId));
 		}
 		
-		prilozi.setOpstiAktOKolektivnomZiguGarancije(getDopunaFromDTO(priloziDTO.getOpstiAktOKolektivnomZiguGarancije()));
-		prilozi.setDokazOPravuPrvenstva(getDopunaFromDTO(priloziDTO.getDokazOPravuPrvenstva()));
-		prilozi.setDokazOUplatiTakse(getDopunaFromDTO(priloziDTO.getDokazOUplatiTakse()));
+		prilozi.setOpstiAktOKolektivnomZiguGarancije(getDopunaFromDTO(priloziDTO.getOpstiAktOKolektivnomZiguGarancije(), "opsti_akt_o_kolektivnom_zigu_garancije", documentId));
+		prilozi.setDokazOPravuPrvenstva(getDopunaFromDTO(priloziDTO.getDokazOPravuPrvenstva(), "dokaz_o_pravu_prvenstva", documentId));
+		prilozi.setDokazOUplatiTakse(getDopunaFromDTO(priloziDTO.getDokazOUplatiTakse(), "dokaz_o_uplati_takse", documentId));
 		return prilozi;
 	}
 	
