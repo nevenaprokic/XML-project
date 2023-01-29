@@ -108,6 +108,17 @@ public class JaxbMapper {
 
 		return os;
 	}
+	
+	public static PrilogImage unmarshalPrilogImageFromNode(Node contentAsDOM) throws JAXBException {
+		System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
+
+		JAXBContext context = JAXBContext.newInstance(CONTEXT_PRILOG);
+
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		PrilogImage resenje = (PrilogImage) unmarshaller.unmarshal(contentAsDOM);
+
+		return resenje;
+	}
 
 	
 }

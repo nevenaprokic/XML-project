@@ -11,6 +11,7 @@ import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 
 public interface AutorskoDeloService {
 	
@@ -35,4 +36,6 @@ public interface AutorskoDeloService {
 	InputStreamResource getMetadataAsJson(String documentId) throws IOException;
 	
 	ListaZahtevaAutorskoDelo findAllApproved() throws XMLDBException, JAXBException;
+
+	PrilogImage getPrilog(String documentId, String imgName);
 }

@@ -32,6 +32,7 @@ import rs.ac.uns.ftn.exception.ErrorMessage;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 
 
@@ -173,5 +174,16 @@ public class AutorskoDeloController {
 		newHeader.setContentType(MediaType.APPLICATION_XML);
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
+	}
+	
+	@GetMapping(value="/get-prilog/{documentId}/{imgName}")
+	public ResponseEntity<PrilogImage> getPrilog(@PathVariable String documentId, @PathVariable String imgName) {
+		try {
+			PrilogImage prilog = autorskoDeloService.getPrilog(documentId, imgName);
+			return new ResponseEntity<>(prilog, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
 	}
 }

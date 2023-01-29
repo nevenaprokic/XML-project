@@ -18,10 +18,7 @@ public class AutorskoDeloRepository {
 	public void saveAutorskoDelo(ZahtevZaAutorskoDelo zahtev, String documentId) {
 		autorskoDeloDataAccess.saveFile(documentId, zahtev);
 	}
-	public void savePrilog(PrilogImage prilog, String documentId) {
-		autorskoDeloDataAccess.savePrilog(documentId, prilog);
-	}
-	
+
 	public ZahtevZaAutorskoDelo getZahtevZaAutorskoDelobyId(String id) {
 		return autorskoDeloDataAccess.getZahtevById(id);
 	}

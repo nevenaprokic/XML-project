@@ -35,6 +35,7 @@ import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.PrilogMapper;
 import rs.ac.uns.ftn.repository.AutorskoDeloRepository;
+import rs.ac.uns.ftn.repository.PrilogRepository;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
@@ -44,6 +45,9 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public static final String PATH = "src/main/resources/xslt/";
 	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/a1";
 
+	@Autowired
+	private PrilogRepository prilogRepository;
+	
 	@Autowired
 	private AutorskoDeloRepository autorskoDeloRepository;
 	
@@ -76,14 +80,14 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		if(prilozi.getPrisutanOpis()!=null) {
 			PrilogImage prilog = PrilogMapper.mapFromDTO(prilozi.getPrisutanOpis().getPutanjaDoFajla());
 			String prilogId = documentId + "-" + prilog.getNazivPriloga();
-			autorskoDeloRepository.savePrilog(prilog, prilogId);
+			prilogRepository.savePrilog(prilog, prilogId);
 			
 			prilozi.getPrisutanOpis().setPutanjaDoFajla(prilog.getNazivPriloga());
 		}
 		if(prilozi.getPrisutanPrimer()!=null) {
 			PrilogImage prilog = PrilogMapper.mapFromDTO(prilozi.getPrisutanPrimer().getPutanjaDoFajla());
 			String prilogId = documentId + "-" + prilog.getNazivPriloga();
-			autorskoDeloRepository.savePrilog(prilog, prilogId);
+			prilogRepository.savePrilog(prilog, prilogId);
 			
 			prilozi.getPrisutanPrimer().setPutanjaDoFajla(prilog.getNazivPriloga());
 		}
@@ -198,6 +202,11 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public ListaZahtevaAutorskoDelo findAllApproved() throws XMLDBException, JAXBException {
 		ResourceSet result = autorskoDeloRepository.getAllApproved();
 		return resourceSetToList(result);
+	}
+
+	@Override
+	public PrilogImage getPrilog(String documentId, String imgName) {
+		return prilogRepository.getById(documentId + "-" +imgName);
 	}
 
 }
