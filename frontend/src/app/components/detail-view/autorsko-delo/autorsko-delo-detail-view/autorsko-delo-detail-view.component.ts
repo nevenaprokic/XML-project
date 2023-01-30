@@ -55,25 +55,27 @@ export class AutorskoDeloDetailViewComponent implements OnInit {
       this.autorskoDeloService.getPrilog(this.zahtev.id, element).subscribe({
         next: (response) => {
           this.prilogService.convertToImage(response)
-          
         },
         error: (error) => {
           console.log(error)
         }
       })
     }
-   
   }
 
   preuzmi(element:string){
     if(this.zahtev.id){
-      this.prilogService.preuzmi(this.zahtev.id, element)
+      this.autorskoDeloService.getPrilog(this.zahtev.id, element).subscribe({
+        next : (response) => {
+          this.prilogService.preuzmi(response);
+        },
+        error : (error) => {
+          this.toast.error("Nepostojeci dokument")
+        }
+      })
     }
     else{
       this.toast.error("Nepostojeci dokument")
     }
-   
   }
-
-  
 }

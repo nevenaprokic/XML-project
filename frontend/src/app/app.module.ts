@@ -75,6 +75,9 @@ import { KontaktDetailViewComponent } from './components/detail-view/zajednicko/
 import { AutorskoDeloDetailViewComponent } from './components/detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
 import { FormAutorDetailViewComponent } from './components/detail-view/autorsko-delo/form-autor-detail-view/form-autor-detail-view.component';
 import { PrilogViewComponent } from './components/detail-view/prilog-view/prilog-view.component';
+import { TakseDetailViewComponent } from './components/detail-view/zig/takse-detail-view/takse-detail-view.component';
+import { ZigDetailViewComponent } from './components/detail-view/zig/zig-detail-view/zig-detail-view.component';
+import { ZnakZigaDetailViewComponent } from './components/detail-view/zig/znak-ziga-detail-view/znak-ziga-detail-view.component';
 
 
 const MaterialModule = [
@@ -145,7 +148,10 @@ const MaterialModule = [
         KontaktDetailViewComponent,
         AutorskoDeloDetailViewComponent,
         FormAutorDetailViewComponent,
-        PrilogViewComponent
+        PrilogViewComponent,
+        ZigDetailViewComponent,
+        TakseDetailViewComponent,
+        ZnakZigaDetailViewComponent
     ],
   imports: [
     ...MaterialModule

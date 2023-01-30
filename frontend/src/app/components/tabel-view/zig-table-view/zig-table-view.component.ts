@@ -12,6 +12,7 @@ import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.compon
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
 import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
+import { ZigDetailViewComponent } from '../../detail-view/zig/zig-detail-view/zig-detail-view.component';
 
 @Component({
   selector: 'app-zig-table-view',
@@ -204,5 +205,10 @@ export class ZigTableViewComponent implements OnInit{
     }  else{
       this.getDataByRole();
     }
+  }
+
+  openZahtev(zahtev: ZahtevZaPriznanjeZiga){
+      this.dialog.open(ZigDetailViewComponent, {
+          data: zahtev })
   }
 }

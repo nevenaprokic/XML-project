@@ -1,0 +1,27 @@
+<div>
+    <div class="taksa">
+      <p class="description">Iznos osnovne takse*:</p>
+      <mat-form-field appearance="fill">
+        <input matInput readonly="true" value={{takse.osnovnaTaksa}}>
+      </mat-form-field>
+    </div>
+    <div class="taksa">
+      <p class="description">Iznos takse za klase robe i usluge:</p>
+      <mat-form-field appearance="fill">
+        <input matInput readonly="true" value={{takse.zaGraficko}}>
+      </mat-form-field>
+    </div>
+    <div class="taksa">
+      <p class="description">Iznos takse za graficko resenje:</p>
+      <mat-form-field appearance="fill">
+        <input matInput readonly="true" value={{takse.zaKlasu}}>
+      </mat-form-field>
+    </div>
+    <div class="taksa">
+        <p class="description">Ukupan iznos:</p>
+        <mat-form-field appearance="fill">
+          <input matInput readonly="true" value={{takse.ukupno}}>
+        </mat-form-field>
+      </div>
+  </div>
+  
