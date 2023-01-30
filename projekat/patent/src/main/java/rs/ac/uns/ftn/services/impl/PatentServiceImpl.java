@@ -63,7 +63,7 @@ public class PatentServiceImpl implements PatentService {
 //			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_EXITS);
 //		}
         if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
-        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);     	
+        	zahtevDTO.setStatus(StatusZahteva.ODOBREN);     	
         	try {
         		GregorianCalendar c = new GregorianCalendar();
         		c.setTime(new Date());
@@ -92,7 +92,7 @@ public class PatentServiceImpl implements PatentService {
 	public String generateDocumentId() {
 		int curretnNumber = patentRepository.getLenghtOfCollection();
 	    int currentYear = LocalDate.now().getYear();
-		return "P" + String.valueOf(curretnNumber + 3) + "/" + currentYear; 
+		return "P" + String.valueOf(curretnNumber + 1) + "/" + currentYear; 
 	}
 
 	@Override

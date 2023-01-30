@@ -72,6 +72,9 @@ import { PravnoLiceDetailViewComponent } from './components/detail-view/zajednic
 import { FizickoLiceDetailViewComponent } from './components/detail-view/zajednicko/fizicko-lice-detail-view/fizicko-lice-detail-view.component';
 import { AdresaDetailViewComponent } from './components/detail-view/zajednicko/adresa-detail-view/adresa-detail-view.component';
 import { KontaktDetailViewComponent } from './components/detail-view/zajednicko/kontakt-detail-view/kontakt-detail-view.component';
+import { AutorskoDeloDetailViewComponent } from './components/detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
+import { FormAutorDetailViewComponent } from './components/detail-view/autorsko-delo/form-autor-detail-view/form-autor-detail-view.component';
+import { PrilogViewComponent } from './components/detail-view/prilog-view/prilog-view.component';
 
 
 const MaterialModule = [
@@ -139,7 +142,10 @@ const MaterialModule = [
         PravnoLiceDetailViewComponent,
         FizickoLiceDetailViewComponent,
         AdresaDetailViewComponent,
-        KontaktDetailViewComponent
+        KontaktDetailViewComponent,
+        AutorskoDeloDetailViewComponent,
+        FormAutorDetailViewComponent,
+        PrilogViewComponent
     ],
   imports: [
     ...MaterialModule

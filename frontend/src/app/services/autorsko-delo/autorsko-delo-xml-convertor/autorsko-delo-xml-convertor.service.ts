@@ -96,8 +96,8 @@ export class AutorskoDeloXmlConvertorService {
     let prezime = xml[this.commonPrefix + ":Prezime"]?  xml[this.commonPrefix + ":Prezime"]._text : ""
     let drzavljanstvo = xml[this.commonPrefix + ":Drzavljanstvo"]?  xml[this.commonPrefix + ":Drzavljanstvo"]._text : ""
     let attributes = xml["_attributes"]
-    let anonimni = attributes['anonimni']
-    let primarni = attributes['primarni']
+    let anonimni = attributes['anonimni'] === 'true'
+    let primarni = attributes['primarni'] === 'true'
     let pseudonim = xml[this.prefix + ':Pseudonim'] ?  xml[this.prefix + ':Pseudonim']._text : undefined
     let godinaSmrti =  xml[this.prefix + ':Godina_smrti'] ?  xml[this.prefix + ':Godina_smrti']._text : undefined;
 

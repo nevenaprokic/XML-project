@@ -73,8 +73,7 @@ export class PatentTabelViewComponent implements OnInit {
   getDataForSluzbenik() {
     this.patentService.getAll().subscribe({
       next: (response) => {
-        const convert = require('xml-js');
-        const zahtevList: any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
+        let zahtevList = this.getJson(response) 
         if (Object.keys(zahtevList.listaZahtevaPatent).length > 1) {
           const atrributes = zahtevList.listaZahtevaPatent._attributes;
           this.getPrefix(atrributes)
@@ -89,6 +88,12 @@ export class PatentTabelViewComponent implements OnInit {
         console.log(error)
       }
     })
+  }
+
+  getJson(xml:any) :any{
+    const convert = require('xml-js');
+    const zahtevList: any = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
+    return zahtevList;
   }
 
   setDataSource(zahtevSource: ZahtevZaPriznanjePatent[]) {
@@ -112,17 +117,7 @@ export class PatentTabelViewComponent implements OnInit {
   }
 
   convertFromJSON(zahtevList: any) {
-    const zahtevi: any[] = zahtevList.listaZahtevaPatent[this.prefix + ':Zahtev_za_priznanje_patenta'];
-    if (Array.isArray(zahtevi)) {
-      zahtevi.forEach((zahtev) => {
-        let zahtevZaPriznanjePatent: ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
-        console.log(zahtevZaPriznanjePatent)
-        this.zahteviPatent.push(zahtevZaPriznanjePatent)
-      })
-    } else {
-      let zahtevZaPriznanjePatent: ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtevi, this.prefix, this.commonPrefix);
-      this.zahteviPatent.push(zahtevZaPriznanjePatent)
-    }
+    this.zahteviPatent = this.patentFromXML.convertPatentList(zahtevList, this.prefix, this.commonPrefix)
 
     this.gettingDataFinished = true;
     this.setDataSource(this.zahteviPatent)
@@ -132,10 +127,10 @@ export class PatentTabelViewComponent implements OnInit {
     this.dialog.open(FormResenjeComponent, {data: {id: element.idPatenta, type: typeZahteva.PATENT}});
   }
 
-openPatenDetailView(element: ZahtevZaPriznanjePatent){
-  this.dialog.open(PatentDetailViewComponent, {
-    data: element,
-  });
-}
+  openPatenDetailView(element: ZahtevZaPriznanjePatent){
+    this.dialog.open(PatentDetailViewComponent, {
+      data: element,
+    });
+  }
 
 }

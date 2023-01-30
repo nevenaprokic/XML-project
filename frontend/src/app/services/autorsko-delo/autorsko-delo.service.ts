@@ -57,4 +57,9 @@ export class AutorskoDeloService {
     return this.httpRequestService.get(url)
   }
 
+  getPrilog(documentId: string, prilog: string){
+    const url = this.AUTORSKO_DELO_PATH + `/get-prilog/${documentId}/${prilog}`;
+    return this.httpRequestService.get(url)
+  }
+
 }

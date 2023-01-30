@@ -11,7 +11,7 @@
         <input matInput readonly="true" value={{kontakt.email}}>
       </mat-form-field>
     </div>
-    <div class="input-podatak">
+    <div class="input-podatak" *ngIf="kontakt.faks">
       Faks:
       <mat-form-field appearance="fill">
         <input matInput readonly="true" value={{kontakt.faks}}>

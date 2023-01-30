@@ -14,6 +14,7 @@ import {ZahtevZaPriznanjeZiga} from "../../../model/zig";
 import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
+import { AutorskoDeloDetailViewComponent } from '../../detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
 import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 
 @Component({
@@ -189,6 +190,12 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     }
   }
 
+  openPatenDetailView(element: ZahtevZaAutorskoDelo){
+    this.dialog.open(AutorskoDeloDetailViewComponent, {
+      data: element,
+    });
+  }
+
   searchText(query: string): void {
     if(query){
       this.autorskoDeloService.searchText(query).subscribe({
@@ -203,5 +210,5 @@ export class AutorskoDeloTableViewComponent implements OnInit {
       this.getDataByRole();
     }
   }
-  
+
 }

@@ -19,6 +19,28 @@ import {
 export class PatentFromXmlService {
 
   commonPrefix: string = ""
+  prefix: string = ""
+
+  convertPatentList(zahtevList:any, prefix:string, commonPrefix:string): ZahtevZaPriznanjePatent[]{
+    this.prefix = prefix;
+    this.commonPrefix = commonPrefix;
+    let zahteviPatent :ZahtevZaPriznanjePatent[] = []; 
+    const zahtevi: any[] = zahtevList.listaZahtevaPatent[this.prefix + ':Zahtev_za_priznanje_patenta'];
+    if (Array.isArray(zahtevi)) {
+      zahtevi.forEach((zahtev) => {
+        let zahtevZaPriznanjePatent: ZahtevZaPriznanjePatent = this.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
+        zahteviPatent.push(zahtevZaPriznanjePatent)
+      })
+    } else {
+      let zahtevZaPriznanjePatent: ZahtevZaPriznanjePatent = this.getPatentFromXML(zahtevi, this.prefix, this.commonPrefix);
+      zahteviPatent.push(zahtevZaPriznanjePatent)
+    }
+    return zahteviPatent
+  }
+
+  convertSinglePatent(){
+
+  }
 
   getPatentFromXML(xml: any, prefix: string, commonPrefix: string): ZahtevZaPriznanjePatent {
     console.log(xml)

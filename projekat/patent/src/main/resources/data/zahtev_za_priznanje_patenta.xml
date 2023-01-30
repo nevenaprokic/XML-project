@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Zahtev_za_priznanje_patenta xmlns="http://www.ftn.uns.ac.rs/p1"
                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                             broj_prijave="P3/2022" datum_prijema_prijave="2022-09-24-06:00" priznati_datum_podnosenja="2022-09-25-06:00"
+                        
                              xmlns:zaj="http://www.ftn.uns.ac.rs/zaj">
 
   <Primalac_zahteva>
