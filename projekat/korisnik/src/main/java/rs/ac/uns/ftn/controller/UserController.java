@@ -38,4 +38,10 @@ public class UserController {
 	public ResponseEntity<String> AuthKorisnik(){
 		return ResponseEntity.ok("success");
 	}
+	
+	@PreAuthorize("hasAnyAuthority('KORISNIK', 'SLUZBENIK')")
+	@GetMapping(value="/authkorisnik-or-sluzbenik")
+	public ResponseEntity<String> AuthKorisnikOrSluzbenik(){
+		return ResponseEntity.ok("success");
+	}
 }

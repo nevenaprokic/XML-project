@@ -34,3 +34,8 @@ td {
 .button {
   @include buttonStyle();
 }
+
+.btn{
+  background-color: $medium3;
+  margin-right: 5px;
+}

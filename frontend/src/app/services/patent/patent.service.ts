@@ -11,17 +11,23 @@ import { HttpRequestService } from '../utils/http-request/http-request.service';
 })
 export class PatentService {
 
-  private PATENt_PATH = environment.PATENT_BASE_URL + '/patent'
+  private PATENT_PATH = environment.PATENT_BASE_URL + '/patent'
 
   constructor(private http: HttpRequestService) { }
 
   getAll(){
-      return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents") //da li radi
+      return this.http.get(this.PATENT_PATH + "/all-patents") //da li radi
   }
 
   saveNew(xml: any): Observable<any> {
-    const url = this.PATENt_PATH + `/save-new`;
+    const url = this.PATENT_PATH + `/save-new`;
     return this.http.post(url, xml) as Observable<any>;
+  }
+
+  getById(documentId: string) : Observable<any>{
+    documentId = documentId.replace('/', '_');
+    const url = this.PATENT_PATH + `/${documentId}`;
+    return this.http.get(url) as Observable<any>;
   }
 
   sortData(sort: Sort, dataSource: ZahtevZaPriznanjePatent[]): ZahtevZaPriznanjePatent[] {

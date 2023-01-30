@@ -32,7 +32,10 @@ import rs.ac.uns.ftn.exception.BadRequestException;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.Jaxb;
 import rs.ac.uns.ftn.jaxb.PatentList;
+import rs.ac.uns.ftn.jaxb.p1.PodaciODodatnojPrijavi;
+import rs.ac.uns.ftn.jaxb.p1.RanijaPrijava;
 import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
+import rs.ac.uns.ftn.jaxb.p1.TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.lists.ListaZahtevaPatent;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
@@ -60,7 +63,7 @@ public class PatentServiceImpl implements PatentService {
 //			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_EXITS);
 //		}
         if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
-        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);     	
+        	zahtevDTO.setStatus(StatusZahteva.ODOBREN);     	
         	try {
         		GregorianCalendar c = new GregorianCalendar();
         		c.setTime(new Date());
@@ -72,6 +75,8 @@ public class PatentServiceImpl implements PatentService {
     		}
     		String documentId = generateDocumentId();
     		documentId = documentId.replace('/', '_');
+    		this.checkDopunskaPrijava(zahtevDTO.getPodaciODodatnojPrijavi());
+    		this.checkLinkedDocuments(zahtevDTO);
     		ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
     		patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
         }
@@ -79,6 +84,7 @@ public class PatentServiceImpl implements PatentService {
 
 	@Override
 	public ZahtevZaPriznanjePatenta getZahtevZaPriznanjePatenta(String id) {
+		id = id.replace('/', '_');
 		return patentRepository.getZahtevZaPriznanjePatentaById(id);
 	}
 	
@@ -142,24 +148,36 @@ public class PatentServiceImpl implements PatentService {
 		return new ListaZahtevaPatent(zahteviList);
 	}
 
-//
-//	@Override
-//	public PatentList getAllPatents() throws XMLDBException, JAXBException {
-//		List<ZahtevZaPriznanjePatenta> zahtevList = new ArrayList<>();
-//
-//        ResourceSet resourceSet = patentRepository.getByXQuery(QueryUtils.FIND_ALL);
-//        ResourceIterator resourceIterator = resourceSet.getIterator();
-//
-//        while (resourceIterator.hasMoreResources()) {
-//            XMLResource xmlResource = (XMLResource) resourceIterator.nextResource();
-//            if (xmlResource == null)
-//                return null;
-//            JAXBContext context = JAXBContext.newInstance(ZahtevZaPriznanjePatenta.class);
-//            Unmarshaller unmarshaller = context.createUnmarshaller();
-//            ZahtevZaPriznanjePatenta zahtev = (ZahtevZaPriznanjePatenta) unmarshaller.unmarshal(xmlResource.getContentAsDOM());
-//            zahtevList.add(zahtev);
-//        }
-//        return new PatentList(zahtevList);
-//	}
-//	
+	private void checkLinkedDocuments(ZahtevZaPriznanjePatenta zahtevDTO) {
+		TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava prvenstvo = zahtevDTO.getZahtevZaPriznanjePrvenstvaIzRanijihPrijava();
+		if(prvenstvo != null) {
+			for(RanijaPrijava prijava : prvenstvo.getRanijaPrijava()) {
+				String brPrijave = prijava.getBrojPrijave().replace('/', '_');
+				ZahtevZaPriznanjePatenta zavedenaPrijava = this.patentRepository.getZahtevZaPriznanjePatentaById(brPrijave);
+				if (zavedenaPrijava == null) {
+					throw new BadRequestException(ErrorMessageConstants.NEPOSTOJECI_DOKUMENT);
+					
+				}
+				else if(zavedenaPrijava.getStatus() != StatusZahteva.ODOBREN) {
+					throw new BadRequestException(ErrorMessageConstants.NEODOBREN_DOKUMENT);
+				}
+			}
+		}
+	}
+	
+	private void checkDopunskaPrijava(PodaciODodatnojPrijavi dodatnaPrijava) {
+		
+		if (dodatnaPrijava != null) {
+			String brPrijave = dodatnaPrijava.getBrojPrvobitnePrijave().replace('/', '_');
+			ZahtevZaPriznanjePatenta zavedenaPrijava = this.patentRepository.getZahtevZaPriznanjePatentaById(brPrijave);
+			if (zavedenaPrijava == null) {
+				throw new BadRequestException(ErrorMessageConstants.NEPOSTOJECI_DOKUMENT);
+				
+			}
+			else if(zavedenaPrijava.getStatus() != StatusZahteva.ODOBREN) {
+				throw new BadRequestException(ErrorMessageConstants.NEODOBREN_DOKUMENT);
+			}
+		}
+		
+	}
 }

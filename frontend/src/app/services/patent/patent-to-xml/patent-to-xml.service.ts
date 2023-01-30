@@ -49,7 +49,7 @@ export class PatentToXmlService {
       let zaPrijemaPismena : boolean = form.patentFormParent.podnosilacJePunomocnik === "punomoćnik za prijem pismena"
       let kontakPodaci : KontaktPodaci = new KontaktPodaci(form.punomocnikKontaktPodaci.faks, form.punomocnikKontaktPodaci.email, form.punomocnikKontaktPodaci.telefon)
       let adresa : Adresa = new Adresa(form.punomocnikAdresa.broj, form.punomocnikAdresa.ulica, form.punomocnikAdresa.grad, form.punomocnikAdresa.drzava, form.punomocnikAdresa.postanskiBroj)
-      if (form.punomocnik.lice === "TFizicko_lice"){
+      if (form.punomocnik.lice.lice === "TFizicko_lice"){
         let lice = new FizickoLice(adresa, kontakPodaci, form.punomocnik.punomocnikFizickoLice.ime, form.punomocnik.punomocnikFizickoLice.prezime, form.punomocnik.punomocnikFizickoLice.drzavljanstvo)       
         return new Punomcnik(lice, zaZastupanje, zaPrijemaPismena)
       }

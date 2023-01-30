@@ -50,7 +50,7 @@ export class FormPatentComponent {
         this.toatr.success(response.text)
       },
       error : (error) => {
-        console.log(error)
+        this.toatr.error(error.error.message)
       }
     })
   }

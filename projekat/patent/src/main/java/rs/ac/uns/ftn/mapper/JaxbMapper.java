@@ -41,7 +41,7 @@ public class JaxbMapper {
 
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		ZahtevZaPriznanjePatenta bookstore = (ZahtevZaPriznanjePatenta) unmarshaller.unmarshal(contentAsDOM);
-		
+		System.out.println(bookstore);
 		return bookstore;
 	}
 	

@@ -3,6 +3,8 @@
       Broj prvobitne prijave / osnovne prijave, odnosno osnovnog patenta:
       <mat-form-field appearance="fill">
         <input matInput [readonly]="true" value={{brojPrijave}}>
+        <button class="btn" mat-button [disabled]="!brojPrijave" (click)="openDocumen()">Pregledaj</button>
+        <button class="btn" mat-button [disabled]="!brojPrijave">Preuzmi</button>
       </mat-form-field>
     </div>
     <div class="input-prijava">

@@ -68,6 +68,8 @@ export class PatentXmlTemplateService {
               <Lice xsi:type="zaj:${tipLica}">  
                 ${lice}
               </Lice>
+              <za_zastupanje>${punomocnik.zaZastupanje}</za_zastupanje>
+            <za_prijem_pismena>${punomocnik.za_prijem_pismena}</za_prijem_pismena>
       </Punomocnik>`
     }
     return ""

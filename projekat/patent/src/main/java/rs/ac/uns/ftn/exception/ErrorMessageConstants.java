@@ -6,5 +6,7 @@ public class ErrorMessageConstants {
 	public static String DOCUMENT_ALREADY_EXITS = "Document with same document number already exists";
 	public static String INVALID_XML_FILE = "Invalid data in xml file";
 	public static String INTERNAL_ERROR = "Došlo je do grške. Molimo Vas pokušajte kasnije";
+	public static String NEPOSTOJECI_DOKUMENT = "Dokument sa tim brojem ne postoji";
+	public static String NEODOBREN_DOKUMENT = "Dokument sa tim brojem nije odobren";
 
 }

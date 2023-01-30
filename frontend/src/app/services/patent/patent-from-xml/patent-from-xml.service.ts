@@ -17,7 +17,7 @@ export class PatentFromXmlService {
     let brojPrijave = attributes.broj_prijave;
     let datumPodnosenja = attributes.datum_prijema_prijave;
     let priznatiDatumPodnosenja = attributes.priznati_datum_podnosenja;
-    let dodatnaPrijava : Podaci_o_dodatnoj_prijavi = this.getPodaciODodatnojPrijavi(xml, prefix);
+    let dodatnaPrijava : Podaci_o_dodatnoj_prijavi | undefined = this.getPodaciODodatnojPrijavi(xml, prefix);
     let podatiODostavljanju : Podaci_o_dostavljanju = this.getPodaciODostavljanju(xml, prefix);
     let podnosilac : PodnosilacZahteva = this.getPodnosilac(xml, prefix);
     let pronalazac : Pronalazac = this.getPronalazac(xml, prefix);
@@ -31,14 +31,18 @@ export class PatentFromXmlService {
     return zahtev;
   }
 
-  getPodaciODodatnojPrijavi(xml:any, prefix: string) : Podaci_o_dodatnoj_prijavi{
+  getPodaciODodatnojPrijavi(xml:any, prefix: string) : Podaci_o_dodatnoj_prijavi | undefined{
     let podaciOPrvobitnojPrijavi = xml[prefix + ':Podaci_o_dodatnoj_prijavi']
-    let dodatnaPrijava : Podaci_o_dodatnoj_prijavi = new Podaci_o_dodatnoj_prijavi(
-      podaciOPrvobitnojPrijavi[prefix + ":Tip_prijave"]._text,
-      podaciOPrvobitnojPrijavi[prefix + ":Broj_prvobitne_prijave"]._text,
-      podaciOPrvobitnojPrijavi[prefix + ":Datum_podnosenja_prvobitne_prijave"]._text,
-      )
-    return dodatnaPrijava
+    if(podaciOPrvobitnojPrijavi){
+      let dodatnaPrijava : Podaci_o_dodatnoj_prijavi = new Podaci_o_dodatnoj_prijavi(
+        podaciOPrvobitnojPrijavi[prefix + ":Tip_prijave"]._text,
+        podaciOPrvobitnojPrijavi[prefix + ":Broj_prvobitne_prijave"]._text,
+        podaciOPrvobitnojPrijavi[prefix + ":Datum_podnosenja_prvobitne_prijave"]._text,
+        )
+      return dodatnaPrijava
+    }
+    return undefined
+    
   }
 
   getPodaciODostavljanju(xml:any,  prefix: string) : Podaci_o_dostavljanju{
@@ -157,7 +161,7 @@ export class PatentFromXmlService {
 
   getKontaktPodaci(xml: any) : KontaktPodaci{
     let kontakt = xml[this.commonPrefix + ':Kontakt_podaci']
-     return new KontaktPodaci(kontakt[this.commonPrefix + ':Faks']._text, kontakt[this.commonPrefix + ':Email']._text, kontakt[this.commonPrefix + ':Telefon']._text)
+     return new KontaktPodaci(kontakt[this.commonPrefix + ':Faks']? kontakt[this.commonPrefix + ':Faks']._text : "", kontakt[this.commonPrefix + ':Email']._text, kontakt[this.commonPrefix + ':Telefon']._text)
   
   }
 }
