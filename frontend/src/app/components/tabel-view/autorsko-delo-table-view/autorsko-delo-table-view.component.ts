@@ -25,7 +25,8 @@ export class AutorskoDeloTableViewComponent implements OnInit {
 
   zahteviPAutorskoDelo: ZahtevZaAutorskoDelo[] = [];
   isLoaded: boolean = false;
-  displayedColumns = ["delo", "podnosilac", "datum podnošenja", "prikaz"]
+  basicColoumns = ["delo", "podnosilac", "datum podnošenja", "prikaz"]
+  displayedColumns: string[] = []
   gettingDataFinished: boolean = false;
   dataSource!: MatTableDataSource<ZahtevZaAutorskoDelo>;
   isSluzbenik: boolean = false;
@@ -55,31 +56,27 @@ export class AutorskoDeloTableViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getDataByRole();
+  }
+
+  getDataByRole(){
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK") {
-      this.autorskoDeloService.getAll().subscribe({
-        next: (response) => {
-          this.isSluzbenik = true;
-          this.displayedColumns.push("rešenje")
-          this.displayedColumns.push("pdf")
-          this.displayedColumns.push("html")
-          this.displayedColumns.push("rdf")
-          this.displayedColumns.push("json")
-          this.getAutorskaDelaFromResponse(response)
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
+      this.isSluzbenik = true;
+      this.setDisplayedColumnsForSluzbenik()
+      this.getDataForSluzbenik()
     } else {
       this.getDataForUserTabel();
     }
+  }
+  setDisplayedColumnsForSluzbenik(): void {
+    this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
   }
 
   getAutorskaDelaFromResponse(response: any) {
     this.zahteviPAutorskoDelo = []
     const convert = require('xml-js');
     const zahtevList: any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-    if (Object.keys(zahtevList.listaZahtevaAutorskoDelo).length > 1) {
+    if (zahtevList.listaZahtevaAutorskoDelo && Object.keys(zahtevList.listaZahtevaAutorskoDelo).length > 1) {
       const atrributes = zahtevList.listaZahtevaAutorskoDelo._attributes;
       this.getPrefix(atrributes)
       this.convertFromJSON(zahtevList)
@@ -137,6 +134,17 @@ export class AutorskoDeloTableViewComponent implements OnInit {
       }
     })
   }
+  
+  getDataForSluzbenik(){
+    this.autorskoDeloService.getAll().subscribe({
+      next: (response) => {
+        this.getAutorskaDelaFromResponse(response)
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
 
   openResenje(element: ZahtevZaAutorskoDelo) {
     this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.AUTORSKO_DELO}});
@@ -176,6 +184,23 @@ export class AutorskoDeloTableViewComponent implements OnInit {
           console.log(res)
         }
       })
+    }  else{
+      this.getDataByRole();
+    }
+  }
+
+  searchText(query: string): void {
+    if(query){
+      this.autorskoDeloService.searchText(query).subscribe({
+        next: (res: any) => {
+          this.getAutorskaDelaFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
     }
   }
   

@@ -34,5 +34,5 @@ public interface ZigService {
 
 	ListaZahtevaZiga searchMetadata(String request) throws IOException;
 
-	ListaZahtevaZiga searchText(String txt);
+	ListaZahtevaZiga searchText(String txt) throws XMLDBException, JAXBException;
 }

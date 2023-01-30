@@ -11,27 +11,18 @@ import { AutorskoDeloService } from 'src/app/services/autorsko-delo/autorsko-del
 export class TextSearchComponent {
 
   @Output()
-  searchResult = new EventEmitter<any>();
+  queryEvent = new EventEmitter<string>();
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   keywords: string[] = [];
 
   constructor(
-    private autorskoDeloService: AutorskoDeloService
   ) {}
   
   search(): void {
     const query: string = this.createQuery();
-    console.log(query)
-    this.autorskoDeloService.searchText(query).subscribe({
-      next: (res: any) => {
-        this.searchResult.emit(res);
-      },
-      error: (res: any) => {
-        console.log(res)
-      }
-    })
+    this.queryEvent.emit(query);
   }
   private createQuery(): string{
     return this.keywords.join(";");

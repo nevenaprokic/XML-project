@@ -97,10 +97,11 @@ export class ZigTableViewComponent implements OnInit{
     this.zahteviZig = []
     const convert = require('xml-js');
     const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4, encodeURI: "utf-8"}));
-    if (Object.keys(zahtevList.listaZahtevaZiga).length > 1){
+    if (zahtevList.listaZahtevaZiga && Object.keys(zahtevList.listaZahtevaZiga).length > 1){
       const atrributes = zahtevList.listaZahtevaZiga._attributes;
       this.getPrefix(atrributes)
       this.convertFromJSON(zahtevList)
+      this.isEmptySource = false;
     } else{
       this.isEmptySource = true;
       this.gettingDataFinished = true;
@@ -185,9 +186,23 @@ export class ZigTableViewComponent implements OnInit{
           console.log(res)
         }
       })
-    }
-    else{
+    } else{
       this.getDataByRole()
+    }
+  }
+
+  searchText(query: string): void {
+    if(query){
+      this.zigService.searchText(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
     }
   }
 }

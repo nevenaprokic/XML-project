@@ -75,4 +75,10 @@ export class ZigService {
     const url = this.ZIG_PATH + `/searchMetadata?request=${request}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
+
+  searchText(request: string){
+    const url = this.ZIG_PATH + `/searchText?txt=${request}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
 }

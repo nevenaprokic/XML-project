@@ -150,9 +150,19 @@ public class ZigServiceImpl implements ZigService {
 	}
 
 	@Override
-	public ListaZahtevaZiga searchText(String txt) {
-		// TODO Auto-generated method stub
-		return null;
+	public ListaZahtevaZiga searchText(String txt) throws XMLDBException, JAXBException {
+		String[] keywords = txt.split(";");
+		String conditions = "";
+		for (int i = 0; i < keywords.length; i++) {
+			conditions += String.format(QueryUtils.CONDITION_TEPMLATE, "'" + keywords[i] + "'");
+			if(i != keywords.length-1) {
+				conditions += " and ";
+			}
+		}
+		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
+		System.out.println(xQuery);
+		ResourceSet result = zigRepository.getByXQuery(xQuery);
+		return resourceSetToList(result);
 	}
 
 }
