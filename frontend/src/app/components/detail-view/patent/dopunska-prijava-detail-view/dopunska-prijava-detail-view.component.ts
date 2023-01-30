@@ -34,16 +34,12 @@ export class DopunskaPrijavaDetailViewComponent implements OnInit {
     if(this.brojPrijave){
       this.patentService.getById(this.brojPrijave).subscribe({
         next : (response) => {
-            console.log(response)
-            const convert = require('xml-js');
-            const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-            console.log(zahtevList)
-            Object.entries(zahtevList).map(([key, value]) => {
+            let zahtev = this.getjson(response);
+            Object.entries(zahtev).map(([key, value]) => {
               if (key.substring(4) === "Zahtev_za_priznanje_patenta"){
-                console.log(zahtevList[key])
-                const atrributes = zahtevList[key]._attributes;
+                const atrributes = zahtev[key]._attributes;
                 this.getPrefix(atrributes)
-                this.convertFromJSON(zahtevList)
+                this.convertFromJSON(zahtev)
               }
             })
         },
@@ -52,6 +48,12 @@ export class DopunskaPrijavaDetailViewComponent implements OnInit {
         }
       })
     }
+  }
+
+  getjson(xml:any) : any{
+    const convert = require('xml-js');
+    const  zahtevList: any = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
+    return zahtevList;
   }
 
   getPrefix(atrributes: any){
@@ -68,8 +70,6 @@ export class DopunskaPrijavaDetailViewComponent implements OnInit {
   convertFromJSON(zahtevXML: any){
     const zahtev : any = zahtevXML[this.prefix + ':Zahtev_za_priznanje_patenta'];
     let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXML.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
-    //this.zahteviPatent.push(zahtevZaPriznanjePatent)
-    console.log(zahtevZaPriznanjePatent)
     this.openDialg(zahtevZaPriznanjePatent)
   }
 
@@ -77,8 +77,5 @@ export class DopunskaPrijavaDetailViewComponent implements OnInit {
     this.dialog.open(PatentDetailViewComponent, {
       data: element,
     });
-  
   }
-  
-
 }

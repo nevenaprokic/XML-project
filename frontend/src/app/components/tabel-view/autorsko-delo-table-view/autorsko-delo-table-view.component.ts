@@ -14,6 +14,7 @@ import {ZahtevZaPriznanjeZiga} from "../../../model/zig";
 import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
+import { AutorskoDeloDetailViewComponent } from '../../detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
 
 @Component({
   selector: 'app-autorsko-delo-table-view',
@@ -167,6 +168,12 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     a.click();
     window.URL.revokeObjectURL(url);
     a.remove();
+  }
+
+  openPatenDetailView(element: ZahtevZaAutorskoDelo){
+    this.dialog.open(AutorskoDeloDetailViewComponent, {
+      data: element,
+    });
   }
 
 }

@@ -1,0 +1,136 @@
+<div class="paper-form">
+    <div class="header">
+      <h1 class="title">ZAHTEV ZA UNOŠENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</h1>
+      <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+    </div>
+    <form>
+      <div><p class="description">1. Podnosilac prijave:</p>
+        <section class="section-lice">
+            <mat-checkbox [checked]="isFizickoLice">Fizicko lice</mat-checkbox>
+            <mat-checkbox  [checked]="isPravnoLice">Pravno lice</mat-checkbox>
+            <mat-checkbox  [checked]="isAutor">Autor</mat-checkbox>
+        </section>
+        <div>
+          <div *ngIf="zahtev.podnosilacFizickoLice">
+            <app-fizicko-lice-detail-view [lice]="zahtev.podnosilacFizickoLice"></app-fizicko-lice-detail-view>
+            <app-adresa-detail-view [adresa]="zahtev.podnosilacFizickoLice.adresa"></app-adresa-detail-view>
+            <app-kontakt-detail-view [kontakt]="zahtev.podnosilacFizickoLice.kontaktPodaci"></app-kontakt-detail-view>
+          </div>
+          <div *ngIf="zahtev.podnosilacPravnoLice">
+            <app-pravno-lice-detail-view [lice]="zahtev.podnosilacPravnoLice"></app-pravno-lice-detail-view>
+            <app-adresa-detail-view [adresa]="zahtev.podnosilacPravnoLice.adresa"></app-adresa-detail-view>
+            <app-kontakt-detail-view [kontakt]="zahtev.podnosilacPravnoLice.kontaktPodaci"></app-kontakt-detail-view>
+          </div>
+          <div *ngIf="zahtev.podnosilacAutor">
+            <app-form-autor-detail-view [lice]="zahtev.podnosilacAutor"></app-form-autor-detail-view>
+            <app-adresa-detail-view *ngIf="zahtev.podnosilacAutor.adresa" [adresa]="zahtev.podnosilacAutor.adresa"></app-adresa-detail-view>
+            <app-kontakt-detail-view *ngIf="zahtev.podnosilacAutor.kontaktPodaci" [kontakt]="zahtev.podnosilacAutor.kontaktPodaci"></app-kontakt-detail-view>
+          </div>
+         
+        </div>
+      </div>
+      <div class="input-autorsko-delo" *ngIf="pseudonim">
+        <p class="description">2. Pseudonim ili znak autora, (ako ga ima):</p>
+        <mat-form-field appearance="fill">
+          <input matInput value={{pseudonim}} readonly="true">
+        </mat-form-field>
+      </div>
+      <div>
+        <p class="description">3. Naslov:</p>
+        <div class="input-autorsko-delo">
+          Naslov autorskog dela:
+          <mat-form-field appearance="fill" class="input-zig">
+            <input matInput readonly="true" value={{zahtev.autorskoDelo.identifikator.naslov}}>
+          </mat-form-field>
+        </div>
+        <div class="input-autorsko-delo">
+          Alternativni naslov:
+          <mat-form-field appearance="fill" class="input-zig">
+            <input matInput readonly="true" value={{zahtev.autorskoDelo.identifikator.alternativniNaslov}}>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="zahtev.autorskoDelo.podaciOOriginalu">
+        <p class="description">4. Prerada autorskog dela:</p>
+        <div class="input-autorsko-delo">
+          Naslov autorskog dela:
+          <mat-form-field appearance="fill" class="input-zig">
+            <input matInput readonly="true" value={{zahtev.autorskoDelo.podaciOOriginalu.identifikator.naslov}}>
+          </mat-form-field>
+        </div>
+        <div *ngFor="let autor of zahtev.autorskoDelo.podaciOOriginalu.autori">
+          <app-form-autor-detail-view [lice]="autor"></app-form-autor-detail-view>
+          <p *ngIf="autor.ime">Ime: {{autor.ime}}</p>
+          <p *ngIf="autor.prezime">Prezime: {{autor.prezime}}</p>
+          <p *ngIf="autor.drzavljanstvo">Drzavljanstvo: {{autor.drzavljanstvo}}</p>
+          <app-adresa-detail-view *ngIf="autor.adresa" [adresa]="autor.adresa"></app-adresa-detail-view>
+          <app-kontakt-detail-view *ngIf="autor.kontaktPodaci" [kontakt]="autor.kontaktPodaci"></app-kontakt-detail-view>
+        </div>
+      </div>
+      <div class="vrasta-autorskog-dela">
+        <p class="description">5. Podaci o vrsti autorskog dela:</p>
+        <section>
+          <p>{{zahtev.autorskoDelo.vrsta === 'racunarski program'}}</p>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.vrsta === 'knjizevno delo'">knjizevno delo</mat-checkbox>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.vrsta === 'muzicko delo'">muzicko delo</mat-checkbox>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.vrsta === 'likovno delo'">likovno delo</mat-checkbox>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.vrsta === 'racunarski program'">racunarski program</mat-checkbox>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.vrsta !== 'knjizevno delo' 
+                                                        && zahtev.autorskoDelo.vrsta !== 'muzicko delo' 
+                                                        && zahtev.autorskoDelo.vrsta !== 'likovno delo' 
+                                                        && zahtev.autorskoDelo.vrsta !== 'racunarski program'">ostalo</mat-checkbox>
+        </section>
+      </div>
+      <div class="forma-zapisa-autorskog-dela">
+        <p class="description">6. Podaci o formi zapisa autorskog dela:</p>
+        <section>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.formaZapisa === 'stamparski tekst'" >stamparski tekst</mat-checkbox>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.formaZapisa === 'opticki disk'">opticki disk</mat-checkbox>
+            <mat-checkbox readonly="true" [checked]="zahtev.autorskoDelo.formaZapisa === 'ostalo'">ostalo</mat-checkbox>
+        </section>
+      </div>
+      <div *ngIf="zahtev.autorskoDelo.autori">
+        <p class="description">7. Podaci o autoru ako podnosilac prijave iz tačke 1. ovog zahteva nije autor i to: prezime, ime, adresa i državljanstvo autora (grupe autora ili koautora), a ako su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora a ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog autora:
+        </p>
+        <div *ngFor="let autor of zahtev.autorskoDelo.autori" style="border-bottom: solid thin;">
+          <app-form-autor-detail-view [lice]="autor"></app-form-autor-detail-view>
+          <app-adresa-detail-view *ngIf="autor.adresa" [adresa]="autor.adresa"></app-adresa-detail-view>
+          <app-kontakt-detail-view *ngIf="autor.kontaktPodaci" [kontakt]="autor.kontaktPodaci"></app-kontakt-detail-view>
+        </div>
+      </div>
+      <div>
+        <p class="description">8. Podaci o radnom odnosu:</p>
+        <div class="input-autorsko-delo">
+          Podatak da li je u pitanju autorsko delo stvoreno u radnom odnosu:
+          <mat-form-field appearance="fill" class="input-zig">
+            <input matInput readonly="true" value={{zahtev.autorskoDelo.radniOdnos}}>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <p class="description">9. Način korišćenja autorskog dela:</p>
+        <div class="input-autorsko-delo">
+          Način korišćenja autorskog dela ili nameravani način korišćenja autorskog dela:
+          <mat-form-field appearance="fill" class="input-zig">
+            <input  matInput readonly="true" value={{zahtev.autorskoDelo.nacinKoriscenja}}>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div>
+        <p class="description">10. Prilozi:</p>
+        <div class="input-autorsko-delo" *ngIf="zahtev.opis">
+            Opis autorskog dela:
+            <button class="btn"  mat-button (click)="pregledaj(zahtev.opis)">Prikaži</button>
+            <button class="btn"  mat-button (click)="preuzmi(zahtev.opis)">Preuzmi</button>
+        </div>
+        <div class="input-autorsko-delo"*ngIf="zahtev.primer">
+            Primer autorskog dela:
+            <button class="btn" mat-button (click)="pregledaj(zahtev.primer)">Prikaži</button>
+            <button class="btn" mat-button (click)="preuzmi(zahtev.primer)">Preuzmi</button>
+        </div>
+        <p *ngIf="!zahtev.opis && !zahtev.primer">Nema priloga</p>
+      </div>
+    </form>
+  </div>
+  
