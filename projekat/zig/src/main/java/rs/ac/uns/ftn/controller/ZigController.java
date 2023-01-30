@@ -176,10 +176,10 @@ public class ZigController {
     }
 	
 	
-	@GetMapping(value="/get-prilog/{documentId}/{imgName}")
-	public ResponseEntity<PrilogImage> getPrilog(@PathVariable String documentId, @PathVariable String imgName) {
+	@GetMapping(value="/get-prilog")
+	public ResponseEntity<PrilogImage> getPrilog(@RequestParam("imageName") String imageName, @RequestParam("documentId") String documentId) {
 		try {
-			PrilogImage prilog = prilogService.getPrilog(documentId, imgName);
+			PrilogImage prilog = prilogService.getPrilog(documentId, imageName);
 			return new ResponseEntity<>(prilog, HttpStatus.OK);
 		}
 		catch (Exception e) {
