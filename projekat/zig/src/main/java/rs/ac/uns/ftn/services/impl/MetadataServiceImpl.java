@@ -10,8 +10,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.TransformerException;
@@ -34,10 +36,11 @@ import org.xml.sax.SAXException;
 
 import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities;
-import rs.ac.uns.ftn.services.metadata.utils.FileUtil;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities.ConnectionProperties;
+import rs.ac.uns.ftn.services.metadata.utils.FileUtil;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataExtractor;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataKeys;
+import rs.ac.uns.ftn.services.metadata.utils.SearchRequestParser;
 import rs.ac.uns.ftn.services.metadata.utils.SparqlUtil;
 
 @Service
@@ -225,5 +228,40 @@ public class MetadataServiceImpl implements MetadataService{
 				params.get(MetadataKeys.PODNOSILAC_PRIJAVE), 
 				params.get(MetadataKeys.DATUM_PODNOSENJA_PRIJAVE)
 				);
+	}
+
+	public String filterByCriteriaQuery(String request) throws IOException {
+		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_search_filter_template.rq",StandardCharsets.UTF_8);
+		
+		String filterClause = SearchRequestParser.parseFilterClause(request);
+		String a = String.format(XML_RDF_template, filterClause);
+		System.out.println(a);
+		return a;
+	}
+	@Override
+	public List<String> searchByMetadata(String request) throws IOException {
+		setupConnection(ZIG_GRAPH);
+
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByCriteriaQuery(request));
+		ResultSet resultSet = query.execSelect();
+		
+		String varName;
+		RDFNode varValue;
+		
+		List<String> ids = new ArrayList<String>();
+		
+		while(resultSet.hasNext()) {
+			QuerySolution querySolution = resultSet.next() ;
+			Iterator<String> variableBindings = querySolution.varNames();
+
+		    while (variableBindings.hasNext()) {
+		    	varName = variableBindings.next();
+		    	varValue = querySolution.get(varName);
+		    	ids.add(varValue.toString());
+		    	System.out.println(varName + ": " + varValue);
+		    }
+		}
+		
+		return ids;
 	}
 }

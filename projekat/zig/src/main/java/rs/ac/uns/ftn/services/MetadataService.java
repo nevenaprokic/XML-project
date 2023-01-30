@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.services;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
@@ -14,4 +15,6 @@ public interface MetadataService {
 	public InputStreamResource getAsRdf(String documentId) throws IOException;
 
 	public InputStreamResource getAsJson(String documentId) throws IOException;
+
+	public List<String> searchByMetadata(String request) throws IOException;
 }

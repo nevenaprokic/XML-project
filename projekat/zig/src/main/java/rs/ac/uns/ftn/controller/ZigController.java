@@ -128,7 +128,7 @@ public class ZigController {
 		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
 	}
 	
-	/*@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
+	@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ListaZahtevaZiga> searchText(@RequestParam("txt") String txt) {
 		try {
 			ListaZahtevaZiga zahtevi = zigService.searchText(txt);
@@ -148,7 +148,7 @@ public class ZigController {
 		catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}		
-	}*/
+	}
 
 	@GetMapping(value = "/get-rdf/{documentId}")
     public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {

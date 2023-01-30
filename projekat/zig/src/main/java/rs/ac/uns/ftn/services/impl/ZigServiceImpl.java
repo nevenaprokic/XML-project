@@ -36,6 +36,7 @@ import rs.ac.uns.ftn.transformations.PDFTransformer;
 public class ZigServiceImpl implements ZigService {
 	
 	public static final String PATH = "src/main/resources/xslt/";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/z1";
 	public static final String XSL_FILE = "src/main/resources/xslt/Z1.xsl";
 	
 	@Autowired
@@ -134,6 +135,24 @@ public class ZigServiceImpl implements ZigService {
 	@Override
 	public InputStreamResource getMetadataAsJson(String documentId) throws IOException {
 		return metadataService.getAsJson(documentId);
+	}
+
+	@Override
+	public ListaZahtevaZiga searchMetadata(String request) throws IOException {
+		List<ZahtevZaPriznanjeZiga> zahtevi = new ArrayList<ZahtevZaPriznanjeZiga>();
+		List<String> ids = metadataService.searchByMetadata(request);
+		for (String id : ids) {
+			String documentId = id.split(TARGET_NAMESPACE)[1];
+			ZahtevZaPriznanjeZiga zahtev = getZahtevZaPriznanjeZiga(documentId);
+			zahtevi.add(zahtev);
+		}
+		return new ListaZahtevaZiga(zahtevi);
+	}
+
+	@Override
+	public ListaZahtevaZiga searchText(String txt) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

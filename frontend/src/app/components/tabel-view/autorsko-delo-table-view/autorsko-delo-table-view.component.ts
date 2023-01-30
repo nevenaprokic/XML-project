@@ -35,6 +35,15 @@ export class AutorskoDeloTableViewComponent implements OnInit {
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
+  
+  metadataOptions = [    
+    'datum_podnosenja', 
+    'autorsko_delo', 
+    'primarni_autor',
+    'koautor',
+    'ime_prodnosioca',
+    'prilog'
+  ]
 
   constructor(private userService: UserService,
               public datepipe: DatePipe,
@@ -74,6 +83,7 @@ export class AutorskoDeloTableViewComponent implements OnInit {
       const atrributes = zahtevList.listaZahtevaAutorskoDelo._attributes;
       this.getPrefix(atrributes)
       this.convertFromJSON(zahtevList)
+      this.isEmptySource = false;
     } else {
       this.isEmptySource = true;
       this.gettingDataFinished = true;
@@ -155,4 +165,18 @@ export class AutorskoDeloTableViewComponent implements OnInit {
       }
     })
   }
+
+  searchMetadata(query: string): void {
+    if(query){
+      this.autorskoDeloService.searchMetadata(query).subscribe({
+        next: (res: any) => {
+          this.getAutorskaDelaFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }
+  }
+  
 }
