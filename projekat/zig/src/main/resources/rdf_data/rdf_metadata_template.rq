@@ -1,0 +1,21 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:pred="http://examples/predicate/">
+    
+  <rdf:Description rdf:about="%1$s">
+    <pred:prilog_dokaz_o_uplati_takse rdf:resource="%2$s"/>
+    <pred:prilog_opsti_akt_o_kolektivnom_zigu_garancije rdf:resource="%3$s"/>
+    <pred:prilog_punomocje rdf:resource="%4$s"/>
+    <pred:prilog_punomocje_ranije_prilozeno rdf:resource="%5$s"/>
+    <pred:prilog_punomocje_naknadno_dostavljeno rdf:resource="%6$s"/>
+    <pred:prilog_spisak_robe_i_usluga rdf:resource="%7$s"/>
+    <pred:prilog_primerak_znaka rdf:resource="%8$s"/>
+    <pred:prilog_dokaz_o_pravu_prvenstva rdf:resource="%9$s"/>
+    
+    <pred:ukupna_taksa rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">%10$s</pred:ukupna_taksa>
+    <pred:vrsta>%11$s</pred:vrsta>
+    <pred:podnosilac_prijave>%12$s</pred:podnosilac_prijave>
+    <pred:datum_podnosenja_prijave rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">%13$s</pred:datum_podnosenja_prijave>
+  </rdf:Description>
+</rdf:RDF>

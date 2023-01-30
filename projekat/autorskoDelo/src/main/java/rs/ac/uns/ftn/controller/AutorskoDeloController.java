@@ -133,7 +133,7 @@ public class AutorskoDeloController {
 	}
     
 	@GetMapping(value = "/get-json/{documentId}")
-    public ResponseEntity<?> downloadZalbaCutanjeJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+    public ResponseEntity<?> downloadJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
 
         try {
         	InputStreamResource json = autorskoDeloService.getMetadataAsJson(documentId);
@@ -176,10 +176,10 @@ public class AutorskoDeloController {
 		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
 	}
 	
-	@GetMapping(value="/get-prilog/{documentId}/{imgName}")
-	public ResponseEntity<PrilogImage> getPrilog(@PathVariable String documentId, @PathVariable String imgName) {
+	@GetMapping(value="/get-prilog")
+	public ResponseEntity<PrilogImage> getPrilog(@RequestParam("imageName") String imageName, @RequestParam("documentId") String documentId) {
 		try {
-			PrilogImage prilog = autorskoDeloService.getPrilog(documentId, imgName);
+			PrilogImage prilog = autorskoDeloService.getPrilog(documentId, imageName);
 			return new ResponseEntity<>(prilog, HttpStatus.OK);
 		}
 		catch (Exception e) {

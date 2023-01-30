@@ -15,6 +15,7 @@ import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.compon
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
 import { AutorskoDeloDetailViewComponent } from '../../detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
+import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 
 @Component({
   selector: 'app-autorsko-delo-table-view',
@@ -25,7 +26,8 @@ export class AutorskoDeloTableViewComponent implements OnInit {
 
   zahteviPAutorskoDelo: ZahtevZaAutorskoDelo[] = [];
   isLoaded: boolean = false;
-  displayedColumns = ["delo", "podnosilac", "datum podnošenja", "prikaz"]
+  basicColoumns = ["delo", "podnosilac", "datum podnošenja", "prikaz"]
+  displayedColumns: string[] = []
   gettingDataFinished: boolean = false;
   dataSource!: MatTableDataSource<ZahtevZaAutorskoDelo>;
   isSluzbenik: boolean = false;
@@ -35,44 +37,51 @@ export class AutorskoDeloTableViewComponent implements OnInit {
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
+  
+  metadataOptions = [    
+    'datum_podnosenja', 
+    'autorsko_delo', 
+    'primarni_autor',
+    'koautor',
+    'ime_prodnosioca',
+    'prilog'
+  ]
 
   constructor(private userService: UserService,
               public datepipe: DatePipe,
               private autorskoDeloService: AutorskoDeloService,
               private fromXMLService: AutorskoDeloXmlConvertorService,
               private toastr: Toastr,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private fileUtils: FileUtilService) {
   }
 
   ngOnInit(): void {
+    this.getDataByRole();
+  }
+
+  getDataByRole(){
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK") {
-      this.autorskoDeloService.getAll().subscribe({
-        next: (response) => {
-          this.isSluzbenik = true;
-          this.displayedColumns.push("rešenje")
-          this.displayedColumns.push("pdf")
-          this.displayedColumns.push("html")
-          this.displayedColumns.push("rdf")
-          this.displayedColumns.push("json")
-          this.getAutorskaDelaFromResponse(response)
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
+      this.isSluzbenik = true;
+      this.setDisplayedColumnsForSluzbenik()
+      this.getDataForSluzbenik()
     } else {
       this.getDataForUserTabel();
     }
+  }
+  setDisplayedColumnsForSluzbenik(): void {
+    this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
   }
 
   getAutorskaDelaFromResponse(response: any) {
     this.zahteviPAutorskoDelo = []
     const convert = require('xml-js');
     const zahtevList: any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-    if (Object.keys(zahtevList.listaZahtevaAutorskoDelo).length > 1) {
+    if (zahtevList.listaZahtevaAutorskoDelo && Object.keys(zahtevList.listaZahtevaAutorskoDelo).length > 1) {
       const atrributes = zahtevList.listaZahtevaAutorskoDelo._attributes;
       this.getPrefix(atrributes)
       this.convertFromJSON(zahtevList)
+      this.isEmptySource = false;
     } else {
       this.isEmptySource = true;
       this.gettingDataFinished = true;
@@ -126,6 +135,17 @@ export class AutorskoDeloTableViewComponent implements OnInit {
       }
     })
   }
+  
+  getDataForSluzbenik(){
+    this.autorskoDeloService.getAll().subscribe({
+      next: (response) => {
+        this.getAutorskaDelaFromResponse(response)
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
 
   openResenje(element: ZahtevZaAutorskoDelo) {
     this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.AUTORSKO_DELO}});
@@ -136,7 +156,7 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     this.autorskoDeloService.downloadRdf(id).subscribe({
       next: (res: any) => {
         const filename: string =`zahtevZaAutorskoDelo${id}.rdf`;
-        this.downloadDocument(res, filename)
+        this.fileUtils.downloadDocument(res, filename)
       },
       error: (res: any) => {
         console.log(res)
@@ -147,7 +167,7 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     this.autorskoDeloService.downloadJson(id).subscribe({
       next: (res: any) => {
         const filename: string =`zahtevZaAutorskoDelo${id}.json`;
-        this.downloadDocument(res, filename)
+        this.fileUtils.downloadDocument(res, filename)
       },
       error: (res: any) => {
         console.log(res)
@@ -155,25 +175,40 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     })
   }
 
-  downloadDocument(result: any, fileName: string){
-    const binaryData = [];
-    binaryData.push(result);
-    const url = window.URL.createObjectURL(new Blob(binaryData, {type: 'application/xml'}));
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.setAttribute('style', 'display: none');
-    a.setAttribute('target', 'blank');
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
+  searchMetadata(query: string): void {
+    if(query){
+      this.autorskoDeloService.searchMetadata(query).subscribe({
+        next: (res: any) => {
+          this.getAutorskaDelaFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
+    }
   }
 
   openPatenDetailView(element: ZahtevZaAutorskoDelo){
     this.dialog.open(AutorskoDeloDetailViewComponent, {
       data: element,
     });
+  }
+
+  searchText(query: string): void {
+    if(query){
+      this.autorskoDeloService.searchText(query).subscribe({
+        next: (res: any) => {
+          this.getAutorskaDelaFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
+    }
   }
 
 }

@@ -62,26 +62,26 @@
     <Prilozi_uz_zahtev>
         <Primerak_znaka>
             <!--Optional:-->
-            <Putanja_do_fajla>izgled_znaka.png</Putanja_do_fajla>
+            <Putanja_do_fajla>izgled_znaka.png;custom_separator;izgled_znaka.pdf</Putanja_do_fajla>
             <!--Optional:-->
             <Dostavljeno>true</Dostavljeno>
         </Primerak_znaka>
         <Spisak_robe_i_usluga>
             <!--Optional:-->
-            <Putanja_do_fajla>spisak_robe.pdf</Putanja_do_fajla>
+            <Putanja_do_fajla>spisak_robe.pdf;custom_separator;spisak_robe.pdf</Putanja_do_fajla>
             <!--Optional:-->
             <Dostavljeno>true</Dostavljeno>
         </Spisak_robe_i_usluga>
         <!--You have a CHOICE of the next 3 items at this level-->
         <Punomocje>
             <!--Optional:-->
-            <Putanja_do_fajla>podataka_o_punomocju.pdf</Putanja_do_fajla>
+            <Putanja_do_fajla>podataka_o_punomocju.pdf;custom_separator;podataka_o_punomocju.pdf</Putanja_do_fajla>
             <!--Optional:-->
             <Dostavljeno>true</Dostavljeno>
         </Punomocje>
         <Opsti_akt_o_kolektivnom_zigu_garancije>
             <!--Optional:-->
-            <Putanja_do_fajla>opsti_akt.pdf</Putanja_do_fajla>
+            <Putanja_do_fajla>opsti_akt.pdf;custom_separator;opsti_akt.pdf</Putanja_do_fajla>
             <!--Optional:-->
             <Dostavljeno>true</Dostavljeno>
         </Opsti_akt_o_kolektivnom_zigu_garancije>
@@ -93,7 +93,7 @@
         </Dokaz_o_pravu_prvenstva>
         <Dokaz_o_uplati_takse>
             <!--Optional:-->
-            <Putanja_do_fajla>dokaz_o_uplati.pdf</Putanja_do_fajla>
+            <Putanja_do_fajla>dokaz_o_uplati.pdf;custom_separator;dokaz_o_uplati.pdf</Putanja_do_fajla>
             <!--Optional:-->
             <Dostavljeno>true</Dostavljeno>
         </Dokaz_o_uplati_takse>

@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
+import org.springframework.core.io.InputStreamResource;
+import org.xmldb.api.base.XMLDBException;
+
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
-import org.xmldb.api.base.XMLDBException;
 
 public interface ZigService {
 
@@ -25,4 +27,12 @@ public interface ZigService {
 	void saveFile(ZahtevZaPriznanjeZiga zahtev, String documentId);
 	
 	ListaZahtevaZiga findAllApproved() throws XMLDBException, JAXBException;
+
+	InputStreamResource getMetadataAsRdf(String documentId) throws IOException;
+
+	InputStreamResource getMetadataAsJson(String documentId) throws IOException;
+
+	ListaZahtevaZiga searchMetadata(String request) throws IOException;
+
+	ListaZahtevaZiga searchText(String txt) throws XMLDBException, JAXBException;
 }

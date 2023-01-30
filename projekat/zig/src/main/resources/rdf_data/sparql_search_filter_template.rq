@@ -1,0 +1,19 @@
+SELECT DISTINCT ?zahtevZaPriznanjeZiga FROM <http://localhost:8080/fusekiZ/Zig/data/project/metadata/zig>
+WHERE {
+    ?zahtevZaPriznanjeZiga <http://examples/predicate/ukupna_taksa> ?ukupna_taksa . 
+  	?zahtevZaPriznanjeZiga <http://examples/predicate/vrsta> ?vrsta . 
+  	?zahtevZaPriznanjeZiga <http://examples/predicate/podnosilac_prijave> ?podnosilac_prijave . 
+  	?zahtevZaPriznanjeZiga <http://examples/predicate/datum_podnosenja_prijave> ?datum_podnosenja_prijave . 
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_dokaz_o_uplati_takse> ?prilog_dokaz_o_uplati_takse . }
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_opsti_akt_o_kolektivnom_zigu_garancije> ?prilog_opsti_akt_o_kolektivnom_zigu_garancije .}
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_punomocje> ?prilog_punomocje .}
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_punomocje_ranije_prilozeno> ?prilog_punomocje_ranije_prilozeno .}
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_punomocje_naknadno_dostavljeno> ?prilog_punomocje_naknadno_dostavljeno .}
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_spisak_robe_i_usluga> ?prilog_spisak_robe_i_usluga .}
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_primerak_znaka> ?prilog_primerak_znaka .}
+  	OPTIONAL { ?zahtevZaPriznanjeZiga <http://examples/predicate/prilog_dokaz_o_pravu_prvenstva> ?prilog_dokaz_o_pravu_prvenstva .}
+  	
+  	FILTER (
+  		%s
+	)
+}
