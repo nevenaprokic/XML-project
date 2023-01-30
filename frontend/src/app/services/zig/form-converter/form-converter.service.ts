@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PodnosilacPrijave, ZahtevZaPriznanjeZiga} from "../../../model/zig";
+import {PodnosilacPrijave, TPrilozi, ZahtevZaPriznanjeZiga} from "../../../model/zig";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,7 @@ export class FormConverterService {
     }
 
 
-    convertFormToZahtev(form: any, brojPOdnosiociprijave: number, listOfNumber: any): ZahtevZaPriznanjeZiga {
+    convertFormToZahtev(form: any, brojPOdnosiociprijave: number, listOfNumber: any, prilozi:TPrilozi): ZahtevZaPriznanjeZiga {
         const podaciOBrojevima = listOfNumber.reduce((accumulator: number[], num: boolean, index: number) => !num ? [...accumulator, index + 1] : [...accumulator], []);
         const zig = form.value.znak;
         zig.podaciOBrojevimaKlasaRobeIUsluga = podaciOBrojevima;
@@ -50,7 +50,8 @@ export class FormConverterService {
             zajednickiPredstavnik: zajednickiPredstavnikDTO,
             zig: zig,
             pravoPrvenstvaIOsnov: pravoPrvenstvaIOsnov,
-            placeneTakse: takse
+            placeneTakse: takse,
+            priloziUzZahtev: prilozi
         }
     }
 

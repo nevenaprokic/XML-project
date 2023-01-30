@@ -11,6 +11,7 @@ import {ZigService} from 'src/app/services/zig/zig.service';
 import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
+import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 
 @Component({
   selector: 'app-zig-table-view',
@@ -21,7 +22,8 @@ export class ZigTableViewComponent implements OnInit{
 
   zahteviZig: ZahtevZaPriznanjeZiga[] = [];
   isLoaded: boolean = false;
-  displayedColumns = ["vrsta po korisniku", "vrsta po izgledu", "podnosilac", "datum podnošenja", "prikaz"]
+  basicColoumns = ["vrsta po korisniku", "vrsta po izgledu", "podnosilac", "datum podnošenja", "prikaz"]
+  displayedColumns: string[] = []
   gettingDataFinished: boolean = false;
   dataSource!: MatTableDataSource<ZahtevZaPriznanjeZiga>;
   isSluzbenik: boolean = false;
@@ -32,11 +34,20 @@ export class ZigTableViewComponent implements OnInit{
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
 
+  metadataOptions = [    
+    'ukupna_taksa', 
+    'vrsta', 
+    'podnosilac_prijave',
+    'datum_podnosenja_prijave',
+    'prilog'
+  ]
+
   constructor(private zigService: ZigService,
               private userService: UserService,
               private zigFromXML: ZigXmlConverterService,
               private toastr: Toastr,
-              private dialog: MatDialog){
+              private dialog: MatDialog,
+              private fileUtils: FileUtilService){
 
   }
 
@@ -44,37 +55,27 @@ export class ZigTableViewComponent implements OnInit{
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit(): void {
+    this.getDataByRole();
+  }
 
+  getDataByRole() {
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK"){
       this.isSluzbenik = true;
-      this.displayedColumns.push("rešenje")
-      this.displayedColumns.push("pdf")
-      this.displayedColumns.push("html")
-      this.displayedColumns.push("rdf")
-      this.displayedColumns.push("json")
+      this.setDisplayedColumnsForSluzbenik();
       this.getDataForSluzbenik()
     }
     else{
       this.getDataForUserTabel();
     }
   }
-
+  setDisplayedColumnsForSluzbenik(): void {
+    this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
+  }
 
   getDataForUserTabel(){
     this.zigService.getAllApproved().subscribe({
       next: (response) => {
-          const convert = require('xml-js');
-          const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4, encodeURI: "utf-8"}));
-          if(Object.keys(zahtevList.listaZahtevaZiga).length > 1){
-            const atrributes = zahtevList.listaZahtevaZiga._attributes;
-            this.getPrefix(atrributes)
-            this.convertFromJSON(zahtevList)
-          }
-          else{
-            this.isEmptySource = true;
-            this.gettingDataFinished = true;
-            this.toastr.info("Nema odgovarajućih dokumenata")
-          }
+        this.getFromResponse(response);
       },
       error: (error) => {
         console.log(error)
@@ -85,16 +86,28 @@ export class ZigTableViewComponent implements OnInit{
   getDataForSluzbenik(){
     this.zigService.getAll().subscribe({
       next: (response) => {
-          const convert = require('xml-js');
-          const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4, encodeURI: "utf-8"}));
-          const atrributes = zahtevList.listaZahtevaZiga._attributes;
-          this.getPrefix(atrributes)
-          this.convertFromJSON(zahtevList)
+        this.getFromResponse(response);
       },
       error: (error) => {
         console.log(error)
       }
     })
+  }
+  getFromResponse(response: any) {
+    this.zahteviZig = []
+    const convert = require('xml-js');
+    const zahtevList : any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4, encodeURI: "utf-8"}));
+    if (zahtevList.listaZahtevaZiga && Object.keys(zahtevList.listaZahtevaZiga).length > 1){
+      const atrributes = zahtevList.listaZahtevaZiga._attributes;
+      this.getPrefix(atrributes)
+      this.convertFromJSON(zahtevList)
+      this.isEmptySource = false;
+    } else{
+      this.isEmptySource = true;
+      this.gettingDataFinished = true;
+      this.toastr.info("Nema odgovarajućih dokumenata")
+    }
+
   }
 
   setDataSource(zahtevSource: ZahtevZaPriznanjeZiga[]) {
@@ -138,5 +151,58 @@ export class ZigTableViewComponent implements OnInit{
 
   openResenje(element: ZahtevZaPriznanjeZiga) {
     this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.ZIG}});
+  }
+
+  downloadRdf(id: string) {
+    this.zigService.downloadRdf(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaPriznanjeZiga${id}.rdf`;
+        this.fileUtils.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+  downloadJson(id: string) {
+    this.zigService.downloadJson(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaPriznanjeZiga${id}.json`;
+        this.fileUtils.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
+  searchMetadata(query: string): void {
+    if(query){
+      this.zigService.searchMetadata(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    } else{
+      this.getDataByRole()
+    }
+  }
+
+  searchText(query: string): void {
+    if(query){
+      this.zigService.searchText(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
+    }
   }
 }

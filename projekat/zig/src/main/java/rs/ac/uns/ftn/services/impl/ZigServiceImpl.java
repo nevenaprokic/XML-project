@@ -8,16 +8,17 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
+import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
-import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
@@ -26,6 +27,8 @@ import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.ZigMapper;
 import rs.ac.uns.ftn.repository.ZigRepository;
+import rs.ac.uns.ftn.services.MetadataService;
+import rs.ac.uns.ftn.services.PrilogService;
 import rs.ac.uns.ftn.services.ZigService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
@@ -33,10 +36,17 @@ import rs.ac.uns.ftn.transformations.PDFTransformer;
 public class ZigServiceImpl implements ZigService {
 	
 	public static final String PATH = "src/main/resources/xslt/";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/z1";
 	public static final String XSL_FILE = "src/main/resources/xslt/Z1.xsl";
 	
 	@Autowired
 	private ZigRepository zigRepository;
+
+	@Autowired
+	private PrilogService prilogService;
+	
+	@Autowired
+	private MetadataService metadataService;
 
 	@Override
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
@@ -44,10 +54,9 @@ public class ZigServiceImpl implements ZigService {
 		IdZiga idZiga = new IdZiga();
 		idZiga.setIdZ(documentId);
 		zahtevDTO.setId(idZiga);
-		System.out.println(documentId);
+		prilogService.extractPrilozi(zahtevDTO, documentId);
 		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
 		zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
-		
 	}
 	
 	@Override
@@ -115,6 +124,44 @@ public class ZigServiceImpl implements ZigService {
 	@Override
 	public ListaZahtevaZiga findAllApproved() throws XMLDBException, JAXBException {
 		ResourceSet result = zigRepository.getAllApproved();
+		return resourceSetToList(result);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsRdf(String documentId) throws IOException {
+		return metadataService.getAsRdf(documentId);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsJson(String documentId) throws IOException {
+		return metadataService.getAsJson(documentId);
+	}
+
+	@Override
+	public ListaZahtevaZiga searchMetadata(String request) throws IOException {
+		List<ZahtevZaPriznanjeZiga> zahtevi = new ArrayList<ZahtevZaPriznanjeZiga>();
+		List<String> ids = metadataService.searchByMetadata(request);
+		for (String id : ids) {
+			String documentId = id.split(TARGET_NAMESPACE)[1];
+			ZahtevZaPriznanjeZiga zahtev = getZahtevZaPriznanjeZiga(documentId);
+			zahtevi.add(zahtev);
+		}
+		return new ListaZahtevaZiga(zahtevi);
+	}
+
+	@Override
+	public ListaZahtevaZiga searchText(String txt) throws XMLDBException, JAXBException {
+		String[] keywords = txt.split(";");
+		String conditions = "";
+		for (int i = 0; i < keywords.length; i++) {
+			conditions += String.format(QueryUtils.CONDITION_TEPMLATE, "'" + keywords[i] + "'");
+			if(i != keywords.length-1) {
+				conditions += " and ";
+			}
+		}
+		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
+		System.out.println(xQuery);
+		ResourceSet result = zigRepository.getByXQuery(xQuery);
 		return resourceSetToList(result);
 	}
 

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output,  } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AutorskoDeloService } from 'src/app/services/autorsko-delo/autorsko-delo.service';
 
 interface Query {
@@ -16,71 +17,86 @@ interface Query {
 export class MetadataSearchComponent implements OnInit {
 
   @Output()
-  searchResult = new EventEmitter<any>();
+  queryEvent = new EventEmitter<string>();
 
-  metadataOptions: string[] = [
-    'datum_podnosenja', 
-    'autorsko_delo', 
-    'primarni_autor',
-    'koautor',
-    'ime_prodnosioca',
-    'prilog'
-  ]
+  @Input()
+  metadataOptions: string[] = []
 
   operatori: string[] = [
     'AND','OR','NOT'
   ]
 
-  queries: Query[] = [{metadata:'', value: ''}]
-  inputFiledsCount: number = 1;
+  metadataSearchForm: FormGroup;
+  
+  controlIds: number[] = []
+  idCounter = 0
 
-  constructor(private autorskoDeloService: AutorskoDeloService) {}
+  constructor() {
+    this.metadataSearchForm = new FormGroup({})
+    this.addNewQueryForm()
+  }
 
   ngOnInit(): void {
+    
+  }
+
+  addNewQueryForm(){
+    this.controlIds.push(this.idCounter)
+    const newQueryForm= new FormGroup({});
+    newQueryForm.addControl(`metadataControl`, new FormControl(''));
+    newQueryForm.addControl(`valueControl`, new FormControl(''));
+    newQueryForm.addControl(`operatorControl`, new FormControl(''));
+    this.metadataSearchForm.addControl( `query${this.idCounter}`, newQueryForm);
+    this.idCounter += 1
   }
 
   search(): void {
     const query: string = this.createQuery();
-    this.autorskoDeloService.searchMetadata(query).subscribe({
-      next: (res: any) => {
-        this.searchResult.emit(res);
-      },
-      error: (res: any) => {
-        console.log(res)
-      }
-    })
+    this.queryEvent.emit(query);
   }
+
   private createQuery(): string{
+    let queries: Query[] = []
+
+    this.controlIds.forEach((id)=>{
+      const metadata = this.getFormGroupById(id).controls["metadataControl"].value
+      const operator = this.getFormGroupById(id).controls["operatorControl"].value
+      const value = this.getFormGroupById(id).controls["valueControl"].value
+      queries.push({operator, metadata, value});
+    })
+
     let formatedQuery: string = "";
-    this.queries.forEach((query: Query)=>{
-      formatedQuery += `${query.operator ? query.operator + ";": ''}${query.metadata}=${query.value};`
+    queries.forEach((query: Query)=>{
+      formatedQuery += `${query.operator ? query.operator + ";": ''}${query.metadata && query.value? (query.metadata + '='+  query.value + ";"): ''}`
     })
     return formatedQuery;
   }
 
-  operatorSelectChange(event: any, index: number): void {
-    this.queries[index].operator = event.value;
+  operatorSelectChange(event: any, id: number): void {
+    if(!event.value){
+      this.getFormGroupById(id).controls["metadataControl"].setValue('')
+      this.getFormGroupById(id).controls["valueControl"].setValue('')
+    }
   }
 
-  metadataSelectChange(event: any, index: number): void {
-    this.queries[index].metadata = event.value;
-  }
-
-  inputValueDone($event: any, index: number): void { 
-    this.queries[index].value = $event.target.value;
+  metadataSelectChange(event: any, id: number): void {
+    if(!event.value){
+      this.getFormGroupById(id).controls["valueControl"].setValue('')
+      this.getFormGroupById(id).controls["operatorControl"].setValue('')
+    }
   }
 
   addNewInputField(): void {
-    this.inputFiledsCount += 1;
-    this.queries.push({operator:'', metadata: '', value: ''})
+    this.addNewQueryForm();
   }
 
-  removeInputField(index: number): void {
-    this.inputFiledsCount -= 1
-    this.queries.splice(index, 1);
+  removeInputField(id: number): void {
+    const index = this.controlIds.indexOf(id);
+    this.controlIds.splice(index, 1);
+    this.metadataSearchForm.removeControl(`query${id}`)
   }
 
-  arrayFromNumber(): Array<number> {
-    return [...Array(this.inputFiledsCount).keys()]
+  getFormGroupById(id: number): FormGroup {
+    return this.metadataSearchForm.controls[`query${id}`] as FormGroup
   }
 }

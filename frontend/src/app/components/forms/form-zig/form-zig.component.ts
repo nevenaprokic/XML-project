@@ -6,7 +6,8 @@ import {ZigService} from "../../../services/zig/zig.service";
 import {Toastr} from "../../../services/utils/toastr/toastr.service";
 import {FormConverterService} from "../../../services/zig/form-converter/form-converter.service";
 import {XmlTemplateService} from "../../../services/zig/xml-template/xml-template.service";
-import {Z_PrilogType} from "../../../model/model";
+import {PrilogImg, Z_PrilogType} from "../../../model/model";
+import { TPrilozi } from 'src/app/model/zig';
 
 @Component({
     selector: 'app-form-zig',
@@ -14,12 +15,13 @@ import {Z_PrilogType} from "../../../model/model";
     styleUrls: ['./form-zig.component.scss']
 })
 export class FormZigComponent {
-    primerakZnakaEncoded: any ='';
-    spisakEncoded: any = '';
-    opstiAktEncoded: any ='';
-    pravoPrvenstvaEncoded: any = '';
-    uplataTakseEncoded: any ='';
-    punomocjeEncoded: any = '';
+
+    primerakZnaka: PrilogImg = {content: '', name: ''};
+    spisak: PrilogImg = {content: '', name: ''};
+    opstiAkt: PrilogImg = {content: '', name: ''};
+    pravoPrvenstva: PrilogImg = {content: '', name: ''};
+    uplataTakse: PrilogImg = {content: '', name: ''};
+    punomocje: PrilogImg = {content: '', name: ''};
 
     prilogTypes=Z_PrilogType
 
@@ -52,7 +54,9 @@ export class FormZigComponent {
     onSubmit() {
         this.addChildForm('pravoPrvenstvaIosnov', this.form);
         console.log(this.zigForm.value);
-        const zahtevJSON = this.formConverter.convertFormToZahtev(this.zigForm, this.brojPodnosiocaPrijave.length, this.toggle);
+        const zahtevJSON = this.formConverter.convertFormToZahtev(
+            this.zigForm, this.brojPodnosiocaPrijave.length, this.toggle, this.formatPrilozi()
+        );
         console.log(zahtevJSON);
         const zahtevXML = this.templateService.createNewXML(zahtevJSON);
         console.log(zahtevXML)
@@ -102,21 +106,27 @@ export class FormZigComponent {
         const reader = new FileReader();
         switch (prilogType) {
             case Z_PrilogType.PRIMERAK_ZNAKA:
+                this.primerakZnaka.name = file.name
                 reader.onload = this._handlePrimerakZnakaReader.bind(this);
                 break;
             case Z_PrilogType.SPISAK_ROBE_I_USLUGA:
+                this.spisak.name = file.name
                 reader.onload = this._handleSpisakReader.bind(this);
                 break;
             case Z_PrilogType.OPSTI_AKT:
+                this.opstiAkt.name = file.name
                 reader.onload = this._handleOpstiAktReader.bind(this);
                 break;
             case Z_PrilogType.DOKAZ_O_PRAVU_PRVENSTVA:
+                this.pravoPrvenstva.name = file.name
                 reader.onload = this._handlePavoPrvenstvaReader.bind(this);
                 break;
             case Z_PrilogType.DOKAZ_O_UPLATI_TAKSE:
+                this.uplataTakse.name = file.name
                 reader.onload = this._handleUplataTakseReader.bind(this);
                 break;
             case Z_PrilogType.PUNOMOCJE:
+                this.punomocje.name = file.name
                 reader.onload = this._handlePunomocjeReader.bind(this);
                 break;
             default:
@@ -127,29 +137,52 @@ export class FormZigComponent {
 
     private _handlePrimerakZnakaReader(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.primerakZnakaEncoded = btoa(binaryString);
+        this.primerakZnaka.content = btoa(binaryString);
     }
 
     private _handleSpisakReader(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.spisakEncoded = btoa(binaryString);
+        this.spisak.content = btoa(binaryString);
     }
     private _handleOpstiAktReader(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.opstiAktEncoded = btoa(binaryString);
+        this.opstiAkt.content = btoa(binaryString);
     }
 
     private _handlePavoPrvenstvaReader(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.pravoPrvenstvaEncoded = btoa(binaryString);
+        this.pravoPrvenstva.content = btoa(binaryString);
     }
     private _handleUplataTakseReader(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.uplataTakseEncoded = btoa(binaryString);
+        this.uplataTakse.content = btoa(binaryString);
     }
 
     private _handlePunomocjeReader(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.punomocjeEncoded = btoa(binaryString);
+        this.punomocje.content = btoa(binaryString);
+    }
+
+    private formatPrilozi(): TPrilozi{
+        return{
+            dokazOPravuPrvenstva: 
+                {dostavljeno: this.pravoPrvenstva.name!=='', putanjaDoFajla: this.formatPrilogContent(this.pravoPrvenstva)},
+            dokazOUplatiTakse: 
+                {dostavljeno: this.uplataTakse.name!=='', putanjaDoFajla: this.formatPrilogContent(this.uplataTakse)},
+            opstiAktOKolektivnomZiguGarancije: 
+                {dostavljeno: this.opstiAkt.name!=='', putanjaDoFajla: this.formatPrilogContent(this.opstiAkt)},
+            primerakZnaka: 
+                {dostavljeno: this.primerakZnaka.name!=='', putanjaDoFajla: this.formatPrilogContent(this.primerakZnaka)},
+            punomocje: 
+                {dostavljeno: this.punomocje.name!=='', putanjaDoFajla: this.formatPrilogContent(this.punomocje)},
+            spisakRobeIUsluga: 
+                {dostavljeno: this.spisak.name!=='', putanjaDoFajla: this.formatPrilogContent(this.spisak)},
+            punomocjeNaknadnoDostavljeno: {dostavljeno: false, putanjaDoFajla: ''},
+            punomocjeRanijePrilozeno:  {dostavljeno: false, putanjaDoFajla: ''},
+        }
+    }
+
+    private formatPrilogContent(prilog: PrilogImg): string{
+        return prilog.name ? `${prilog.name};custom_separator;${prilog.content}` : ''
     }
 }
