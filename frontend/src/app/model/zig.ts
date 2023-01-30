@@ -7,7 +7,7 @@ export interface ZahtevZaPriznanjeZiga {
     zig: TZig;
     pravoPrvenstvaIOsnov: string;
     placeneTakse: TTakse;
-    // priloziUzZahtev: TPrilozi;
+    priloziUzZahtev: TPrilozi;
     id? : string
     datumPodnosenjaZahteva?: Date;
     brojZahteva? : string;

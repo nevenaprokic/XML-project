@@ -3,7 +3,7 @@ import {
   Adresa,
   FizickoLice,
   KontaktPodaci, PodnosilacPrijave,
-  PravnoLice, Punomocnik, VrstaZigaNaOsnovuIzgleda,
+  PravnoLice, Punomocnik, TPrilozi, VrstaZigaNaOsnovuIzgleda,
   ZahtevZaPriznanjeZiga, ZajednickiPredstavnik
 } from "../../../model/zig";
 
@@ -46,47 +46,51 @@ export class XmlTemplateService {
             <Ukupan_iznos_takse>${values.placeneTakse.osnovnaTaksa + values.placeneTakse.zaGraficko + values.placeneTakse.zaKlasu}</Ukupan_iznos_takse>
         </Placene_takse>
         <Prilozi_uz_zahtev>
-            <Primerak_znaka>
-                <!--Optional:-->
-                <Putanja_do_fajla>izgled_znaka.png</Putanja_do_fajla>
-                <!--Optional:-->
-                <Dostavljeno>true</Dostavljeno>
-            </Primerak_znaka>
-            <Spisak_robe_i_usluga>
-                <!--Optional:-->
-                <Putanja_do_fajla>spisak_robe.pdf</Putanja_do_fajla>
-                <!--Optional:-->
-                <Dostavljeno>true</Dostavljeno>
-            </Spisak_robe_i_usluga>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <Punomocje>
-                <!--Optional:-->
-                <Putanja_do_fajla>podataka_o_punomocju.pdf</Putanja_do_fajla>
-                <!--Optional:-->
-                <Dostavljeno>true</Dostavljeno>
-            </Punomocje>
-            <Opsti_akt_o_kolektivnom_zigu_garancije>
-                <!--Optional:-->
-                <Putanja_do_fajla>opsti_akt.pdf</Putanja_do_fajla>
-                <!--Optional:-->
-                <Dostavljeno>true</Dostavljeno>
-            </Opsti_akt_o_kolektivnom_zigu_garancije>
-            <Dokaz_o_pravu_prvenstva>
-                <!--Optional:-->
-                <Putanja_do_fajla/>
-                <!--Optional:-->
-                <Dostavljeno>false</Dostavljeno>
-            </Dokaz_o_pravu_prvenstva>
-            <Dokaz_o_uplati_takse>
-                <!--Optional:-->
-                <Putanja_do_fajla>dokaz_o_uplati.pdf</Putanja_do_fajla>
-                <!--Optional:-->
-                <Dostavljeno>true</Dostavljeno>
-            </Dokaz_o_uplati_takse>
+          ${this.formatPrilozi(values.priloziUzZahtev)}
         </Prilozi_uz_zahtev>
 
     </Zahtev_za_priznanje_ziga>
     `;
+  }
+  formatPrilozi(values: TPrilozi) {
+    return `
+    <Primerak_znaka>
+        <!--Optional:-->
+        ${values.primerakZnaka?.putanjaDoFajla ? `<Putanja_do_fajla>${values.primerakZnaka.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.primerakZnaka?.dostavljeno}</Dostavljeno>
+    </Primerak_znaka>
+    <Spisak_robe_i_usluga>
+        <!--Optional:-->
+        ${values.spisakRobeIUsluga?.putanjaDoFajla ? `<Putanja_do_fajla>${values.spisakRobeIUsluga.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.spisakRobeIUsluga?.dostavljeno}</Dostavljeno>
+    </Spisak_robe_i_usluga>
+    <!--You have a CHOICE of the next 3 items at this level-->
+    <Punomocje>
+        <!--Optional:-->
+        ${values.punomocje?.putanjaDoFajla ? `<Putanja_do_fajla>${values.punomocje.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.punomocje?.dostavljeno}</Dostavljeno>
+    </Punomocje>
+    <Opsti_akt_o_kolektivnom_zigu_garancije>
+        <!--Optional:-->
+        ${values.opstiAktOKolektivnomZiguGarancije?.putanjaDoFajla ? `<Putanja_do_fajla>${values.opstiAktOKolektivnomZiguGarancije.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.opstiAktOKolektivnomZiguGarancije?.dostavljeno}</Dostavljeno>
+    </Opsti_akt_o_kolektivnom_zigu_garancije>
+    <Dokaz_o_pravu_prvenstva>
+        <!--Optional:-->
+        ${values.dokazOPravuPrvenstva?.putanjaDoFajla ? `<Putanja_do_fajla>${values.dokazOPravuPrvenstva.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.dokazOPravuPrvenstva?.dostavljeno}</Dostavljeno>
+    </Dokaz_o_pravu_prvenstva>
+    <Dokaz_o_uplati_takse>
+        <!--Optional:-->
+        ${values.dokazOUplatiTakse?.putanjaDoFajla ? `<Putanja_do_fajla>${values.dokazOUplatiTakse.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.dokazOUplatiTakse?.dostavljeno}</Dostavljeno>
+    </Dokaz_o_uplati_takse>`
   }
 
   formatAdresa(values: Adresa | undefined) {

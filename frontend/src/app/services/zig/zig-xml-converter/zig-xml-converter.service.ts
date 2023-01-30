@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {  FizickoLice, KontaktPodaci, PravnoLice } from 'src/app/model/common/common';
-import { PodnosilacPrijave, Punomocnik, TTakse, TZig, ZahtevZaPriznanjeZiga, ZajednickiPredstavnik, Adresa } from 'src/app/model/zig';
+import { PodnosilacPrijave, Punomocnik, TTakse, TZig, ZahtevZaPriznanjeZiga, ZajednickiPredstavnik, Adresa, TPrilozi, TDopuna } from 'src/app/model/zig';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ZigXmlConverterService {
     const takse : TTakse = this.getPlaceneTakse(xml);
     const podnosioci : PodnosilacPrijave[] = this.getPodnosiociPrijave(xml);
     const prvenstvo : string = xml[this.prefix + ':Pravo_prvenstva_i_osnov']? xml[this.prefix + ':Pravo_prvenstva_i_osnov']._text : ""
-    //prilozi
+    const prilozi : TPrilozi = this.getPrilozi(xml[this.prefix + ':Prilozi_uz_zahtev']);
     const punomocnik = this.getPunomocnik(xml)
     const zig = this.getZig(xml)
     const zajPredstavnik = this.getZajednickiPredstavnik(xml)
@@ -46,7 +46,8 @@ export class ZigXmlConverterService {
       brojZahteva : brojprijave,
       datumPodnosenjaZahteva: datumPodnosenja,
       status: status,
-      podnosiociStr: podnosiociStr
+      podnosiociStr: podnosiociStr,
+      priloziUzZahtev: prilozi
     }
   }
 
@@ -173,4 +174,25 @@ export class ZigXmlConverterService {
     drzava : adresa[this.commonPrefix + ':Drzava']? adresa[this.commonPrefix + ':Drzava']._text : "",
     postanskiBroj: adresa[this.commonPrefix + ':Postanski_broj']? adresa[this.commonPrefix + ':Postanski_broj']._text: ""}
  }
+
+ getPrilozi(xml: any) : TPrilozi{
+  return {
+    dokazOPravuPrvenstva: this.getPrilog(xml[this.prefix + ":Dokaz_o_pravu_prvenstva"]),
+    dokazOUplatiTakse: this.getPrilog(xml[this.prefix + ":Dokaz_o_uplati_takse"]),
+    opstiAktOKolektivnomZiguGarancije: this.getPrilog(xml[this.prefix + ":Opsti_akt_o_kolektivnom_zigu_garancije"]),
+    primerakZnaka: this.getPrilog(xml[this.prefix + ":Primerak_znaka"]),
+    punomocje: this.getPrilog(xml[this.prefix + ":Punomocje"]),
+    punomocjeNaknadnoDostavljeno: this.getPrilog(xml[this.prefix + ":Spisak_robe_i_usluga"]),
+    punomocjeRanijePrilozeno: this.getPrilog(xml[this.prefix + ":Dokaz_o_uplati_takse"]),
+    spisakRobeIUsluga: this.getPrilog(xml[this.prefix + ":Spisak_robe_i_usluga"]),
+  }
+}
+  getPrilog(xml: any): TDopuna {
+    if(!xml || Object.keys(xml).length <= 1){
+      return {dostavljeno: false, putanjaDoFajla: ''}
+    }
+    let putanjaElem = xml[this.prefix + ":Putanja_do_fajla"]
+    let putanja = (Object.keys(putanjaElem).length >= 1 && putanjaElem) ? putanjaElem._text : '';
+    return {dostavljeno: putanja!=='', putanjaDoFajla: putanja}
+  }
 }
