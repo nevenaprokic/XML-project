@@ -131,8 +131,8 @@ export class ZigXmlConverterService {
     let podaciOBrojevimaKlasaRobeIUsluga = zig[this.prefix + ":Podaci_o_brojevima_klasa_robe_i_usluga"]._text.split(" ").map((br:string)=> Number(br))
 
     return {
-      vrstaNaOsnovuKorisnika: vrstaPoIzgledu,
-        vrstaNaOsnovuIzgleda: vrstaPoKorisniku,
+      vrstaNaOsnovuKorisnika: vrstaPoKorisniku,
+        vrstaNaOsnovuIzgleda: vrstaPoIzgledu,
         izgledZnaka: izgled,
         bojaZnaka: podaciOBoji,
         transliteracijaZnaka: transliteracijaZnaka,

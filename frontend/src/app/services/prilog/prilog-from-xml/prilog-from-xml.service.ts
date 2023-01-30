@@ -5,13 +5,17 @@ import { PrilogViewComponent } from 'src/app/components/detail-view/prilog-view/
 import { AutorskoDeloService } from '../../autorsko-delo/autorsko-delo.service';
 import { saveAs } from 'file-saver';
 import * as FileSaver from 'file-saver';
+import { Toastr } from '../../utils/toastr/toastr.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrilogFromXmlService {
 
-  constructor(private dialog: MatDialog, private sanitizer: DomSanitizer, private autorskoDeloService: AutorskoDeloService) { }
+  constructor(private dialog: MatDialog, 
+    private sanitizer: DomSanitizer, 
+    private autorskoDeloService: AutorskoDeloService,
+    private toast : Toastr) { }
 
   convertToImage(xml:any){
     const convert = require('xml-js');
@@ -24,20 +28,15 @@ export class PrilogFromXmlService {
     });
   }
 
-  preuzmi(zahtevId: string, prilogName: string){
-      this.autorskoDeloService.getPrilog(zahtevId, prilogName).subscribe({
-        next: (response) => {
-          const convert = require('xml-js');
-          const prilog: any = JSON.parse(convert.xml2json(response, {compact: true, spaces: 4}));
-          const content = prilog["Prilog_Image"]["Sadrzaj_priloga"]._text
-          const myFile = this.base64ToFile(content, "slika" ,'image/png');
-          FileSaver.saveAs(myFile, "slika");
-          
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
+  preuzmi(xml: string){
+      const convert = require('xml-js');
+      const prilog: any = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
+      const content = prilog["Prilog_Image"]["Sadrzaj_priloga"]._text
+      const name = prilog["Prilog_Image"]["Naziv_priloga"]._text
+      const myFile = this.base64ToFile(content, name ,'image/png');
+      FileSaver.saveAs(myFile, name);
+      this.toast.success("Uspešno preuzimanje")
+
     }
   
     base64ToFile(base64Data : any, tempfilename: any, contentType: any) {

@@ -81,4 +81,8 @@ export class ZigService {
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
+  getPrilog(documentId: string, prilog: string){
+    const url = this.ZIG_PATH + `/get-prilog?imageName=${prilog}&documentId=${documentId}`;
+    return this.httpRequestService.get(url)
+  }
 }

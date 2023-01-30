@@ -1,0 +1,121 @@
+<div class="paper-form">
+    <div class="header">
+      <h1 class="title">ZAHTEV ZA PRIZNANJE ŽIGA</h1>
+      <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+    </div>
+    <form>
+      <div>
+        <p class="description">1. Podnosilac prijave:</p>
+        <div *ngFor="let podnosilac of zahtev.podnosiociPrijave">
+              <div *ngIf="isFizickoLice(podnosilac.podnosilacPrijave)">
+                <app-fizicko-lice-detail-view [lice]="getFizickoLice(podnosilac.podnosilacPrijave)"></app-fizicko-lice-detail-view>
+              </div>
+              <div *ngIf="!isFizickoLice(podnosilac.podnosilacPrijave)">
+                <app-pravno-lice-detail-view [lice]="getPravnoLice(podnosilac.podnosilacPrijave)"></app-pravno-lice-detail-view>
+              </div>
+              <app-adresa-detail-view [adresa]="podnosilac.podnosilacPrijave.adresa"></app-adresa-detail-view>
+              <app-kontakt-detail-view [kontakt]="podnosilac.podnosilacPrijave.kontaktPodaci"></app-kontakt-detail-view>
+        </div>
+      </div>
+      <div *ngIf="zahtev.punomocnik">
+        <p class="description">2. Punomoćnik:</p>
+          <div *ngIf="isFizickoLice(zahtev.punomocnik.punomocnik)">
+            <app-fizicko-lice-detail-view [lice]="getFizickoLice(zahtev.punomocnik.punomocnik)"></app-fizicko-lice-detail-view>
+          </div>
+          <div *ngIf="!isFizickoLice(zahtev.punomocnik.punomocnik)">
+            <app-pravno-lice-detail-view [lice]="getPravnoLice(zahtev.punomocnik.punomocnik)"></app-pravno-lice-detail-view>
+          </div>
+          <app-adresa-detail-view [adresa]="zahtev.punomocnik.punomocnik.adresa"></app-adresa-detail-view>
+          <app-kontakt-detail-view [kontakt]="zahtev.punomocnik.punomocnik.kontaktPodaci"></app-kontakt-detail-view>
+      </div>
+      <div *ngIf="zahtev.zajednickiPredstavnik">
+        <p class="description">3. Zajednički predstavnik:</p>
+        <app-adresa-detail-view [adresa]="zahtev.zajednickiPredstavnik.adresa"></app-adresa-detail-view>
+        <app-kontakt-detail-view [kontakt]="zahtev.zajednickiPredstavnik.kontaktPodaci"></app-kontakt-detail-view>
+      </div>
+      <div>
+        <app-znak-ziga-detail-view [zig]="zahtev.zig"></app-znak-ziga-detail-view>
+      </div>
+      <div>
+        <p class="description">10. Zatraženo pravo prvenstva i osnov:</p>
+        <mat-form-field appearance="fill" class="input-zig" style="width: 70%;">
+            <input matInput readonly="true" value={{zahtev.pravoPrvenstvaIOsnov}}>
+        </mat-form-field>
+      </div>
+      <div>
+        <p class="description">11. Plaćene takse:</p>
+        <app-takse-detail-view [takse]="zahtev.placeneTakse"></app-takse-detail-view>
+      </div>
+  
+      <div>
+        <p class="description">12. Prilozi:</p>
+        <div class="input-zig" style="display: flex; flex-direction: row; vertical-align: middle;">
+          <span class="text">Primerak znaka:</span>
+            <div *ngIf="zahtev.priloziUzZahtev.primerakZnaka.dostavljeno">
+                <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.primerakZnaka.putanjaDoFajla)">Prikaži</button>
+                <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.primerakZnaka.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.primerakZnaka.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+          <span class="text">Spisak robe i usluga:</span>
+          <div *ngIf="zahtev.priloziUzZahtev.spisakRobeIUsluga.dostavljeno">
+            <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.spisakRobeIUsluga.putanjaDoFajla)">Prikaži</button>
+            <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.spisakRobeIUsluga.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.spisakRobeIUsluga.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+          <span class="text">Opšti akt o kolektivnom žigu-žigu garancije:</span>
+          <div *ngIf="zahtev.priloziUzZahtev.opstiAktOKolektivnomZiguGarancije.dostavljeno">
+            <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.opstiAktOKolektivnomZiguGarancije.putanjaDoFajla)">Prikaži</button>
+            <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.opstiAktOKolektivnomZiguGarancije.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.opstiAktOKolektivnomZiguGarancije.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+          <span class="text">Dokaz o pravu prvenstva:</span>
+          <div *ngIf="zahtev.priloziUzZahtev.dokazOPravuPrvenstva.dostavljeno">
+            <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.dokazOPravuPrvenstva.putanjaDoFajla)">Prikaži</button>
+            <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.dokazOPravuPrvenstva.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.dokazOPravuPrvenstva.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+          <span class="text">Dokaz o uplati takse:</span>
+          <div *ngIf="zahtev.priloziUzZahtev.dokazOUplatiTakse.dostavljeno">
+            <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.dokazOUplatiTakse.putanjaDoFajla)">Prikaži</button>
+            <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.dokazOUplatiTakse.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.dokazOUplatiTakse.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+          <span class="text">Punomocje:</span>
+          <div *ngIf="zahtev.priloziUzZahtev.punomocje.dostavljeno">
+            <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocje.putanjaDoFajla)">Prikaži</button>
+            <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocje.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.punomocje.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+            <span class="text">Punomocje ranije priloženo:</span>
+            <div *ngIf="zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.dostavljeno">
+              <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.putanjaDoFajla)">Prikaži</button>
+              <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.dostavljeno">Nije priloženo</p>
+        </div>
+        <div class="input-zig" style="display: flex; flex-direction: row;">
+            <span class="text">Punomocje rannaknadnoije priloženo:</span>
+            <div *ngIf="zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.dostavljeno">
+              <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.putanjaDoFajla)">Prikaži</button>
+              <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.putanjaDoFajla)">Preuzmi</button>
+            </div>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.dostavljeno">Nije priloženo</p>
+        </div>
+      </div>
+   
+    </form>
+
+  </div>
+  
