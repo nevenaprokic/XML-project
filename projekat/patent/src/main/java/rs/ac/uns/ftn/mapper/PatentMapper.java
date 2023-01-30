@@ -74,7 +74,8 @@ public class PatentMapper {
 			PodaciODodatnojPrijavi podaci = objectFactory.crePodaciODodatnojPrijavi();
 			podaci.setTipDodatnePrijave(oDodatnojPrijavi.getTipDodatnePrijave());
 			podaci.setBrojPrvobitnePrijave(oDodatnojPrijavi.getBrojPrvobitnePrijave());
-			podaci.setDatumPrvobitnePrijave(oDodatnojPrijavi.getDatumPrvobitnePrijave()); 
+			podaci.setDatumPrvobitnePrijave(oDodatnojPrijavi.getDatumPrvobitnePrijave());
+			podaci.getOtherAttributes().put(new QName("rel"), "pred:broj_prvobitne_prijave");
 			podaci.getOtherAttributes().put(new QName("href"), TARGET_NS_PREFIX + podaci.getBrojPrvobitnePrijave()); 
 			return podaci;
 		}

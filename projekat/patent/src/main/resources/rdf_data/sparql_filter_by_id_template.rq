@@ -1,0 +1,11 @@
+SELECT * FROM <http://localhost:8080/fusekiP/Patent/data/project/metadata/patent>
+WHERE {
+    ?zahtevZaPriznanjePatenta <http://examples/predicate/datum_prijema_prijave> ?datum_prijema_prijave . 
+  	?zahtevZaPriznanjePatenta <http://examples/predicate/pronalazak_naslov> ?pronalazak_naslov . 
+  	?zahtevZaPriznanjePatenta <http://examples/predicate/pronalazac> ?pronalazac . 
+  	?zahtevZaPriznanjePatenta <http://examples/predicate/podnosilac_email> ?podnosilac_email . 
+  	?zahtevZaPriznanjePatenta <http://examples/predicate/ime_podnosioca> ?ime_podnosioca . 
+  	OPTIONAL{  ?zahtevZaPriznanjePatenta <http://examples/predicate/broj_prvobitne_prijave> ?broj_prvobitne_prijave . }
+  	
+  	FILTER (?zahtevZaPriznanjePatenta = <http://ftn.uns.ac.rs/p1/%s>)
+}

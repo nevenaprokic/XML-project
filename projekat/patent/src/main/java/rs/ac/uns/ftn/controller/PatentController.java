@@ -3,8 +3,10 @@ package rs.ac.uns.ftn.controller;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import com.itextpdf.text.DocumentException;
@@ -58,7 +61,7 @@ public class PatentController {
 	}
 	
 	@GetMapping(value="/{documentId}", produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<?> getZahtevZaAutorskoDeloById(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
+	public ResponseEntity<?> getById(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
 			this.chechAuthority(headers, USER_API_KORISNIK_SLUZBENIK);
 			ZahtevZaPriznanjePatenta zahtev = patentService.getZahtevZaPriznanjePatenta(documentId);
 			return ResponseEntity.ok(zahtev);
@@ -105,4 +108,36 @@ public class PatentController {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		ResponseEntity<String> respEntity = restTemplate.exchange(api, HttpMethod.GET, entity, String.class);
 	}
+	
+	@GetMapping(value = "/get-rdf/{documentId}")
+    public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+
+       try {
+    	   InputStreamResource rdf = patentService.getMetadataAsRdf(documentId);
+           HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
+           return new ResponseEntity<>(rdf, headers, HttpStatus.OK);
+       } catch (Exception e) {
+    	   e.printStackTrace();
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       }
+	}
+
+	@GetMapping(value = "/get-json/{documentId}")
+    public ResponseEntity<?> downloadJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+        try {
+        	InputStreamResource json = patentService.getMetadataAsJson(documentId);
+        	HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
+            return new ResponseEntity<>(json, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+	private HttpHeaders getDownloadFileHeaders(String fileName) {
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/xml; charset=utf-8");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName );
+		return headers;
+	}
+	
 }

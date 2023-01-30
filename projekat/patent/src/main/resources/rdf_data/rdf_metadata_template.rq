@@ -1,0 +1,13 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:pred="http://examples/predicate/">
+  <rdf:Description rdf:about="%1$s">
+    <pred:datum_prijema_prijave rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">%2$s</pred:datum_podnosenja>
+    <pred:pronalazak_naslov>%3$s</pred:pronalazak_naslov>
+    <pred:pronalazac>%4$s</pred:pronalazac>
+    <pred:podnosilac_email rdf:resource="%5$s"/>
+    <pred:ime_prodnosioca>%6$s</pred:ime_prodnosioca>
+    <pred:broj_prvobitne_prijave rdf:resource="%7$s"/>
+  </rdf:Description>
+</rdf:RDF>
