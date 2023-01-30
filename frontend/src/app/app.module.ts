@@ -64,6 +64,15 @@ import { MetadataSearchComponent } from './components/search-forms/metadata-sear
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import { ZigTableViewComponent } from './components/tabel-view/zig-table-view/zig-table-view.component';
+import { PatentDetailViewComponent } from './components/detail-view/patent/patent-detail-view/patent-detail-view.component';
+import { DopunskaPrijavaDetailViewComponent } from './components/detail-view/patent/dopunska-prijava-detail-view/dopunska-prijava-detail-view.component';
+import { RanijePrijaveDetailViewComponent } from './components/detail-view/patent/ranije-prijave-detail-view/ranije-prijave-detail-view.component';
+import { PronalazakDetailViewComponent } from './components/detail-view/patent/pronalazak-detail-view/pronalazak-detail-view.component';
+import { PravnoLiceDetailViewComponent } from './components/detail-view/zajednicko/pravno-lice-detail-view/pravno-lice-detail-view.component';
+import { FizickoLiceDetailViewComponent } from './components/detail-view/zajednicko/fizicko-lice-detail-view/fizicko-lice-detail-view.component';
+import { AdresaDetailViewComponent } from './components/detail-view/zajednicko/adresa-detail-view/adresa-detail-view.component';
+import { KontaktDetailViewComponent } from './components/detail-view/zajednicko/kontakt-detail-view/kontakt-detail-view.component';
+
 
 const MaterialModule = [
   BrowserModule,
@@ -122,7 +131,15 @@ const MaterialModule = [
         AutorskoDeloTableViewComponent,
         TextSearchComponent,
         MetadataSearchComponent,
-        ZigTableViewComponent
+        ZigTableViewComponent,
+        PatentDetailViewComponent,
+        DopunskaPrijavaDetailViewComponent,
+        RanijePrijaveDetailViewComponent,
+        PronalazakDetailViewComponent,
+        PravnoLiceDetailViewComponent,
+        FizickoLiceDetailViewComponent,
+        AdresaDetailViewComponent,
+        KontaktDetailViewComponent
     ],
   imports: [
     ...MaterialModule

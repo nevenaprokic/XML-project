@@ -31,7 +31,7 @@
           <ng-container matColumnDef="prikaz">
             <th mat-sort-header *matHeaderCellDef> prikaz</th>
             <td mat-cell *matCellDef="let element">
-              <button class="button-evaluate">prikaz
+              <button class="button-evaluate" (click)="openPatenDetailView(element)">prikaz
               </button>
             </td>
           </ng-container>
@@ -86,7 +86,7 @@
                    showFirstLastButtons
                    aria-label="Select page of periodic elements"
                    #paginator
-                   class="paginator" *ngIf="this.gettingDataFinished && !this.isEmptySource">
+                   class="paginator">
     </mat-paginator>
 
 

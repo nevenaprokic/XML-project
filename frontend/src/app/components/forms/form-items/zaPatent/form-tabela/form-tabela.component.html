@@ -28,23 +28,24 @@
       </mat-form-field>
     </td>
     <td>
-      <button class="button" type="button" (click)="deleteFieldValue(i)">Delete</button>
+      <button *ngIf="field" class="button" type="button" (click)="deleteFieldValue(i)">Delete</button>
+      <button *ngIf="!field" class="button" type="button" (click)="addFieldValue()">Add</button>
     </td>
   </tr>
-  <tr>
+  <tr [formGroup]="prijavaItem">
     <td>
       <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="datumPodnosenja"></textarea>
       </mat-form-field>
     </td>
     <td>
       <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="brojPrijave"></textarea>
       </mat-form-field>
     </td>
     <td>
       <mat-form-field appearance="outline" class="text-input">
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="oznakaDrzave"></textarea>
       </mat-form-field>
     </td>
     <td>

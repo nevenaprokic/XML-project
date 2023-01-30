@@ -1,0 +1,107 @@
+<div class="paper-form">
+    <div class="header">
+      <h1 class="title">ZAHTEV ZA PRIZNANJE PATENTA</h1>
+      <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
+    </div>
+    <div class="description" style="flex-direction: column;">
+      <h4 *ngIf="zahtev.brojPrijave">Broj prijave: {{zahtev.brojPrijave}}</h4>
+      <h4 *ngIf="zahtev.datumPodnosenja">Datum podnošenja prijave: {{zahtev.datumPodnosenja}}</h4>
+      <h4 *ngIf="zahtev.priznatiDatumPodnosenja">Priznati datum podnošenja prijave: {{zahtev.priznatiDatumPodnosenja}}</h4>
+    </div>
+    <form>
+      <app-pronalazak-detail-view [pronalazak]="zahtev.pronalazak"></app-pronalazak-detail-view >
+      <div>
+        <div class="description">
+          <p class="polje">Polje broj II</p>
+          <p class="subtitle">PODNOSILAC PRIJAVE</p>
+          <div *ngIf="zahtev.podnosilac.pronalazac">
+            Podnosilac prijave je i pronalazač
+          </div>
+        </div>
+        <div *ngIf="podnosilacFizickoLice">
+          <app-fizicko-lice-detail-view [lice]="podnosilacFizickoLice"></app-fizicko-lice-detail-view>
+        </div>
+        <div *ngIf="podnosilacPravnoLice">
+          <app-pravno-lice-detail-view [lice]="podnosilacPravnoLice"></app-pravno-lice-detail-view>
+        </div>
+        <app-adresa-detail-view [adresa]="zahtev.podnosilac.lice.adresa"></app-adresa-detail-view>
+        <app-kontakt-detail-view [kontakt]="zahtev.podnosilac.lice.kontaktPodaci"></app-kontakt-detail-view>
+      </div>
+       <div *ngIf="!zahtev.podnosilac.pronalazac">
+        <div class="description">
+          <p class="polje">Polje broj III</p>
+          <p class="subtitle">PRONALAZAČ</p>
+          <p  *ngIf="zahtev.pronalazac.anoniman">Pronalazač ne želi da bude naveden u prijavi</p>
+        </div>
+      </div> 
+      <div *ngIf="!zahtev.pronalazac.anoniman">
+        <app-fizicko-lice-detail-view [lice]="zahtev.pronalazac"></app-fizicko-lice-detail-view>
+        <app-adresa-detail-view [adresa]="zahtev.pronalazac.adresa"></app-adresa-detail-view>
+        <app-kontakt-detail-view [kontakt]="zahtev.pronalazac.kontaktPodaci"></app-kontakt-detail-view>
+      </div>
+       
+      <div *ngIf="zahtev.punomocnik">
+        <div class="description">
+          <p class="polje">Polje broj IV</p>
+          <div>
+            <section  >
+              <mat-checkbox [checked]="zahtev.punomocnik.zaZastupanje">Punomoćnik za zastupanje
+              </mat-checkbox>
+              <mat-checkbox [checked]="zahtev.punomocnik.za_prijem_pismena">Punomoćnik za prijem pismena
+              </mat-checkbox>
+            </section >
+          </div>
+            <!-- <p>Zajednički predstavnik</p> -->
+        </div>
+      <div>
+        <div *ngIf="punomocnikFizickoLice">
+          <app-fizicko-lice-detail-view [lice]="punomocnikFizickoLice"></app-fizicko-lice-detail-view>
+        </div>
+        <div *ngIf="punomocnikPravnoLice">
+          <app-pravno-lice-detail-view [lice]="punomocnikPravnoLice"></app-pravno-lice-detail-view>
+        </div>
+        <app-adresa-detail-view [adresa]="zahtev.punomocnik.lice.adresa"></app-adresa-detail-view>
+        <app-kontakt-detail-view [kontakt]="zahtev.punomocnik.lice.kontaktPodaci"></app-kontakt-detail-view>
+      </div>
+      </div>
+       
+      <div class="description">
+        <p class="polje">Polje broj V</p>
+        <p class="subtitle">ADRESA DOSTAVLJANJA</p>
+      </div>
+      <div>
+        <app-adresa-detail-view [adresa]="zahtev.podaciDostavljanja.adresa"></app-adresa-detail-view>
+      </div>
+      <div class="description">
+        <p class="polje">Polje broj VI</p>
+        <p class="subtitle">NAČIN DOSTAVLJANJA</p>
+      </div>
+
+      <div class="section-nacin-dostavljanja">
+        <section>
+          <mat-checkbox [checked]="zahtev.podaciDostavljanja.nacinDostavljanja == 'elektronski'">Podnosilac prijave je saglasan da Zavod vrši dostavljanje
+            pismena isključivo elektronskim putem u formi elektronskog dokumenta (u ovom slučaju neophodna je registracija
+            na portalu „eUprave”)
+          </mat-checkbox>
+          <mat-checkbox [checked]="zahtev.podaciDostavljanja.nacinDostavljanja == 'papirna_forma'">Podnosilac prijave je saglasan da Zavod vrši dostavljanje pismena u
+            papirnoj formi
+          </mat-checkbox>
+        </section>
+      </div>
+        
+      <div class="description" *ngIf="zahtev.podaciORanijojPrijavi">
+        <p class="polje">Polje broj VII</p>
+        <section>
+          <mat-checkbox [checked]="zahtev.podaciORanijojPrijavi.tipPrijave == 'dopunska'">DOPUNSKA PRIJAVA</mat-checkbox>
+          <mat-checkbox [checked]="zahtev.podaciORanijojPrijavi.tipPrijave == 'izdvojena'">IZDVOJENA PRIJAVA</mat-checkbox>
+        </section>
+        <div>
+          <app-dopunska-prijava-detail-view [dopunskaPrijava]="zahtev.podaciORanijojPrijavi"></app-dopunska-prijava-detail-view>
+        </div>
+       
+      </div>
+  
+      <app-ranije-prijave-detail-view  *ngIf="zahtev.prvenstvo" [ranijePrijave]="zahtev.prvenstvo"></app-ranije-prijave-detail-view>
+    </form>
+  </div>
+  

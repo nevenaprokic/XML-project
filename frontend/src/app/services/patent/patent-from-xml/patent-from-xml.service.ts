@@ -27,7 +27,7 @@ export class PatentFromXmlService {
     let brojPrijave = attributes.broj_prijave;
     let datumPodnosenja = attributes.datum_prijema_prijave;
     let priznatiDatumPodnosenja = attributes.priznati_datum_podnosenja;
-    let dodatnaPrijava: Podaci_o_dodatnoj_prijavi = this.getPodaciODodatnojPrijavi(xml, prefix);
+    let dodatnaPrijava: Podaci_o_dodatnoj_prijavi | undefined = this.getPodaciODodatnojPrijavi(xml, prefix);
     let podatiODostavljanju: Podaci_o_dostavljanju = this.getPodaciODostavljanju(xml, prefix);
     let podnosilac: PodnosilacZahteva = this.getPodnosilac(xml, prefix);
     let pronalazac: Pronalazac = this.getPronalazac(xml, prefix);
@@ -36,26 +36,34 @@ export class PatentFromXmlService {
     let punomocnik: Punomcnik | undefined = this.getPunomocnik(xml, prefix);
     let prventsvo: ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava | undefined = this.getZaPrvenstvo(xml, prefix)
     const idPatenta: string = this.getId(xml, prefix);
-    let zahtev: ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent(primalac, podnosilac, pronalazak, pronalazac,
+    let zahtev: ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent( podnosilac, pronalazak, pronalazac,
       podatiODostavljanju, punomocnik, dodatnaPrijava, prventsvo, brojPrijave,
-      datumPodnosenja, priznatiDatumPodnosenja, idPatenta)
+      datumPodnosenja, priznatiDatumPodnosenja, idPatenta, primalac)
     return zahtev;
   }
 
   getId(xml: any, prefix: string) {
     const idPatenta = xml[prefix + ':idPatenta'];
-    const id = idPatenta[prefix + ':idP']._text;
-    return id;
+    if(idPatenta){
+      const id = idPatenta[prefix + ':idP']? idPatenta[prefix + ':idP']._text : ''
+      return id;
+    }
+    
   }
 
-  getPodaciODodatnojPrijavi(xml: any, prefix: string): Podaci_o_dodatnoj_prijavi {
+  getPodaciODodatnojPrijavi(xml: any, prefix: string): Podaci_o_dodatnoj_prijavi | undefined{
+
     let podaciOPrvobitnojPrijavi = xml[prefix + ':Podaci_o_dodatnoj_prijavi']
-    let dodatnaPrijava: Podaci_o_dodatnoj_prijavi = new Podaci_o_dodatnoj_prijavi(
-      podaciOPrvobitnojPrijavi[prefix + ":Tip_prijave"]._text,
-      podaciOPrvobitnojPrijavi[prefix + ":Broj_prvobitne_prijave"]._text,
-      podaciOPrvobitnojPrijavi[prefix + ":Datum_podnosenja_prvobitne_prijave"]._text,
-    )
-    return dodatnaPrijava
+    if (podaciOPrvobitnojPrijavi){
+      let dodatnaPrijava: Podaci_o_dodatnoj_prijavi = new Podaci_o_dodatnoj_prijavi(
+        podaciOPrvobitnojPrijavi[prefix + ":Tip_prijave"]._text,
+        podaciOPrvobitnojPrijavi[prefix + ":Broj_prvobitne_prijave"]._text,
+        podaciOPrvobitnojPrijavi[prefix + ":Datum_podnosenja_prvobitne_prijave"]._text,
+      )
+      return dodatnaPrijava
+    }
+    return undefined
+    
   }
 
   getPodaciODostavljanju(xml: any, prefix: string): Podaci_o_dostavljanju {
@@ -67,14 +75,15 @@ export class PatentFromXmlService {
     return new Adresa(adresa[this.commonPrefix + ':Broj']._text, adresa[this.commonPrefix + ':Ulica']._text, adresa[this.commonPrefix + ':Grad']._text, adresa[this.commonPrefix + ':Drzava']._text, adresa[this.commonPrefix + ':Postanski_broj']._text,)
   }
 
-  getPodnosilac(xml: any, prefix: string): PodnosilacZahteva {
-    let ponosilac = xml[prefix + ':Podnosilac_zahteva']
-    let isPronalazac = ponosilac[prefix + ':pronalazac']._text;
-    let lice: FizickoLice | PravnoLice;
-    if (ponosilac[prefix + ':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice") {
-      lice = this.getPravnoLice(ponosilac[prefix + ':Lice'])
-    } else {
-      lice = this.getFizickoLice(ponosilac[prefix + ':Lice']);
+  getPodnosilac(xml:any, prefix: string) : PodnosilacZahteva{
+    let ponosilac = xml[prefix +':Podnosilac_zahteva']
+    let isPronalazac = ponosilac[prefix +':pronalazac']._text === "ture";
+    let lice : FizickoLice | PravnoLice;
+    if (ponosilac[prefix +':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice"){
+      lice = this.getPravnoLice(ponosilac[prefix +':Lice'])
+    }
+    else{
+      lice = this.getFizickoLice(ponosilac[prefix +':Lice']);
     }
     return new PodnosilacZahteva(lice, isPronalazac);
 
@@ -85,11 +94,11 @@ export class PatentFromXmlService {
     return new Pronalazak(pronalazak[prefix + ':Naziv_na_srpskom']._text, pronalazak[prefix + ':Naziv_na_engleskom']._text)
   }
 
-  getPronalazac(xml: any, prefix: string): Pronalazac {
-    let pronalazac = xml[prefix + ':Pronalazac'];
-    let lice: FizickoLice = this.getFizickoLice(pronalazac);
-    let isAnoniman: boolean = pronalazac['_attributes']['anoniman']
-    if (lice.drzavljanstvo) {
+  getPronalazac(xml:any, prefix: string) : Pronalazac{
+    let pronalazac = xml[prefix +':Pronalazac'];
+    let lice : FizickoLice = this.getFizickoLice(pronalazac);
+    let isAnoniman: boolean = pronalazac['_attributes']['anoniman']  === "ture"
+    if (lice.drzavljanstvo){
       return new Pronalazac(isAnoniman, lice.adresa, lice.kontaktPodaci, lice.ime, lice.prezime, lice.drzavljanstvo)
     }
     return new Pronalazac(isAnoniman, lice.adresa, lice.kontaktPodaci, lice.ime, lice.prezime)
@@ -107,18 +116,18 @@ export class PatentFromXmlService {
     return new PrimalazZahteva(adresa, naziv);
   }
 
-  getPunomocnik(xml: any, prefix: string): Punomcnik | undefined {
-    let punomocnik = xml[prefix + ':Punomocnik']
-    if (punomocnik) {
-      let lice: FizickoLice | PravnoLice;
-      let isPrijemPismena: boolean = punomocnik[prefix + ':za_prijem_pismena']._text
-      let isZaZastupanje: boolean = punomocnik[prefix + ':za_zastupanje']._text
-      if (punomocnik[prefix + ':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice") {
-        lice = this.getPravnoLice(punomocnik[prefix + ':Lice'])
-      } else {
-
-        lice = this.getFizickoLice(punomocnik[prefix + ':Lice']);
-        console.log("bbb")
+  getPunomocnik(xml:any, prefix: string) : Punomcnik | undefined{
+    let punomocnik = xml[prefix +':Punomocnik']
+    if (punomocnik){
+      let lice : FizickoLice | PravnoLice;
+      let isPrijemPismena: boolean = punomocnik[prefix +':za_prijem_pismena']._text  === "ture"
+      let isZaZastupanje: boolean = punomocnik[prefix +':za_zastupanje']._text  === "ture"
+      if (punomocnik[prefix +':Lice']['_attributes']['xsi:type'].substring(4) === "TPravno_lice"){
+        lice = this.getPravnoLice(punomocnik[prefix +':Lice'])
+      }
+      else{
+        
+        lice = this.getFizickoLice(punomocnik[prefix +':Lice']);
       }
       return new Punomcnik(lice, isZaZastupanje, isPrijemPismena);
     }
@@ -142,12 +151,11 @@ export class PatentFromXmlService {
     }
     return undefined;
   }
-
-  getRanijaprijava(xml: any, prefix: string): RanijaPrijava {
-    let brojPrijave: string = xml[prefix + ':Broj_prijave']._text
-    let datumPrijema: Date = xml[prefix + ':Datum_podnosenja']._text
-    let dvoslovnaOznakaDrzave: string = xml[prefix + ':Dvoslovna_oznaka_drzave']._text
-    return new RanijaPrijava(dvoslovnaOznakaDrzave, brojPrijave, datumPrijema);
+  getRanijaprijava(xml:any, prefix: string) : RanijaPrijava{
+     let brojPrijave: string = xml[prefix +':Broj_prijave']._text
+     let datumPrijema: string = xml[prefix +':Datum_podnosenja']._text
+     let dvoslovnaOznakaDrzave: string = xml[prefix +':Dvoslovna_oznaka_drzave']._text
+     return new RanijaPrijava(dvoslovnaOznakaDrzave, brojPrijave, datumPrijema);
   }
 
   getFizickoLice(xml: any): FizickoLice {
@@ -172,7 +180,6 @@ export class PatentFromXmlService {
 
   getKontaktPodaci(xml: any): KontaktPodaci {
     let kontakt = xml[this.commonPrefix + ':Kontakt_podaci']
-    return new KontaktPodaci(kontakt[this.commonPrefix + ':Faks']._text, kontakt[this.commonPrefix + ':Email']._text, kontakt[this.commonPrefix + ':Telefon']._text)
-
+     return new KontaktPodaci(kontakt[this.commonPrefix + ':Faks']? kontakt[this.commonPrefix + ':Faks']._text : "", kontakt[this.commonPrefix + ':Email']._text, kontakt[this.commonPrefix + ':Telefon']._text)
   }
 }

@@ -38,10 +38,11 @@ public class PatentController {
 	
 	private final static String USER_API_SLUZBENIK = "http://localhost:8903/xml/user/authsluzbenik";
 	private final static String USER_API_KORISNIK = "http://localhost:8903/xml/user/authkorisnik";
-	
+	private final static String USER_API_KORISNIK_SLUZBENIK = "http://localhost:8903/xml/user/authkorisnik-or-sluzbenik";
+
 	@RequestMapping(value="/save-new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<?> saveNewFile(@RequestBody ZahtevZaPriznanjePatenta zahtev, @RequestHeader MultiValueMap<String, String> headers) {
-//		this.chechAuthority(headers, USER_API_KORISNIK);
+		this.chechAuthority(headers, USER_API_KORISNIK);
 		try {
 			patentService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();
@@ -57,7 +58,8 @@ public class PatentController {
 	}
 	
 	@GetMapping(value="/{documentId}", produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<?> getZahtevZaAutorskoDeloById(@PathVariable String documentId) {
+	public ResponseEntity<?> getZahtevZaAutorskoDeloById(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
+			this.chechAuthority(headers, USER_API_KORISNIK_SLUZBENIK);
 			ZahtevZaPriznanjePatenta zahtev = patentService.getZahtevZaPriznanjePatenta(documentId);
 			return ResponseEntity.ok(zahtev);
 	}

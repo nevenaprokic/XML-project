@@ -60,10 +60,9 @@
       <p class="polje">Polje broj IV</p>
       <section class="checkbox" [formGroup]="formPatentGroup">
         <mat-radio-group class="section" formControlName="podnosilacJePunomocnik">
-          <mat-radio-button [checked]="true" value="punomoćnik za zastupanje">Punomoćnik za zastupanje
+          <mat-radio-button value="punomoćnik za zastupanje">Punomoćnik za zastupanje
           </mat-radio-button>
           <mat-radio-button value="punomoćnik za prijem pismena">Punomoćnik za prijem pismena</mat-radio-button>
-          <mat-radio-button value="zajednički predstavnik">Zajednički predstavnik</mat-radio-button>
         </mat-radio-group>
       </section>
     </div>
@@ -110,11 +109,11 @@
       <app-form-dopunska-prijava (formReady)="addChildForm('dopunskaPrijava', $event)"></app-form-dopunska-prijava>
     </div>
 
-    <app-form-tabela></app-form-tabela>
+    <app-form-tabela [ranijePrijave]="ranijePrijave"></app-form-tabela>
     <!--    ovde treba dinamicko dodavanje iz tabele-->
 
     <div class="submit-item">
-      <button class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
+      <button  class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
     </div>
   </form>
 </div>

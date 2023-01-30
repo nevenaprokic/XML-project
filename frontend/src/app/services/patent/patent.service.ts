@@ -1,20 +1,35 @@
+
 import {Injectable} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import {environment} from 'src/app/environments/environment';
 import {ZahtevZaPriznanjePatent} from 'src/app/model/patent/patent';
 import {HttpClientService} from '../custom-http/http-client.service';
 import {HttpRequestService} from '../utils/http-request/http-request.service';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatentService {
 
-  constructor(private http: HttpRequestService) {
+  private PATENT_PATH = environment.PATENT_BASE_URL + '/patent'
+
+  constructor(private http: HttpRequestService) { }
+
+  getAll(){
+      return this.http.get(this.PATENT_PATH + "/all-patents") //da li radi
   }
 
-  getAll() {
-    return this.http.get(environment.PATENT_BASE_URL + "/patent/all-patents"); //da li radi
+  saveNew(xml: any): Observable<any> {
+    const url = this.PATENT_PATH + `/save-new`;
+    return this.http.post(url, xml) as Observable<any>;
+  }
+
+  getById(documentId: string) : Observable<any>{
+    documentId = documentId.replace('/', '_');
+    const url = this.PATENT_PATH + `/${documentId}`;
+    return this.http.get(url) as Observable<any>;
   }
 
   sortData(sort: Sort, dataSource: ZahtevZaPriznanjePatent[]): ZahtevZaPriznanjePatent[] {

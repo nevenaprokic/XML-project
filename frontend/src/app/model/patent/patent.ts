@@ -3,7 +3,7 @@ import { FizickoLice, Adresa, KontaktPodaci, PravnoLice, Status } from "../commo
 
 
 export class ZahtevZaPriznanjePatent{
-    constructor(public primalac: PrimalazZahteva,
+    constructor(
         public podnosilac: PodnosilacZahteva,
         public pronalazak: Pronalazak,
         public pronalazac: Pronalazac,
@@ -14,7 +14,8 @@ export class ZahtevZaPriznanjePatent{
         public brojPrijave?: string,
         public datumPodnosenja? : Date,
         public priznatiDatumPodnosenja?: Date,
-        public idPatenta?: string){}
+        public idPatenta?: string,
+        public primalac?: PrimalazZahteva){}
 }
 export class PrimalazZahteva {
     constructor(public adresa: Adresa,
@@ -46,7 +47,8 @@ export class Podaci_o_dostavljanju{
 }
 
 export class Podaci_o_dodatnoj_prijavi{
-    constructor(public tipPrivajve: TipDodatnePrijave,
+
+    constructor(public tipPrijave: TipDodatnePrijave, 
         public brojPrvobitnePrijave: string,
         public datumPodnosenjaPrvobitnePrijave: Date){}
 }
@@ -54,7 +56,7 @@ export class Podaci_o_dodatnoj_prijavi{
 export class RanijaPrijava{
     constructor(public DvoslovnaOznakaDrzave: string,
         public brojPrijave: string,
-        public datumPodnosenjaPrijave: Date){}
+        public datumPodnosenjaPrijave: string){}
 }
 
 export class ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava{
@@ -73,7 +75,7 @@ export class PodnosilacZahteva{
 }
 
 export enum NacinDostavljanja{
-    elektronski="elekstronski",
+    elektronski="elektronski",
     papirna_forma="papirna_forma"
 }
 export enum TipPRijave{
@@ -83,5 +85,5 @@ export enum TipPRijave{
 
 export enum TipDodatnePrijave{
     dopunska="dopunska",
-    izdvojena="dopunska"
+    izdvojena="izdvojena"
 }

@@ -104,7 +104,7 @@ public class TPodnosilacZahteva {
         String value =  "Podnosilac prijave: " + '\n' + "\t\t" +
                 "pronalazac: " + isPronalazac + "\n\t\t" +
                 lice.toString();
-        if(drzavljanstvo.length() > 0){
+        if(drzavljanstvo != null){
             value += "drzavljanstvo" + drzavljanstvo;
         }
         return value;

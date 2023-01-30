@@ -1,0 +1,36 @@
+<div class="adresa">
+    <div class="row">
+      <div class="input-adresa">
+        Ulica:
+        <mat-form-field appearance="fill">
+          <input matInput readonly="true" value={{adresa.ulica}}>
+        </mat-form-field>
+      </div>
+      <div class="input-adresa">
+        Broj:
+        <mat-form-field appearance="fill">
+          <input matInput readonly="true" value={{adresa.broj}}>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-adresa">
+        Grad:
+        <mat-form-field appearance="fill">
+          <input matInput readonly="true" value={{adresa.grad}}>
+        </mat-form-field>
+      </div>
+      <div class="input-adresa" *ngIf="adresa.postanskiBroj">
+        Poštanski broj:
+        <mat-form-field appearance="fill">
+          <input matInput readonly="true" value={{adresa.postanskiBroj}}>
+        </mat-form-field>
+      </div>
+      <div class="input-adresa" *ngIf="adresa.drzava">
+        Država:
+        <mat-form-field appearance="fill">
+          <input matInput readonly="true" value={{adresa.drzava}}>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>

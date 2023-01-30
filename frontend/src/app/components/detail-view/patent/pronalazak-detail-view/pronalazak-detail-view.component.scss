@@ -1,0 +1,35 @@
+@import "src/style/styles";
+
+
+.description {
+  margin: 10px;
+  padding-top: 5px;
+  font-weight: bold;
+  border-top: 1px solid $fontColor;
+  display: flex;
+  justify-content: flex-start;
+
+  .polje {
+    padding-top: 10px;
+  }
+
+  .subtitle {
+    margin-left: 40px;
+    padding-top: 10px;
+  }
+}
+
+.instruction {
+  font-size: 14px;
+  color: $dark1;
+  margin: 5px 10px 10px 15px;
+}
+
+.input-jezik {
+  margin: 0 10px;
+}
+
+.srpski {
+  margin-top: 20px;
+}
+

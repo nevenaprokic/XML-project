@@ -1,16 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {Sort} from '@angular/material/sort';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {environment} from 'src/app/environments/environment';
-import {ZahtevZaPriznanjePatent} from 'src/app/model/patent/patent';
-import {PatentFromXmlService} from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
-import {PatentService} from 'src/app/services/patent/patent.service';
-import {UserService} from 'src/app/services/user/user.service';
-import {Toastr} from 'src/app/services/utils/toastr/toastr.service';
-import {MatDialog} from "@angular/material/dialog";
+
+
 import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
 import {typeZahteva} from "../../../model/model";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/app/environments/environment';
+import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
+import { PatentFromXmlService } from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
+import { PatentService } from 'src/app/services/patent/patent.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
+import { PatentDetailViewComponent } from '../../detail-view/patent/patent-detail-view/patent-detail-view.component';
+
 
 @Component({
   selector: 'app-patent-tabel-view',
@@ -33,12 +37,13 @@ export class PatentTabelViewComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
 
+
   constructor(private patentService: PatentService,
               private userService: UserService,
               private patentFromXML: PatentFromXmlService,
               private dialog: MatDialog, private toastr: Toastr) {
 
-  }
+              }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -126,4 +131,11 @@ export class PatentTabelViewComponent implements OnInit {
   openResenje(element: ZahtevZaPriznanjePatent) {
     this.dialog.open(FormResenjeComponent, {data: {id: element.idPatenta, type: typeZahteva.PATENT}});
   }
+
+openPatenDetailView(element: ZahtevZaPriznanjePatent){
+  this.dialog.open(PatentDetailViewComponent, {
+    data: element,
+  });
+}
+
 }

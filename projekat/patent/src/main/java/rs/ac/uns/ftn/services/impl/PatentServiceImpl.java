@@ -2,7 +2,10 @@ package rs.ac.uns.ftn.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 
@@ -14,13 +17,26 @@ import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
+import rs.ac.uns.ftn.exception.BadRequestException;
+import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.Jaxb;
+
+import rs.ac.uns.ftn.jaxb.PatentList;
+import rs.ac.uns.ftn.jaxb.p1.PodaciODodatnojPrijavi;
+import rs.ac.uns.ftn.jaxb.p1.RanijaPrijava;
 import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
+import rs.ac.uns.ftn.jaxb.p1.TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.lists.ListaZahtevaPatent;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
@@ -46,23 +62,37 @@ public class PatentServiceImpl implements PatentService {
 //		if (patentRepository.getZahtevZaPriznanjePatentaByXPath(xpath).getSize() != 0) {
 //			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_EXITS);
 //		}
-		if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
-			zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);
-			String documentId = generateDocumentId();
-			ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
-			patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
-		}
+        if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
+        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);     	
+        	try {
+        		GregorianCalendar c = new GregorianCalendar();
+        		c.setTime(new Date());
+        		XMLGregorianCalendar date2;
+    			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+    			zahtevDTO.setDatumPrijemaPrijave(date2);
+    		} catch (DatatypeConfigurationException e) {
+    			e.printStackTrace();
+    		}
+    		String documentId = generateDocumentId();
+    		documentId = documentId.replace('/', '_');
+    		this.checkDopunskaPrijava(zahtevDTO.getPodaciODodatnojPrijavi());
+    		this.checkLinkedDocuments(zahtevDTO);
+    		ZahtevZaPriznanjePatenta zahtev = PatentMapper.mapFromDTO(zahtevDTO, documentId);
+    		patentRepository.saveZahtevZaPriznanjePatenta(zahtev, documentId);
+        }
 	}
 
 	@Override
 	public ZahtevZaPriznanjePatenta getZahtevZaPriznanjePatenta(String id) {
+		id = id.replace('/', '_');
 		return patentRepository.getZahtevZaPriznanjePatentaById(id);
 	}
 
 	@Override
 	public String generateDocumentId() {
 		int curretnNumber = patentRepository.getLenghtOfCollection();
-		return "P" + String.valueOf(curretnNumber + 1);
+	    int currentYear = LocalDate.now().getYear();
+		return "P" + String.valueOf(curretnNumber + 3) + "/" + currentYear; 
 	}
 
 	@Override
@@ -117,24 +147,36 @@ public class PatentServiceImpl implements PatentService {
 		return new ListaZahtevaPatent(zahteviList);
 	}
 
-//
-//	@Override
-//	public PatentList getAllPatents() throws XMLDBException, JAXBException {
-//		List<ZahtevZaPriznanjePatenta> zahtevList = new ArrayList<>();
-//
-//        ResourceSet resourceSet = patentRepository.getByXQuery(QueryUtils.FIND_ALL);
-//        ResourceIterator resourceIterator = resourceSet.getIterator();
-//
-//        while (resourceIterator.hasMoreResources()) {
-//            XMLResource xmlResource = (XMLResource) resourceIterator.nextResource();
-//            if (xmlResource == null)
-//                return null;
-//            JAXBContext context = JAXBContext.newInstance(ZahtevZaPriznanjePatenta.class);
-//            Unmarshaller unmarshaller = context.createUnmarshaller();
-//            ZahtevZaPriznanjePatenta zahtev = (ZahtevZaPriznanjePatenta) unmarshaller.unmarshal(xmlResource.getContentAsDOM());
-//            zahtevList.add(zahtev);
-//        }
-//        return new PatentList(zahtevList);
-//	}
-//	
+	private void checkLinkedDocuments(ZahtevZaPriznanjePatenta zahtevDTO) {
+		TZahtevZaPriznanjePravaPrvenstvaIzRanijihPrijava prvenstvo = zahtevDTO.getZahtevZaPriznanjePrvenstvaIzRanijihPrijava();
+		if(prvenstvo != null) {
+			for(RanijaPrijava prijava : prvenstvo.getRanijaPrijava()) {
+				String brPrijave = prijava.getBrojPrijave().replace('/', '_');
+				ZahtevZaPriznanjePatenta zavedenaPrijava = this.patentRepository.getZahtevZaPriznanjePatentaById(brPrijave);
+				if (zavedenaPrijava == null) {
+					throw new BadRequestException(ErrorMessageConstants.NEPOSTOJECI_DOKUMENT);
+					
+				}
+				else if(zavedenaPrijava.getStatus() != StatusZahteva.ODOBREN) {
+					throw new BadRequestException(ErrorMessageConstants.NEODOBREN_DOKUMENT);
+				}
+			}
+		}
+	}
+	
+	private void checkDopunskaPrijava(PodaciODodatnojPrijavi dodatnaPrijava) {
+		
+		if (dodatnaPrijava != null) {
+			String brPrijave = dodatnaPrijava.getBrojPrvobitnePrijave().replace('/', '_');
+			ZahtevZaPriznanjePatenta zavedenaPrijava = this.patentRepository.getZahtevZaPriznanjePatentaById(brPrijave);
+			if (zavedenaPrijava == null) {
+				throw new BadRequestException(ErrorMessageConstants.NEPOSTOJECI_DOKUMENT);
+				
+			}
+			else if(zavedenaPrijava.getStatus() != StatusZahteva.ODOBREN) {
+				throw new BadRequestException(ErrorMessageConstants.NEODOBREN_DOKUMENT);
+			}
+		}
+		
+	}
 }

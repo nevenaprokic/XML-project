@@ -1,0 +1,79 @@
+@import "src/style/styles";
+
+.description {
+  margin: 10px;
+  padding-top: 5px;
+  font-weight: bold;
+  border-top: 1px solid $fontColor;
+  display: flex;
+  justify-content: flex-start;
+
+  .polje {
+    padding-top: 10px;
+  }
+
+  .subtitle {
+    margin-left: 40px;
+    padding-top: 10px;
+  }
+}
+
+.table-prijava {
+  margin: 0 20px;
+  border: 1px solid $fontColor;
+}
+
+td {
+  border: 1px solid $fontColor;
+}
+
+.button {
+  @include buttonStyle();
+}
+
+@import "src/style/styles";
+
+.dialog{
+  @include size(70%, 60vh);
+}
+.title{
+  @include setTitleStyle(55vw);
+}
+.notification{
+  @include size(60vw, auto);
+  @include setFont(26px);
+  display: flex;
+  justify-content: center;
+  margin: 10% auto;
+  color: $dark3;
+
+  .text-message{
+    margin-left: 1%;
+  }
+}
+
+.button-evaluate{
+  @include buttonStyle();
+  @include size(90%, 100%);
+  font-size: 12px;
+  padding: 5px;
+}
+
+.table-users {
+  min-height: 20vh; 
+  margin-top: 2%;
+  box-shadow: 10px 10px 10px rgba(6, 108, 109, 0.337);
+}
+
+::ng-deep .mat-cell {
+  padding: 18px 18px 10px 10px !important;
+}
+
+::ng-deep .mat-sort-header-container{
+  font-weight: 400 !important;
+  justify-content: center !important;
+  border-bottom: solid 1px !important;
+  color: $dark3;
+  font-size: 16px;
+}
+
