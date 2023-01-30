@@ -11,6 +11,7 @@ import {ZigService} from 'src/app/services/zig/zig.service';
 import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
+import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 
 @Component({
   selector: 'app-zig-table-view',
@@ -36,7 +37,8 @@ export class ZigTableViewComponent implements OnInit{
               private userService: UserService,
               private zigFromXML: ZigXmlConverterService,
               private toastr: Toastr,
-              private dialog: MatDialog){
+              private dialog: MatDialog,
+              private fileUtils: FileUtilService){
 
   }
 
@@ -138,5 +140,28 @@ export class ZigTableViewComponent implements OnInit{
 
   openResenje(element: ZahtevZaPriznanjeZiga) {
     this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.ZIG}});
+  }
+
+  downloadRdf(id: string) {
+    this.zigService.downloadRdf(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaAutorskoDelo${id}.rdf`;
+        this.fileUtils.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+  downloadJson(id: string) {
+    this.zigService.downloadJson(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaAutorskoDelo${id}.json`;
+        this.fileUtils.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
   }
 }

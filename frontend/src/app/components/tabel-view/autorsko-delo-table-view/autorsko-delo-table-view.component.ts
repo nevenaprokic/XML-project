@@ -14,6 +14,7 @@ import {ZahtevZaPriznanjeZiga} from "../../../model/zig";
 import {FormResenjeComponent} from "../../forms/form-resenje/form-resenje.component";
 import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
+import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 
 @Component({
   selector: 'app-autorsko-delo-table-view',
@@ -40,7 +41,8 @@ export class AutorskoDeloTableViewComponent implements OnInit {
               private autorskoDeloService: AutorskoDeloService,
               private fromXMLService: AutorskoDeloXmlConvertorService,
               private toastr: Toastr,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private fileUtils: FileUtilService) {
   }
 
   ngOnInit(): void {
@@ -135,7 +137,7 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     this.autorskoDeloService.downloadRdf(id).subscribe({
       next: (res: any) => {
         const filename: string =`zahtevZaAutorskoDelo${id}.rdf`;
-        this.downloadDocument(res, filename)
+        this.fileUtils.downloadDocument(res, filename)
       },
       error: (res: any) => {
         console.log(res)
@@ -146,27 +148,11 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     this.autorskoDeloService.downloadJson(id).subscribe({
       next: (res: any) => {
         const filename: string =`zahtevZaAutorskoDelo${id}.json`;
-        this.downloadDocument(res, filename)
+        this.fileUtils.downloadDocument(res, filename)
       },
       error: (res: any) => {
         console.log(res)
       }
     })
   }
-
-  downloadDocument(result: any, fileName: string){
-    const binaryData = [];
-    binaryData.push(result);
-    const url = window.URL.createObjectURL(new Blob(binaryData, {type: 'application/xml'}));
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.setAttribute('style', 'display: none');
-    a.setAttribute('target', 'blank');
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
-  }
-
 }

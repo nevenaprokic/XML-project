@@ -133,7 +133,7 @@ public class AutorskoDeloController {
 	}
     
 	@GetMapping(value = "/get-json/{documentId}")
-    public ResponseEntity<?> downloadZalbaCutanjeJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+    public ResponseEntity<?> downloadJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
 
         try {
         	InputStreamResource json = autorskoDeloService.getMetadataAsJson(documentId);

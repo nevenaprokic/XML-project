@@ -60,4 +60,14 @@ export class ZigService {
   compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
+
+  downloadRdf(documentId: string) {
+    const url = this.ZIG_PATH + `/get-rdf/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
+  downloadJson(documentId: string) {
+    const url = this.ZIG_PATH + `/get-json/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
 }
