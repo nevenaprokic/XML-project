@@ -1,1 +1,5 @@
 @import "src/style/tabel-style.scss";
+
+.section{
+    @include size(70%, auto);
+  }

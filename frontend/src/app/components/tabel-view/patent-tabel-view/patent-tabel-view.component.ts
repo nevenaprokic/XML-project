@@ -35,6 +35,14 @@ export class PatentTabelViewComponent implements OnInit {
   commonPrefix: string = '';
   isEmptySource: boolean = false
 
+  metadataOptions = [    
+    'datum_prijema_prijave', 
+    'pronalazak_naslov', 
+    'pronalazac',
+    'podnosilac_email',
+    'ime_podnosioca',
+    'broj_prvobitne_prijave'
+  ]
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
@@ -171,6 +179,36 @@ openPatenDetailView(element: ZahtevZaPriznanjePatent){
         console.log(res)
       }
     })
+  }
+
+  searchMetadata(query: string): void {
+    if(query){
+      this.patentService.searchMetadata(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    } else{
+      this.getDataByRole()
+    }
+  }
+
+  searchText(query: string): void {
+    if(query){
+      this.patentService.searchText(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
+    }
   }
 
 }

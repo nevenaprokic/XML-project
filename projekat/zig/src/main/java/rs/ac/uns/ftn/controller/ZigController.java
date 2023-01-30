@@ -155,7 +155,7 @@ public class ZigController {
 
        try {
     	   InputStreamResource rdf = zigService.getMetadataAsRdf(documentId);
-           HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
+           HttpHeaders headers = getDownloadFileHeaders("zahtevZaPriznanjeZiga" + documentId + ".rdf");
            return new ResponseEntity<>(rdf, headers, HttpStatus.OK);
        } catch (Exception e) {
     	   e.printStackTrace();
@@ -168,7 +168,7 @@ public class ZigController {
 
         try {
         	InputStreamResource json = zigService.getMetadataAsJson(documentId);
-        	HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
+        	HttpHeaders headers = getDownloadFileHeaders("zahtevZaPriznanjeZiga" + documentId + ".json");
             return new ResponseEntity<>(json, headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -69,4 +69,15 @@ export class PatentService {
     const url = this.PATENT_PATH + `/get-json/${documentId}`;
     return this.http.get(url) as Observable<any>;
   }
+
+  searchMetadata(request: string) {
+    const url = this.PATENT_PATH + `/searchMetadata?request=${request}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
+  searchText(request: string){
+    const url = this.PATENT_PATH + `/searchText?txt=${request}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
 }

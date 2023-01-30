@@ -1,5 +1,18 @@
-<div class="dialog">
-    <div class="title">Pregled zahtevza za priznanje patenta</div>
+
+<div style="overflow-y:scroll; height: 100%;">
+  <h1 class="title">ZAHTEVI ZA PRIZNANJE PATENTA</h1>
+
+  <div class="section">
+    <div class="title">Pretraga zahteva po metapodacima</div>
+    <app-metadata-search (queryEvent)="searchMetadata($event)" [metadataOptions]="metadataOptions"></app-metadata-search>  
+  </div> 
+  <div class="section"> 
+    <div class="title">Pretraga zahteva po tekstu</div>
+    <app-text-search (queryEvent)="searchText($event)"></app-text-search>  
+  </div>
+
+  <div class="section">
+    <div class="title">Pregled zahteva</div>
     <div *ngIf="!gettingDataFinished" class="processing_container">
       <p class="processing_text">Dobavljanje podataka...</p>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -91,3 +104,4 @@
 
 
   </div>
+</div>
