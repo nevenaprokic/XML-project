@@ -1,10 +1,13 @@
 package rs.ac.uns.ftn.controller;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import rs.ac.uns.ftn.exception.ErrorMessage;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
+import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.services.PrilogService;
@@ -142,7 +148,7 @@ public class ZigController {
 		catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}		
-	}
+	}*/
 
 	@GetMapping(value = "/get-rdf/{documentId}")
     public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
@@ -158,7 +164,7 @@ public class ZigController {
 	}
     
 	@GetMapping(value = "/get-json/{documentId}")
-    public ResponseEntity<?> downloadZalbaCutanjeJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+    public ResponseEntity<?> downloadJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
 
         try {
         	InputStreamResource json = zigService.getMetadataAsJson(documentId);
@@ -167,7 +173,7 @@ public class ZigController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }*/
+    }
 	
 	
 	@GetMapping(value="/get-prilog/{documentId}/{imgName}")

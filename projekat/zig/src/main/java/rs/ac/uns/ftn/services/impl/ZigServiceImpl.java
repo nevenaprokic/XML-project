@@ -8,6 +8,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
@@ -26,6 +27,7 @@ import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.ZigMapper;
 import rs.ac.uns.ftn.repository.ZigRepository;
+import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.services.PrilogService;
 import rs.ac.uns.ftn.services.ZigService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
@@ -40,7 +42,10 @@ public class ZigServiceImpl implements ZigService {
 	private ZigRepository zigRepository;
 
 	@Autowired
-	private PrilogService prilogService; 
+	private PrilogService prilogService;
+	
+	@Autowired
+	private MetadataService metadataService;
 
 	@Override
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
@@ -119,6 +124,16 @@ public class ZigServiceImpl implements ZigService {
 	public ListaZahtevaZiga findAllApproved() throws XMLDBException, JAXBException {
 		ResourceSet result = zigRepository.getAllApproved();
 		return resourceSetToList(result);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsRdf(String documentId) throws IOException {
+		return metadataService.getAsRdf(documentId);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsJson(String documentId) throws IOException {
+		return metadataService.getAsJson(documentId);
 	}
 
 }
