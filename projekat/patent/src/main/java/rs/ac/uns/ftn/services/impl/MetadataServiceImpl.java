@@ -12,6 +12,8 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -201,8 +203,16 @@ public class MetadataServiceImpl implements MetadataService{
 		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByCriteriaQuery(request));
 		ResultSet resultSet = query.execSelect();
 
-		return (List<String>) getRdfParamsFromResultSet(resultSet).values();
+		return getIdsFromResultSet(resultSet);
+	}
+
+	private Map<String, String> getRanijePrijave(String documentId) throws IOException {		
+		setupConnection(PATENT_GRAPH);
 		
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, getRanijePrijaveQuery(documentId));
+		ResultSet resultSet = query.execSelect();
+		
+		return getRanijePrijaveMapFromResultSet(resultSet);
 	}
 
 	private String filterByCriteriaQuery(String request) throws IOException {
@@ -239,13 +249,29 @@ public class MetadataServiceImpl implements MetadataService{
 		return params;
 	}
 	
+	private List<String> getIdsFromResultSet(ResultSet resultSet) {
+		String varName;
+		RDFNode varValue;
+		
+		List<String> params = new ArrayList<String>();
+		
+		while(resultSet.hasNext()) {
+			QuerySolution querySolution = resultSet.next() ;
+			Iterator<String> variableBindings = querySolution.varNames();
 
-	private Map<String, String> getRanijePrijave(String documentId) throws IOException {		
-		setupConnection(PATENT_GRAPH);
-		
-		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, getRanijePrijaveQuery(documentId));
-		ResultSet resultSet = query.execSelect();
-		
+		    while (variableBindings.hasNext()) {
+		    	varName = variableBindings.next();
+		    	varValue = querySolution.get(varName);
+		    	params.add(varValue.toString());
+		    	System.out.println(varName + ": " + varValue);
+		    }
+		}
+		return params;
+	}
+	
+
+	private Map<String, String> getRanijePrijaveMapFromResultSet(ResultSet resultSet) {
+
 		String varName;
 		RDFNode varValue;
 		

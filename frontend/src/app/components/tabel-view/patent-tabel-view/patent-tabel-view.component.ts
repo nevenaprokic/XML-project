@@ -41,7 +41,6 @@ export class PatentTabelViewComponent implements OnInit {
     'pronalazac',
     'podnosilac_email',
     'ime_podnosioca',
-    'broj_prvobitne_prijave'
   ]
 
   @ViewChild('paginator') paginator!: MatPaginator;
