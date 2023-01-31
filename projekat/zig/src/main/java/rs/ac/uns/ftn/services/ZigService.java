@@ -32,7 +32,7 @@ public interface ZigService {
 
 	InputStreamResource getMetadataAsJson(String documentId) throws IOException;
 
-	ListaZahtevaZiga searchMetadata(String request) throws IOException;
+	ListaZahtevaZiga searchMetadata(String request, String status) throws IOException;
 
-	ListaZahtevaZiga searchText(String txt) throws XMLDBException, JAXBException;
+	ListaZahtevaZiga searchText(String txt, String status) throws XMLDBException, JAXBException;
 }

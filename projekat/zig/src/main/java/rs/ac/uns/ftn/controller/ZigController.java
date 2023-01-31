@@ -129,9 +129,9 @@ public class ZigController {
 	}
 	
 	@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<ListaZahtevaZiga> searchText(@RequestParam("txt") String txt) {
+	public ResponseEntity<ListaZahtevaZiga> searchText(@RequestParam("txt") String txt, @RequestParam("status") String status) {
 		try {
-			ListaZahtevaZiga zahtevi = zigService.searchText(txt);
+			ListaZahtevaZiga zahtevi = zigService.searchText(txt, status);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -140,9 +140,9 @@ public class ZigController {
 	}
 	
 	@GetMapping(value="/searchMetadata")
-	public ResponseEntity<ListaZahtevaZiga> searchMetadata(@RequestParam("request") String request) {
+	public ResponseEntity<ListaZahtevaZiga> searchMetadata(@RequestParam("request") String request, @RequestParam("status") String status) {
 		try {
-			ListaZahtevaZiga zahtevi = zigService.searchMetadata(request);
+			ListaZahtevaZiga zahtevi = zigService.searchMetadata(request, status);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {

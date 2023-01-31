@@ -13,6 +13,7 @@ import {typeZahteva} from "../../../model/model";
 import {MatDialog} from "@angular/material/dialog";
 import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 import { ZigDetailViewComponent } from '../../detail-view/zig/zig-detail-view/zig-detail-view.component';
+import { Status } from 'src/app/model/common/common';
 
 @Component({
   selector: 'app-zig-table-view',
@@ -62,15 +63,13 @@ export class ZigTableViewComponent implements OnInit{
   getDataByRole() {
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK"){
       this.isSluzbenik = true;
-      this.setDisplayedColumnsForSluzbenik();
+      this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
       this.getDataForSluzbenik()
     }
     else{
+      this.displayedColumns = [...this.basicColoumns]
       this.getDataForUserTabel();
     }
-  }
-  setDisplayedColumnsForSluzbenik(): void {
-    this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
   }
 
   getDataForUserTabel(){
@@ -179,7 +178,8 @@ export class ZigTableViewComponent implements OnInit{
 
   searchMetadata(query: string): void {
     if(query){
-      this.zigService.searchMetadata(query).subscribe({
+      const status = this.userService.getRoleCurrentUserRole() === "SLUZBENIK" ?  Status.SVI : Status.ODOBREN;
+      this.zigService.searchMetadata(query, status).subscribe({
         next: (res: any) => {
           this.getFromResponse(res);
         },
@@ -194,7 +194,8 @@ export class ZigTableViewComponent implements OnInit{
 
   searchText(query: string): void {
     if(query){
-      this.zigService.searchText(query).subscribe({
+      const status = this.userService.getRoleCurrentUserRole() === "SLUZBENIK" ?  Status.SVI : Status.ODOBREN;
+      this.zigService.searchText(query, status).subscribe({
         next: (res: any) => {
           this.getFromResponse(res);
         },

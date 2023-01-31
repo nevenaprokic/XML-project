@@ -71,13 +71,13 @@ export class ZigService {
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
-  searchMetadata(request: string) {
-    const url = this.ZIG_PATH + `/searchMetadata?request=${request}`;
+  searchMetadata(request: string, status: string) {
+    const url = this.ZIG_PATH + `/searchMetadata?status=${status}&request=${request}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
-  searchText(request: string){
-    const url = this.ZIG_PATH + `/searchText?txt=${request}`;
+  searchText(request: string, status: string){
+    const url = this.ZIG_PATH + `/searchText?status=${status}&txt=${request}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
 

@@ -68,15 +68,12 @@ export class PatentTabelViewComponent implements OnInit {
   getDataByRole(){
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK") {
       this.isSluzbenik = true;
-      this.setDisplayedColumnsForSluzbenik()
+      this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
       this.getDataForSluzbenik()
     } else {
+      this.displayedColumns = [...this.basicColoumns]
       this.getDataForUserTabel();
     }
-  }
-
-  setDisplayedColumnsForSluzbenik(): void {
-    this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
   }
 
   getDataForUserTabel() {

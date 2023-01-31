@@ -23,6 +23,7 @@ import com.itextpdf.text.DocumentException;
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.z1.IdZiga;
+import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.ZigMapper;
@@ -138,19 +139,26 @@ public class ZigServiceImpl implements ZigService {
 	}
 
 	@Override
-	public ListaZahtevaZiga searchMetadata(String request) throws IOException {
+	public ListaZahtevaZiga searchMetadata(String request, String status) throws IOException {
 		List<ZahtevZaPriznanjeZiga> zahtevi = new ArrayList<ZahtevZaPriznanjeZiga>();
 		List<String> ids = metadataService.searchByMetadata(request);
 		for (String id : ids) {
 			String documentId = id.split(TARGET_NAMESPACE)[1];
 			ZahtevZaPriznanjeZiga zahtev = getZahtevZaPriznanjeZiga(documentId);
-			zahtevi.add(zahtev);
+			if(status.equals(StatusZahteva.ODOBREN.value())) {
+				if(zahtev.getStatus().value().equals(status)) {
+					zahtevi.add(zahtev);
+				}
+			}
+			else {
+				zahtevi.add(zahtev);
+			}
 		}
 		return new ListaZahtevaZiga(zahtevi);
 	}
 
 	@Override
-	public ListaZahtevaZiga searchText(String txt) throws XMLDBException, JAXBException {
+	public ListaZahtevaZiga searchText(String txt, String status) throws XMLDBException, JAXBException {
 		String[] keywords = txt.split(";");
 		String conditions = "";
 		for (int i = 0; i < keywords.length; i++) {
@@ -158,6 +166,9 @@ public class ZigServiceImpl implements ZigService {
 			if(i != keywords.length-1) {
 				conditions += " and ";
 			}
+		}
+		if(status.equals(StatusZahteva.ODOBREN.value())) {
+			conditions += " and " + String.format(QueryUtils.STATUS_TEPMLATE, "'" + status + "'");
 		}
 		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
 		System.out.println(xQuery);
