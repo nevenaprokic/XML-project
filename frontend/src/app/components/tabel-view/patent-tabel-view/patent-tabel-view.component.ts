@@ -14,6 +14,7 @@ import { PatentService } from 'src/app/services/patent/patent.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 import { PatentDetailViewComponent } from '../../detail-view/patent/patent-detail-view/patent-detail-view.component';
+import { FileUtilService } from "src/app/services/utils/file-util/file-util.service";
 
 
 @Component({
@@ -25,7 +26,8 @@ export class PatentTabelViewComponent implements OnInit {
 
   zahteviPatent: ZahtevZaPriznanjePatent[] = [];
   isLoaded: boolean = false;
-  displayedColumns = ["pronalazak", "podnosilac", "datum podnošenja", "prikaz"]
+  basicColoumns = ["pronalazak", "podnosilac", "datum podnošenja", "prikaz"]
+  displayedColumns: string[] = []
   gettingDataFinished: boolean = false;
   dataSource!: MatTableDataSource<ZahtevZaPriznanjePatent>;
   isSluzbenik: boolean = false;
@@ -33,6 +35,13 @@ export class PatentTabelViewComponent implements OnInit {
   commonPrefix: string = '';
   isEmptySource: boolean = false
 
+  metadataOptions = [    
+    'datum_prijema_prijave', 
+    'pronalazak_naslov', 
+    'pronalazac',
+    'podnosilac_email',
+    'ime_podnosioca',
+  ]
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) matTable!: MatTable<any>;
@@ -41,7 +50,8 @@ export class PatentTabelViewComponent implements OnInit {
   constructor(private patentService: PatentService,
               private userService: UserService,
               private patentFromXML: PatentFromXmlService,
-              private dialog: MatDialog, private toastr: Toastr) {
+              private dialog: MatDialog, private toastr: Toastr,
+              private fileUtils: FileUtilService) {
 
               }
 
@@ -51,20 +61,22 @@ export class PatentTabelViewComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getDataByRole()
+  }
 
+  getDataByRole(){
     if (this.userService.getRoleCurrentUserRole() === "SLUZBENIK") {
       this.isSluzbenik = true;
-      this.displayedColumns.push("rešenje")
-      this.displayedColumns.push("pdf")
-      this.displayedColumns.push("html")
-      this.displayedColumns.push("rdf")
-      this.displayedColumns.push("json")
+      this.setDisplayedColumnsForSluzbenik()
       this.getDataForSluzbenik()
     } else {
       this.getDataForUserTabel();
     }
   }
 
+  setDisplayedColumnsForSluzbenik(): void {
+    this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
+  }
 
   getDataForUserTabel() {
 
@@ -73,16 +85,7 @@ export class PatentTabelViewComponent implements OnInit {
   getDataForSluzbenik() {
     this.patentService.getAll().subscribe({
       next: (response) => {
-        let zahtevList = this.getJson(response) 
-        if (Object.keys(zahtevList.listaZahtevaPatent).length > 1) {
-          const atrributes = zahtevList.listaZahtevaPatent._attributes;
-          this.getPrefix(atrributes)
-          this.convertFromJSON(zahtevList)
-        } else {
-          this.isEmptySource = true;
-          this.gettingDataFinished = true;
-          this.toastr.info("Nema odgovarajućih dokumenata")
-        }
+        this.getFromResponse(response)
       },
       error: (error) => {
         console.log(error)
@@ -94,6 +97,22 @@ export class PatentTabelViewComponent implements OnInit {
     const convert = require('xml-js');
     const zahtevList: any = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
     return zahtevList;
+  }
+
+  getFromResponse(response: any) {
+    this.zahteviPatent = []
+    const zahtevList = this.getJson(response) 
+    if (zahtevList.listaZahtevaPatent && Object.keys(zahtevList.listaZahtevaPatent).length > 1) {
+      const atrributes = zahtevList.listaZahtevaPatent._attributes;
+      this.getPrefix(atrributes)
+      this.convertFromJSON(zahtevList)
+      this.isEmptySource = false;
+    } else {
+      this.isEmptySource = true;
+      this.gettingDataFinished = true;
+      this.toastr.info("Nema odgovarajućih dokumenata")
+    }
+
   }
 
   setDataSource(zahtevSource: ZahtevZaPriznanjePatent[]) {
@@ -131,6 +150,59 @@ export class PatentTabelViewComponent implements OnInit {
     this.dialog.open(PatentDetailViewComponent, {
       data: element,
     });
+  }
+
+  downloadRdf(id: string) {
+    this.patentService.downloadRdf(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaPriznanjePatenta${id}.rdf`;
+        this.fileUtils.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+  downloadJson(id: string) {
+    this.patentService.downloadJson(id).subscribe({
+      next: (res: any) => {
+        const filename: string =`zahtevZaPriznanjePatenta${id}.json`;
+        this.fileUtils.downloadDocument(res, filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
+  searchMetadata(query: string): void {
+    if(query){
+      this.patentService.searchMetadata(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    } else{
+      this.getDataByRole()
+    }
+  }
+
+  searchText(query: string): void {
+    if(query){
+      this.patentService.searchText(query).subscribe({
+        next: (res: any) => {
+          this.getFromResponse(res);
+        },
+        error: (res: any) => {
+          console.log(res)
+        }
+      })
+    }  else{
+      this.getDataByRole();
+    }
   }
 
 }

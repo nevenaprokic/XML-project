@@ -78,8 +78,9 @@ public class AutorskoDeloMapper {
 			prilog.setPutanjaDoFajla(prilogDTO.getPutanjaDoFajla());
 			prilog.setDostavljeno(true);
 			
+			String prilogId =  documentId+"-"+prilogDTO.getPutanjaDoFajla();
 			prilog.getOtherAttributes().put(new QName("rel"), "pred:prilog_" + prilogType);
-			prilog.getOtherAttributes().put(new QName("href"), PRILOG_PREFIX + prilogDTO.getPutanjaDoFajla());
+			prilog.getOtherAttributes().put(new QName("href"), PRILOG_PREFIX + prilogId);
 		}
 //		if(dopuna.isDostavljeno() != null) {
 //			dopuna.setDostavljeno(dopunaDTO.isDostavljeno());

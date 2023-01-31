@@ -1,0 +1,15 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:pred="http://examples/predicate/">
+  <rdf:Description rdf:about="http://ftn.uns.ac.rs/a1/A9">
+    <pred:prilogOpis rdf:resource="http://ftn.uns.ac.rs/prilog/test.png"/>
+    <pred:koautor>Jhon Doe Anonimus</pred:koautor>
+    <pred:primarni_autor>Katarina Komad</pred:primarni_autor>
+    <pred:autorsko_delo>XML</pred:autorsko_delo>
+    <pred:ime_prodnosioca>Pera organization</pred:ime_prodnosioca>
+    <pred:podnosilac rdf:resource="http://ftn.uns.ac.rs/user/pera@gmail.com"/>
+    <pred:datum_podnosenja rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2023-01-29T18:06:19.744+01:00</pred:datum_podnosenja>
+  </rdf:Description>
+</rdf:RDF>

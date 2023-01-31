@@ -7,21 +7,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import javax.xml.bind.JAXBException;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
@@ -31,8 +30,6 @@ import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.exception.BadRequestException;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
 import rs.ac.uns.ftn.jaxb.Jaxb;
-
-import rs.ac.uns.ftn.jaxb.PatentList;
 import rs.ac.uns.ftn.jaxb.p1.PodaciODodatnojPrijavi;
 import rs.ac.uns.ftn.jaxb.p1.RanijaPrijava;
 import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
@@ -42,6 +39,7 @@ import rs.ac.uns.ftn.lists.ListaZahtevaPatent;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.mapper.PatentMapper;
 import rs.ac.uns.ftn.repository.PatentRepository;
+import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.services.PatentService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
@@ -49,6 +47,7 @@ import rs.ac.uns.ftn.transformations.PDFTransformer;
 public class PatentServiceImpl implements PatentService {
 
 	public static final String PATH = "src/main/resources/xslt/";
+	private static final String TARGET_NAMESPACE = "http://ftn.uns.ac.rs/p1/";
 	public static final String XSL_FILE = "src/main/resources/xslt/P1.xsl";
 
 	@Autowired
@@ -56,6 +55,9 @@ public class PatentServiceImpl implements PatentService {
 
 	@Autowired
 	private Jaxb jaxb;
+
+	@Autowired
+	private MetadataService metadataService;
 
 	public void saveNewFile(ZahtevZaPriznanjePatenta zahtevDTO) throws XMLDBException {
 //		String xpath = "/Zahtev_za_priznanje_patenta[@broj_prijave='" + zahtevDTO.getBrojPrijave() + "']";
@@ -178,5 +180,43 @@ public class PatentServiceImpl implements PatentService {
 			}
 		}
 		
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsRdf(String documentId) throws IOException {
+		return metadataService.getAsRdf(documentId);
+	}
+
+	@Override
+	public InputStreamResource getMetadataAsJson(String documentId) throws IOException {
+		return metadataService.getAsJson(documentId);
+	}
+
+	@Override
+	public ListaZahtevaPatent searchText(String txt) throws XMLDBException, JAXBException {
+		String[] keywords = txt.split(";");
+		String conditions = "";
+		for (int i = 0; i < keywords.length; i++) {
+			conditions += String.format(QueryUtils.CONDITION_TEPMLATE, "'" + keywords[i] + "'");
+			if(i != keywords.length-1) {
+				conditions += " and ";
+			}
+		}
+		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
+		System.out.println(xQuery);
+		ResourceSet result = patentRepository.getByXQuery(xQuery);
+		return resourceSetToList(result);
+	}
+
+	@Override
+	public ListaZahtevaPatent searchMetadata(String request) throws IOException {
+		List<ZahtevZaPriznanjePatenta> zahtevi = new ArrayList<ZahtevZaPriznanjePatenta>();
+		List<String> ids = metadataService.searchByMetadata(request);
+		for (String id : ids) {
+			String documentId = id.split(TARGET_NAMESPACE)[1];
+			ZahtevZaPriznanjePatenta zahtev = getZahtevZaPriznanjePatenta(documentId);
+			zahtevi.add(zahtev);
+		}
+		return new ListaZahtevaPatent(zahtevi);
 	}
 }

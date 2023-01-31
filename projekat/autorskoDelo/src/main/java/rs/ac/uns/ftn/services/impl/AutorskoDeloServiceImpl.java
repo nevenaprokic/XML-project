@@ -58,6 +58,14 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	@Override
 	public String saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		String documentId = generateDocumentId();
+		setDatumPodnosenja(zahtevDTO);
+		extractPrilozi(zahtevDTO, documentId);
+		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
+		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
+		return documentId;
+	}
+
+	private void setDatumPodnosenja(ZahtevZaAutorskoDelo zahtevDTO) {
 		GregorianCalendar c = new GregorianCalendar();
 		c.setTime(new Date());
 		XMLGregorianCalendar date2;
@@ -67,10 +75,6 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
 		}
-		extractPrilozi(zahtevDTO, documentId);
-		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
-		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
-		return documentId;
 	}
 
 	private void extractPrilozi(ZahtevZaAutorskoDelo zahtev, String documentId) {
@@ -79,19 +83,21 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 			return;
 		}
 		if(prilozi.getPrisutanOpis()!=null) {
-			PrilogImage prilog = PrilogMapper.mapFromDTO(prilozi.getPrisutanOpis().getPutanjaDoFajla());
-			String prilogId = documentId + "-" + prilog.getNazivPriloga();
-			prilogRepository.savePrilog(prilog, prilogId);
-			
-			prilozi.getPrisutanOpis().setPutanjaDoFajla(prilog.getNazivPriloga());
+			String path = savePrilog(prilozi.getPrisutanOpis(), documentId);
+			prilozi.getPrisutanOpis().setPutanjaDoFajla(path);
 		}
 		if(prilozi.getPrisutanPrimer()!=null) {
-			PrilogImage prilog = PrilogMapper.mapFromDTO(prilozi.getPrisutanPrimer().getPutanjaDoFajla());
-			String prilogId = documentId + "-" + prilog.getNazivPriloga();
-			prilogRepository.savePrilog(prilog, prilogId);
-			
-			prilozi.getPrisutanPrimer().setPutanjaDoFajla(prilog.getNazivPriloga());
+			String path = savePrilog(prilozi.getPrisutanPrimer(), documentId);
+			prilozi.getPrisutanPrimer().setPutanjaDoFajla(path);
 		}
+	}
+	
+	private String savePrilog(TPrilog prilogDto, String documentId) {
+		PrilogImage prilog = PrilogMapper.mapFromDTO(prilogDto.getPutanjaDoFajla());
+		String prilogId = documentId + "-" + prilog.getNazivPriloga();
+		prilogRepository.savePrilog(prilog, prilogId);
+		
+		return prilog.getNazivPriloga();
 	}
 	
 	

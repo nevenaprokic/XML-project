@@ -59,4 +59,25 @@ export class PatentService {
   compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
+
+  downloadRdf(documentId: string) {
+    const url = this.PATENT_PATH + `/get-rdf/${documentId}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
+  downloadJson(documentId: string) {
+    const url = this.PATENT_PATH + `/get-json/${documentId}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
+  searchMetadata(request: string) {
+    const url = this.PATENT_PATH + `/searchMetadata?request=${request}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
+  searchText(request: string){
+    const url = this.PATENT_PATH + `/searchText?txt=${request}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
 }
