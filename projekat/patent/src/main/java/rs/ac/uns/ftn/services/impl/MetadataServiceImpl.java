@@ -12,7 +12,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,8 +40,8 @@ import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities.ConnectionProperties;
 import rs.ac.uns.ftn.services.metadata.utils.FileUtil;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataExtractor;
-import rs.ac.uns.ftn.services.metadata.utils.MetadataKeys;
 import rs.ac.uns.ftn.services.metadata.utils.SearchRequestParser;
+import rs.ac.uns.ftn.services.metadata.utils.SparqlQueryTemplate;
 import rs.ac.uns.ftn.services.metadata.utils.SparqlUtil;
 
 @Service
@@ -165,9 +164,61 @@ public class MetadataServiceImpl implements MetadataService{
 	public InputStreamResource getAsRdf(String documentId) throws IOException {
 		setupConnection(PATENT_GRAPH);
 		
-		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByIdQuery(documentId));
+		Map<String, String> ranijePrijave = getRanijePrijave(documentId);
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, SparqlQueryTemplate.filterById(documentId, ranijePrijave));
 		ResultSet resultSet = query.execSelect();
 		
+		Map<String, String> params = getRdfParamsFromResultSet(resultSet);
+		String rdf =  SparqlQueryTemplate.formatRdf(params, ranijePrijave);
+		byte[] byteArrray = rdf.getBytes();
+		
+		ByteArrayInputStream bis = new ByteArrayInputStream(byteArrray);
+		return new InputStreamResource(bis);
+	}
+
+
+	@Override
+	public InputStreamResource getAsJson(String documentId) throws IOException {
+		setupConnection(PATENT_GRAPH);
+		
+		Map<String, String> ranijePrijave = getRanijePrijave(documentId);
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, SparqlQueryTemplate.filterById(documentId, ranijePrijave));
+		ResultSet resultSet = query.execSelect();
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		
+		ResultSetFormatter.outputAsJSON(outputStream, resultSet);
+		query.close();
+		
+		ByteArrayInputStream bis = new ByteArrayInputStream(outputStream.toByteArray());
+		return new InputStreamResource(bis);
+	}
+
+	@Override
+	public List<String> searchByMetadata(String request) throws IOException {
+		setupConnection(PATENT_GRAPH);
+
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByCriteriaQuery(request));
+		ResultSet resultSet = query.execSelect();
+
+		return (List<String>) getRdfParamsFromResultSet(resultSet).values();
+		
+	}
+
+	private String filterByCriteriaQuery(String request) throws IOException {
+		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_search_filter_template.rq",StandardCharsets.UTF_8);
+		
+		String filterClause = SearchRequestParser.parseFilterClause(request);
+		return String.format(XML_RDF_template, filterClause);
+	}
+	
+
+	private String getRanijePrijaveQuery(String documentId) throws IOException {
+		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_ranije_prijave_template.rq",StandardCharsets.UTF_8);
+		return String.format(XML_RDF_template, documentId);
+	}
+
+	private Map<String, String> getRdfParamsFromResultSet(ResultSet resultSet) {
 		String varName;
 		RDFNode varValue;
 		
@@ -185,82 +236,39 @@ public class MetadataServiceImpl implements MetadataService{
 		    }
 		    System.out.println();
 		}
-		
-		String rdf = formatRDFXMLTemplate(params);
-		byte[] byteArrray = rdf.getBytes();
-		
-		ByteArrayInputStream bis = new ByteArrayInputStream(byteArrray);
-		return new InputStreamResource(bis);
+		return params;
 	}
-
-	@Override
-	public InputStreamResource getAsJson(String documentId) throws IOException {
-		setupConnection(PATENT_GRAPH);
-		
-		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByIdQuery(documentId));
-		ResultSet resultSet = query.execSelect();
-
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		
-		ResultSetFormatter.outputAsJSON(outputStream, resultSet);
-		query.close();
-		
-		ByteArrayInputStream bis = new ByteArrayInputStream(outputStream.toByteArray());
-		return new InputStreamResource(bis);
-	}
-
-	private String filterByIdQuery(String documentId) throws IOException {
-		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_filter_by_id_template.rq",StandardCharsets.UTF_8);
-		return String.format(XML_RDF_template, documentId);
-	}	
 	
-	private String formatRDFXMLTemplate(Map<String, String> params) throws IOException {
-		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/rdf_metadata_template.rq",StandardCharsets.UTF_8);
-		
-		return String.format(XML_RDF_template, 
-				params.get(MetadataKeys.ZAHTEV_ZA_PRIZNANJE_PATENTA), 
-				params.get(MetadataKeys.DATUM_PRIJEMA_PRIJAVE), 
-				params.get(MetadataKeys.PRONALAZAK_NASLOV), 
-				params.get(MetadataKeys.PRONALAZAC), 
-				params.get(MetadataKeys.PODNOSILAC_EMAIL), 
-				params.get(MetadataKeys.IME_PODNOSIOCA), 
-				params.get(MetadataKeys.BROJ_PRVOBITNE_PRIJAVE)
-				);
-	}
 
-	@Override
-	public List<String> searchByMetadata(String request) throws IOException {
+	private Map<String, String> getRanijePrijave(String documentId) throws IOException {		
 		setupConnection(PATENT_GRAPH);
-
-		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, filterByCriteriaQuery(request));
+		
+		QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, getRanijePrijaveQuery(documentId));
 		ResultSet resultSet = query.execSelect();
 		
 		String varName;
 		RDFNode varValue;
 		
-		List<String> ids = new ArrayList<String>();
+		Map<String, String> ranijePrijave = new HashMap<String, String>();
 		
 		while(resultSet.hasNext()) {
 			QuerySolution querySolution = resultSet.next() ;
 			Iterator<String> variableBindings = querySolution.varNames();
-
+			String predicate = ""; 	// <http://examples/predicate/ranija_prijava%c> 
+			String object = "";		// ?ranija_prijava%c
 		    while (variableBindings.hasNext()) {
 		    	varName = variableBindings.next();
 		    	varValue = querySolution.get(varName);
-		    	ids.add(varValue.toString());
-		    	System.out.println(varName + ": " + varValue);
+		    	if(varName.equals("object")) {
+		    		object = varValue.toString();
+		    	}
+		    	else if(varName.equals("predicate")) {
+		    		predicate = varValue.toString();
+		    	}
 		    }
+		    ranijePrijave.put(predicate, object);
 		}
-		
-		return ids;
+		return ranijePrijave;
 	}
 
-	private String filterByCriteriaQuery(String request) throws IOException {
-		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_search_filter_template.rq",StandardCharsets.UTF_8);
-		
-		String filterClause = SearchRequestParser.parseFilterClause(request);
-		String a = String.format(XML_RDF_template, filterClause);
-		System.out.println(a);
-		return a;
-	}
 }

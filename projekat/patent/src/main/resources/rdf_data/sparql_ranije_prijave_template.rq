@@ -1,0 +1,9 @@
+SELECT ?predicate ?object FROM <http://localhost:8080/fusekiP/Patent/data/project/metadata/patent>
+WHERE {
+  ?subject ?predicate ?object .
+  
+  FILTER(
+    regex(UCASE(str(?predicate)), UCASE(".*ranija_prijava.*")) &&
+    regex(UCASE(str(?subject)), UCASE(".*%1$s*"))
+  )
+}
