@@ -52,7 +52,7 @@
           <ng-container matColumnDef="rešenje" *ngIf="isSluzbenik">
             <th mat-sort-header *matHeaderCellDef>podnesi resnje</th>
             <td mat-cell *matCellDef="let element">
-              <button class="button-evaluate" (click)="openResenje(element)">resenje
+              <button class="button-evaluate"  *ngIf="element.status === 'neobradjen'" (click)="openResenje(element)">resenje
               </button>
             </td>
           </ng-container>

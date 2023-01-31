@@ -145,9 +145,9 @@ public class PatentController {
 	}
 	
 	@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<ListaZahtevaPatent> searchText(@RequestParam("txt") String txt) {
+	public ResponseEntity<ListaZahtevaPatent> searchText(@RequestParam("txt") String txt, @RequestParam("status") String status) {
 		try {
-			ListaZahtevaPatent zahtevi = patentService.searchText(txt);
+			ListaZahtevaPatent zahtevi = patentService.searchText(txt, status);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {

@@ -178,7 +178,7 @@ export class PatentTabelViewComponent implements OnInit {
 
   searchMetadata(query: string): void {
     if(query){
-      const status = this.userService.getRoleCurrentUserRole() === "SLUZBENIK" ?  Status.NEOBRADJEN : Status.ODOBREN;
+      const status = this.userService.getRoleCurrentUserRole() === "SLUZBENIK" ?  Status.SVI : Status.ODOBREN;
       this.patentService.searchMetadata(query, status).subscribe({
         next: (res: any) => {
           this.getFromResponse(res);
@@ -194,7 +194,8 @@ export class PatentTabelViewComponent implements OnInit {
 
   searchText(query: string): void {
     if(query){
-      this.patentService.searchText(query).subscribe({
+      const status = this.userService.getRoleCurrentUserRole() === "SLUZBENIK" ?  Status.SVI : Status.ODOBREN;
+      this.patentService.searchText(query, status).subscribe({
         next: (res: any) => {
           this.getFromResponse(res);
         },

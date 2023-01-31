@@ -193,14 +193,17 @@ public class PatentServiceImpl implements PatentService {
 	}
 
 	@Override
-	public ListaZahtevaPatent searchText(String txt) throws XMLDBException, JAXBException {
+	public ListaZahtevaPatent searchText(String txt, String status) throws XMLDBException, JAXBException {
 		String[] keywords = txt.split(";");
-		String conditions = "";
+		String conditions =  "" ;
 		for (int i = 0; i < keywords.length; i++) {
 			conditions += String.format(QueryUtils.CONDITION_TEPMLATE, "'" + keywords[i] + "'");
 			if(i != keywords.length-1) {
 				conditions += " and ";
 			}
+		}
+		if(status.equals(StatusZahteva.ODOBREN.value())) {
+			conditions += " and " + String.format(QueryUtils.STATUS_TEPMLATE, "'" + status + "'");
 		}
 		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
 		System.out.println(xQuery);
@@ -215,9 +218,15 @@ public class PatentServiceImpl implements PatentService {
 		for (String id : ids) {
 			String documentId = id.split(TARGET_NAMESPACE)[1];
 			ZahtevZaPriznanjePatenta zahtev = getZahtevZaPriznanjePatenta(documentId);
-			if(zahtev.getStatus().value().equals(status)) {
+			if(status.equals(StatusZahteva.ODOBREN.value())) {
+				if(zahtev.getStatus().value().equals(status)) {
+					zahtevi.add(zahtev);
+				}
+			}
+			else {
 				zahtevi.add(zahtev);
 			}
+			
 		}
 		return new ListaZahtevaPatent(zahtevi);
 	}

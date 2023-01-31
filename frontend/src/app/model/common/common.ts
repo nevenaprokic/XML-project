@@ -27,5 +27,6 @@ export class Adresa {
 export enum Status{
   NEOBRADJEN = "neobradjen",
   ODBIJEN ="odbijen",
-  ODOBREN="odobren"
+  ODOBREN="odobren",
+  SVI="svi"
 }

@@ -31,7 +31,7 @@ public interface PatentService {
 
 	InputStreamResource getMetadataAsJson(String documentId) throws IOException;
 
-	ListaZahtevaPatent searchText(String txt) throws XMLDBException, JAXBException;
+	ListaZahtevaPatent searchText(String txt, String status) throws XMLDBException, JAXBException;
 
 	ListaZahtevaPatent searchMetadata(String request, String status) throws IOException;
 

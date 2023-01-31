@@ -75,8 +75,8 @@ export class PatentService {
     return this.http.get(url) as Observable<any>;
   }
 
-  searchText(request: string){
-    const url = this.PATENT_PATH + `/searchText?txt=${request}`;
+  searchText(request: string, status: string){
+    const url = this.PATENT_PATH + `/searchText?status=${status}&txt=${request}`;
     return this.http.get(url) as Observable<any>;
   }
 
