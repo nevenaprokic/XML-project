@@ -209,13 +209,15 @@ public class PatentServiceImpl implements PatentService {
 	}
 
 	@Override
-	public ListaZahtevaPatent searchMetadata(String request) throws IOException {
+	public ListaZahtevaPatent searchMetadata(String request, String status) throws IOException {
 		List<ZahtevZaPriznanjePatenta> zahtevi = new ArrayList<ZahtevZaPriznanjePatenta>();
 		List<String> ids = metadataService.searchByMetadata(request);
 		for (String id : ids) {
 			String documentId = id.split(TARGET_NAMESPACE)[1];
 			ZahtevZaPriznanjePatenta zahtev = getZahtevZaPriznanjePatenta(documentId);
-			zahtevi.add(zahtev);
+			if(zahtev.getStatus().value().equals(status)) {
+				zahtevi.add(zahtev);
+			}
 		}
 		return new ListaZahtevaPatent(zahtevi);
 	}

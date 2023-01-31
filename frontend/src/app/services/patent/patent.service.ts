@@ -70,8 +70,8 @@ export class PatentService {
     return this.http.get(url) as Observable<any>;
   }
 
-  searchMetadata(request: string) {
-    const url = this.PATENT_PATH + `/searchMetadata?request=${request}`;
+  searchMetadata(request: string, status: string) {
+    const url = this.PATENT_PATH + `/searchMetadata?status=${status}&request=${request}`;
     return this.http.get(url) as Observable<any>;
   }
 

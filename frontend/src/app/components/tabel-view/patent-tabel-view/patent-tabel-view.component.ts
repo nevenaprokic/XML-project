@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 import { PatentDetailViewComponent } from '../../detail-view/patent/patent-detail-view/patent-detail-view.component';
 import { FileUtilService } from "src/app/services/utils/file-util/file-util.service";
+import { Status } from "src/app/model/common/common";
 
 
 @Component({
@@ -177,7 +178,8 @@ export class PatentTabelViewComponent implements OnInit {
 
   searchMetadata(query: string): void {
     if(query){
-      this.patentService.searchMetadata(query).subscribe({
+      const status = this.userService.getRoleCurrentUserRole() === "SLUZBENIK" ?  Status.NEOBRADJEN : Status.ODOBREN;
+      this.patentService.searchMetadata(query, status).subscribe({
         next: (res: any) => {
           this.getFromResponse(res);
         },

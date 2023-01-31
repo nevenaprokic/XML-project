@@ -9,6 +9,7 @@ import org.xmldb.api.base.XMLDBException;
 
 import com.itextpdf.text.DocumentException;
 
+import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.lists.ListaZahtevaPatent;
 
@@ -32,7 +33,7 @@ public interface PatentService {
 
 	ListaZahtevaPatent searchText(String txt) throws XMLDBException, JAXBException;
 
-	ListaZahtevaPatent searchMetadata(String request) throws IOException;
+	ListaZahtevaPatent searchMetadata(String request, String status) throws IOException;
 
 	//PatentList getAllPatents() throws XMLDBException, JAXBException;
 

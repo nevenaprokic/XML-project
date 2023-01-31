@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.exception.ErrorMessage;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
+import rs.ac.uns.ftn.jaxb.p1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.p1.ZahtevZaPriznanjePatenta;
 import rs.ac.uns.ftn.lists.ListaZahtevaPatent;
 import rs.ac.uns.ftn.services.PatentService;
@@ -48,7 +50,7 @@ public class PatentController {
 
 	@RequestMapping(value="/save-new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<?> saveNewFile(@RequestBody ZahtevZaPriznanjePatenta zahtev, @RequestHeader MultiValueMap<String, String> headers) {
-		//this.chechAuthority(headers, USER_API_KORISNIK);
+		this.chechAuthority(headers, USER_API_KORISNIK);
 		try {
 			patentService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();
@@ -154,9 +156,9 @@ public class PatentController {
 	}
 	
 	@GetMapping(value="/searchMetadata")
-	public ResponseEntity<ListaZahtevaPatent> searchMetadata(@RequestParam("request") String request) {
+	public ResponseEntity<ListaZahtevaPatent> searchMetadata(@RequestParam("request") String request, @RequestParam("status") String status) {
 		try {
-			ListaZahtevaPatent zahtevi = patentService.searchMetadata(request);
+			ListaZahtevaPatent zahtevi = patentService.searchMetadata(request, status);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {
