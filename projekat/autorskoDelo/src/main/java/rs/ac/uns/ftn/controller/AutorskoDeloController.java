@@ -86,9 +86,9 @@ public class AutorskoDeloController {
 	}
 
 	@GetMapping(value="/searchText", produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<ListaZahtevaAutorskoDelo> searchText(@RequestParam("txt") String txt) {
+	public ResponseEntity<ListaZahtevaAutorskoDelo> searchText(@RequestParam("txt") String txt, @RequestParam("status") String status) {
 		try {
-			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchText(txt);
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchText(txt, status);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -97,9 +97,9 @@ public class AutorskoDeloController {
 	}
 	
 	@GetMapping(value="/searchMetadata")
-	public ResponseEntity<ListaZahtevaAutorskoDelo> searchMetadata(@RequestParam("request") String request) {
+	public ResponseEntity<ListaZahtevaAutorskoDelo> searchMetadata(@RequestParam("request") String request, @RequestParam("status") String status) {
 		try {
-			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchMetadata(request);
+			ListaZahtevaAutorskoDelo zahtevi = autorskoDeloService.searchMetadata(request, status);
 			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
 		}
 		catch (Exception e) {

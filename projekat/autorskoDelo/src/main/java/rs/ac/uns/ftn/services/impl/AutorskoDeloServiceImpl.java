@@ -26,6 +26,7 @@ import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
+import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.a1.TPrilog;
 import rs.ac.uns.ftn.jaxb.a1.TPrilozi;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
@@ -168,7 +169,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	}
 
 	@Override
-	public ListaZahtevaAutorskoDelo searchText(String txt) throws XMLDBException, JAXBException {
+	public ListaZahtevaAutorskoDelo searchText(String txt, String status) throws XMLDBException, JAXBException {
 		String[] keywords = txt.split(";");
 		String conditions = "";
 		for (int i = 0; i < keywords.length; i++) {
@@ -177,6 +178,9 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 				conditions += " and ";
 			}
 		}
+		if(status.equals(StatusZahteva.ODOBREN.value())) {
+			conditions += " and " + String.format(QueryUtils.STATUS_TEPMLATE, "'" + status + "'");
+		}
 		String xQuery = String.format(QueryUtils.SEARCH_TEXT, conditions);
 		System.out.println(xQuery);
 		ResourceSet result = autorskoDeloRepository.getByXQuery(xQuery);
@@ -184,13 +188,20 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	}
 
 	@Override
-	public ListaZahtevaAutorskoDelo searchMetadata(String request) throws IOException {
+	public ListaZahtevaAutorskoDelo searchMetadata(String request, String status) throws IOException {
 		List<ZahtevZaAutorskoDelo> zahtevi = new ArrayList<ZahtevZaAutorskoDelo>();
 		List<String> ids = metadataService.searchByMetadata(request);
 		for (String id : ids) {
 			String documentId = id.split(TARGET_NAMESPACE)[1];
 			ZahtevZaAutorskoDelo zahtev = getZahtevZaAutorskoDeloById(documentId);
-			zahtevi.add(zahtev);
+			if(status.equals(StatusZahteva.ODOBREN.value())) {
+				if(zahtev.getStatus().value().equals(status)) {
+					zahtevi.add(zahtev);
+				}
+			}
+			else {
+				zahtevi.add(zahtev);
+			}
 		}
 		return new ListaZahtevaAutorskoDelo(zahtevi);
 	}

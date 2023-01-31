@@ -27,9 +27,9 @@ public interface AutorskoDeloService {
 	
 	void saveFile(ZahtevZaAutorskoDelo zahtevDTO, String documentId);
 
-	ListaZahtevaAutorskoDelo searchText(String txt) throws XMLDBException, JAXBException;
+	ListaZahtevaAutorskoDelo searchText(String txt, String status) throws XMLDBException, JAXBException;
 
-	ListaZahtevaAutorskoDelo searchMetadata(String params) throws IOException;
+	ListaZahtevaAutorskoDelo searchMetadata(String params, String status) throws IOException;
 
 	InputStreamResource getMetadataAsRdf(String documentId) throws IOException;
 

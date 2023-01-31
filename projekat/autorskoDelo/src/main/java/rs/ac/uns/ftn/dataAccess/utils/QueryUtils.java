@@ -17,11 +17,13 @@ public class QueryUtils {
 	public static final String SEARCH_TEXT = DECLARE_NAMESPACES + DECLATE_MATCH_FUNC +
 			"for $file in collection('/db/project/autorskaDela')\r\n"
 			+ "    let $zahtev := $file/a1:Zahtev_za_autorsko_delo\r\n"
-			+ "	let $txt := $zahtev//text()\r\n"
+			+ "	   let $txt := $zahtev//text()\r\n"
+			+ "	   let $status := data($zahtev/@status)\r\n"
 			+ "	where  %1$s \r\n"
 			+ "return $zahtev";
 	
 	public static final String CONDITION_TEPMLATE = "a1:someMatch($txt, %1$s)";
+	public static final String STATUS_TEPMLATE = "a1:someMatch($status, %1$s)";
 	
 	public static final String FIND_ALL_APPROVED = DECLARE_NAMESPACES + 
 			"for $zahtev in collection('/db/project/autorskaDela')\r\n"
