@@ -3,8 +3,6 @@ package rs.ac.uns.ftn.services.impl;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -41,8 +39,8 @@ import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities;
 import rs.ac.uns.ftn.services.metadata.utils.AuthenticationUtilities.ConnectionProperties;
 import rs.ac.uns.ftn.services.metadata.utils.FileUtil;
 import rs.ac.uns.ftn.services.metadata.utils.MetadataExtractor;
-import rs.ac.uns.ftn.services.metadata.utils.MetadataKeys;
 import rs.ac.uns.ftn.services.metadata.utils.SearchRequestParser;
+import rs.ac.uns.ftn.services.metadata.utils.SparqlQueryTemplate;
 import rs.ac.uns.ftn.services.metadata.utils.SparqlUtil;
 
 @Service
@@ -196,7 +194,7 @@ public class MetadataServiceImpl implements MetadataService{
 		    System.out.println();
 		}
 		
-		String rdf = formatRDFXMLTemplate(params);
+		String rdf = SparqlQueryTemplate.formatRdf(params);
 		byte[] byteArrray = rdf.getBytes();
 		
 		ByteArrayInputStream bis = new ByteArrayInputStream(byteArrray);
@@ -236,24 +234,7 @@ public class MetadataServiceImpl implements MetadataService{
 		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_filter_by_id_template.rq",StandardCharsets.UTF_8);
 		return String.format(XML_RDF_template, documentId);
 	}	
-	
-	
-	private String formatRDFXMLTemplate(Map<String, String> params) throws IOException {
-		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/rdf_metadata_template.rq",StandardCharsets.UTF_8);
-		
-		return String.format(XML_RDF_template, 
-				params.get(MetadataKeys.ZAHTEV_ZA_AUTORSKO_DELO), 
-				params.get(MetadataKeys.DATUM_PODNOSENJA), 
-				params.get(MetadataKeys.AUTORSKO_DELO), 
-				params.get(MetadataKeys.PRIMARNI_AUTOR), 
-				params.get(MetadataKeys.KOAUTOR), 
-				params.get(MetadataKeys.PODNOSILAC), 
-				params.get(MetadataKeys.IME_PRODNOSIOCA),
-				params.get(MetadataKeys.PRILOG_OPIS),
-				params.get(MetadataKeys.PRILOG_PRIMER)
-				);
-	}
-	
+
 	public String filterByCriteriaQuery(String request) throws IOException {
 		String XML_RDF_template = FileUtil.readFile("src/main/resources/rdf_data/sparql_search_filter_template.rq",StandardCharsets.UTF_8);
 		
