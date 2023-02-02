@@ -58,7 +58,7 @@ export class AutorskoDeloService {
   }
 
   getPrilog(documentId: string, prilog: string){
-    const url = this.AUTORSKO_DELO_PATH + `/get-prilog/${documentId}/${prilog}`;
+    const url = this.AUTORSKO_DELO_PATH + `/get-prilog?documentId=${documentId}&imageName=${prilog}`;
     return this.httpRequestService.get(url)
   }
 
