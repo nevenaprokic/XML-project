@@ -27,18 +27,15 @@ import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
-import rs.ac.uns.ftn.jaxb.a1.TPrilog;
-import rs.ac.uns.ftn.jaxb.a1.TPrilozi;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.mapper.AutorskoDeloMapper;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
-import rs.ac.uns.ftn.mapper.PrilogMapper;
 import rs.ac.uns.ftn.repository.AutorskoDeloRepository;
-import rs.ac.uns.ftn.repository.PrilogRepository;
 import rs.ac.uns.ftn.services.AutorskoDeloService;
 import rs.ac.uns.ftn.services.MetadataService;
+import rs.ac.uns.ftn.services.PrilogService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
 @Service
@@ -48,7 +45,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public static final String XSL_FILE = "src/main/resources/xslt/A1.xsl";
 
 	@Autowired
-	private PrilogRepository prilogRepository;
+	private PrilogService prilogService;
 	
 	@Autowired
 	private AutorskoDeloRepository autorskoDeloRepository;
@@ -60,7 +57,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public String saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		String documentId = generateDocumentId();
 		setDatumPodnosenja(zahtevDTO);
-		extractPrilozi(zahtevDTO, documentId);
+		prilogService.extractPrilozi(zahtevDTO, documentId);
 		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
 		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
 		return documentId;
@@ -78,30 +75,6 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 		}
 	}
 
-	private void extractPrilozi(ZahtevZaAutorskoDelo zahtev, String documentId) {
-		TPrilozi prilozi = zahtev.getPrilozi();
-		if(prilozi == null) {
-			return;
-		}
-		if(prilozi.getPrisutanOpis()!=null) {
-			String path = savePrilog(prilozi.getPrisutanOpis(), documentId);
-			prilozi.getPrisutanOpis().setPutanjaDoFajla(path);
-		}
-		if(prilozi.getPrisutanPrimer()!=null) {
-			String path = savePrilog(prilozi.getPrisutanPrimer(), documentId);
-			prilozi.getPrisutanPrimer().setPutanjaDoFajla(path);
-		}
-	}
-	
-	private String savePrilog(TPrilog prilogDto, String documentId) {
-		PrilogImage prilog = PrilogMapper.mapFromDTO(prilogDto.getPutanjaDoFajla());
-		String prilogId = documentId + "-" + prilog.getNazivPriloga();
-		prilogRepository.savePrilog(prilog, prilogId);
-		
-		return prilog.getNazivPriloga();
-	}
-	
-	
 	@Override
 	public ZahtevZaAutorskoDelo getZahtevZaAutorskoDeloById(String id) {
 		return autorskoDeloRepository.getZahtevZaAutorskoDelobyId(id);
@@ -224,7 +197,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 
 	@Override
 	public PrilogImage getPrilog(String documentId, String imgName) {
-		return prilogRepository.getById(documentId + "-" +imgName);
+		return prilogService.getPrilog(documentId, imgName);
 	}
 
 }
