@@ -51,7 +51,7 @@ import {FormResenjeComponent} from './components/forms/form-resenje/form-resenje
 import {MAT_DIALOG_DATA, MatDialogModule} from "@angular/material/dialog";
 import {IzvestajComponent} from './components/izvestaj/izvestaj.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { PatentTabelViewComponent } from './components/tabel-view/patent-tabel-view/patent-tabel-view.component';
 import {MatTableModule} from "@angular/material/table"
 import { MatSortModule } from '@angular/material/sort'
@@ -157,7 +157,7 @@ const MaterialModule = [
     ...MaterialModule
   ],
   exports: [MaterialModule],
-  providers: [{provide: MAT_DIALOG_DATA, useValue: {}}, DatePipe],
+  providers: [{provide: MAT_DIALOG_DATA, useValue: {}}, DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent]
 
 })

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AutorskoDeloService } from 'src/app/services/autorsko-delo/autorsko-delo.service';
 
@@ -14,7 +14,7 @@ interface Query {
   templateUrl: './metadata-search.component.html',
   styleUrls: ['./metadata-search.component.scss']
 })
-export class MetadataSearchComponent implements OnInit {
+export class MetadataSearchComponent implements OnInit,OnChanges {
 
   @Output()
   queryEvent = new EventEmitter<string>();
@@ -31,13 +31,24 @@ export class MetadataSearchComponent implements OnInit {
   controlIds: number[] = []
   idCounter = 0
 
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+  maxDate = new Date();
+  dateName: string = '';
   constructor() {
     this.metadataSearchForm = new FormGroup({})
     this.addNewQueryForm()
   }
 
   ngOnInit(): void {
-    
+  }
+
+  ngOnChanges(changes: any) {
+    const metadataOptions: string[] = changes.metadataOptions.currentValue;
+    this.metadataOptions = metadataOptions.filter(option=> !option.includes('datum'));
+    this.dateName = metadataOptions.filter(option=> option.includes('datum'))[0];
   }
 
   addNewQueryForm(){
@@ -65,11 +76,20 @@ export class MetadataSearchComponent implements OnInit {
       queries.push({operator, metadata, value});
     })
 
+    
     let formatedQuery: string = "";
     queries.forEach((query: Query)=>{
       formatedQuery += `${query.operator ? query.operator + ";": ''}${query.metadata && query.value? (query.metadata + '='+  query.value + ";"): ''}`
     })
-    return formatedQuery;
+    return this.addDateRangeInQuery(formatedQuery);
+  }
+
+  addDateRangeInQuery(query: string): string{
+    const start: Date | null = this.range.controls.start.value;
+    const end: Date | null = this.range.controls.end.value;
+    const startDateQuery = `${this.dateName}>="${start?.toISOString().replace('Z', '+01:00')}"`
+    const endDateQuery = `;AND;${this.dateName}<="${end?.toISOString().replace('Z', '+01:00')}"`
+    return query + `${query!=''? 'AND;' : ''}`+ startDateQuery + endDateQuery;
   }
 
   operatorSelectChange(event: any, id: number): void {
