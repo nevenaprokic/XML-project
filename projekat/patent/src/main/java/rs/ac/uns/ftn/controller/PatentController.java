@@ -67,7 +67,6 @@ public class PatentController {
 	
 	@GetMapping(value="/{documentId}", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<?> getById(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
-			this.chechAuthority(headers, USER_API_KORISNIK_SLUZBENIK);
 			ZahtevZaPriznanjePatenta zahtev = patentService.getZahtevZaPriznanjePatenta(documentId);
 			return ResponseEntity.ok(zahtev);
 	}
