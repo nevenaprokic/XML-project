@@ -2,7 +2,10 @@ package rs.ac.uns.ftn.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
@@ -29,6 +33,7 @@ import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaResenja;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 import rs.ac.uns.ftn.jaxb.resenje.StatusResenja;
+import rs.ac.uns.ftn.jaxb.resenje.TOdbijen;
 import rs.ac.uns.ftn.jaxb.resenje.TOdobren;
 import rs.ac.uns.ftn.jaxb.resenje.TSluzbenik;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
@@ -53,7 +58,7 @@ public class ResenjeServiceImpl implements ResenjeService {
 	public static final String XSL_FILE = "src/main/resources/xslt/Resenje.xsl";
 
 	@Override
-	public void saveNewFile(Resenje resenje, String user) {
+	public String saveNewFile(Resenje resenje, String user) {
 		TSluzbenik sluzbenik = getSluzbenik(user);
 		resenje.setSluzbenik(sluzbenik);
 		
@@ -71,14 +76,20 @@ public class ResenjeServiceImpl implements ResenjeService {
 			}
 		}
 		if(resenje.getStatus() == StatusResenja.ODBIJEN) {
+			if(resenje.getDodatak() instanceof TOdbijen) {
+				zahtev.setBrojPrijave(((TOdbijen) resenje.getDodatak()).getSifra());
+			}
 			zahtev.setStatus(StatusZahteva.ODBIJEN);
 		}
 
+		zahtev.setIdResenja(documentId);
 		zahtev.setIdAutorskogDela(resenje.getIdAutorskogDela());
 		autorskoDeloService.saveFile(zahtev, resenje.getIdAutorskogDela().getIdA());
 		resenjeRepository.saveResenje(resenje, documentId);
 		
 		sendAsPdfToEmail(resenje, zahtev);
+		
+		return documentId;
 	}
 
 
@@ -131,6 +142,7 @@ public class ResenjeServiceImpl implements ResenjeService {
 		}
 	}
 
+	// ovo mi treba za slanje mejla, NE DIRAJ!
 	@Override
 	public File getPDF(Resenje resenje) throws IOException, DocumentException, ParserConfigurationException, JAXBException {
 		Document document = JaxbMapper.marshalResenjeToDocument(resenje);
@@ -156,7 +168,58 @@ public class ResenjeServiceImpl implements ResenjeService {
 		
 		return pdfFile;
 	}
+	
+	// ovo je za preuzimanje resenja
+	@Override
+	public String getPDF(String documentId) throws IOException, DocumentException {
+		//ucitavanje xml-a iz baze
+		Node resenje = resenjeRepository.getResenjeById(documentId);
+		
+		//kreiranje imena za pdf i html
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		String outputFilePDF = PATH + documentId + "-" + timeStamp + ".pdf";
+		String inputFile = PATH + documentId + "-" + timeStamp + ".html";
+    	
+    	// Creates parent directory if necessary
+    	File pdfFile = new File(outputFilePDF);
+    	
+		if (!pdfFile.getParentFile().exists()) {
+			System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
+			pdfFile.getParentFile().mkdir();
+		}
+    		
+		//generisanje pdf-a i html-a
+		PDFTransformer pdfTransformer = new PDFTransformer();
+		pdfTransformer.generateSource(resenje, inputFile, XSL_FILE);
+		pdfTransformer.generatePDF(outputFilePDF, inputFile);	
+		removeFile(inputFile);
+		
+		return convertPdfToBase64(outputFilePDF);
 
+	}
+
+
+	@Override
+	public Resenje getById(String documentId) {
+		return resenjeRepository.getById(documentId);
+	}
+
+
+
+	private String convertPdfToBase64(String filepath) throws IOException {;
+	    byte[] inputFile = Files.readAllBytes(Paths.get(filepath));
+	
+	    byte[] encodedBytes = Base64.getEncoder().encode(inputFile);
+	    String encodedString =  new String(encodedBytes);
+	    
+	    removeFile(filepath);
+	    return encodedString;
+	}
+	
+	private void removeFile(String sourceFilePath) {
+		File source = new File(sourceFilePath); 
+		source.delete();
+	}
 
 	
 

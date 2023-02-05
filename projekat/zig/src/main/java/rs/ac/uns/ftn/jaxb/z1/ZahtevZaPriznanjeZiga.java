@@ -88,6 +88,8 @@ public class ZahtevZaPriznanjeZiga {
 	protected String kod;
 	@XmlAttribute(name = "broj_prijave_ziga")
 	protected String brojPrijaveZiga;
+	@XmlAttribute(name = "id_resenja")
+	protected String idResenja;
 	@XmlAttribute(name = "datum_podnosenja_prijave", required = true)
 	@XmlSchemaType(name = "date")
 	protected XMLGregorianCalendar datumPodnosenjaPrijave;
@@ -303,6 +305,14 @@ public class ZahtevZaPriznanjeZiga {
 
 	public Map<QName, String> getOtherAttributes() {
 		return otherAttributes;
+	}
+
+	public String getIdResenja() {
+		return idResenja;
+	}
+
+	public void setIdResenja(String idResenja) {
+		this.idResenja = idResenja;
 	}
 
 	public String toString() {

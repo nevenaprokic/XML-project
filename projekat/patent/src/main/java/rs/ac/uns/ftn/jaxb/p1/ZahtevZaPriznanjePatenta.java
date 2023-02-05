@@ -103,6 +103,8 @@ import javax.xml.namespace.QName;
     protected PodaciODodatnojPrijavi podaciODodatnojPrijavi;
     @XmlAttribute(name = "status")
 	protected StatusZahteva status;
+    @XmlAttribute(name = "id_resenja")
+	protected String idResenja;
 	@XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
    
@@ -394,6 +396,14 @@ import javax.xml.namespace.QName;
 
 	public PodaciODodatnojPrijavi getPodaciODodatnojPrijavi() {
 		return podaciODodatnojPrijavi;
+	}
+	
+	public String getIdResenja() {
+		return idResenja;
+	}
+
+	public void setIdResenja(String idResenja) {
+		this.idResenja = idResenja;
 	}
 
 	@Override

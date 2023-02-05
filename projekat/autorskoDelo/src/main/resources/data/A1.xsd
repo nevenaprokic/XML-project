@@ -18,6 +18,7 @@
             <xs:attribute name="broj_prijave" type="xs:string"/>
             <xs:attribute name="datum_podnosenja" type="xs:date"/>
             <xs:attribute name="status" type="a1:status_zahteva" />
+            <xs:attribute name="id_resenja" type="xs:string" />
             <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
     </xs:element>

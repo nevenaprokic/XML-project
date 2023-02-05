@@ -37,6 +37,7 @@ public class ZigMapper {
 		zahtev.setId(idZiga);
 		
 		zahtev.setKod(zahtevDTO.getKod());
+		zahtev.setIdResenja(zahtevDTO.getIdResenja());
 		
 		for(TLice lice: zahtevDTO.getPodnosiocPrijave()) {
 			TLice podnosilacZahteva = getLiceFromDTO(lice);

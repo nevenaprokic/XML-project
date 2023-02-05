@@ -7,10 +7,10 @@
       Da li želite zahtev {{data.id}} da:
       <mat-radio-group formControlName="resenje">
         <mat-radio-button [checked]="true" value="TOdobren">Odobri</mat-radio-button>
-        <mat-radio-button value="TOdbijen">Odbi</mat-radio-button>
+        <mat-radio-button value="TOdbijen">Odbij</mat-radio-button>
       </mat-radio-group>
     </section>
-    <div *ngIf="form.value.resenje === 'TOdobren'" class="input">
+    <div class="input">
       Šifra:
       <mat-form-field appearance="fill" [formGroup]="formField" *ngIf="data.type !== 'PATENT'">
         <input matInput formControlName="sifra" [placeholder]="placeholder">
@@ -21,7 +21,7 @@
     <div *ngIf="form.value.resenje === 'TOdbijen'" class="input">
       Obrazloženje:
       <mat-form-field appearance="fill" [formGroup]="formField">
-        <input matInput formControlName="obrazlozenje">
+        <textarea matInput formControlName="obrazlozenje"></textarea>
       </mat-form-field>
     </div>
   </div>

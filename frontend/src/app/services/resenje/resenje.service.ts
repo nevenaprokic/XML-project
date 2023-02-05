@@ -18,17 +18,22 @@ export class ResenjeService {
 
   sendResenje(xml: any, type: string): Observable<any> {
     const url = this.findUrl(type);
-    return this.http.post(url, xml) as Observable<any>;
+    return this.http.post(url + '/save-new', xml) as Observable<any>;
+  }
+
+  downnloadResenje(id: any, type: string): Observable<any> {
+    const url = this.findUrl(type);
+    return this.http.get(url + `/get-pdf/${id}`) as Observable<any>;
   }
 
   private findUrl(type: string) {
     let url = '';
     if (type === typeZahteva.PATENT) {
-      url = this.IZVESTAJ_PATH_PATENT + `/save-new`;
+      url = this.IZVESTAJ_PATH_PATENT;
     } else if (type === typeZahteva.ZIG) {
-      url = this.IZVESTAJ_PATH_ZIG + `/save-new`;
+      url = this.IZVESTAJ_PATH_ZIG;
     } else if (type === typeZahteva.AUTORSKO_DELO) {
-      url = this.IZVESTAJ_PATH_AUTORSKO_DELO + `/save-new`;
+      url = this.IZVESTAJ_PATH_AUTORSKO_DELO;
     }
     return url;
   }

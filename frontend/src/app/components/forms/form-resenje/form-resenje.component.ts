@@ -35,6 +35,9 @@ export class FormResenjeComponent implements OnInit {
       this.formField.controls.sifra.setValidators([Validators.pattern("\\Ž\\-[0-9]+\\/[0-9]{2,2}")]);
       this.placeholder = "Ž-912/23"
     }
+    if (this.data.type === typeZahteva.PATENT) {
+        this.formField.value.sifra = this.data.id;
+    }
   }
 
   ngOnInit(): void {
@@ -44,7 +47,7 @@ export class FormResenjeComponent implements OnInit {
     if (this.form.value.resenje === "TOdobren" && this.formField.value.sifra === '') {
       return;
     }
-    if (this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === '') {
+    if (this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === '' && this.formField.value.sifra === '') {
       return;
     }
 
@@ -57,9 +60,9 @@ export class FormResenjeComponent implements OnInit {
   private createXML() {
     let resenjeXML = "";
     if (this.data.type === typeZahteva.PATENT) {
-      if (this.form.value.resenje === "TOdobren") {
+      //if (this.form.value.resenje === "TOdobren") {
         this.formField.value.sifra = this.data.id;
-      }
+      //}
       resenjeXML = this.templateService.createNewXMLPatent(this.formField, this.form.value.resenje, this.data.id);
     } else if (this.data.type === typeZahteva.ZIG) {
       resenjeXML = this.templateService.createNewXMLZig(this.formField, this.form.value.resenje, this.data.id);
@@ -71,9 +74,10 @@ export class FormResenjeComponent implements OnInit {
 
   sendResenje(xml: string) {
     this.resenjeService.sendResenje(xml, this.data.type).subscribe({
-      next: (document: any) => {
+      next: (id: any) => {
         this.toastr.success('Uspešno podneto rešenje');
-        this.dialogRef.close();
+        
+        this.dialogRef.close({data: id});
       },
       error: (err: any) => {
         console.log(err);

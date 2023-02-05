@@ -64,6 +64,7 @@ export class XmlTemplateService {
                 </Dodatak>`;
     }
     return `<Dodatak xsi:type="TOdbijen">
+                    <Sifra>${values.value.sifra}</Sifra>
                     <Obrazlozenje>${values.value.obrazlozenje}</Obrazlozenje>
                 </Dodatak>`;
   }

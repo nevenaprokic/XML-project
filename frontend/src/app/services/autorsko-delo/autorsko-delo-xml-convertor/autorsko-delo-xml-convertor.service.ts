@@ -20,6 +20,7 @@ export class AutorskoDeloXmlConvertorService {
     let datumPodnosenja = atributes["datum_podnosenja"]
     let naslov = atributes["naslov"]
     let status = atributes["status"]
+    let idResenja = atributes["id_resenja"]
     let podnosilac : {autor: Autor | undefined, pravnoLice: PravnoLice | undefined, FizickoLice: FizickoLice | undefined,} = this.getPodnosilac(xml)
     let id = xml[this.prefix + ":idAutorskogDela"][this.prefix + ":idA"]._text;
     let autorskoDelo : AutroskoDelo = this.getAutoskoDelo(xml);
@@ -38,7 +39,8 @@ export class AutorskoDeloXmlConvertorService {
       naslov: naslov,
       brojPrijave: brojPrijave,
       datumPodnosenja: datumPodnosenja,
-      podnosilacNaziv: podnosilacnaziv
+      podnosilacNaziv: podnosilacnaziv,
+      idResenja
     }
   }
 

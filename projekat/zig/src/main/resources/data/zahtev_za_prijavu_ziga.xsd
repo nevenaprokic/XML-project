@@ -53,6 +53,7 @@
                 </xs:simpleType>
             </xs:attribute>
              <xs:attribute name="status" type="zig:status_zahteva" />
+             <xs:attribute name="id_resenja" type="xs:string" />
             <xs:attribute name="datum_podnosenja_prijave" type="xs:date" use="required"/>
         	<xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>

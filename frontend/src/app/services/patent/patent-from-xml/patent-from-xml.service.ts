@@ -50,6 +50,7 @@ export class PatentFromXmlService {
     let datumPodnosenja = attributes.datum_prijema_prijave;
     let priznatiDatumPodnosenja = attributes.priznati_datum_podnosenja;
     let status = attributes["status"]
+    const idResenja = attributes["id_resenja"]
     let dodatnaPrijava: Podaci_o_dodatnoj_prijavi | undefined = this.getPodaciODodatnojPrijavi(xml, prefix);
     let podatiODostavljanju: Podaci_o_dostavljanju = this.getPodaciODostavljanju(xml, prefix);
     let podnosilac: PodnosilacZahteva = this.getPodnosilac(xml, prefix);
@@ -61,7 +62,7 @@ export class PatentFromXmlService {
     const idPatenta: string = this.getId(xml, prefix);
     let zahtev: ZahtevZaPriznanjePatent = new ZahtevZaPriznanjePatent( podnosilac, pronalazak, pronalazac,
       podatiODostavljanju, punomocnik, dodatnaPrijava, prventsvo, brojPrijave,
-      datumPodnosenja, priznatiDatumPodnosenja, idPatenta, primalac, status)
+      datumPodnosenja, priznatiDatumPodnosenja, idPatenta, primalac, status, idResenja)
     return zahtev;
   }
 

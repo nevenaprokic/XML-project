@@ -69,7 +69,7 @@ export class IzvestajComponent {
       next: (document: any) => {
         this.toastr.success('Uspešno skinut PDF');
         console.log(document);
-        this.fileUtils.downloadDocumentFromBase64(document, 'pdf','', 'Izvestaj');
+        this.fileUtils.downloadDocumentFromBase64(document, 'pdf','Izvestaj');
       },
       error: (err: any) => {
         this.toastr.error('Došlo je do greško pri generisanju PDF-a', "Greška!")

@@ -15,11 +15,15 @@ import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 
 public interface ResenjeService {
 
-	void saveNewFile(Resenje resenje, String user);
+	String saveNewFile(Resenje resenje, String user);
 
 	String generateDocumentId();
 
 	ListaResenja findAll() throws XMLDBException, JAXBException;
 
 	File getPDF(Resenje resenje) throws IOException, DocumentException, ParserConfigurationException, JAXBException;
+
+	Resenje getById(String documentId);
+
+	String getPDF(String documentId) throws IOException, DocumentException;
 }

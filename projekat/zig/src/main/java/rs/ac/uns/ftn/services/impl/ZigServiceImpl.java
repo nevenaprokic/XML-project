@@ -134,7 +134,7 @@ public class ZigServiceImpl implements ZigService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateSource(document, inputFile, XSL_FILE);
+		pdfTransformer.generateSource(zaZig, inputFile, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, inputFile);	
 		removeFile(inputFile);
 		return convertPdfToBase64(outputFilePDF);

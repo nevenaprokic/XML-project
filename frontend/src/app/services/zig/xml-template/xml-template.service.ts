@@ -21,6 +21,7 @@ export class XmlTemplateService {
     console.log(dateForXML);
     return `<?xml version="1.0" encoding="UTF-8"?>
     <Zahtev_za_priznanje_ziga datum_podnosenja_prijave="${dateForXML}"  status="neobradjen"
+    <Zahtev_za_priznanje_ziga id_resenja="" datum_podnosenja_prijave="${dateForXML}"  status="neobradjen"
                               xmlns="http://ftn.uns.ac.rs/zig"
                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                               xsi:schemaLocation="http://ftn.uns.ac.rs/zig  ./zahtev_za_prijavu_ziga.xsd"

@@ -16,7 +16,8 @@ export class ZahtevZaPriznanjePatent{
         public priznatiDatumPodnosenja?: Date,
         public idPatenta?: string,
         public primalac?: PrimalazZahteva,
-        public status?: Status){}
+        public status?: Status,
+        public idResenja?: string){}
 }
 export class PrimalazZahteva {
     constructor(public adresa: Adresa,

@@ -10,6 +10,7 @@
     naslov="ZAHTEV ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA"
     broj_prijave='A-100'
     datum_podnosenja="2022-12-08"
+    id_resenja=''
     status="neobradjen">
 
     <idAutorskogDela>

@@ -16,6 +16,7 @@ import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 import { PatentDetailViewComponent } from '../../detail-view/patent/patent-detail-view/patent-detail-view.component';
 import { FileUtilService } from "src/app/services/utils/file-util/file-util.service";
 import { Status } from "src/app/model/common/common";
+import { ResenjeService } from "src/app/services/resenje/resenje.service";
 
 
 @Component({
@@ -52,6 +53,7 @@ export class PatentTabelViewComponent implements OnInit {
               private userService: UserService,
               private patentFromXML: PatentFromXmlService,
               private dialog: MatDialog, private toastr: Toastr,
+              private resenjeService: ResenjeService,
               private fileUtils: FileUtilService) {
 
               }
@@ -147,9 +149,42 @@ export class PatentTabelViewComponent implements OnInit {
     this.setDataSource(this.zahteviPatent)
   }
 
+  // openResenje(element: ZahtevZaPriznanjePatent) {
+  //   this.dialog.open(FormResenjeComponent, {data: {id: element.idPatenta, type: typeZahteva.PATENT}});
+  // }
   openResenje(element: ZahtevZaPriznanjePatent) {
-    this.dialog.open(FormResenjeComponent, {data: {id: element.idPatenta, type: typeZahteva.PATENT}});
+    if(!element.idResenja || element.status === Status.NEOBRADJEN){
+      let dialogRef = this.dialog.open(
+        FormResenjeComponent, 
+        {  
+          height: '600px',
+          width: '1000px',
+          data: {id: element.idPatenta, type: typeZahteva.PATENT}
+        },
+        );
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res.data)
+        element.idResenja = res.data
+        element.status = Status.SVI
+      })
+    }
+    else{
+      this.downloadResenje(element.idResenja)
+    }
   }
+
+  downloadResenje(idResenja: string) {
+    this.resenjeService.downnloadResenje(idResenja, typeZahteva.PATENT).subscribe({
+      next: (res: any) => {
+        const filename = `resenje-${idResenja}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+  
 
   openPatenDetailView(element: ZahtevZaPriznanjePatent){
     this.dialog.open(PatentDetailViewComponent, {

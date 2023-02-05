@@ -11,7 +11,7 @@
 			<head>
 				<meta http-equiv="content-type"
 					content="application/xhtml+xml; charset=UTF-8" />
-				<title>Resenje o priznanju autorskog dela </title>
+				<title>Resenje o priznanju zahteva za priznanje ziga </title>
 
 				<style type="text/css">
 					*{
@@ -68,7 +68,7 @@
 						<xsl:value-of select="translate(re:Resenje/@status, $lowercase, $uppercase)" />O RESENJE
 					</p>
 					<p class="title-request">
-						ZAHTEVA ZA AUTORSKO DELO
+						ZAHTEVA ZA ZIG
 						BR. <span><xsl:value-of select="re:Resenje/re:Dodatak/re:Sifra"/><xsl:text></xsl:text></span>
 					</p>
 					<p class="subtitle">Rešenje izdao službenik: </p>
@@ -90,7 +90,7 @@
 					<xsl:choose>
 						<xsl:when test="re:Resenje/@status = 'odobren'">
                         	<td class="header">
-								Ovim resenjem priznaje se Zahtev za priznanje i deponovanje autorskog dela zavedeno pod brojem
+								Ovim resenjem priznaje se Zahtev za priznanje ziga zavedeno pod brojem
 								<span><xsl:value-of select="re:Resenje/re:Dodatak/re:Sifra"/><xsl:text></xsl:text></span>.
 								<br></br>
 								<br></br>
@@ -99,7 +99,7 @@
                         </xsl:when>
                         <xsl:when test="re:Resenje/@status = 'odbijen'">
                         	<td class="header">
-								Ovim resenjem odbija se Zahtev za priznanje i deponovanje autorskog dela zavedeno pod brojem
+								Ovim resenjem odbija se Zahtev za priznanje ziga zavedeno pod brojem
 								<span><xsl:value-of select="re:Resenje/re:Dodatak/re:Sifra"/><xsl:text></xsl:text></span>.
 								Nakon uvida u zahtev, doneta je odluka o odbijanju.
 								<br></br> 
