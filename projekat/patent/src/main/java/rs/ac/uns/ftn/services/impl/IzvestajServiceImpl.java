@@ -3,6 +3,9 @@ package rs.ac.uns.ftn.services.impl;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Calendar;
 
 import javax.xml.bind.JAXBContext;
@@ -65,7 +68,7 @@ public class IzvestajServiceImpl implements IzvestajService {
 	}
 
 	@Override
-	public void getPDF(Izvestaj izvestaj)
+	public String getPDF(Izvestaj izvestaj)
 			throws IOException, DocumentException, ParserConfigurationException, JAXBException {
 		Document document = marshalIzvestaj(izvestaj);
 
@@ -87,6 +90,9 @@ public class IzvestajServiceImpl implements IzvestajService {
 
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
 		System.out.println("[INFO] End.");
+		
+		removeFile(outputFileXHTML);
+		return convertPdfToBase64(outputFilePDF);
 	}
 
 	private Document marshalIzvestaj(Izvestaj izvestaj) throws JAXBException, ParserConfigurationException {
@@ -96,5 +102,22 @@ public class IzvestajServiceImpl implements IzvestajService {
 		marshaller.marshal(izvestaj, document);
 		return document;
 	}
+	
+	private String convertPdfToBase64(String filepath) throws IOException {
+		;
+		byte[] inputFile = Files.readAllBytes(Paths.get(filepath));
+
+		byte[] encodedBytes = Base64.getEncoder().encode(inputFile);
+		String encodedString = new String(encodedBytes);
+
+		removeFile(filepath);
+		return encodedString;
+	}
+
+	private void removeFile(String sourceFilePath) {
+		File source = new File(sourceFilePath);
+		source.delete();
+	}
+
 
 }

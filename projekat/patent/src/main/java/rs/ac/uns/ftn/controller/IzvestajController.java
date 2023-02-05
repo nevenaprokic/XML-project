@@ -49,8 +49,8 @@ public class IzvestajController {
 			@RequestHeader MultiValueMap<String, String> headers) {
 		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
-			izvestajService.getPDF(izvestaj);
-			return new ResponseEntity<String>("Success", HttpStatus.OK);
+			String encodedFile = izvestajService.getPDF(izvestaj);
+			 return ResponseEntity.ok(encodedFile);
 		} catch (Exception e) {
 			System.out.println(e);
 			return ResponseEntity.badRequest().build();
