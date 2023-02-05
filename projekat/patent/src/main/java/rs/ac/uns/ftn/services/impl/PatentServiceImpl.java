@@ -66,6 +66,7 @@ public class PatentServiceImpl implements PatentService {
 	private MetadataService metadataService;
 
 	public void saveNewFile(ZahtevZaPriznanjePatenta zahtevDTO) throws XMLDBException {
+		System.out.println("tuuu");
         if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
         	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);     	
         	try {

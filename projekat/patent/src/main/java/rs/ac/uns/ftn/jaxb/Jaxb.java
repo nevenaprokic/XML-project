@@ -47,6 +47,7 @@ public class Jaxb {
             return true;
 
         } catch (Exception e) {
+        	e.printStackTrace();
             throw new BadRequestException(ErrorMessageConstants.INVALID_XML_FILE);		
         }
         

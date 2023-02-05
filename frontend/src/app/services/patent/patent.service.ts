@@ -28,6 +28,7 @@ export class PatentService {
 
   getById(documentId: string) : Observable<any>{
     documentId = documentId.replace('/', '_');
+    console.log(documentId)
     const url = this.PATENT_PATH + `/${documentId}`;
     return this.http.get(url) as Observable<any>;
   }

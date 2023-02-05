@@ -14,6 +14,7 @@ import { ZigTableViewComponent } from './components/tabel-view/zig-table-view/zi
 import { ZigDetailViewComponent } from './components/detail-view/zig/zig-detail-view/zig-detail-view.component';
 import { AutorskoDeloDetailViewComponent } from './components/detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
 import { PatentDetailViewComponent } from './components/detail-view/patent/patent-detail-view/patent-detail-view.component';
+import { PatentFormXonomyComponent } from './components/patent-form-xonomy/patent-form-xonomy.component';
 
 
 const routes: Routes = [
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: 'pregled-patent/:id',
     component: PatentDetailViewComponent
+  },
+  {
+    path: 'patent-xonomy',
+    component: PatentFormXonomyComponent
   }
 ];
 

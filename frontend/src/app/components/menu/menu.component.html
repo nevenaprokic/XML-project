@@ -22,6 +22,12 @@
       </div>
       <div class="menu_item" *ngIf="!isSluzbenik">
         <mat-icon class="menu_item_icon">edit</mat-icon>
+        <mat-list-option (click)="openFormXonomy()">
+          <p>Patent specijalno</p>
+        </mat-list-option>
+      </div>
+      <div class="menu_item" *ngIf="!isSluzbenik">
+        <mat-icon class="menu_item_icon">edit</mat-icon>
         <mat-list-option (click)="openFormZig()">
           <p>Zig</p>
         </mat-list-option>

@@ -78,6 +78,7 @@ import { PrilogViewComponent } from './components/detail-view/prilog-view/prilog
 import { TakseDetailViewComponent } from './components/detail-view/zig/takse-detail-view/takse-detail-view.component';
 import { ZigDetailViewComponent } from './components/detail-view/zig/zig-detail-view/zig-detail-view.component';
 import { ZnakZigaDetailViewComponent } from './components/detail-view/zig/znak-ziga-detail-view/znak-ziga-detail-view.component';
+import { PatentFormXonomyComponent } from './components/patent-form-xonomy/patent-form-xonomy.component';
 
 
 const MaterialModule = [
@@ -151,7 +152,8 @@ const MaterialModule = [
         PrilogViewComponent,
         ZigDetailViewComponent,
         TakseDetailViewComponent,
-        ZnakZigaDetailViewComponent
+        ZnakZigaDetailViewComponent,
+        PatentFormXonomyComponent
     ],
   imports: [
     ...MaterialModule

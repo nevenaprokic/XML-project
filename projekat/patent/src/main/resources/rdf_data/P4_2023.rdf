@@ -2,12 +2,12 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:pred="http://examples/predicate/">
-  <rdf:Description rdf:about="http://ftn.uns.ac.rs/p1/P3_2023">
+  <rdf:Description rdf:about="http://ftn.uns.ac.rs/p1/P4_2023">
     <pred:ime_podnosioca>Ustanova1</pred:ime_podnosioca>
     <pred:podnosilac_email rdf:resource="http://ftn.uns.ac.rs/user/n@gmail.com"/>
     <pred:pronalazac>natasa lakovic</pred:pronalazac>
     <pred:pronalazak_naslov>asdadx | dsada</pred:pronalazak_naslov>
     <pred:datum_prijema_prijave rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
-    >2023-02-05T23:00:46.565+01:00</pred:datum_prijema_prijave>
+    >2023-02-05T23:32:43.306+01:00</pred:datum_prijema_prijave>
   </rdf:Description>
 </rdf:RDF>

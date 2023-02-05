@@ -61,4 +61,8 @@ export class MenuComponent {
   logOut() {
     this.userService.logOut();
   }
+
+  openFormXonomy(){
+    this.router.navigateByUrl('patent-xonomy')
+  }
 }
