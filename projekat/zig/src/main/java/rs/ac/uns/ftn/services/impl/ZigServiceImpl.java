@@ -93,12 +93,7 @@ public class ZigServiceImpl implements ZigService {
 	public String getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException {
 		//ucitavanje xml-a iz baze
 		//objekat zig - u njemu izmeniti sliku ziga sa stvarnim bajtovima i onda pokrenuti
-		ZahtevZaPriznanjeZiga zahtevZaPriznanjeZiga = zigRepository.getZahtevZaPriznanjeZigaById(documentId);
-		String slika = zahtevZaPriznanjeZiga.getPriloziUzZahtev().getPrimerakZnaka().getPutanjaDoFajla();
-		PrilogImage originalnaSlika = prilogService.getPrilog(documentId, slika);
-		zahtevZaPriznanjeZiga.getZig().setIzgledZnaka("data:image/png;base64," + originalnaSlika.getSadrzajPriloga());
-
-		Document document = marshalZahtev(zahtevZaPriznanjeZiga);
+		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String outputFilePDF = PATH + documentId  + "-" + timeStamp + ".pdf";

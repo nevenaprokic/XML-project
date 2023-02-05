@@ -14,6 +14,7 @@ import {MatDialog} from "@angular/material/dialog";
 import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 import { ZigDetailViewComponent } from '../../detail-view/zig/zig-detail-view/zig-detail-view.component';
 import { Status } from 'src/app/model/common/common';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-zig-table-view',
@@ -49,7 +50,8 @@ export class ZigTableViewComponent implements OnInit{
               private zigFromXML: ZigXmlConverterService,
               private toastr: Toastr,
               private dialog: MatDialog,
-              private fileUtils: FileUtilService){
+              private fileUtils: FileUtilService,
+              private router: Router){
 
   }
 
@@ -131,16 +133,13 @@ export class ZigTableViewComponent implements OnInit{
   }
 
   convertFromJSON(zahtevList: any){
-    console.log(zahtevList)
     const zahtevi : any[] = zahtevList.listaZahtevaZiga[this.prefix + ':Zahtev_za_priznanje_ziga'];
     if(Array.isArray(zahtevi)){
       zahtevi.forEach((zahtev) => {
         let zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga = this.zigFromXML.getZigFromXML(zahtev, this.prefix, this.commonPrefix);
-        console.log(zahtevZaPriznanjeZiga)
         this.zahteviZig.push(zahtevZaPriznanjeZiga)
       })
     }else{
-      console.log(zahtevi)
       let zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga = this.zigFromXML.getZigFromXML(zahtevi, this.prefix, this.commonPrefix);
       this.zahteviZig.push(zahtevZaPriznanjeZiga)
     }
@@ -206,11 +205,6 @@ export class ZigTableViewComponent implements OnInit{
     }  else{
       this.getDataByRole();
     }
-  }
-
-  openZahtev(zahtev: ZahtevZaPriznanjeZiga){
-      this.dialog.open(ZigDetailViewComponent, {
-          data: zahtev })
   }
 
   downloadPdf(id: string) {
