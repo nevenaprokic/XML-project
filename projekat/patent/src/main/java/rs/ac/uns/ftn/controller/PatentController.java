@@ -75,33 +75,24 @@ public class PatentController {
 	public ResponseEntity<?> getPDF(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
 		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
-			patentService.getPDF(documentId);
-			return ResponseEntity.ok("Generisan PDF");
-		} catch (IOException | DocumentException e) {
-			ErrorMessage message = new ErrorMessage(
-	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-	                e.getMessage()
-	        );
-
-	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+			String encodedFile = patentService.getPDF(documentId);
+            return ResponseEntity.ok(encodedFile);
 		}
-		
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
-	@GetMapping("/all-patents")
-	public ResponseEntity<?> getAllPatents(@RequestHeader MultiValueMap<String, String> headers){
+	@GetMapping("/get-xhtml/{documentId}")
+	public ResponseEntity<?> getXHTML(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
 		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
-			return new ResponseEntity<>(this.patentService.findAll(), HttpStatus.OK);
-		} catch (XMLDBException | JAXBException e) {
-			ErrorMessage message = new ErrorMessage(
-	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-	                ErrorMessageConstants.INTERNAL_ERROR
-	        );
-
-	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+			String encodedFile = patentService.getHTML(documentId);
+            return ResponseEntity.ok(encodedFile);
 		}
-		
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	private void chechAuthority(MultiValueMap<String, String> headers, String api) {
