@@ -55,6 +55,7 @@ public class PatentController {
 			patentService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();
 		} catch (XMLDBException e) {
+			e.printStackTrace();
 			ErrorMessage message = new ErrorMessage(
 	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
 	                e.getMessage()

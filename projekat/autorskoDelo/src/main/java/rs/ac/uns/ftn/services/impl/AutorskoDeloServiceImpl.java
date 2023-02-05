@@ -31,6 +31,7 @@ import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
+import rs.ac.uns.ftn.jaxb.JaxbValidator;
 import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
@@ -57,15 +58,20 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	
 	@Autowired
 	private MetadataService metadataService;
+	
+	@Autowired
+	private JaxbValidator jaxb;
 
 	@Override
-	public String saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
-		String documentId = generateDocumentId();
-		setDatumPodnosenja(zahtevDTO);
-		prilogService.extractPrilozi(zahtevDTO, documentId);
-		ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
-		autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
-		return documentId;
+	public void saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
+		 if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
+        	zahtevDTO.setStatus(StatusZahteva.ODOBREN);    
+			String documentId = generateDocumentId();
+			setDatumPodnosenja(zahtevDTO);
+			prilogService.extractPrilozi(zahtevDTO, documentId);
+			ZahtevZaAutorskoDelo zahtev = AutorskoDeloMapper.mapFromDTO(zahtevDTO, documentId);
+			autorskoDeloRepository.saveAutorskoDelo(zahtev, documentId);
+		 }
 	}
 
 	private void setDatumPodnosenja(ZahtevZaAutorskoDelo zahtevDTO) {

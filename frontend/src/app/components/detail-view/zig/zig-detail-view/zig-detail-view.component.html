@@ -3,6 +3,10 @@
       <h1 class="title">ZAHTEV ZA PRIZNANJE ŽIGA</h1>
       <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
     </div>
+    <div class="description" style="flex-direction: column;">
+      <h4 *ngIf="zahtev.brojZahteva">Broj prijave: {{zahtev.brojZahteva}}</h4>
+      <h4 *ngIf="zahtev.datumPodnosenjaZahteva">Datum podnošenja prijave: {{zahtev.datumPodnosenjaZahteva}}</h4>
+    </div>
     <form *ngIf="zahtev">
       <div>
         <p class="description">1. Podnosilac prijave:</p>

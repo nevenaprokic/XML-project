@@ -26,6 +26,11 @@
             <td mat-cell *matCellDef="let i = index">{{i + 1}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="broj" *ngIf="!isSluzbenik">
+            <th mat-sort-header="broj" *matHeaderCellDef> broj zahteva</th>
+            <td mat-cell *matCellDef="let element"> {{element.brojPrijave}} </td>
+          </ng-container>
+
           <ng-container matColumnDef="delo">
             <th mat-sort-header="delo" *matHeaderCellDef> delo</th>
             <td mat-cell *matCellDef="let element"> {{element.autorskoDelo.identifikator.naslov}} </td>

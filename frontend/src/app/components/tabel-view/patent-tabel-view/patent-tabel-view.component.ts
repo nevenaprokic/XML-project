@@ -71,13 +71,20 @@ export class PatentTabelViewComponent implements OnInit {
       this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
       this.getDataForSluzbenik()
     } else {
-      this.displayedColumns = [...this.basicColoumns]
+      this.displayedColumns = ['broj',...this.basicColoumns]
       this.getDataForUserTabel();
     }
   }
 
   getDataForUserTabel() {
-
+    this.patentService.getAllApproved().subscribe({
+      next: (response) => {
+        this.getFromResponse(response);
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   }
 
   getDataForSluzbenik() {

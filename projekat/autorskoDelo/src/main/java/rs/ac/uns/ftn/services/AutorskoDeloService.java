@@ -17,7 +17,7 @@ import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 
 public interface AutorskoDeloService {
 	
-	String saveNewFile(ZahtevZaAutorskoDelo zahtev);
+	void saveNewFile(ZahtevZaAutorskoDelo zahtev);
 	
 	ZahtevZaAutorskoDelo getZahtevZaAutorskoDeloById(String id);
 	

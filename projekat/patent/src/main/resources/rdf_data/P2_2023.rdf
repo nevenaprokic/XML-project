@@ -3,11 +3,11 @@
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:pred="http://examples/predicate/">
   <rdf:Description rdf:about="http://ftn.uns.ac.rs/p1/P2_2023">
-    <pred:ime_podnosioca>Ustnova 1</pred:ime_podnosioca>
-    <pred:podnosilac_email rdf:resource="http://ftn.uns.ac.rs/user/n@gmail.com"/>
-    <pred:pronalazac>Petar Petrovic</pred:pronalazac>
-    <pred:pronalazak_naslov>Patent121 | Patent121</pred:pronalazak_naslov>
+    <pred:ime_podnosioca>fdsf fdsfds</pred:ime_podnosioca>
+    <pred:podnosilac_email rdf:resource="http://ftn.uns.ac.rs/user/user@gmail.com"/>
+    <pred:pronalazac>fdsf fdsfds</pred:pronalazac>
+    <pred:pronalazak_naslov>dsfsf | fdsfds</pred:pronalazak_naslov>
     <pred:datum_prijema_prijave rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
-    >2023-01-30T18:43:59.666+01:00</pred:datum_prijema_prijave>
+    >2023-02-05T17:39:52.116+01:00</pred:datum_prijema_prijave>
   </rdf:Description>
 </rdf:RDF>
