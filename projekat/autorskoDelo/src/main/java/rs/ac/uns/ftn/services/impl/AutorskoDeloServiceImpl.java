@@ -68,7 +68,7 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	@Override
 	public void saveNewFile(ZahtevZaAutorskoDelo zahtevDTO) {
 		 if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
-        	zahtevDTO.setStatus(StatusZahteva.ODOBREN);    
+        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);    
 			String documentId = generateDocumentId();
 			setDatumPodnosenja(zahtevDTO);
 			prilogService.extractPrilozi(zahtevDTO, documentId);
