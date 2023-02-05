@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Adresa, FizickoLice, KontaktPodaci, PravnoLice } from 'src/app/model/common/common';
 import { Podaci_o_dodatnoj_prijavi, Podaci_o_dostavljanju, PodnosilacZahteva, Pronalazac, Pronalazak, Punomcnik, RanijaPrijava, ZahtevZaPriznanjePatent, ZahteZaPriznanjePravaPrvenstvaIzRanijihPrijava } from 'src/app/model/patent/patent';
+import { Toastr } from '../../utils/toastr/toastr.service';
 
 
 @Injectable({
@@ -8,11 +9,12 @@ import { Podaci_o_dodatnoj_prijavi, Podaci_o_dostavljanju, PodnosilacZahteva, Pr
 })
 export class PatentToXmlService {
 
-  constructor() { }
+  constructor(private torastr: Toastr) { }
 
   converFormToObject(form: any) : ZahtevZaPriznanjePatent {
-    let adresaDostavljanja : Podaci_o_dostavljanju = new Podaci_o_dostavljanju(form.adresaDostavljanja, form.patentFormParent.nacinDostavljanja)
     let podnosilac : PodnosilacZahteva = this.getPodnosilacPrijave(form)
+    let adresaDostavljanja = this.getPodaciODostavljanju(form, podnosilac);
+    
     let pronalazak : Pronalazak = new Pronalazak(form.pronalazak.pronalazakNaSrpskom,form.pronalazak.pronalazakNaEngleskom)
     let pronalazac : Pronalazac = this.getPronalazac(form, podnosilac)
     let punomocnik : Punomcnik | undefined = this.getPunomocnik(form)
@@ -20,6 +22,16 @@ export class PatentToXmlService {
     let dodatnaPrijava: Podaci_o_dodatnoj_prijavi | undefined = this.getPodaciODodatnojprijavi(form)
 
     return new ZahtevZaPriznanjePatent(podnosilac, pronalazak, pronalazac, adresaDostavljanja, punomocnik,  dodatnaPrijava, prvenstvo);
+  }
+
+  getPodaciODostavljanju(form: any,podnosilac: PodnosilacZahteva): Podaci_o_dostavljanju {
+    try{
+      let adresaDostavljanja : Podaci_o_dostavljanju = new Podaci_o_dostavljanju(form.adresaDostavljanja, form.patentFormParent.nacinDostavljanja)
+      return adresaDostavljanja;
+    }
+    catch{
+      return new Podaci_o_dostavljanju(podnosilac.lice.adresa, form.patentFormParent.nacinDostavljanja)
+    }
   }
 
 
@@ -85,19 +97,16 @@ export class PatentToXmlService {
 
 
   getPodnosilacPrijave(form: any) : PodnosilacZahteva{
-    let lice : FizickoLice | PravnoLice;
-    let kontakPodaci : KontaktPodaci = new KontaktPodaci(form.podnosilacPrijaveKontaktPodaci.faks, form.podnosilacPrijaveKontaktPodaci.email, form.podnosilacPrijaveKontaktPodaci.telefon)
-    let adresa : Adresa = new Adresa(form.podnosilacPrijaveAdresa.broj, form.podnosilacPrijaveAdresa.ulica, form.podnosilacPrijaveAdresa.grad, form.podnosilacPrijaveAdresa.drzava, form.podnosilacPrijaveAdresa.postanskiBroj)
-    if (form.podnosilacPrijaveFizickoLice){
-      lice = new FizickoLice(adresa, kontakPodaci, form.podnosilacPrijaveFizickoLice.ime, form.podnosilacPrijaveFizickoLice.prezime, form.podnosilacPrijaveFizickoLice.drzavljanstvo)
-    }
-    else{
-      lice = new PravnoLice(adresa, kontakPodaci, form.podnosilacPrijavePravnoLice.naziv)
-    }
-    let isPronalazac : boolean = form.patentFormParent.podnosilacJePronalazac
-    return new PodnosilacZahteva(lice, isPronalazac);
+      let lice : FizickoLice | PravnoLice;
+      let kontakPodaci : KontaktPodaci = new KontaktPodaci(form.podnosilacPrijaveKontaktPodaci.faks, form.podnosilacPrijaveKontaktPodaci.email, form.podnosilacPrijaveKontaktPodaci.telefon)
+      let adresa : Adresa = new Adresa(form.podnosilacPrijaveAdresa.broj, form.podnosilacPrijaveAdresa.ulica, form.podnosilacPrijaveAdresa.grad, form.podnosilacPrijaveAdresa.drzava, form.podnosilacPrijaveAdresa.postanskiBroj)
+      if (form.podnosilacPrijaveFizickoLice){
+        lice = new FizickoLice(adresa, kontakPodaci, form.podnosilacPrijaveFizickoLice.ime, form.podnosilacPrijaveFizickoLice.prezime, form.podnosilacPrijaveFizickoLice.drzavljanstvo)
+      }
+      else{
+        lice = new PravnoLice(adresa, kontakPodaci, form.podnosilacPrijavePravnoLice.naziv)
+      }
+      let isPronalazac : boolean = form.patentFormParent.podnosilacJePronalazac
+      return new PodnosilacZahteva(lice, isPronalazac);
   }
-
-
-  
 }

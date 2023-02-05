@@ -76,9 +76,6 @@ export class PatentDetailViewComponent implements OnInit{
       this.punomocnikPravnoLice = this.zahtev.punomocnik?.lice
     }
   }
-
- 
-
     getjson(xml:any) : any{
       const convert = require('xml-js');
       const  zahtevList: any = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));

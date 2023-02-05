@@ -34,6 +34,7 @@ import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.jaxb.z1.IdZiga;
+import rs.ac.uns.ftn.jaxb.z1.JaxbValidator;
 import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
@@ -59,16 +60,22 @@ public class ZigServiceImpl implements ZigService {
 	
 	@Autowired
 	private MetadataService metadataService;
+	
+	
+	@Autowired
+	private JaxbValidator jaxbValidator;
 
 	@Override
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
-		String documentId = generateDocumentId();
-		IdZiga idZiga = new IdZiga();
-		idZiga.setIdZ(documentId);
-		zahtevDTO.setId(idZiga);
-		prilogService.extractPrilozi(zahtevDTO, documentId);
-		ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
-		zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
+		if (jaxbValidator.validate(zahtevDTO.getClass(), zahtevDTO)) {
+			String documentId = generateDocumentId();
+			IdZiga idZiga = new IdZiga();
+			idZiga.setIdZ(documentId);
+			zahtevDTO.setId(idZiga);
+			prilogService.extractPrilozi(zahtevDTO, documentId);
+			ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
+			zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
+		}
 	}
 	
 	@Override

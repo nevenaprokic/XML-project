@@ -27,6 +27,11 @@
           <td mat-cell *matCellDef="let i = index">{{i + 1}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="broj" *ngIf="!isSluzbenik">
+          <th mat-sort-header="broj" *matHeaderCellDef> Broj zahteva</th>
+          <td mat-cell *matCellDef="let element"> {{element.brojPrijave}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="vrsta po korisniku">
           <th mat-sort-header="vrsta po korisniku" *matHeaderCellDef> vrsta po korisniku</th>
           <td mat-cell *matCellDef="let element"> {{element.zig.vrstaNaOsnovuKorisnika}} </td>

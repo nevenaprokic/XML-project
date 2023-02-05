@@ -113,7 +113,7 @@
     <!--    ovde treba dinamicko dodavanje iz tabele-->
 
     <div class="submit-item">
-      <button  class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
+      <button [disabled] ='patentForm.invalid' class="submit-button" type="submit" (click)="onSubmit()">Pošalji zahtev</button>
     </div>
   </form>
 </div>

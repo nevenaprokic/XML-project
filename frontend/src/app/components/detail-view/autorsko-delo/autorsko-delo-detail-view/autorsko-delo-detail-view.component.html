@@ -3,6 +3,10 @@
       <h1 class="title">ZAHTEV ZA UNOŠENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</h1>
       <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
     </div>
+    <div class="description" style="flex-direction: column;">
+      <h4 *ngIf="zahtev.brojPrijave">Broj prijave: {{zahtev.brojPrijave}}</h4>
+      <h4 *ngIf="zahtev.datumPodnosenja">Datum podnošenja prijave: {{zahtev.datumPodnosenja}}</h4>
+    </div>
     <form>
       <div><p class="description">1. Podnosilac prijave:</p>
         <section class="section-lice">
