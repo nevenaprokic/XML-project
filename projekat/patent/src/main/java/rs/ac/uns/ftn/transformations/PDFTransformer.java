@@ -31,8 +31,6 @@ private static DocumentBuilderFactory documentFactory;
 	
 	private static TransformerFactory transformerFactory;
 	
-	
-	
 	static {
 
 		/* Inicijalizacija DOM fabrike */

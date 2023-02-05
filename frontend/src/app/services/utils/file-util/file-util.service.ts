@@ -22,4 +22,14 @@ export class FileUtilService {
     a.remove();
   }
 
+  downloadDocumentFromBase64(sourceString: string, type: string, documentID: string){
+    const filename: string =`zahtevZaPriznanjeZiga${documentID}`;
+    const source = `data:application/${type};base64,${sourceString}`;
+    const link = document.createElement("a");
+    link.href = source;
+    link.download = `${filename}.${type}`
+    link.click();
+    link.remove();
+  }
+
 }
