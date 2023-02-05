@@ -5,6 +5,7 @@ import {Toastr} from "../../services/utils/toastr/toastr.service";
 import {XmlTemplateService} from "../../services/izvestaj/xml-template/xml-template.service";
 import {xml2js} from "xml-js";
 import {Element} from "src/app/model/model";
+import {FileUtilService} from "../../services/utils/file-util/file-util.service";
 
 @Component({
   selector: 'app-izvestaj',
@@ -28,7 +29,8 @@ export class IzvestajComponent {
 
   constructor(private izvestajService: IzvestajService,
               private toastr: Toastr,
-              private templateService: XmlTemplateService) {
+              private templateService: XmlTemplateService,
+              private fileUtils: FileUtilService) {
   }
 
 
@@ -66,6 +68,8 @@ export class IzvestajComponent {
     this.izvestajService.getPDF(this.izvestaj, this.dateForm.value.vrstaIzvestaja).subscribe({
       next: (document: any) => {
         this.toastr.success('Uspešno skinut PDF');
+        console.log(document);
+        this.fileUtils.downloadDocumentFromBase64(document, 'pdf','', 'Izvestaj');
       },
       error: (err: any) => {
         this.toastr.error('Došlo je do greško pri generisanju PDF-a', "Greška!")

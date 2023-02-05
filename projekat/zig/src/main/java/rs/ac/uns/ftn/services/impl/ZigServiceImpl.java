@@ -1,9 +1,7 @@
 package rs.ac.uns.ftn.services.impl;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -33,7 +31,6 @@ import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
-import rs.ac.uns.ftn.jaxb.izvestaj.Izvestaj;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.jaxb.z1.IdZiga;
@@ -93,7 +90,7 @@ public class ZigServiceImpl implements ZigService {
 	}
 	
 	@Override
-	public void getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException {
+	public String getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException {
 		//ucitavanje xml-a iz baze
 		//objekat zig - u njemu izmeniti sliku ziga sa stvarnim bajtovima i onda pokrenuti
 		ZahtevZaPriznanjeZiga zahtevZaPriznanjeZiga = zigRepository.getZahtevZaPriznanjeZigaById(documentId);
@@ -116,7 +113,7 @@ public class ZigServiceImpl implements ZigService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateSource(zaZig, inputFile, XSL_FILE);
+		pdfTransformer.generateSource(document, inputFile, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, inputFile);	
 		removeFile(inputFile);
 		return convertPdfToBase64(outputFilePDF);
