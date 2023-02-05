@@ -39,6 +39,7 @@ public interface PatentService {
 
 	ListaZahtevaPatent searchMetadata(String request, String status) throws IOException;
 
-	//PatentList getAllPatents() throws XMLDBException, JAXBException;
+	ListaZahtevaPatent findAllApproved() throws XMLDBException, JAXBException;
+
 
 }

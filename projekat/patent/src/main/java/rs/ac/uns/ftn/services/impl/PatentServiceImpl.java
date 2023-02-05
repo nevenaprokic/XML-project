@@ -253,6 +253,13 @@ public class PatentServiceImpl implements PatentService {
 		}
 		return new ListaZahtevaPatent(zahtevi);
 	}
+	
+	@Override
+	public ListaZahtevaPatent findAllApproved() throws XMLDBException, JAXBException {
+		ResourceSet result = patentRepository.getAllApproved();
+		return resourceSetToList(result);
+	}
+	
 	private String convertPdfToBase64(String filepath) throws IOException {;
 	    byte[] inputFile = Files.readAllBytes(Paths.get(filepath));
 	
