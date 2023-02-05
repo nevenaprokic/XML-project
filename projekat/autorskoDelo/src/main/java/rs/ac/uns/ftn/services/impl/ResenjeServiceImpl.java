@@ -121,10 +121,9 @@ public class ResenjeServiceImpl implements ResenjeService {
 		try {
 			File pdf = getPDF(resenje);
 			Map<String, String> podaci = this.autorskoDeloService.getPodaciPodnosioca(zahtev);
-			podaci.put("email", "komad.katarina@gmail.com");
 			podaci.put("resenjeType", resenje.getStatus().toString() + "O");
 			podaci.put("zahtevNumber", zahtev.getIdAutorskogDela().getIdA());
-			//emailService.sendEmailResenje(podaci, pdf);
+			emailService.sendEmailResenje(podaci, pdf);
 		} catch (IOException | DocumentException | ParserConfigurationException | JAXBException e) {
 			e.printStackTrace();
 		}
