@@ -1,11 +1,10 @@
 package rs.ac.uns.ftn.transformations;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -19,10 +18,12 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Node;
 
-import com.itextpdf.text.Document;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+
+import java.nio.file.Paths;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 
 public class PDFTransformer {
@@ -45,18 +46,9 @@ public class PDFTransformer {
 	}
     
     public void generatePDF(String filePath, String xtmlFile) throws IOException, DocumentException {
-    	// step 1
-    	Document document = new Document();
-        // step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        // step 3
-        document.open();
-        // step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document,
-                new FileInputStream(xtmlFile), Charset.forName("UTF-8"));
-        // step 5
-        document.close();
-        
+        PdfDocument pdfDocument = new PdfDocument(new com.itextpdf.kernel.pdf.PdfWriter(filePath));
+        pdfDocument.setDefaultPageSize(new PageSize(780, 1150));
+        HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(xtmlFile)), pdfDocument);
     }
 
 	public void generateSource(Node xmlPath, String inputFile, String xslFile) throws FileNotFoundException {

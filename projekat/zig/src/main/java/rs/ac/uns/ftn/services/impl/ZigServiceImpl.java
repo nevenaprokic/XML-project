@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
@@ -42,6 +41,7 @@ import rs.ac.uns.ftn.mapper.ZigMapper;
 import rs.ac.uns.ftn.repository.ZigRepository;
 import rs.ac.uns.ftn.services.MetadataService;
 import rs.ac.uns.ftn.services.PrilogService;
+import rs.ac.uns.ftn.services.QRCodeService;
 import rs.ac.uns.ftn.services.ZigService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
 
@@ -61,21 +61,35 @@ public class ZigServiceImpl implements ZigService {
 	@Autowired
 	private MetadataService metadataService;
 	
-	
+	@Autowired
+	private QRCodeService qrCodeService;
+  	
 	@Autowired
 	private JaxbValidator jaxbValidator;
 
 	@Override
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
-		if (jaxbValidator.validate(zahtevDTO.getClass(), zahtevDTO)) {
-			String documentId = generateDocumentId();
-			IdZiga idZiga = new IdZiga();
-			idZiga.setIdZ(documentId);
-			zahtevDTO.setId(idZiga);
-			prilogService.extractPrilozi(zahtevDTO, documentId);
-			ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
-			zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
+  	if (jaxbValidator.validate(zahtevDTO.getClass(), zahtevDTO)) {
+      String documentId = generateDocumentId();
+      IdZiga idZiga = new IdZiga();
+      idZiga.setIdZ(documentId);
+      zahtevDTO.setId(idZiga);
+      prilogService.extractPrilozi(zahtevDTO, documentId);
+      zahtevDTO.setKod(getQRCode(documentId));
+      ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
+      zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
+    }
+	}
+	
+	private String getQRCode(String documentId) {
+		String medium="http://localhost:4200/pregled-ziga/"+documentId;
+        String image = null;
+		try {
+			image = qrCodeService.generateQRCodeBase64String(medium);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+        return image;
 	}
 	
 	@Override
@@ -100,7 +114,12 @@ public class ZigServiceImpl implements ZigService {
 	public String getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException {
 		//ucitavanje xml-a iz baze
 		//objekat zig - u njemu izmeniti sliku ziga sa stvarnim bajtovima i onda pokrenuti
-		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
+		//Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
+		ZahtevZaPriznanjeZiga zahtevZaPriznanjeZiga = zigRepository.getZahtevZaPriznanjeZigaById(documentId);
+		String slika = zahtevZaPriznanjeZiga.getPriloziUzZahtev().getPrimerakZnaka().getPutanjaDoFajla();
+		PrilogImage originalnaSlika = prilogService.getPrilog(documentId, slika);
+		zahtevZaPriznanjeZiga.getZig().setIzgledZnaka("data:image/png;base64, " + originalnaSlika.getSadrzajPriloga());
+		Document document = marshalZahtev(zahtevZaPriznanjeZiga);
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String outputFilePDF = PATH + documentId  + "-" + timeStamp + ".pdf";
@@ -122,9 +141,14 @@ public class ZigServiceImpl implements ZigService {
 	}
 	
 	@Override
-	public String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException {
+	public String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException, JAXBException, ParserConfigurationException {
 		//ucitavanje xml-a iz baze
-		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
+		//Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
+		ZahtevZaPriznanjeZiga zahtevZaPriznanjeZiga = zigRepository.getZahtevZaPriznanjeZigaById(documentId);
+		String slika = zahtevZaPriznanjeZiga.getPriloziUzZahtev().getPrimerakZnaka().getPutanjaDoFajla();
+		PrilogImage originalnaSlika = prilogService.getPrilog(documentId, slika);
+		zahtevZaPriznanjeZiga.getZig().setIzgledZnaka("data:image/png;base64, " + originalnaSlika.getSadrzajPriloga());
+		Document document = marshalZahtev(zahtevZaPriznanjeZiga);
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String outputFileHTML = PATH + documentId + "-" + timeStamp + ".html";
@@ -137,7 +161,7 @@ public class ZigServiceImpl implements ZigService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateSource(zaZig, outputFileHTML, XSL_FILE);
+		pdfTransformer.generateSource(document, outputFileHTML, XSL_FILE);
 		
 		return convertPdfToBase64(outputFileHTML);
 	}

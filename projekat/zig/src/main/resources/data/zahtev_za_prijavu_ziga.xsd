@@ -43,6 +43,7 @@
                         <xs:documentation>Podaci o prilozima koji su dostavljeni uz zahtev za prijavu ziga</xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="Kod" minOccurs="0" type="xs:string"/>
             </xs:sequence>
             <xs:attribute name="broj_prijave_ziga">
                 <xs:simpleType>

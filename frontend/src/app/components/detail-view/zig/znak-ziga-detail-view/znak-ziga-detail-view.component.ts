@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { TZig, } from 'src/app/model/zig';
+import {Component, Input} from '@angular/core';
+import {TZig,} from 'src/app/model/zig';
 
 
 @Component({
@@ -9,10 +9,9 @@ import { TZig, } from 'src/app/model/zig';
 })
 export class ZnakZigaDetailViewComponent {
 
-
-  @Input() zig! : TZig;
+  @Input() zig!: TZig;
 
   counter(num: number) {
     return new Array(num);
-}
+  }
 }

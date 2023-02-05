@@ -62,7 +62,8 @@ import javax.xml.namespace.QName;
     "zig",
     "pravoPrvenstvaIOsnov",
     "placeneTakse",
-    "priloziUzZahtev"
+    "priloziUzZahtev",
+    "kod"
 })
 @XmlRootElement(name = "Zahtev_za_priznanje_ziga", namespace = "http://ftn.uns.ac.rs/zig")
 public class ZahtevZaPriznanjeZiga {
@@ -83,6 +84,8 @@ public class ZahtevZaPriznanjeZiga {
 	protected TTakse placeneTakse;
 	@XmlElement(name = "Prilozi_uz_zahtev", namespace = "http://ftn.uns.ac.rs/zig", required = true)
 	protected TPrilozi priloziUzZahtev;
+	@XmlElement(name = "Kod", namespace = "http://ftn.uns.ac.rs/zig")
+	protected String kod;
 	@XmlAttribute(name = "broj_prijave_ziga")
 	protected String brojPrijaveZiga;
 	@XmlAttribute(name = "datum_podnosenja_prijave", required = true)
@@ -190,6 +193,24 @@ public class ZahtevZaPriznanjeZiga {
 	 */
 	public void setPravoPrvenstvaIOsnov(String value) {
 		this.pravoPrvenstvaIOsnov = value;
+	}
+
+	/**
+	 * Gets the value of the pravoPrvenstvaIOsnov property.
+	 *
+	 * @return possible object is {@link String }
+	 */
+	public String getKod() {
+		return kod;
+	}
+
+	/**
+	 * Sets the value of the pravoPrvenstvaIOsnov property.
+	 *
+	 * @param value allowed object is {@link String }
+	 */
+	public void setKod(String value) {
+		this.kod = value;
 	}
 
 	/**

@@ -25,7 +25,7 @@ public interface ZigService {
 	
 	String getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException;
 	
-	String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException;
+	String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException, JAXBException, ParserConfigurationException;
 	
 	ListaZahtevaZiga findAll() throws XMLDBException, JAXBException;
 	
