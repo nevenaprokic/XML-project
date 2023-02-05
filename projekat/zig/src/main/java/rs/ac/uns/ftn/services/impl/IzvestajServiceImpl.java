@@ -3,6 +3,9 @@ package rs.ac.uns.ftn.services.impl;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -48,11 +51,11 @@ public class IzvestajServiceImpl implements IzvestajService {
 					&& izvestaj.getKrajnjiDatumIzvestaja().toGregorianCalendar()
 							.compareTo(zahtev.getDatumPodnosenjaPrijave().toGregorianCalendar()) >= 0) {
 				brojPodnetihZahteva += 1;
-				
-				if(zahtev.getStatus() == StatusZahteva.ODBIJEN) {
+
+				if (zahtev.getStatus() == StatusZahteva.ODBIJEN) {
 					brojOdbijenihZahteva += 1;
 				}
-				if(zahtev.getStatus() == StatusZahteva.ODOBREN) {
+				if (zahtev.getStatus() == StatusZahteva.ODOBREN) {
 					brojPrihvacenihZahteva += 1;
 				}
 			}
@@ -63,39 +66,57 @@ public class IzvestajServiceImpl implements IzvestajService {
 		izvestaj.setBrojPrihvacenihZahteva(BigInteger.valueOf(brojPrihvacenihZahteva));
 		return izvestaj;
 	}
-	
-	
+
 	@Override
-	public void getPDF(Izvestaj izvestaj) throws IOException, DocumentException, ParserConfigurationException, JAXBException {
+	public String getPDF(Izvestaj izvestaj)
+			throws IOException, DocumentException, ParserConfigurationException, JAXBException {
 		Document document = marshalIzvestaj(izvestaj);
-		
+
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String outputFilePDF = PATH + "iz-" + timeStamp + ".pdf";
 		String outputFileXHTML = PATH + "iz-" + timeStamp + ".html";
-    	
-    	// Creates parent directory if necessary
-    	File pdfFile = new File(outputFilePDF);
-    	
+
+		// Creates parent directory if necessary
+		File pdfFile = new File(outputFilePDF);
+
 		if (!pdfFile.getParentFile().exists()) {
 			System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
 			pdfFile.getParentFile().mkdir();
 		}
-    	
+
 		PDFTransformer pdfTransformer = new PDFTransformer();
 		pdfTransformer.generateSource(document, outputFileXHTML, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, outputFileXHTML);
-		
+
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
 		System.out.println("[INFO] End.");
-	}
 
+		removeFile(outputFileXHTML);
+		return convertPdfToBase64(outputFilePDF);
+	}
 
 	private Document marshalIzvestaj(Izvestaj izvestaj) throws JAXBException, ParserConfigurationException {
 		JAXBContext jc = JAXBContext.newInstance(Izvestaj.class);
-	    Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-	    Marshaller marshaller = jc.createMarshaller();
-	    marshaller.marshal(izvestaj, document);
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Marshaller marshaller = jc.createMarshaller();
+		marshaller.marshal(izvestaj, document);
 		return document;
+	}
+
+	private String convertPdfToBase64(String filepath) throws IOException {
+		;
+		byte[] inputFile = Files.readAllBytes(Paths.get(filepath));
+
+		byte[] encodedBytes = Base64.getEncoder().encode(inputFile);
+		String encodedString = new String(encodedBytes);
+
+		removeFile(filepath);
+		return encodedString;
+	}
+
+	private void removeFile(String sourceFilePath) {
+		File source = new File(sourceFilePath);
+		source.delete();
 	}
 
 }

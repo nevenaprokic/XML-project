@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpRequestService} from "../utils/http-request/http-request.service";
 import {typeZahteva} from "../../model/model";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class IzvestajService {
 
   getPDF(izvestaj: any, typeIzvestaja: string) {
     const url = this.findUrl(typeIzvestaja, "/getPDF");
-    return this.http.post(url, izvestaj);
+    return this.http.post(url, izvestaj) as Observable<any>;
   }
 
   private findUrl(type: string, sufix:string) {

@@ -15,5 +15,5 @@ public interface IzvestajService {
 
 	Izvestaj getIzvestaj(Izvestaj izvestaj) throws XMLDBException, JAXBException;
 	
-	void getPDF(Izvestaj izvestaj) throws IOException, DocumentException, ParserConfigurationException, JAXBException;
+	String getPDF(Izvestaj izvestaj) throws IOException, DocumentException, ParserConfigurationException, JAXBException;
 }

@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.services;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
@@ -12,7 +11,6 @@ import org.springframework.core.io.InputStreamResource;
 import org.xmldb.api.base.XMLDBException;
 
 import com.itextpdf.text.DocumentException;
-import com.sun.xml.messaging.saaj.util.ByteInputStream;
 
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
@@ -25,7 +23,7 @@ public interface ZigService {
 	
 	String generateDocumentId();
 	
-	void getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException;
+	String getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException;
 	
 	String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException;
 	
