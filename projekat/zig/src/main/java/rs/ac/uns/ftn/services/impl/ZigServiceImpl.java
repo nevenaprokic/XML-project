@@ -126,7 +126,6 @@ public class ZigServiceImpl implements ZigService {
 			htmlFile.getParentFile().mkdir();
 		}
     	
-
 		PDFTransformer pdfTransformer = new PDFTransformer();
 		pdfTransformer.generateSource(zaZig, outputFileHTML, XSL_FILE);
 		
@@ -219,7 +218,6 @@ public class ZigServiceImpl implements ZigService {
 	private void removeFile(String sourceFilePath) {
 		File source = new File(sourceFilePath); 
 		source.delete();
-	
 	}
 
 }

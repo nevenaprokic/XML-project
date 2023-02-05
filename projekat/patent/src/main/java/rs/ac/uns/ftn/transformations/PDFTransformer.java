@@ -31,25 +31,19 @@ private static DocumentBuilderFactory documentFactory;
 	
 	private static TransformerFactory transformerFactory;
 	
-	static {
+    public PDFTransformer(){
 
 		/* Inicijalizacija DOM fabrike */
 		documentFactory = DocumentBuilderFactory.newInstance();
 		documentFactory.setNamespaceAware(true);
 		documentFactory.setIgnoringComments(true);
 		documentFactory.setIgnoringElementContentWhitespace(true);
-		
+
 		/* Inicijalizacija Transformer fabrike */
 		transformerFactory = TransformerFactory.newInstance();
-		
+
 	}
- 
-    /**
-     * Creates a PDF using iText Java API
-     * @param filePath
-     * @throws IOException
-     * @throws DocumentException
-     */
+    
     public void generatePDF(String filePath, String xtmlFile) throws IOException, DocumentException {
     	// step 1
     	Document document = new Document();
@@ -64,25 +58,23 @@ private static DocumentBuilderFactory documentFactory;
         document.close();
         
     }
-    
-    public void generateHTML(Node xmlPath, String htmlFile, String xslFile) throws FileNotFoundException {
-    	
-		try {
 
+	public void generateSource(Node xmlPath, String inputFile, String xslFile) throws FileNotFoundException {
+		try {
 			// Initialize Transformer instance
 			StreamSource transformSource = new StreamSource(new File(xslFile));
 			Transformer transformer = transformerFactory.newTransformer(transformSource);
 			transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			
+
 			// Generate XHTML
 			transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
 
 			// Transform DOM to HTML
 			DOMSource source = new DOMSource(xmlPath);
-			StreamResult result = new StreamResult(new FileOutputStream(htmlFile));
+			StreamResult result = new StreamResult(new FileOutputStream(inputFile));
 			transformer.transform(source, result);
-			
+
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerFactoryConfigurationError e) {
@@ -90,8 +82,7 @@ private static DocumentBuilderFactory documentFactory;
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
-    
-    }
+	}
     
 
 }

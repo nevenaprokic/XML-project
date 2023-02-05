@@ -47,8 +47,8 @@ export class AutorskoDeloService {
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
-  downloadHtml(documentId: string) {
-    const url = this.AUTORSKO_DELO_PATH + `/get-html/${documentId}`;
+  downloadXHTML(documentId: string) {
+    const url = this.AUTORSKO_DELO_PATH + `/get-xhtml/${documentId}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
 
@@ -61,5 +61,4 @@ export class AutorskoDeloService {
     const url = this.AUTORSKO_DELO_PATH + `/get-prilog?documentId=${documentId}&imageName=${prilog}`;
     return this.httpRequestService.get(url)
   }
-
 }

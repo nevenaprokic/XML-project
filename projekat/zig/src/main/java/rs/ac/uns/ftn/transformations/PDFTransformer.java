@@ -49,8 +49,6 @@ public class PDFTransformer {
 
 	private static TransformerFactory transformerFactory;
 
-    private FopFactory fopFactory;
-
     public PDFTransformer(){
 
 		/* Inicijalizacija DOM fabrike */

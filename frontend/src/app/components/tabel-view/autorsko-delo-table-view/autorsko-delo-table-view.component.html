@@ -60,7 +60,7 @@
           <ng-container matColumnDef="pdf" *ngIf="isSluzbenik">
             <th mat-sort-header *matHeaderCellDef>preuzmi pdf</th>
             <td mat-cell *matCellDef="let element">
-              <button class="button-evaluate">pdf
+              <button class="button-evaluate" (click)="downloadPdf(element.id)">pdf
               </button>
             </td>
           </ng-container>
@@ -68,7 +68,7 @@
           <ng-container matColumnDef="html" *ngIf="isSluzbenik">
             <th mat-sort-header *matHeaderCellDef>preuzmi html</th>
             <td mat-cell *matCellDef="let element">
-              <button class="button-evaluate">html
+              <button class="button-evaluate" (click)="downloadXHTML(element.id)">html
               </button>
             </td>
           </ng-container>

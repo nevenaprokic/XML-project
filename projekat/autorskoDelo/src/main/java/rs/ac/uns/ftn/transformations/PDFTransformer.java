@@ -39,11 +39,10 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 public class PDFTransformer {
 	
-private static DocumentBuilderFactory documentFactory;
+	private static DocumentBuilderFactory documentFactory;
 	
 	private static TransformerFactory transformerFactory;
-	private FopFactory fopFactory;
-
+	
     public PDFTransformer(){
 
 		/* Inicijalizacija DOM fabrike */
@@ -54,89 +53,26 @@ private static DocumentBuilderFactory documentFactory;
 
 		/* Inicijalizacija Transformer fabrike */
 		transformerFactory = TransformerFactory.newInstance();
-		try {
-            this.fopFactory = FopFactory.newInstance(new File("src/main/resources/xslt/fop.xconf"));
-        } catch (SAXException | IOException e) {
-            e.printStackTrace();
-        }
-	}
-
-	/**
-	 * Creates a PDF using iText Java API
-	 * 
-	 * @param filePath
-	 * @throws IOException
-	 * @throws DocumentException
-	 * @throws FOPException 
-	 * @throws TransformerException 
-	 */
-	public void generatePDF(String xslFo, String xmlPath, String outputPath) throws IOException, DocumentException, FOPException, TransformerException {
-//		// step 1
-//		Document document = new Document();
-//		//ByteArrayInputStream bis = new ByteArrayInputStream(xtmlFile.getBytes());
-//		// step 2
-//		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-//		// step 3
-//		document.open();
-//		// step 4
-//		XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(xtmlFile),
-//				Charset.forName("UTF-8"));
-//		// step 5
-//		document.close();
-//		//return bis;
-		System.out.println("[INFO] " + PDFTransformer.class.getSimpleName());
-
-        // Point to the XSL-FO file
-        File xslFile = new File(xslFo);
-
-        // Create transformation source
-        StreamSource transformSource = new StreamSource(xslFile);
-
-        // Initialize the transformation subject
-        Source source = new StreamSource(new StringReader(xmlPath));
-
-        //StreamSource source = new StreamSource(new File(INPUT_FILE));
-
-
-        // Initialize user agent needed for the transformation
-        FOUserAgent userAgent = fopFactory.newFOUserAgent();
-
-        // Create the output stream to store the results
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-
-        // Initialize the XSL-FO transformer object
-        Transformer xslFoTransformer = transformerFactory.newTransformer(transformSource);
-
-        // Construct FOP instance with desired output format
-        Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, outStream);
-
-        // Resulting SAX events
-        SAXResult res = new SAXResult(fop.getDefaultHandler());
-
-        // Start XSLT transformation and FOP processing
-        xslFoTransformer.transform(source, res);
-
-        // Generate PDF file
-        File pdfFile = new File(outputPath);
-        if (!pdfFile.getParentFile().exists()) {
-            System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
-            pdfFile.getParentFile().mkdir();
-        }
-
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfFile));
-        out.write(outStream.toByteArray());
-
-        System.out.println("[INFO] File \"" + pdfFile.getCanonicalPath() + "\" generated successfully.");
-        out.close();
-
-        System.out.println("[INFO] End.");
 
 	}
+    
+    public void generatePDF(String filePath, String xtmlFile) throws IOException, DocumentException {
+    	// step 1
+    	Document document = new Document();
+        // step 2
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
+        // step 3
+        document.open();
+        // step 4
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document,
+                new FileInputStream(xtmlFile), Charset.forName("UTF-8"));
+        // step 5
+        document.close();
+        
+    }
 
-	public void generateHTML(Node xmlPath, String htmlFile, String xslFile) throws FileNotFoundException {
-
+	public void generateSource(Node xmlPath, String inputFile, String xslFile) throws FileNotFoundException {
 		try {
-
 			// Initialize Transformer instance
 			StreamSource transformSource = new StreamSource(new File(xslFile));
 			Transformer transformer = transformerFactory.newTransformer(transformSource);
@@ -148,7 +84,7 @@ private static DocumentBuilderFactory documentFactory;
 
 			// Transform DOM to HTML
 			DOMSource source = new DOMSource(xmlPath);
-			StreamResult result = new StreamResult(new FileOutputStream(htmlFile));
+			StreamResult result = new StreamResult(new FileOutputStream(inputFile));
 			transformer.transform(source, result);
 
 		} catch (TransformerConfigurationException e) {
