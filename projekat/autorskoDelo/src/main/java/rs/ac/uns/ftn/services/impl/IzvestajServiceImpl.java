@@ -82,7 +82,7 @@ public class IzvestajServiceImpl implements IzvestajService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateHTML(document, outputFileXHTML, XSL_FILE);
+		pdfTransformer.generateSource(document, outputFileXHTML, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, outputFileXHTML);
 		
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");

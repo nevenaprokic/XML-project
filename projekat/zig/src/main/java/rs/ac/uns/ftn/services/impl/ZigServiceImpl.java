@@ -1,12 +1,21 @@
 package rs.ac.uns.ftn.services.impl;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.transform.TransformerException;
 
+import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
@@ -79,13 +88,13 @@ public class ZigServiceImpl implements ZigService {
 	}
 	
 	@Override
-	public void getPDF(String documentId) throws IOException, DocumentException {
+	public String getPDF(String documentId) throws IOException, DocumentException, FOPException, TransformerException {
 		//ucitavanje xml-a iz baze
 		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String outputFilePDF = PATH + documentId  + "-" + timeStamp + ".pdf";
-		String outputFileXHTML = PATH + documentId + "-" + timeStamp + ".html";
+		String inputFile = PATH + documentId + "-" + timeStamp + ".html";
     	
     	// Creates parent directory if necessary
     	File pdfFile = new File(outputFilePDF);
@@ -96,11 +105,31 @@ public class ZigServiceImpl implements ZigService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateHTML(zaZig, outputFileXHTML, XSL_FILE);
-		pdfTransformer.generatePDF(outputFilePDF, outputFileXHTML);
+		pdfTransformer.generateSource(zaZig, inputFile, XSL_FILE);
+		pdfTransformer.generatePDF(outputFilePDF, inputFile);	
+		removeFile(inputFile);
+		return convertPdfToBase64(outputFilePDF);
+	}
+	
+	@Override
+	public String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException {
+		//ucitavanje xml-a iz baze
+		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
 		
-		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
-		System.out.println("[INFO] End.");
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		String outputFileHTML = PATH + documentId + "-" + timeStamp + ".html";
+    	
+    	// Creates parent directory if necessary
+    	File htmlFile = new File(outputFileHTML);
+		if (!htmlFile.getParentFile().exists()) {
+			System.out.println("[INFO] A new directory is created: " + htmlFile.getParentFile().getAbsolutePath() + ".");
+			htmlFile.getParentFile().mkdir();
+		}
+    	
+		PDFTransformer pdfTransformer = new PDFTransformer();
+		pdfTransformer.generateSource(zaZig, outputFileHTML, XSL_FILE);
+		
+		return convertPdfToBase64(outputFileHTML);
 	}
 	
 	@Override
@@ -174,6 +203,21 @@ public class ZigServiceImpl implements ZigService {
 		System.out.println(xQuery);
 		ResourceSet result = zigRepository.getByXQuery(xQuery);
 		return resourceSetToList(result);
+	}
+	
+	private String convertPdfToBase64(String filepath) throws IOException {;
+        byte[] inputFile = Files.readAllBytes(Paths.get(filepath));
+
+        byte[] encodedBytes = Base64.getEncoder().encode(inputFile);
+        String encodedString =  new String(encodedBytes);
+        
+        removeFile(filepath);
+        return encodedString;
+	}
+	
+	private void removeFile(String sourceFilePath) {
+		File source = new File(sourceFilePath); 
+		source.delete();
 	}
 
 }

@@ -1,11 +1,18 @@
 package rs.ac.uns.ftn.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
@@ -27,6 +34,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
+
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfTransition;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import rs.ac.uns.ftn.exception.ErrorMessage;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
@@ -77,11 +88,23 @@ public class ZigController {
 	}
 	
 	@GetMapping("/get-pdf/{documentId}")
-	public ResponseEntity<String> getPDF(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
+	public ResponseEntity<?> getPDF(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
 		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
-			zigService.getPDF(documentId);
-			return ResponseEntity.ok("Generisan PDF");
+			String encodedFile = zigService.getPDF(documentId);
+            return ResponseEntity.ok(encodedFile);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	@GetMapping("/get-xhtml/{documentId}")
+	public ResponseEntity<?> getXHTML(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
+		try {
+			String encodedFile = zigService.getHTML(documentId);
+            return ResponseEntity.ok(encodedFile);
 		}
 		catch (Exception e) {
 			return ResponseEntity.badRequest().build();

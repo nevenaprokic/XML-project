@@ -32,7 +32,6 @@ public class ZigRepository {
 	public ResourceSet getByXQuery(String xquery) {
 		return zigDataAccess.getByXQuery(xquery);
 	}
-	
 	public ResourceSet getAllApproved() {
 		return zigDataAccess.getAllApproved();
 	}
