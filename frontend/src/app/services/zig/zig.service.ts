@@ -95,4 +95,10 @@ export class ZigService {
     const url = this.ZIG_PATH + `/get-xhtml/${documentId}`;
     return this.httpRequestService.get(url) as Observable<any>;
   }
+
+  getById(documentId: string) : Observable<any>{
+    documentId = documentId.replace('/', '_');
+    const url = this.ZIG_PATH + `/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
 }

@@ -11,6 +11,9 @@ import {IzvestajComponent} from "./components/izvestaj/izvestaj.component";
 import { PatentTabelViewComponent } from './components/tabel-view/patent-tabel-view/patent-tabel-view.component';
 import { AutorskoDeloTableViewComponent } from './components/tabel-view/autorsko-delo-table-view/autorsko-delo-table-view.component';
 import { ZigTableViewComponent } from './components/tabel-view/zig-table-view/zig-table-view.component';
+import { ZigDetailViewComponent } from './components/detail-view/zig/zig-detail-view/zig-detail-view.component';
+import { AutorskoDeloDetailViewComponent } from './components/detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
+import { PatentDetailViewComponent } from './components/detail-view/patent/patent-detail-view/patent-detail-view.component';
 
 
 const routes: Routes = [
@@ -61,6 +64,19 @@ const routes: Routes = [
   {
     path: 'zigovi',
     component: ZigTableViewComponent,
+  },
+  {
+    path: 'pregled-ziga/:id',
+    component: ZigDetailViewComponent
+  }  ,
+  {
+    path: 'pregled-autorsko-delo/:id',
+    component: AutorskoDeloDetailViewComponent
+  }
+  ,
+  {
+    path: 'pregled-patent/:id',
+    component: PatentDetailViewComponent
   }
 ];
 

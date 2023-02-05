@@ -3,7 +3,7 @@
       <h1 class="title">ZAHTEV ZA PRIZNANJE ŽIGA</h1>
       <h4 class="title">Zavodu za intelektualnu svojinu, Kneginje Ljubice 5, 11000 Beograd</h4>
     </div>
-    <form>
+    <form *ngIf="zahtev">
       <div>
         <p class="description">1. Podnosilac prijave:</p>
         <div *ngFor="let podnosilac of zahtev.podnosiociPrijave">
@@ -106,7 +106,7 @@
             <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev?.punomocjeRanijePrilozeno?.dostavljeno">Nije priloženo</p>
         </div>
         <div class="input-zig" style="display: flex; flex-direction: row;">
-            <span class="text">Punomocje rannaknadnoije priloženo:</span>
+            <span class="text">Punomocje naknadnoije priloženo:</span>
             <div *ngIf="zahtev.priloziUzZahtev?.punomocjeNaknadnoDostavljeno?.dostavljeno">
               <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.putanjaDoFajla)">Prikaži</button>
               <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.putanjaDoFajla)">Preuzmi</button>

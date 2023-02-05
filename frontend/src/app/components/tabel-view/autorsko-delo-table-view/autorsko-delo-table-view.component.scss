@@ -11,3 +11,12 @@ margin: 10px 0;
 .section{
     @include size(70%, auto);
   }
+
+  a {
+    text-decoration: none;
+    color: white; 
+}
+
+.mat-mdc-button{
+  color: white !important; 
+}

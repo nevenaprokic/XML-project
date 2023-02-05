@@ -183,8 +183,8 @@ export class ZigXmlConverterService {
     opstiAktOKolektivnomZiguGarancije: this.getPrilog(xml[this.prefix + ":Opsti_akt_o_kolektivnom_zigu_garancije"]),
     primerakZnaka: this.getPrilog(xml[this.prefix + ":Primerak_znaka"]),
     punomocje: this.getPrilog(xml[this.prefix + ":Punomocje"]),
-    punomocjeNaknadnoDostavljeno: this.getPrilog(xml[this.prefix + ":Spisak_robe_i_usluga"]),
-    punomocjeRanijePrilozeno: this.getPrilog(xml[this.prefix + ":Dokaz_o_uplati_takse"]),
+    punomocjeNaknadnoDostavljeno: this.getPrilog(xml[this.prefix + ":Punomocje_naknadno_dostavljeno"]),
+    punomocjeRanijePrilozeno: this.getPrilog(xml[this.prefix + ":Punomocje_ranije_prilozeno"]),
     spisakRobeIUsluga: this.getPrilog(xml[this.prefix + ":Spisak_robe_i_usluga"]),
   }
 }

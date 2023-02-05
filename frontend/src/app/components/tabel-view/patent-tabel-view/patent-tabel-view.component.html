@@ -44,8 +44,7 @@
           <ng-container matColumnDef="prikaz">
             <th mat-sort-header *matHeaderCellDef> prikaz</th>
             <td mat-cell *matCellDef="let element">
-              <button class="button-evaluate" (click)="openPatenDetailView(element)">prikaz
-              </button>
+              <a mat-button class="button-evaluate" target="_blank" [routerLink]="['/pregled-patent', element.id]">prikaz</a>
             </td>
           </ng-container>
 

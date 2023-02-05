@@ -1,7 +1,12 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/app/environments/environment';
 import { FizickoLice, PravnoLice } from 'src/app/model/common/common';
 import { ZahtevZaPriznanjePatent } from 'src/app/model/patent/patent';
+import { ZahtevZaPriznanjeZiga } from 'src/app/model/zig';
+import { PatentFromXmlService } from 'src/app/services/patent/patent-from-xml/patent-from-xml.service';
+import { PatentService } from 'src/app/services/patent/patent.service';
 import { Toastr } from 'src/app/services/utils/toastr/toastr.service';
 
 @Component({
@@ -18,9 +23,43 @@ export class PatentDetailViewComponent implements OnInit{
   isPunomocnikFizickoLice: boolean = false;
   punomocnikFizickoLice?: FizickoLice;
   punomocnikPravnoLice?: PravnoLice;
+  id! : string;
+  prefix : string = ''
+  commonPrefix : string = ""
+
+  constructor( private toast: Toastr, 
+          private patentService: PatentService, 
+          private patentFromXml: PatentFromXmlService,
+          private routeParams: ActivatedRoute,) {
+ 
+    }
 
   ngOnInit(): void {  
-    console.log(this.zahtev)
+    this.routeParams.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(this.id);
+
+      this.patentService.getById(this.id).subscribe({
+        next : (response:any) => {
+            let zahtev = this.getjson(response);
+            Object.entries(zahtev).map(([key, value]) => {
+              if (key.substring(4) === "Zahtev_za_priznanje_patenta"){
+                const atrributes = zahtev[key]._attributes;
+                this.getPrefix(atrributes)
+                this.convertFromJSON(zahtev)
+                this.setPodnosilac()
+              }
+            })
+        },
+        error : (error:any) => {
+          this.toast.error(error.error.message)
+        }
+      })
+    });
+    
+  }
+
+  setPodnosilac(){
     this.isPodnosilazFizickoLice = this.zahtev.podnosilac.lice instanceof FizickoLice
     if (this.zahtev.podnosilac.lice instanceof FizickoLice) {
       this.podnosilacFizickoLice = this.zahtev.podnosilac.lice
@@ -38,9 +77,29 @@ export class PatentDetailViewComponent implements OnInit{
     }
   }
 
-  constructor(public dialogRef: MatDialogRef<ZahtevZaPriznanjePatent>,
-    @Inject(MAT_DIALOG_DATA) public data : ZahtevZaPriznanjePatent, private toast: Toastr) {
-      this.zahtev = data
+ 
+
+    getjson(xml:any) : any{
+      const convert = require('xml-js');
+      const  zahtevList: any = JSON.parse(convert.xml2json(xml, {compact: true, spaces: 4}));
+      return zahtevList;
+    }
+  
+    getPrefix(atrributes: any){
+      Object.entries(atrributes).map(([key, value]) => {
+        if (value === environment.PATENT_NAMESPACE){
+            this.prefix = key.split(":")[1]
+        }
+        if (value === environment.COMMON_NAMSPACE){
+          this.commonPrefix = key.split(":")[1]
+        }
+      })
+    }
+  
+    convertFromJSON(zahtevXML: any){
+      const zahtev : any = zahtevXML[this.prefix + ':Zahtev_za_priznanje_patenta'];
+      let zahtevZaPriznanjePatent : ZahtevZaPriznanjePatent = this.patentFromXml.getPatentFromXML(zahtev, this.prefix, this.commonPrefix);
+     this.zahtev = zahtevZaPriznanjePatent;
     }
 
 

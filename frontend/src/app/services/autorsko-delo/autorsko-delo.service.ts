@@ -61,4 +61,10 @@ export class AutorskoDeloService {
     const url = this.AUTORSKO_DELO_PATH + `/get-prilog?documentId=${documentId}&imageName=${prilog}`;
     return this.httpRequestService.get(url)
   }
+
+  getById(documentId: string) : Observable<any>{
+    documentId = documentId.replace('/', '_');
+    const url = this.AUTORSKO_DELO_PATH + `/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
 }
