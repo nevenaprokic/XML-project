@@ -58,4 +58,7 @@ export class MenuComponent {
         this.router.navigateByUrl('zigovi')
       }
 
+  logOut() {
+    this.userService.logOut();
+  }
 }

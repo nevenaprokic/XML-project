@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.services;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.core.io.InputStreamResource;
 import org.xmldb.api.base.XMLDBException;
@@ -20,7 +21,7 @@ public interface ZigService {
 	
 	String generateDocumentId();
 	
-	void getPDF(String documentId) throws IOException, DocumentException;
+	void getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException;
 
 	ListaZahtevaZiga findAll() throws XMLDBException, JAXBException;
 	

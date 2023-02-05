@@ -81,7 +81,16 @@
         </button>
       </div>
       <div class="input-zig">
-        <span class="text">Punomocje:</span>
+        <div>
+          <span class="text">Punomocje:</span>
+          <section class="section-lice" [formGroup]="punomocjePrilog">
+            <mat-radio-group formControlName="nacinPunomocja" >
+              <mat-radio-button [checked] value="Punomocje">Punomoćje</mat-radio-button>
+              <mat-radio-button value="Punomocje_ranije_prilozeno">Punomoćje ranije priloženo</mat-radio-button>
+              <mat-radio-button value="Punomocje_naknadno_dostavljeno">Punomoćje naknadno dostavljeno</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
         <button class="button-add-remove" >
           <span>Dodaj primer</span>
           <input #punomocjeInput type="file" accept="image/*" formControlName="punomocje" (change)="uploadPrilog(punomocjeInput, prilogTypes.PUNOMOCJE)">

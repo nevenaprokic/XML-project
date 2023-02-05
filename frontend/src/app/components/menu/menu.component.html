@@ -39,23 +39,23 @@
         <mat-list-option (click)="patentOverview()">
           <p>Pregled patenata</p>
         </mat-list-option>
-      </div> 
+      </div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">lock</mat-icon>
         <mat-list-option (click)="autorskoDeloOverview()">
           <p>Pregled autorskih dela</p>
         </mat-list-option>
-      </div> 
+      </div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">lock</mat-icon>
         <mat-list-option (click)="zigOverview()">
           <p>Pregled žigova</p>
         </mat-list-option>
-      </div> 
+      </div>
       <div class="delimiter"></div>
       <div class="menu_item">
         <mat-icon class="menu_item_icon">exit_to_app</mat-icon>
-        <mat-list-option>
+        <mat-list-option (click)="logOut()">
           <p>Odjava</p>
         </mat-list-option>
       </div>

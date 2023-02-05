@@ -73,6 +73,18 @@ export class XmlTemplateService {
         <!--Optional:-->
         <Dostavljeno>${values.punomocje?.dostavljeno}</Dostavljeno>
     </Punomocje>
+    <Punomocje_ranije_prilozeno>
+        <!--Optional:-->
+        ${values.punomocjeRanijePrilozeno?.putanjaDoFajla ? `<Putanja_do_fajla>${values.punomocjeRanijePrilozeno.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.punomocjeRanijePrilozeno?.dostavljeno}</Dostavljeno>
+    </Punomocje_ranije_prilozeno>
+    <Punomocje_naknadno_dostavljeno>
+        <!--Optional:-->
+        ${values.punomocjeNaknadnoDostavljeno?.putanjaDoFajla ? `<Putanja_do_fajla>${values.punomocjeNaknadnoDostavljeno.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
+        <!--Optional:-->
+        <Dostavljeno>${values.punomocjeNaknadnoDostavljeno?.dostavljeno}</Dostavljeno>
+    </Punomocje_naknadno_dostavljeno>
     <Opsti_akt_o_kolektivnom_zigu_garancije>
         <!--Optional:-->
         ${values.opstiAktOKolektivnomZiguGarancije?.putanjaDoFajla ? `<Putanja_do_fajla>${values.opstiAktOKolektivnomZiguGarancije.putanjaDoFajla}</Putanja_do_fajla>` : '<Putanja_do_fajla/>'}
@@ -151,7 +163,7 @@ export class XmlTemplateService {
       </Zajednicki_predstavnik>`;
     }
     return ""
-   
+
   }
 
   private formatPunomocnikFizickoLice(values: FizickoLice) {

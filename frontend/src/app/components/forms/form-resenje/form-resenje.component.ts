@@ -29,13 +29,9 @@ export class FormResenjeComponent implements OnInit {
               private resenjeService: ResenjeService,
               private toastr: Toastr,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private userService:UserService,
+              private userService: UserService,
               public dialogRef: MatDialogRef<FormResenjeComponent>) {
-    if (data.type===typeZahteva.PATENT){
-      this.formField.controls.sifra.setValidators([Validators.pattern("[P][0-9]+[/][1-2][0-9]{3,3}")]);
-      this.placeholder = "P223/2003"
-    }
-    if (data.type===typeZahteva.ZIG){
+    if (data.type === typeZahteva.ZIG) {
       this.formField.controls.sifra.setValidators([Validators.pattern("\\Ž\\-[0-9]+\\/[0-9]{2,2}")]);
       this.placeholder = "Ž-912/23"
     }
@@ -45,15 +41,15 @@ export class FormResenjeComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.value.resenje === "TOdobren" && this.formField.value.sifra === ''){
+    if (this.form.value.resenje === "TOdobren" && this.formField.value.sifra === '') {
       return;
     }
-    if(this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === ''){
+    if (this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === '') {
       return;
     }
 
     const resenjeXML = this.createXML();
-    if(resenjeXML !== ""){
+    if (resenjeXML !== "") {
       this.sendResenje(resenjeXML);
     }
   }
@@ -61,6 +57,9 @@ export class FormResenjeComponent implements OnInit {
   private createXML() {
     let resenjeXML = "";
     if (this.data.type === typeZahteva.PATENT) {
+      if (this.form.value.resenje === "TOdobren") {
+        this.formField.value.sifra = this.data.id;
+      }
       resenjeXML = this.templateService.createNewXMLPatent(this.formField, this.form.value.resenje, this.data.id);
     } else if (this.data.type === typeZahteva.ZIG) {
       resenjeXML = this.templateService.createNewXMLZig(this.formField, this.form.value.resenje, this.data.id);

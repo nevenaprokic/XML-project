@@ -438,7 +438,8 @@
                                             </tr>
                                             <tr style="margin:0; padding:0;">
                                                 <td><p style="margin-bottom: 350px;">
-                                                    <xsl:value-of select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Izgled_znaka"/> <xsl:text></xsl:text>
+                                                 <xsl:variable name="img" select="z:Zahtev_za_priznanje_ziga/z:Zig/z:Izgled_znaka"/>
+                                                 <img alt="Izgled znaka" src="{$img}" />
                                                 </p></td>
                                             </tr>
                                         </table>

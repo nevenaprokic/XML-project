@@ -46,7 +46,7 @@
         <p class="description">11. Plaćene takse:</p>
         <app-takse-detail-view [takse]="zahtev.placeneTakse"></app-takse-detail-view>
       </div>
-  
+
       <div>
         <p class="description">12. Prilozi:</p>
         <div class="input-zig" style="display: flex; flex-direction: row; vertical-align: middle;">
@@ -91,31 +91,30 @@
         </div>
         <div class="input-zig" style="display: flex; flex-direction: row;">
           <span class="text">Punomocje:</span>
-          <div *ngIf="zahtev.priloziUzZahtev.punomocje.dostavljeno">
+          <div *ngIf="zahtev.priloziUzZahtev?.punomocje?.dostavljeno">
             <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocje.putanjaDoFajla)">Prikaži</button>
             <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocje.putanjaDoFajla)">Preuzmi</button>
             </div>
-            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.punomocje.dostavljeno">Nije priloženo</p>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev?.punomocje?.dostavljeno">Nije priloženo</p>
         </div>
         <div class="input-zig" style="display: flex; flex-direction: row;">
             <span class="text">Punomocje ranije priloženo:</span>
-            <div *ngIf="zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.dostavljeno">
+            <div *ngIf="zahtev.priloziUzZahtev?.punomocjeRanijePrilozeno?.dostavljeno">
               <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.putanjaDoFajla)">Prikaži</button>
               <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.putanjaDoFajla)">Preuzmi</button>
             </div>
-            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.punomocjeRanijePrilozeno.dostavljeno">Nije priloženo</p>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev?.punomocjeRanijePrilozeno?.dostavljeno">Nije priloženo</p>
         </div>
         <div class="input-zig" style="display: flex; flex-direction: row;">
             <span class="text">Punomocje rannaknadnoije priloženo:</span>
-            <div *ngIf="zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.dostavljeno">
+            <div *ngIf="zahtev.priloziUzZahtev?.punomocjeNaknadnoDostavljeno?.dostavljeno">
               <button class="btn" mat-button (click)="prikazi(zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.putanjaDoFajla)">Prikaži</button>
               <button class="btn" mat-button (click)="preuzmi(zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.putanjaDoFajla)">Preuzmi</button>
             </div>
-            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev.punomocjeNaknadnoDostavljeno.dostavljeno">Nije priloženo</p>
+            <p class="prilog-p" *ngIf="!zahtev.priloziUzZahtev?.punomocjeNaknadnoDostavljeno?.dostavljeno">Nije priloženo</p>
         </div>
       </div>
-   
+
     </form>
 
   </div>
-  
