@@ -247,4 +247,29 @@ export class PatentTabelViewComponent implements OnInit {
     }
   }
 
+  
+  downloadPdf(id: string) {
+    this.patentService.downloadPdf(id).subscribe({
+      next: (res: any) => {
+        const filename = `ZahtevZaPatent${id}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
+  downloadXHTML(id: string) {
+    this.patentService.downloadXHTML(id).subscribe({
+      next: (res: any) => {
+        const filename = `ZahtevZaPatent${id}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'html', filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
 }

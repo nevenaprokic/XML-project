@@ -85,4 +85,14 @@ export class PatentService {
     return this.http.get(url)
   }
 
+  downloadPdf(documentId: string) {
+    const url = this.PATENT_PATH + `/get-pdf/${documentId}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
+  downloadXHTML(documentId: string) {
+    const url = this.PATENT_PATH + `/get-xhtml/${documentId}`;
+    return this.http.get(url) as Observable<any>;
+  }
+
 }
