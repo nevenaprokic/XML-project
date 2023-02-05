@@ -21,7 +21,7 @@
 ## Frontend application:
 Commands to run in the terminal:
 ``` 
-    npm start
+    npm install
     ng serve
 ```
 
