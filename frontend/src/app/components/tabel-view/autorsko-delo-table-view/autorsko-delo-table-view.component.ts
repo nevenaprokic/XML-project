@@ -212,4 +212,26 @@ export class AutorskoDeloTableViewComponent implements OnInit {
     }
   }
 
+  downloadPdf(id: string) {
+    this.autorskoDeloService.downloadPdf(id).subscribe({
+      next: (res: any) => {
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf',id, 'ZahtevZaAutorskoDelo')
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
+  downloadXHTML(id: string) {
+    this.autorskoDeloService.downloadXHTML(id).subscribe({
+      next: (res: any) => {
+        this.fileUtils.downloadDocumentFromBase64(res, 'html', id,  'ZahtevZaAutorskoDelo')
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
 }

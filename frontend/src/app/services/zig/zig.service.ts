@@ -85,4 +85,14 @@ export class ZigService {
     const url = this.ZIG_PATH + `/get-prilog?imageName=${prilog}&documentId=${documentId}`;
     return this.httpRequestService.get(url)
   }
+
+  downloadPdf(documentId: string) {
+    const url = this.ZIG_PATH + `/get-pdf/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
+
+  downloadXHTML(documentId: string) {
+    const url = this.ZIG_PATH + `/get-xhtml/${documentId}`;
+    return this.httpRequestService.get(url) as Observable<any>;
+  }
 }

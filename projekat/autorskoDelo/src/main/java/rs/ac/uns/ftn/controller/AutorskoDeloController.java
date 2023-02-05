@@ -109,10 +109,23 @@ public class AutorskoDeloController {
 	
 
 	@GetMapping("/get-pdf/{documentId}")
-	public ResponseEntity<String> getPDF(@PathVariable String documentId) {
+	public ResponseEntity<?> getPDF(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
 		try {
-			autorskoDeloService.getPDF(documentId);
-			return ResponseEntity.ok("Generisan PDF");
+			String encodedFile = autorskoDeloService.getPDF(documentId);
+            return ResponseEntity.ok(encodedFile);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	@GetMapping("/get-xhtml/{documentId}")
+	public ResponseEntity<?> getXHTML(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
+		try {
+			String encodedFile = autorskoDeloService.getHTML(documentId);
+            return ResponseEntity.ok(encodedFile);
 		}
 		catch (Exception e) {
 			return ResponseEntity.badRequest().build();

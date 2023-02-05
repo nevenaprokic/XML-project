@@ -3,7 +3,9 @@ package rs.ac.uns.ftn.services;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
 
+import org.apache.fop.apps.FOPException;
 import org.springframework.core.io.InputStreamResource;
 import org.xmldb.api.base.XMLDBException;
 
@@ -21,7 +23,9 @@ public interface AutorskoDeloService {
 	
 	String generateDocumentId();
 	
-	void getPDF(String documentId) throws IOException, DocumentException;
+	String getPDF(String documentId) throws IOException, DocumentException;
+	
+	String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException;
 
 	ListaZahtevaAutorskoDelo findAll() throws XMLDBException, JAXBException;
 	
