@@ -21,7 +21,8 @@ export class XMLTemplateService {
         naslov="ZAHTEV ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA"
         broj_prijave=''
         datum_podnosenja='${new Date()}'
-        status="neobradjen">
+        status="neobradjen"
+        id_resenja=''>
     
         <Zavod>
           <zaj:Adresa>

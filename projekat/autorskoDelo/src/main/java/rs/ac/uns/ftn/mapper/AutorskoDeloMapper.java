@@ -49,6 +49,7 @@ public class AutorskoDeloMapper {
 		zahtev.setZavod(createZavod());
 		zahtev.setStatus(zahtevDTO.getStatus());
 		zahtev.setDatumPodnosenja(zahtevDTO.getDatumPodnosenja());
+		zahtev.setIdResenja(zahtevDTO.getIdResenja());
 				
 		zahtev.getOtherAttributes().put(new QName("vocab"), PRED_PREFIX);
 		zahtev.getOtherAttributes().put(new QName("about"),  TARGET_NS_PREFIX + id);

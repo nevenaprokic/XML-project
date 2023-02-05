@@ -90,4 +90,5 @@ export interface ZahtevZaAutorskoDelo{
     datumPodnosenja?: Date | undefined,
     id?: string;
     podnosilacNaziv? : string
+    idResenja?: string
 }

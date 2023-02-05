@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TOdbijen", namespace = "http://ftn.uns.ac.rs/resenje", propOrder = {
+    "sifra",
     "obrazlozenje"
 })
 public class TOdbijen
@@ -36,6 +37,8 @@ public class TOdbijen
 
     @XmlElement(name = "Obrazlozenje", namespace = "http://ftn.uns.ac.rs/resenje", required = true)
     protected String obrazlozenje;
+    @XmlElement(name = "Sifra", namespace = "http://ftn.uns.ac.rs/resenje", required = true)
+    protected String sifra;
 
     /**
      * Gets the value of the obrazlozenje property.
@@ -59,6 +62,29 @@ public class TOdbijen
      */
     public void setObrazlozenje(String value) {
         this.obrazlozenje = value;
+    }
+    /**
+     * Gets the value of the sifra property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getSifra() {
+        return sifra;
+    }
+
+    /**
+     * Sets the value of the sifra property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setSifra(String value) {
+        this.sifra = value;
     }
 
 }

@@ -33,6 +33,7 @@ import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaResenja;
 import rs.ac.uns.ftn.jaxb.resenje.Resenje;
 import rs.ac.uns.ftn.jaxb.resenje.StatusResenja;
+import rs.ac.uns.ftn.jaxb.resenje.TOdbijen;
 import rs.ac.uns.ftn.jaxb.resenje.TOdobren;
 import rs.ac.uns.ftn.jaxb.resenje.TSluzbenik;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
@@ -75,14 +76,18 @@ public class ResenjeServiceImpl implements ResenjeService {
 			}
 		}
 		if(resenje.getStatus() == StatusResenja.ODBIJEN) {
+			if(resenje.getDodatak() instanceof TOdbijen) {
+				zahtev.setBrojPrijave(((TOdbijen) resenje.getDodatak()).getSifra());
+			}
 			zahtev.setStatus(StatusZahteva.ODBIJEN);
 		}
 
+		zahtev.setIdResenja(documentId);
 		zahtev.setIdAutorskogDela(resenje.getIdAutorskogDela());
 		autorskoDeloService.saveFile(zahtev, resenje.getIdAutorskogDela().getIdA());
 		resenjeRepository.saveResenje(resenje, documentId);
 		
-//		sendAsPdfToEmail(resenje, zahtev);
+		sendAsPdfToEmail(resenje, zahtev);
 		
 		return documentId;
 	}
@@ -137,6 +142,7 @@ public class ResenjeServiceImpl implements ResenjeService {
 		}
 	}
 
+	// ovo mi treba za slanje mejla, NE DIRAJ!
 	@Override
 	public File getPDF(Resenje resenje) throws IOException, DocumentException, ParserConfigurationException, JAXBException {
 		Document document = JaxbMapper.marshalResenjeToDocument(resenje);
@@ -163,6 +169,7 @@ public class ResenjeServiceImpl implements ResenjeService {
 		return pdfFile;
 	}
 	
+	// ovo je za preuzimanje resenja
 	@Override
 	public String getPDF(String documentId) throws IOException, DocumentException {
 		//ucitavanje xml-a iz baze

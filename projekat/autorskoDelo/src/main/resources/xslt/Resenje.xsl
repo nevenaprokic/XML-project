@@ -2,7 +2,6 @@
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:re="http://ftn.uns.ac.rs/resenje"  
-	xmlns:a="http://ftn.uns.ac.rs/a1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:str="http://exslt.org/strings" extension-element-prefixes="str">
 	<xsl:output method="html" encoding="UTF-8" indent="yes" />
@@ -70,7 +69,7 @@
 					</p>
 					<p class="title-request">
 						ZAHTEVA ZA AUTORSKO DELO
-						BR. <span><xsl:value-of select="re:Resenje/a:idAutorskogDela"/><xsl:text></xsl:text></span>
+						BR. <span><xsl:value-of select="re:Resenje/re:Dodatak/re:Sifra"/><xsl:text></xsl:text></span>
 					</p>
 					<p class="subtitle">Rešenje izdao službenik: </p>
 					<p class="subtitle-date">
@@ -92,7 +91,7 @@
 						<xsl:when test="re:Resenje/@status = 'odobren'">
                         	<td class="header">
 								Ovim resenjem priznaje se Zahtev za priznanje i deponovanje autorskog dela zavedeno pod brojem
-								<span><xsl:value-of select="re:Resenje/a:idAutorskogDela"/><xsl:text></xsl:text></span>.
+								<span><xsl:value-of select="re:Resenje/re:Dodatak/re:Sifra"/><xsl:text></xsl:text></span>.
 								<br></br>
 								<br></br>
 								Resenje o priznavanju postaje pravnosnazno na dan izdavanja.
@@ -101,7 +100,7 @@
                         <xsl:when test="re:Resenje/@status = 'odbijen'">
                         	<td class="header">
 								Ovim resenjem odbija se Zahtev za priznanje i deponovanje autorskog dela zavedeno pod brojem
-								<span><xsl:value-of select="re:Resenje/a:idAutorskogDela"/><xsl:text></xsl:text></span>.
+								<span><xsl:value-of select="re:Resenje/re:Dodatak/re:Sifra"/><xsl:text></xsl:text></span>.
 								Nakon uvida u zahtev, doneta je odluka o odbijanju.
 								<br></br> 
 								<br></br>

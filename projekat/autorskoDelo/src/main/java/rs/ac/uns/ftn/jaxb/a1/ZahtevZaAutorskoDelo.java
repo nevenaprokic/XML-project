@@ -70,6 +70,8 @@ public class ZahtevZaAutorskoDelo {
     protected String naslov;
     @XmlAttribute(name = "broj_prijave")
     protected String brojPrijave;
+    @XmlAttribute(name = "id_resenja")
+    protected String idResenja;
     @XmlAttribute(name = "datum_podnosenja")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar datumPodnosenja;
@@ -264,6 +266,14 @@ public class ZahtevZaAutorskoDelo {
 
 	public void setStatus(StatusZahteva status) {
 		this.status = status;
+	}
+
+	public String getIdResenja() {
+		return idResenja;
+	}
+
+	public void setIdResenja(String idResenja) {
+		this.idResenja = idResenja;
 	}
 
 	public Map<QName, String> getOtherAttributes() {

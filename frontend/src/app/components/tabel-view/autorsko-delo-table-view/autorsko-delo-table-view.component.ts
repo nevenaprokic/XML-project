@@ -149,23 +149,30 @@ export class AutorskoDeloTableViewComponent implements OnInit {
   }
 
   openResenje(element: ZahtevZaAutorskoDelo) {
-    if(!element.brojPrijave || element.status === Status.NEOBRADJEN){
-      let dialogRef = this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.AUTORSKO_DELO}});
+    if(!element.idResenja || element.status === Status.NEOBRADJEN){
+      let dialogRef = this.dialog.open(
+        FormResenjeComponent, 
+        {  
+          height: '600px',
+          width: '1000px',
+          data: {id: element.id, type: typeZahteva.AUTORSKO_DELO}
+        },
+      );
       dialogRef.afterClosed().subscribe(res => {
         console.log(res.data)
-        element.brojPrijave = res.data
+        element.idResenja = res.data
         element.status = Status.SVI
       })
     }
     else{
-      this.downloadResenje(element)
+      this.downloadResenje(element.idResenja)
     }
   }
 
-  downloadResenje(element: ZahtevZaAutorskoDelo) {
-    this.resenjeService.downnloadResenje(element.brojPrijave!, typeZahteva.AUTORSKO_DELO).subscribe({
+  downloadResenje(idResenja: string) {
+    this.resenjeService.downnloadResenje(idResenja, typeZahteva.AUTORSKO_DELO).subscribe({
       next: (res: any) => {
-        const filename = `resenje-${element.brojPrijave!}`
+        const filename = `resenje-${idResenja}`
         this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
       },
       error: (res: any) => {
