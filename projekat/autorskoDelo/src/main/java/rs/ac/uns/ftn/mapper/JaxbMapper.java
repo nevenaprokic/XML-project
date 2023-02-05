@@ -8,7 +8,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
@@ -92,6 +95,13 @@ public class JaxbMapper {
 		marshaller.marshal(resenje, os);
 
 		return os;
+	}
+	public static Document marshalResenjeToDocument(Resenje resenje) throws JAXBException, ParserConfigurationException {
+		JAXBContext jc = JAXBContext.newInstance(CONTEXT_RESENJE);
+	    Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+	    Marshaller marshaller = jc.createMarshaller();
+	    marshaller.marshal(resenje, document);
+		return document;
 	}
 
 	public static OutputStream marshallPrilogImage(PrilogImage prilog) throws JAXBException {

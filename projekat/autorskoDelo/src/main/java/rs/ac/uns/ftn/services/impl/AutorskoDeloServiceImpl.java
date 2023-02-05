@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -27,6 +29,7 @@ import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.jaxb.a1.StatusZahteva;
+import rs.ac.uns.ftn.jaxb.a1.TPodnosilac;
 import rs.ac.uns.ftn.jaxb.a1.ZahtevZaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaAutorskoDelo;
 import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
@@ -199,5 +202,39 @@ public class AutorskoDeloServiceImpl implements AutorskoDeloService{
 	public PrilogImage getPrilog(String documentId, String imgName) {
 		return prilogService.getPrilog(documentId, imgName);
 	}
+
+	@Override
+	public Map<String, String> getPodaciPodnosioca(ZahtevZaAutorskoDelo zahtev) {
+		TPodnosilac podnosilacDto = zahtev.getPodnosilac();
+		Map<String, String> podaciPodnosioca = new HashMap<String, String>();
+
+		if(podnosilacDto.getPravnoLice()!=null) {
+			String email = podnosilacDto.getPravnoLice().getKontaktPodaci().getEmail();
+			String name = podnosilacDto.getPravnoLice().getNaziv();
+			podaciPodnosioca.put("email", email);
+			podaciPodnosioca.put("name", name);
+		}
+		else if(podnosilacDto.getPunomocnik()!=null) {
+			String email = podnosilacDto.getPunomocnik().getKontaktPodaci().getEmail();
+			String name = formatName(podnosilacDto.getPunomocnik().getIme(), podnosilacDto.getPunomocnik().getPrezime(), null);
+			podaciPodnosioca.put("email", email);
+			podaciPodnosioca.put("name", name);
+		}
+		else if(podnosilacDto.getAutor()!=null){
+			String email = podnosilacDto.getAutor().getKontaktPodaci().getEmail();
+			String name = formatName(podnosilacDto.getAutor().getIme(), podnosilacDto.getAutor().getPrezime(), podnosilacDto.getAutor().getPseudonim());
+			podaciPodnosioca.put("email", email);
+			podaciPodnosioca.put("name", name);
+		}
+		return podaciPodnosioca;
+	}
+	
+	private String formatName(String ime, String prezime, String pseudonim) {
+		ime = ime != null ? ime : "";
+		prezime = prezime != null ? prezime : "";
+		pseudonim = pseudonim != null ? pseudonim : "";
+		return String.format("%1$s %2$s %3$s", ime, prezime, pseudonim).trim();
+	}
+
 
 }

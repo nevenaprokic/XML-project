@@ -39,8 +39,8 @@ public class ResenjeController {
 			return ResponseEntity.ok().build();
 		}
 		catch (Exception e) {
-			System.out.println(e);
-			return ResponseEntity.badRequest().build();
+			e.printStackTrace();
+ 			return ResponseEntity.badRequest().build();
 		}
 		
 	}

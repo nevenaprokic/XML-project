@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 
@@ -38,4 +39,6 @@ public interface AutorskoDeloService {
 	ListaZahtevaAutorskoDelo findAllApproved() throws XMLDBException, JAXBException;
 
 	PrilogImage getPrilog(String documentId, String imgName);
+	
+	Map<String, String> getPodaciPodnosioca(ZahtevZaAutorskoDelo zahtev);
 }
