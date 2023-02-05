@@ -35,6 +35,7 @@ import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
 import rs.ac.uns.ftn.mapper.JaxbMapper;
 import rs.ac.uns.ftn.repository.ResenjeRepository;
+import rs.ac.uns.ftn.services.QRCodeService;
 import rs.ac.uns.ftn.services.ResenjeService;
 import rs.ac.uns.ftn.services.ZigService;
 import rs.ac.uns.ftn.transformations.PDFTransformer;
@@ -47,6 +48,9 @@ public class ResenjeServiceImpl implements ResenjeService {
 	
 	@Autowired
 	private ZigService zigService;
+	
+	@Autowired
+	private QRCodeService qrCodeService;
 
 	public static final String PATH = "src/main/resources/xslt/";
 	public static final String XSL_FILE = "src/main/resources/xslt/Resenje.xsl";
@@ -77,10 +81,22 @@ public class ResenjeServiceImpl implements ResenjeService {
 		
 		zahtev.setIdResenja(documentId);
 		zahtev.setId(resenje.getIdZiga());
+		resenje.setKod(getQRCode(resenje.getIdZiga().getIdZ()));
 		zigService.saveFile(zahtev, resenje.getIdZiga().getIdZ());
 		resenjeRepository.saveResenje(resenje, documentId);
 		
 		return documentId;
+	}
+	
+	private String getQRCode(String documentId) {
+		String medium="http://localhost:4200/pregled-ziga/"+documentId;
+        String image = null;
+		try {
+			image = qrCodeService.generateQRCodeBase64String(medium);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return image;
 	}
 	
 	private TSluzbenik getSluzbenik(String user) {

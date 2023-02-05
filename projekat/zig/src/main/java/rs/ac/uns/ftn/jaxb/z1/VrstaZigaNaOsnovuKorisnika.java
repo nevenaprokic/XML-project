@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="individualni zig"/>
  *     &lt;enumeration value="kolektivni zig"/>
- *     &lt;enumeration value="zig generacije"/>
+ *     &lt;enumeration value="zig garancije"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -29,8 +29,8 @@ public enum VrstaZigaNaOsnovuKorisnika {
     INDIVIDUALNI_ZIG("individualni zig"),
     @XmlEnumValue("kolektivni zig")
     KOLEKTIVNI_ZIG("kolektivni zig"),
-    @XmlEnumValue("zig generacije")
-    ZIG_GENERACIJE("zig generacije");
+    @XmlEnumValue("zig garancije")
+    ZIG_GARANCIJE("zig garancije");
     private final String value;
 
     VrstaZigaNaOsnovuKorisnika(String v) {

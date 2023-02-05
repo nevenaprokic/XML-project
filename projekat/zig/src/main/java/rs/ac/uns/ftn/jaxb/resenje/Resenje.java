@@ -38,7 +38,8 @@ import java.util.Map;
 @XmlType(name = "", propOrder = {
     "idZiga",
     "dodatak",
-    "sluzbenik"
+    "sluzbenik",
+    "kod"
 })
 @XmlRootElement(name = "Resenje", namespace = "http://ftn.uns.ac.rs/resenje")
 public class Resenje {
@@ -49,6 +50,8 @@ public class Resenje {
     protected TResenje dodatak;
     @XmlElement(name = "Sluzbenik", namespace = "http://ftn.uns.ac.rs/resenje", required = true)
     protected TSluzbenik sluzbenik;
+    @XmlElement(name = "Kod", namespace = "http://ftn.uns.ac.rs/resenje")
+	protected String kod;
     @XmlAttribute(name = "status", required = true)
     protected StatusResenja status;
     @XmlAttribute(name = "datum_resenja", required = true)
@@ -128,6 +131,14 @@ public class Resenje {
     public void setSluzbenik(TSluzbenik value) {
         this.sluzbenik = value;
     }
+    
+    public String getKod() {
+		return kod;
+	}
+
+	public void setKod(String value) {
+		this.kod = value;
+	}
 
     /**
      * Gets the value of the status property.
