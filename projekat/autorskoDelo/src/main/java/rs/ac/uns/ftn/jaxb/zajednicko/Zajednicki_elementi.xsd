@@ -24,14 +24,14 @@
     <xs:element name="Kontakt_podaci">
         <xs:complexType>
             <xs:all>
-                <xs:element name="Telefon">
+                <xs:element name="Telefon" nillable="true" minOccurs="0">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[0][6][0-9]/[0-9]{3,3}-[0-9]{3,4}"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Faks">
+                <xs:element name="Faks" nillable="true" minOccurs="0">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[0-9]{3,4}/[0-9]{5,7}"/>
@@ -39,7 +39,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Email">
+                <xs:element name="Email" nillable="true" minOccurs="0">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[^@]+@[^\.]+\..+"/>

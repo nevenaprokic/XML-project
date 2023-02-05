@@ -3,7 +3,7 @@ WHERE {
     ?zahtevZaAutorskoDelo <http://examples/predicate/datum_podnosenja> ?datum_podnosenja . 
   	?zahtevZaAutorskoDelo <http://examples/predicate/autorsko_delo> ?autorsko_delo . 
   	?zahtevZaAutorskoDelo <http://examples/predicate/primarni_autor> ?primarni_autor . 
-  	?zahtevZaAutorskoDelo <http://examples/predicate/koautor> ?koautor . 
+  	OPTIONAL { ?zahtevZaAutorskoDelo <http://examples/predicate/koautor> ?koautor .} 
   	?zahtevZaAutorskoDelo <http://examples/predicate/podnosilac> ?podnosilac . 
   	?zahtevZaAutorskoDelo <http://examples/predicate/ime_prodnosioca> ?ime_prodnosioca . 
   	OPTIONAL { ?zahtevZaAutorskoDelo <http://examples/predicate/prilog_opis> ?prilog_opis . }

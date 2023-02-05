@@ -13,8 +13,8 @@ export class FormAutorComponent implements OnInit {
   form = this.fb.group({
     pseudonim:[''],
     godinaSmrti: [''],
-    primarniAutor: [false],
-    anonimniAutor: [false]
+    primarniAutor: true,
+    anonimniAutor: false
   });
 
   constructor(private fb: FormBuilder) {

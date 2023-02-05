@@ -59,9 +59,9 @@ export class FormConverterService {
         adresa: adresaData,
         kontaktPodaci: kontaktData,
 
-        anonimni: autorData.anonimni,
+        anonimni: autorData.primarniAutor,
         godinaSmrti: autorData.godinaSmrti,
-        primarni: autorData.primarni,
+        primarni: autorData.primarniAutor,
         pseudonim: autorData.pseudonim
       })
     }
@@ -76,8 +76,8 @@ export class FormConverterService {
       prezime: forms.podnosilacPrijaveAutorLice.prezime,
       drzavljanstvo: forms.podnosilacPrijaveAutorLice.drzavljanstvo,
 
-      anonimni: forms.podnosilacPrijaveAutorObelezja.anonimni,
-      primarni: forms.podnosilacPrijaveAutorObelezja.primarni,
+      anonimni: forms.podnosilacPrijaveAutorObelezja.anonimniAutor,
+      primarni: forms.podnosilacPrijaveAutorObelezja.primarniAutor,
       godinaSmrti: forms.podnosilacPrijaveAutorObelezja.godinaSmrti,
       pseudonim: forms.podnosilacPrijaveAutorObelezja.pseudonim
     }
@@ -117,7 +117,7 @@ export class FormConverterService {
         }
       },
       nacinKoriscenja: podaciOAutorskomDeluForm.nacinKoriscenja,
-      prerada: podaciOAutorskomDeluForm.naslovPreradeAutorskogDela==='',
+      prerada: podaciOAutorskomDeluForm.naslovPreradeAutorskogDela===undefined,
       radniOdnos: podaciOAutorskomDeluForm.podaciORadnomOdnosu,
       vrsta: podaciOAutorskomDeluForm.vrstaAutorskogDela
     }

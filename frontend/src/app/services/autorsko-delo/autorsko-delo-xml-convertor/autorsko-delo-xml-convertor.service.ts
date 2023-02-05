@@ -164,19 +164,43 @@ export class AutorskoDeloXmlConvertorService {
 
 
   getAdresa(xml:any):Adresa{
+    let broj = undefined;
+    let ulica = undefined;
+    let grad = undefined;
     let adresa = xml[this.commonPrefix + ':Adresa']
+    if(adresa){
+      if( adresa[this.commonPrefix + ':Broj']){
+        broj = adresa[this.commonPrefix + ':Broj']._text
+      }
+      if( adresa[this.commonPrefix + ':Ulica']){
+        ulica = adresa[this.commonPrefix + ':Ulica']._text
+      }
+      if( adresa[this.commonPrefix + ':Grad']){
+        grad = adresa[this.commonPrefix + ':Grad']._text
+      }
+    }
     return {
-      broj: adresa[this.commonPrefix + ':Broj']._text,
-      ulica: adresa[this.commonPrefix + ':Ulica']._text,
-      grad: adresa[this.commonPrefix + ':Grad']._text
+      broj, ulica, grad
     }
  }
 
  getKontaktPodaci(xml: any) : KontaktPodaci{
+  let email = undefined;
+  let telefon = undefined;
+  let faks = undefined;
   let kontakt = xml[this.commonPrefix + ':Kontakt_podaci']
-   return {email: kontakt[this.commonPrefix + ':Email']._text, 
-          telefon: kontakt[this.commonPrefix + ':Telefon']._text,
-          faks: kontakt[this.commonPrefix + ':Faks'] ? kontakt[this.commonPrefix + ':Faks']._text : ""}
+  if(kontakt){
+    if( kontakt[this.commonPrefix + ':Email']){
+      email = kontakt[this.commonPrefix + ':Email']._text
+    }
+    if( kontakt[this.commonPrefix + ':Telefon']){
+      telefon = kontakt[this.commonPrefix + ':Telefon']._text
+    }
+    if( kontakt[this.commonPrefix + ':Faks']){
+      faks = kontakt[this.commonPrefix + ':Faks']._text
+    }
+  }
+   return {email, telefon, faks}
 }
 
 getPravnoLice(xml:any): PravnoLice{

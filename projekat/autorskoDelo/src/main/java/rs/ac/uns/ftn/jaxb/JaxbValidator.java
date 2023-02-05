@@ -37,7 +37,7 @@ public class JaxbValidator {
 //            String objectValidateString = this.marshall(genericClass, objectValidate);
 //
 //            SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-//            Schema schema = factory.newSchema(ResourceUtils.getFile("classpath:xsd/A1.xsd"));
+//            Schema schema = factory.newSchema(ResourceUtils.getFile("classpath:data/A1.xsd"));
 //
 //            JAXBContext context = JAXBContext.newInstance(genericClass);
 //            Unmarshaller unmarshaller = context.createUnmarshaller();

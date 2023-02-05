@@ -20,7 +20,6 @@ export class XmlTemplateService {
     const dateForXML = date.getFullYear()+ "-" +  ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
     console.log(dateForXML);
     return `<?xml version="1.0" encoding="UTF-8"?>
-    <Zahtev_za_priznanje_ziga datum_podnosenja_prijave="${dateForXML}"  status="neobradjen"
     <Zahtev_za_priznanje_ziga id_resenja="" datum_podnosenja_prijave="${dateForXML}"  status="neobradjen"
                               xmlns="http://ftn.uns.ac.rs/zig"
                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

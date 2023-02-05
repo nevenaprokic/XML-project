@@ -9,6 +9,8 @@ export class XMLTemplateService {
   constructor() { }
 
   createNewXML(values: ZahtevZaAutorskoDelo) : string {
+    const date = new Date();
+    const dateForXML = date.getFullYear()+ "-" +  ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
     return `<?xml version="1.0" encoding="UTF-8"?>
     <?xml-stylesheet type="text/xsl" href="../xsl/grddl.xsl"?>
     
@@ -127,17 +129,17 @@ export class XMLTemplateService {
   formatAdresa(values: Adresa | undefined) {
     return `
     <zaj:Adresa>
-      <zaj:Grad>${values?.grad}</zaj:Grad>
-      <zaj:Ulica>${values?.ulica}</zaj:Ulica>
-      <zaj:Broj>${values?.broj}</zaj:Broj>
+      ${values?.grad ? `<zaj:Grad>${values?.grad}</zaj:Grad>` : '' }
+      ${values?.ulica ? `<zaj:Ulica>${values?.ulica}</zaj:Ulica>` : '' }
+      ${values?.broj ? `<zaj:Broj>${values?.broj}</zaj:Broj>` : '' }
     </zaj:Adresa>`
   }
 
   formatKontaktPodaci(values: KontaktPodaci | undefined) {
     return `
     <zaj:Kontakt_podaci>
-        <zaj:Telefon>${values?.telefon}</zaj:Telefon>
-        <zaj:Email>${values?.email}</zaj:Email>
+        ${values?.telefon ? `<zaj:Telefon>${values?.telefon}</zaj:Telefon>` : ''}
+        ${values?.email ? `<zaj:Email>${values?.email}</zaj:Email>` : ''}
         ${values?.faks ? `<zaj:Faks>${values?.faks}</zaj:Faks>` : '' }
     </zaj:Kontakt_podaci>`
   }

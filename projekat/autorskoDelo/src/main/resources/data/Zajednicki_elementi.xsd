@@ -8,7 +8,7 @@
                 <xs:element name="Drzava" type="xs:string" minOccurs="0"/>
                 <xs:element name="Grad" type="xs:string"/>
                 <xs:element name="Ulica" type="xs:string"/>
-                <xs:element name="Broj" type="xs:positiveInteger" nillable="true"/>
+                <xs:element name="Broj" type="xs:positiveInteger" nillable="true"  minOccurs="0"/>
                 <xs:element name="Postanski_broj" minOccurs="0">
                     <xs:simpleType>
                         <xs:restriction base="xs:int">
@@ -24,14 +24,14 @@
     <xs:element name="Kontakt_podaci" nillable="true">
         <xs:complexType>
             <xs:all>
-                <xs:element name="Telefon" minOccurs="0">
+                <xs:element name="Telefon" minOccurs="0" nillable="true">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[0][6][0-9]/[0-9]{3,3}-[0-9]{3,4}"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Faks" minOccurs="0">
+                <xs:element name="Faks" minOccurs="0" nillable="true">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[0-9]{3,4}/[0-9]{5,7}"/>
@@ -39,7 +39,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Email" minOccurs="0">
+                <xs:element name="Email" minOccurs="0" nillable="true">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[^@]+@[^\.]+\..+"/>

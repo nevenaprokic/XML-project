@@ -15,8 +15,8 @@
   </div>
   <div class="autor-izbor">
     <section class="checkbox">
-      <mat-checkbox formControlName="primarniAutor">Primarni autor</mat-checkbox>
-      <mat-checkbox formControlName="anonimniAutor">Anonimni autor</mat-checkbox>
+      <mat-checkbox formControlName="primarniAutor"  (change)="emitForm()">Primarni autor</mat-checkbox>
+      <mat-checkbox formControlName="anonimniAutor"  (change)="emitForm()">Anonimni autor</mat-checkbox>
     </section>
   </div>
 </div>
