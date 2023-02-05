@@ -75,8 +75,8 @@ public class ResenjeServiceImpl implements ResenjeService {
 		}
 
 		zahtev.setIdAutorskogDela(resenje.getIdAutorskogDela());
-		//autorskoDeloService.saveFile(zahtev, resenje.getIdAutorskogDela().getIdA());
-		//resenjeRepository.saveResenje(resenje, documentId);
+		autorskoDeloService.saveFile(zahtev, resenje.getIdAutorskogDela().getIdA());
+		resenjeRepository.saveResenje(resenje, documentId);
 		
 		sendAsPdfToEmail(resenje, zahtev);
 	}
@@ -124,6 +124,8 @@ public class ResenjeServiceImpl implements ResenjeService {
 			podaci.put("resenjeType", resenje.getStatus().toString() + "O");
 			podaci.put("zahtevNumber", zahtev.getIdAutorskogDela().getIdA());
 			emailService.sendEmailResenje(podaci, pdf);
+			
+			pdf.delete();
 		} catch (IOException | DocumentException | ParserConfigurationException | JAXBException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +148,7 @@ public class ResenjeServiceImpl implements ResenjeService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateHTML(document, outputFileXHTML, XSL_FILE);
+		pdfTransformer.generateSource(document, outputFileXHTML, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, outputFileXHTML);
 		
 		System.out.println("[INFO] File \"" + outputFilePDF + "\" generated successfully.");
