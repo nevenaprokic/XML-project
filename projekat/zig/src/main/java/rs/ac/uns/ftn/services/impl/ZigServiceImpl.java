@@ -69,16 +69,16 @@ public class ZigServiceImpl implements ZigService {
 
 	@Override
 	public void saveNewFile(ZahtevZaPriznanjeZiga zahtevDTO) {
-  	if (jaxbValidator.validate(zahtevDTO.getClass(), zahtevDTO)) {
-      String documentId = generateDocumentId();
-      IdZiga idZiga = new IdZiga();
-      idZiga.setIdZ(documentId);
-      zahtevDTO.setId(idZiga);
-      prilogService.extractPrilozi(zahtevDTO, documentId);
-      zahtevDTO.setKod(getQRCode(documentId));
-      ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
-      zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
-    }
+	  	if (jaxbValidator.validate(zahtevDTO.getClass(), zahtevDTO)) {
+	      String documentId = generateDocumentId();
+	      IdZiga idZiga = new IdZiga();
+	      idZiga.setIdZ(documentId);
+	      zahtevDTO.setId(idZiga);
+	      prilogService.extractPrilozi(zahtevDTO, documentId);
+	      zahtevDTO.setKod(getQRCode(documentId));
+	      ZahtevZaPriznanjeZiga zahtev = ZigMapper.mapFromDTO(zahtevDTO, documentId);
+	      zigRepository.saveZahtevZaPriznanjeZiga(zahtev, documentId);
+	    }
 	}
 	
 	private String getQRCode(String documentId) {
@@ -134,7 +134,7 @@ public class ZigServiceImpl implements ZigService {
 		}
     	
 		PDFTransformer pdfTransformer = new PDFTransformer();
-		pdfTransformer.generateSource(zaZig, inputFile, XSL_FILE);
+		pdfTransformer.generateSource(document, inputFile, XSL_FILE);
 		pdfTransformer.generatePDF(outputFilePDF, inputFile);	
 		removeFile(inputFile);
 		return convertPdfToBase64(outputFilePDF);

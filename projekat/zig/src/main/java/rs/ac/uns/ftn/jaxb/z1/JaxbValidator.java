@@ -1,17 +1,12 @@
 package rs.ac.uns.ftn.jaxb.z1;
 
-import java.io.StringReader;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import rs.ac.uns.ftn.exception.BadRequestException;
 import rs.ac.uns.ftn.exception.ErrorMessageConstants;
