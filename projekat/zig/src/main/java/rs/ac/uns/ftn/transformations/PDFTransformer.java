@@ -47,7 +47,7 @@ public class PDFTransformer {
     
     public void generatePDF(String filePath, String xtmlFile) throws IOException, DocumentException {
         PdfDocument pdfDocument = new PdfDocument(new com.itextpdf.kernel.pdf.PdfWriter(filePath));
-        pdfDocument.setDefaultPageSize(new PageSize(780, 1150));
+        pdfDocument.setDefaultPageSize(new PageSize(780, 1200));
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(xtmlFile)), pdfDocument);
     }
 
