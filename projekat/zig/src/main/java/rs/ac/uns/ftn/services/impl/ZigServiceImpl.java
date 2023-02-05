@@ -13,12 +13,15 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
@@ -30,7 +33,9 @@ import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
+import rs.ac.uns.ftn.jaxb.izvestaj.Izvestaj;
 import rs.ac.uns.ftn.jaxb.lists.ListaZahtevaZiga;
+import rs.ac.uns.ftn.jaxb.prilog.PrilogImage;
 import rs.ac.uns.ftn.jaxb.z1.IdZiga;
 import rs.ac.uns.ftn.jaxb.z1.StatusZahteva;
 import rs.ac.uns.ftn.jaxb.z1.ZahtevZaPriznanjeZiga;
@@ -88,9 +93,15 @@ public class ZigServiceImpl implements ZigService {
 	}
 	
 	@Override
-	public String getPDF(String documentId) throws IOException, DocumentException, FOPException, TransformerException {
+	public void getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException {
 		//ucitavanje xml-a iz baze
-		Node zaZig = zigRepository.getXMLZahtevZaZigbyId(documentId);
+		//objekat zig - u njemu izmeniti sliku ziga sa stvarnim bajtovima i onda pokrenuti
+		ZahtevZaPriznanjeZiga zahtevZaPriznanjeZiga = zigRepository.getZahtevZaPriznanjeZigaById(documentId);
+		String slika = zahtevZaPriznanjeZiga.getPriloziUzZahtev().getPrimerakZnaka().getPutanjaDoFajla();
+		PrilogImage originalnaSlika = prilogService.getPrilog(documentId, slika);
+		zahtevZaPriznanjeZiga.getZig().setIzgledZnaka("data:image/png;base64," + originalnaSlika.getSadrzajPriloga());
+
+		Document document = marshalZahtev(zahtevZaPriznanjeZiga);
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String outputFilePDF = PATH + documentId  + "-" + timeStamp + ".pdf";
@@ -130,6 +141,14 @@ public class ZigServiceImpl implements ZigService {
 		pdfTransformer.generateSource(zaZig, outputFileHTML, XSL_FILE);
 		
 		return convertPdfToBase64(outputFileHTML);
+	}
+	
+	private Document marshalZahtev(ZahtevZaPriznanjeZiga zahtevZaPriznanjeZiga) throws JAXBException, ParserConfigurationException {
+		JAXBContext jc = JAXBContext.newInstance(ZahtevZaPriznanjeZiga.class);
+	    Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+	    Marshaller marshaller = jc.createMarshaller();
+	    marshaller.marshal(zahtevZaPriznanjeZiga, document);
+		return document;
 	}
 	
 	@Override

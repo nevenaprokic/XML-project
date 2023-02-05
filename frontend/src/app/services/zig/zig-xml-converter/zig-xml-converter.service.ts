@@ -98,7 +98,8 @@ export class ZigXmlConverterService {
   }
 
   getPunomocnik(xml: any) : Punomocnik | undefined{
-    let punomocnik = xml[this.prefix + ":Punomocnik"]
+    let punomocnik = xml[this.prefix + ":Punomocnik"];
+    console.log(punomocnik);
     if (punomocnik){
       let lice = this.getLice(punomocnik)
       return {punomocnik : lice}
@@ -162,8 +163,8 @@ export class ZigXmlConverterService {
   }
 
   getKontaktPodaci(xml: any) : KontaktPodaci{
-    let kontakt = xml[this.commonPrefix + ':Kontakt_podaci']
-     return new KontaktPodaci(kontakt[this.commonPrefix + ':Faks']._text, kontakt[this.commonPrefix + ':Email']._text, kontakt[this.commonPrefix + ':Telefon']._text)
+    let kontakt = xml[this.commonPrefix + ':Kontakt_podaci'];
+     return new KontaktPodaci(kontakt[this.commonPrefix + ':Faks']?._text, kontakt[this.commonPrefix + ':Email']._text, kontakt[this.commonPrefix + ':Telefon']._text)
   }
 
   getAdresa(xml:any):Adresa{

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.apache.fop.apps.FOPException;
@@ -24,7 +25,7 @@ public interface ZigService {
 	
 	String generateDocumentId();
 	
-	String getPDF(String documentId) throws IOException, DocumentException, FOPException, TransformerException;
+	void getPDF(String documentId) throws IOException, DocumentException, JAXBException, ParserConfigurationException, FOPException, TransformerException;
 	
 	String getHTML(String documentId) throws IOException, DocumentException, FOPException, TransformerException;
 	
