@@ -20,7 +20,7 @@
           required
           ngModel
           formControlName="password">
-        <button class="icon" mat-icon-button matSuffix (click)="hide= !hide"
+        <button class="icon" type="button" mat-icon-button matSuffix (click)="hide= !hide"
           [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>

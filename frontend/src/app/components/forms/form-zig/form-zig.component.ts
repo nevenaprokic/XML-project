@@ -95,7 +95,7 @@ export class FormZigComponent {
     const zahtevJSON = this.formConverter.convertFormToZahtev(
       this.zigForm, this.brojPodnosiocaPrijave.length, podaciOBrojevima, prilozi
     );
-    
+
     console.log(zahtevJSON);
     const zahtevXML = this.templateService.createNewXML(zahtevJSON);
     console.log(zahtevXML)
