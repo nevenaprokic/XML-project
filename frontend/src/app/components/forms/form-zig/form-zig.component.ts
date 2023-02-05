@@ -61,25 +61,41 @@ export class FormZigComponent {
     const prilozi = this.formatPrilozi();
     if (this.punomocjePrilog.value.nacinPunomocja === "Punomocje") {
       prilozi.punomocje = {
-        dostavljeno: this.punomocje.name !== '',
+        dostavljeno: this.punomocjePrilog.value.nacinPunomocja === "Punomocje",
         putanjaDoFajla: this.formatPrilogContent(this.punomocje)
       }
     }
     if (this.punomocjePrilog.value.nacinPunomocja === "Punomocje_ranije_prilozeno") {
       prilozi.punomocjeRanijePrilozeno = {
-        dostavljeno: this.punomocje.name !== '',
+        dostavljeno: this.punomocjePrilog.value.nacinPunomocja === "Punomocje_ranije_prilozeno",
         putanjaDoFajla: this.formatPrilogContent(this.punomocje)
       }
     }
     if (this.punomocjePrilog.value.nacinPunomocja === "Punomocje_naknadno_dostavljeno") {
       prilozi.punomocjeNaknadnoDostavljeno = {
-        dostavljeno: this.punomocje.name !== '',
+        dostavljeno: this.punomocjePrilog.value.nacinPunomocja === "Punomocje_naknadno_dostavljeno",
         putanjaDoFajla: this.formatPrilogContent(this.punomocje)
       }
     }
+    const podaciOBrojevima = this.toggle.reduce((accumulator: number[], num: boolean, index: number) => !num ? [...accumulator, index + 1] : [...accumulator], []);
+    if(podaciOBrojevima.length === 0){
+      this.toastr.error('Proverite polja, niste sve uneli!2');
+      return;
+    }
+
+    if(this.uplataTakse.name === '' || this.primerakZnaka.name === ''){
+      this.toastr.error('Proverite polja, niste sve uneli!1');
+      return;
+    }
+    if(this.punomocje.name === ''){
+      this.toastr.error('Proverite polja, niste sve uneli!');
+      return;
+    }
+
     const zahtevJSON = this.formConverter.convertFormToZahtev(
-      this.zigForm, this.brojPodnosiocaPrijave.length, this.toggle, prilozi
+      this.zigForm, this.brojPodnosiocaPrijave.length, podaciOBrojevima, prilozi
     );
+
     console.log(zahtevJSON);
     const zahtevXML = this.templateService.createNewXML(zahtevJSON);
     console.log(zahtevXML)

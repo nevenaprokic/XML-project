@@ -39,11 +39,11 @@ const routes: Routes = [
   },
   {
     path: 'home-page-employee',
-    component: HomePageEmployeeComponent,
+    component: IzvestajComponent,
   },
   {
     path: 'home-page-user',
-    component: HomePageUserComponent,
+    component: PatentTabelViewComponent,
   },
   {
     path: 'registration',

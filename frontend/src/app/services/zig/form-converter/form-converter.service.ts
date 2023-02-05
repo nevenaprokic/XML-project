@@ -9,8 +9,8 @@ export class FormConverterService {
     }
 
 
-    convertFormToZahtev(form: any, brojPOdnosiociprijave: number, listOfNumber: any, prilozi:TPrilozi): ZahtevZaPriznanjeZiga {
-        const podaciOBrojevima = listOfNumber.reduce((accumulator: number[], num: boolean, index: number) => !num ? [...accumulator, index + 1] : [...accumulator], []);
+    convertFormToZahtev(form: any, brojPOdnosiociprijave: number, podaciOBrojevima: any, prilozi:TPrilozi): ZahtevZaPriznanjeZiga {
+        //const podaciOBrojevima = listOfNumber.reduce((accumulator: number[], num: boolean, index: number) => !num ? [...accumulator, index + 1] : [...accumulator], []);
         const zig = form.value.znak;
         zig.podaciOBrojevimaKlasaRobeIUsluga = podaciOBrojevima;
         const takse = form.value.takse;
