@@ -47,10 +47,10 @@ export class FormPatentComponent {
     let xml : string = this.patentXMLTempalte.createNewXML(zahtev);
     this.patentService.saveNew(xml).subscribe({
       next : (response: any) => {
-        this.toatr.success(response.text)
+        this.toatr.success("Uspešno podnošenje zahteva")
       },
       error : (error) => {
-        this.toatr.error(error.error.message)
+        this.toatr.error("Neuspešno podnošenje zahteva. Molimo vas pokušajte ponovo")
       }
     })
   }

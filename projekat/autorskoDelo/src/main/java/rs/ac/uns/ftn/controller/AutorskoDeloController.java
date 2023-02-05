@@ -50,11 +50,12 @@ public class AutorskoDeloController {
 	@PostMapping(value="/save-new")
 	public ResponseEntity<String> saveNewFile(@RequestBody ZahtevZaAutorskoDelo zahtev) {
 		try {
-			String id = autorskoDeloService.saveNewFile(zahtev);
-			return new ResponseEntity<>(id, HttpStatus.CREATED);
+			autorskoDeloService.saveNewFile(zahtev);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

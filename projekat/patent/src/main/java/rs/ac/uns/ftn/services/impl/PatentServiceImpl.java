@@ -30,6 +30,7 @@ import org.xmldb.api.modules.XMLResource;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.log.SysoCounter;
 
 import rs.ac.uns.ftn.dataAccess.utils.QueryUtils;
 import rs.ac.uns.ftn.exception.BadRequestException;
@@ -65,12 +66,8 @@ public class PatentServiceImpl implements PatentService {
 	private MetadataService metadataService;
 
 	public void saveNewFile(ZahtevZaPriznanjePatenta zahtevDTO) throws XMLDBException {
-//		String xpath = "/Zahtev_za_priznanje_patenta[@broj_prijave='" + zahtevDTO.getBrojPrijave() + "']";
-//		if (patentRepository.getZahtevZaPriznanjePatentaByXPath(xpath).getSize() != 0) {
-//			throw new BadRequestException(ErrorMessageConstants.DOCUMENT_ALREADY_EXITS);
-//		}
         if (jaxb.validate(zahtevDTO.getClass(), zahtevDTO)) {
-        	zahtevDTO.setStatus(StatusZahteva.ODOBREN);     	
+        	zahtevDTO.setStatus(StatusZahteva.NEOBRADJEN);     	
         	try {
         		GregorianCalendar c = new GregorianCalendar();
         		c.setTime(new Date());
@@ -161,6 +158,7 @@ public class PatentServiceImpl implements PatentService {
 	}
 
 	private ListaZahtevaPatent resourceSetToList(ResourceSet result) throws XMLDBException, JAXBException {
+		System.out.println(result);
 		List<ZahtevZaPriznanjePatenta> zahteviList = new ArrayList<>();
 		ResourceIterator i = result.getIterator();
 
@@ -253,6 +251,13 @@ public class PatentServiceImpl implements PatentService {
 		}
 		return new ListaZahtevaPatent(zahtevi);
 	}
+	
+	@Override
+	public ListaZahtevaPatent findAllApproved() throws XMLDBException, JAXBException {
+		ResourceSet result = patentRepository.getAllApproved();
+		return resourceSetToList(result);
+	}
+	
 	private String convertPdfToBase64(String filepath) throws IOException {;
 	    byte[] inputFile = Files.readAllBytes(Paths.get(filepath));
 	

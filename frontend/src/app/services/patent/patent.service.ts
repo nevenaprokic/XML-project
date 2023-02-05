@@ -18,7 +18,7 @@ export class PatentService {
   constructor(private http: HttpRequestService) { }
 
   getAll(){
-      return this.http.get(this.PATENT_PATH + "/all-patents") //da li radi
+      return this.http.get(this.PATENT_PATH + "/findAll") //da li radi
   }
 
   saveNew(xml: any): Observable<any> {
@@ -78,6 +78,11 @@ export class PatentService {
   searchText(request: string, status: string){
     const url = this.PATENT_PATH + `/searchText?status=${status}&txt=${request}`;
     return this.http.get(url) as Observable<any>;
+  }
+
+  getAllApproved(){
+    const url = this.PATENT_PATH + `/find-all-approved`;
+    return this.http.get(url)
   }
 
 }

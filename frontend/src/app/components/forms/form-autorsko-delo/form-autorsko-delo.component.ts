@@ -64,7 +64,6 @@ export class FormAutorskoDeloComponent {
   private saveRequest(xml: string){
     this.autorskoDeloService.saveNew(xml).subscribe({
       next: (documentId: string) => {
-        console.log(documentId)
         this.toastr.success('Uspešno poslat zahtev za priznavanje autorskog dela')
       },
       error: (err: any) => {

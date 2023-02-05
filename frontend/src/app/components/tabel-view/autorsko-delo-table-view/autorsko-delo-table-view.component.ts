@@ -67,7 +67,7 @@ export class AutorskoDeloTableViewComponent implements OnInit {
       this.displayedColumns = [...this.basicColoumns, "rešenje",  "pdf", "html", "rdf", "json"]
       this.getDataForSluzbenik()
     } else {
-      this.displayedColumns = [...this.basicColoumns]
+      this.displayedColumns = ['broj', ...this.basicColoumns]
       this.getDataForUserTabel();
     }
   }

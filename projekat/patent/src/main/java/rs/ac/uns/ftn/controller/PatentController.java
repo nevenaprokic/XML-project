@@ -55,6 +55,7 @@ public class PatentController {
 			patentService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();
 		} catch (XMLDBException e) {
+			e.printStackTrace();
 			ErrorMessage message = new ErrorMessage(
 	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
 	                e.getMessage()
@@ -157,4 +158,31 @@ public class PatentController {
 		}		
 	}
 	
+	@GetMapping("/find-all-approved")
+	public ResponseEntity<?> getAllApproved(@RequestHeader MultiValueMap<String, String> headers){
+		this.chechAuthority(headers, USER_API_KORISNIK);
+		try {
+			return new ResponseEntity<>(this.patentService.findAllApproved(), HttpStatus.OK);
+		} catch (XMLDBException | JAXBException e) {
+			ErrorMessage message = new ErrorMessage(
+	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+	                ErrorMessageConstants.INTERNAL_ERROR
+	        );
+
+	        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
+	}
+	
+	@GetMapping(value="/findAll")
+	public ResponseEntity<ListaZahtevaPatent> findAll(@RequestHeader MultiValueMap<String, String> headers) {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
+		try {
+			ListaZahtevaPatent zahtevi = patentService.findAll();
+			return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 }

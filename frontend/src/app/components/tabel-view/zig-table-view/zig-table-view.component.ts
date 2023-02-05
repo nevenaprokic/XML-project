@@ -69,7 +69,7 @@ export class ZigTableViewComponent implements OnInit{
       this.getDataForSluzbenik()
     }
     else{
-      this.displayedColumns = [...this.basicColoumns]
+      this.displayedColumns = ['broj',...this.basicColoumns]
       this.getDataForUserTabel();
     }
   }
