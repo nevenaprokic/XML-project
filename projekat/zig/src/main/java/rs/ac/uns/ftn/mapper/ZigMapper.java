@@ -36,6 +36,8 @@ public class ZigMapper {
 		idZiga.setIdZ(id);
 		zahtev.setId(idZiga);
 		
+		zahtev.setIdResenja(zahtevDTO.getIdResenja());
+		
 		for(TLice lice: zahtevDTO.getPodnosiocPrijave()) {
 			TLice podnosilacZahteva = getLiceFromDTO(lice);
 			podnosilacZahteva.getOtherAttributes().put(new QName("id"), lice.getKontaktPodaci().getEmail());

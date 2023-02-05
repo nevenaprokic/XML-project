@@ -29,6 +29,7 @@ export class ZigXmlConverterService {
     const brojprijave = attributes["broj_prijave_ziga"]
     const status = attributes["status"]
     const datumPodnosenja = attributes["datum_podnosenja_prijave"]
+    const idResenja = attributes["id_resenja"]
 
     let podnosiociStr = '';
     podnosioci.forEach((podnosilac) => {
@@ -47,7 +48,8 @@ export class ZigXmlConverterService {
       datumPodnosenjaZahteva: datumPodnosenja,
       status: status,
       podnosiociStr: podnosiociStr,
-      priloziUzZahtev: prilozi
+      priloziUzZahtev: prilozi,
+      idResenja
     }
   }
 

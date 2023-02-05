@@ -44,7 +44,7 @@ export class FormResenjeComponent implements OnInit {
     if (this.form.value.resenje === "TOdobren" && this.formField.value.sifra === '') {
       return;
     }
-    if (this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === '') {
+    if (this.form.value.resenje === "TOdbijen" && this.formField.value.obrazlozenje === '' && this.formField.value.sifra === '') {
       return;
     }
 
@@ -57,9 +57,9 @@ export class FormResenjeComponent implements OnInit {
   private createXML() {
     let resenjeXML = "";
     if (this.data.type === typeZahteva.PATENT) {
-      if (this.form.value.resenje === "TOdobren") {
+      //if (this.form.value.resenje === "TOdobren") {
         this.formField.value.sifra = this.data.id;
-      }
+      //}
       resenjeXML = this.templateService.createNewXMLPatent(this.formField, this.form.value.resenje, this.data.id);
     } else if (this.data.type === typeZahteva.ZIG) {
       resenjeXML = this.templateService.createNewXMLZig(this.formField, this.form.value.resenje, this.data.id);

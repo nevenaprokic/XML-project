@@ -13,6 +13,7 @@ export interface ZahtevZaPriznanjeZiga {
     brojZahteva? : string;
     status?: Status
     podnosiociStr? :string
+    idResenja?: string
 }
 
 export interface PodnosilacPrijave {

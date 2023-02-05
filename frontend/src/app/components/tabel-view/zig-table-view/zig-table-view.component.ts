@@ -15,6 +15,7 @@ import { FileUtilService } from 'src/app/services/utils/file-util/file-util.serv
 import { ZigDetailViewComponent } from '../../detail-view/zig/zig-detail-view/zig-detail-view.component';
 import { Status } from 'src/app/model/common/common';
 import {  Router } from '@angular/router';
+import { ResenjeService } from 'src/app/services/resenje/resenje.service';
 
 @Component({
   selector: 'app-zig-table-view',
@@ -51,6 +52,7 @@ export class ZigTableViewComponent implements OnInit{
               private toastr: Toastr,
               private dialog: MatDialog,
               private fileUtils: FileUtilService,
+              private resenjeService: ResenjeService,
               private router: Router){
 
   }
@@ -149,7 +151,36 @@ export class ZigTableViewComponent implements OnInit{
   }
 
   openResenje(element: ZahtevZaPriznanjeZiga) {
-    this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.ZIG}});
+    if(!element.idResenja || element.status === Status.NEOBRADJEN){
+      let dialogRef = this.dialog.open(
+        FormResenjeComponent, 
+        {  
+          height: '600px',
+          width: '1000px',
+          data: {id: element.id, type: typeZahteva.ZIG}
+        },
+        );
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res.data)
+        element.idResenja = res.data
+        element.status = Status.SVI
+      })
+    }
+    else{
+      this.downloadResenje(element.idResenja)
+    }
+  }
+
+  downloadResenje(idResenja: string) {
+    this.resenjeService.downnloadResenje(idResenja, typeZahteva.ZIG).subscribe({
+      next: (res: any) => {
+        const filename = `resenje-${idResenja}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
   }
 
   downloadRdf(id: string) {
