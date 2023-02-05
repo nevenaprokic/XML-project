@@ -72,7 +72,7 @@ export enum VrstaZigaNaOsnovuIzgleda {
 export enum VrstaZigaNaOsnovuKorisnika {
     INDIVIDUALNI_ZIG = "individualni zig",
     KOLEKTIVNI_ZIG = "kolektivni zig",
-    ZIG_GENERACIJE = "zig generacije"
+    ZIG_GENERACIJE = "zig garancije"
 }
 
 export interface ZajednickiPredstavnik {

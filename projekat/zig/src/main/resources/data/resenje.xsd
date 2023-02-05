@@ -8,6 +8,7 @@
              	<xs:element ref="zig:idZiga"/>
                 <xs:element name="Dodatak" type="re:TResenje"/>
                 <xs:element name="Sluzbenik" type="re:TSluzbenik"/>
+                <xs:element name="Kod" minOccurs="0" type="xs:string"/>
             </xs:sequence>
             <xs:attribute name="status" type="re:status_resenja" use="required"/>
             <xs:attribute name="datum_resenja" type="xs:date" use="required"/>

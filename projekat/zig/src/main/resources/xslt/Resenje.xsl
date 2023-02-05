@@ -116,6 +116,11 @@
 					</tr>
 				</tbody>
 			</table>
+			<img style="width: 200px; height:200px;">
+                <xsl:attribute name="src">
+                 	<xsl:value-of select="re:Resenje/re:Kod"/>
+             	</xsl:attribute>
+            </img>
 		</html>
 	</xsl:template>
 

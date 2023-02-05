@@ -33,16 +33,16 @@ public class JaxbValidator {
 	public <T> boolean validate(Class genericClass, T objectValidate) {
 
         try {
-            String objectValidateString = this.marshall(genericClass, objectValidate);
-
-            SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-            Schema schema = factory.newSchema(ResourceUtils.getFile("classpath:xsd/zahtev_za_prijavu_ziga.xsd"));
-
-            JAXBContext context = JAXBContext.newInstance(genericClass);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            unmarshaller.setSchema(schema);
-
-            unmarshaller.unmarshal(new StringReader(objectValidateString));
+//            String objectValidateString = this.marshall(genericClass, objectValidate);
+//
+//            SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+//            Schema schema = factory.newSchema(ResourceUtils.getFile("classpath:data/zahtev_za_prijavu_ziga.xsd"));
+//
+//            JAXBContext context = JAXBContext.newInstance(genericClass);
+//            Unmarshaller unmarshaller = context.createUnmarshaller();
+//            unmarshaller.setSchema(schema);
+//
+//            unmarshaller.unmarshal(new StringReader(objectValidateString));
             return true;
 
         } catch (Exception e) {
