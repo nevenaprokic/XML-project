@@ -58,6 +58,7 @@
                 </xs:simpleType>
             </xs:attribute>
              <xs:attribute name="status" type="p1:status_zahteva" />
+             <xs:attribute name="id_resenja" type="xs:string" />
             <xs:attribute name="datum_prijema_prijave" type="xs:date"/>
             <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
             <xs:anyAttribute namespace="##any" processContents="lax"/>

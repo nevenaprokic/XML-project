@@ -35,6 +35,9 @@ export class FormResenjeComponent implements OnInit {
       this.formField.controls.sifra.setValidators([Validators.pattern("\\Ž\\-[0-9]+\\/[0-9]{2,2}")]);
       this.placeholder = "Ž-912/23"
     }
+    if (this.data.type === typeZahteva.PATENT) {
+        this.formField.value.sifra = this.data.id;
+    }
   }
 
   ngOnInit(): void {

@@ -72,7 +72,7 @@ public class MetadataServiceImpl implements MetadataService{
 		String id = documentId.replace('/', '_');
 		System.out.println(id);
 		// ispis u fajl RDF/XML format
-		model.write(new FileOutputStream(new File("src/main/resources/rdf_data/" + id + ".rdf")), SparqlUtil.RDF_XML);
+//		model.write(new FileOutputStream(new File("src/main/resources/rdf_data/" + id + ".rdf")), SparqlUtil.RDF_XML);
 		
 		// ispis na konzolu RDF/XML format
 		System.out.println("[INFO] Extracted metadata as RDF/XML...");
