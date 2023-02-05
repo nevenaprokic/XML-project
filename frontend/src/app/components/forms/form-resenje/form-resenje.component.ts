@@ -71,9 +71,10 @@ export class FormResenjeComponent implements OnInit {
 
   sendResenje(xml: string) {
     this.resenjeService.sendResenje(xml, this.data.type).subscribe({
-      next: (document: any) => {
+      next: (id: any) => {
         this.toastr.success('Uspešno podneto rešenje');
-        this.dialogRef.close();
+        
+        this.dialogRef.close({data: id});
       },
       error: (err: any) => {
         console.log(err);

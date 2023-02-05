@@ -210,7 +210,8 @@ export class ZigTableViewComponent implements OnInit{
   downloadPdf(id: string) {
     this.zigService.downloadPdf(id).subscribe({
       next: (res: any) => {
-        this.fileUtils.downloadDocumentFromBase64(res, 'pdf',id, 'ZahtevZaZig')
+        const filename = `ZahtevZaZig${id}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
       },
       error: (res: any) => {
         console.log(res)
@@ -221,7 +222,8 @@ export class ZigTableViewComponent implements OnInit{
   downloadXHTML(id: string) {
     this.zigService.downloadXHTML(id).subscribe({
       next: (res: any) => {
-        this.fileUtils.downloadDocumentFromBase64(res, 'html',id, 'ZahtevZaZig')
+        const filename = `ZahtevZaZig${id}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'html', filename)
       },
       error: (res: any) => {
         console.log(res)

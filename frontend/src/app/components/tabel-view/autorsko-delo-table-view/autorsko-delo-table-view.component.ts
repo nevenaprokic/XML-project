@@ -17,6 +17,7 @@ import {MatDialog} from "@angular/material/dialog";
 import { AutorskoDeloDetailViewComponent } from '../../detail-view/autorsko-delo/autorsko-delo-detail-view/autorsko-delo-detail-view.component';
 import { FileUtilService } from 'src/app/services/utils/file-util/file-util.service';
 import { Status } from 'src/app/model/common/common';
+import { ResenjeService } from 'src/app/services/resenje/resenje.service';
 
 @Component({
   selector: 'app-autorsko-delo-table-view',
@@ -54,7 +55,8 @@ export class AutorskoDeloTableViewComponent implements OnInit {
               private fromXMLService: AutorskoDeloXmlConvertorService,
               private toastr: Toastr,
               private dialog: MatDialog,
-              private fileUtils: FileUtilService) {
+              private fileUtils: FileUtilService,
+              private resenjeService: ResenjeService) {
   }
 
   ngOnInit(): void {
@@ -147,7 +149,29 @@ export class AutorskoDeloTableViewComponent implements OnInit {
   }
 
   openResenje(element: ZahtevZaAutorskoDelo) {
-    this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.AUTORSKO_DELO}});
+    if(!element.brojPrijave || element.status === Status.NEOBRADJEN){
+      let dialogRef = this.dialog.open(FormResenjeComponent, {data: {id: element.id, type: typeZahteva.AUTORSKO_DELO}});
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res.data)
+        element.brojPrijave = res.data
+        element.status = Status.SVI
+      })
+    }
+    else{
+      this.downloadResenje(element)
+    }
+  }
+
+  downloadResenje(element: ZahtevZaAutorskoDelo) {
+    this.resenjeService.downnloadResenje(element.brojPrijave!, typeZahteva.AUTORSKO_DELO).subscribe({
+      next: (res: any) => {
+        const filename = `resenje-${element.brojPrijave!}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
+      },
+      error: (res: any) => {
+        console.log(res)
+      }
+    })
   }
 
   
@@ -215,7 +239,8 @@ export class AutorskoDeloTableViewComponent implements OnInit {
   downloadPdf(id: string) {
     this.autorskoDeloService.downloadPdf(id).subscribe({
       next: (res: any) => {
-        this.fileUtils.downloadDocumentFromBase64(res, 'pdf',id, 'ZahtevZaAutorskoDelo')
+        const filename = `ZahtevZaAutorskoDelo${id}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'pdf', filename)
       },
       error: (res: any) => {
         console.log(res)
@@ -226,7 +251,8 @@ export class AutorskoDeloTableViewComponent implements OnInit {
   downloadXHTML(id: string) {
     this.autorskoDeloService.downloadXHTML(id).subscribe({
       next: (res: any) => {
-        this.fileUtils.downloadDocumentFromBase64(res, 'html', id,  'ZahtevZaAutorskoDelo')
+        const filename = `ZahtevZaAutorskoDelo${id}`
+        this.fileUtils.downloadDocumentFromBase64(res, 'html', filename)
       },
       error: (res: any) => {
         console.log(res)

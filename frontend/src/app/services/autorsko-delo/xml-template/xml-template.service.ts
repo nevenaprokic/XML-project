@@ -19,7 +19,7 @@ export class XMLTemplateService {
         xsi:schemaLocation="http://ftn.uns.ac.rs/a1 ./A1.xsd"
     
         naslov="ZAHTEV ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA"
-        broj_prijave='A-100'
+        broj_prijave=''
         datum_podnosenja='${new Date()}'
         status="neobradjen">
     
