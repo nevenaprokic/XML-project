@@ -50,7 +50,6 @@ public class PatentController {
 
 	@RequestMapping(value="/save-new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<?> saveNewFile(@RequestBody ZahtevZaPriznanjePatenta zahtev, @RequestHeader MultiValueMap<String, String> headers) {
-		this.chechAuthority(headers, USER_API_KORISNIK);
 		try {
 			patentService.saveNewFile(zahtev);
 			return ResponseEntity.ok().build();

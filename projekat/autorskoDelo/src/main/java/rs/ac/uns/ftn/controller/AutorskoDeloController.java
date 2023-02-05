@@ -48,7 +48,8 @@ public class AutorskoDeloController {
 	private final static String USER_API_KORISNIK = "http://localhost:8903/xml/user/authkorisnik";
 
 	@PostMapping(value="/save-new")
-	public ResponseEntity<String> saveNewFile(@RequestBody ZahtevZaAutorskoDelo zahtev) {
+	public ResponseEntity<String> saveNewFile(@RequestBody ZahtevZaAutorskoDelo zahtev, @RequestHeader MultiValueMap<String, String> headers) {
+		this.chechAuthority(headers, USER_API_KORISNIK);
 		try {
 			autorskoDeloService.saveNewFile(zahtev);
 			return new ResponseEntity<>(HttpStatus.CREATED);
@@ -134,12 +135,12 @@ public class AutorskoDeloController {
 	}
 	
 	@GetMapping(value = "/get-rdf/{documentId}")
-    public ResponseEntity<?> downloadRdf(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
-
+    public ResponseEntity<?> downloadRdf(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
        try {
     	   InputStreamResource rdf = autorskoDeloService.getMetadataAsRdf(documentId);
-           HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
-           return new ResponseEntity<>(rdf, headers, HttpStatus.OK);
+           HttpHeaders headersreturn = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".rdf");
+           return new ResponseEntity<>(rdf, headersreturn, HttpStatus.OK);
        } catch (Exception e) {
     	   e.printStackTrace();
            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -147,12 +148,12 @@ public class AutorskoDeloController {
 	}
     
 	@GetMapping(value = "/get-json/{documentId}")
-    public ResponseEntity<?> downloadJson(@PathVariable String documentId) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
-
+    public ResponseEntity<?> downloadJson(@PathVariable String documentId, @RequestHeader MultiValueMap<String, String> headers) throws XMLDBException, JAXBException, IOException, TransformerException, SAXException {
+		this.chechAuthority(headers, USER_API_SLUZBENIK);
         try {
         	InputStreamResource json = autorskoDeloService.getMetadataAsJson(documentId);
-        	HttpHeaders headers = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
-            return new ResponseEntity<>(json, headers, HttpStatus.OK);
+        	HttpHeaders headersreturn = getDownloadFileHeaders("zahtevZaAutorskoDelo" + documentId + ".json");
+            return new ResponseEntity<>(json, headersreturn, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
