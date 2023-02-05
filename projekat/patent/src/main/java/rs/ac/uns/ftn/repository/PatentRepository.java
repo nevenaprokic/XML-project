@@ -37,5 +37,9 @@ public class PatentRepository {
 	
 	public ResourceSet getByXQuery(String xquery) {
 		return patentDataAccess.getByXQuery(xquery);
-		}	
+		}
+
+	public ResourceSet getAllApproved() {
+		return patentDataAccess.getAllApproved();
+	}	
 }

@@ -20,4 +20,10 @@ public class QueryUtils {
 
 	public static final String CONDITION_TEPMLATE = "p1:someMatch($txt, %1$s)";
 	public static final String STATUS_TEPMLATE = "p1:someMatch($status, %1$s)";
+	
+	public static final String FIND_ALL_APPROVED = DECLARE_NAMESPACES + 
+			"for $zahtev in collection('/db/project/patenti')\r\n"
+			+ "    let $txt := $zahtev/p1:Zahtev_za_priznanje_patenta\r\n" 
+			+ "where $txt/@status = 'odobren'\r\n" 
+			+  "return $txt";
 }
